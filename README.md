@@ -37,3 +37,15 @@
 4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
 5. 码云官方提供的使用手册 [http://git.mydoc.io/](http://git.mydoc.io/)
 6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+
+#### 参考
+
+[Gradle 关系图](https://developer.android.com/studio/releases/gradle-plugin)
+```
+Plugin version--->Required Gradle version--->Required SDK Build Tolls version
+3.1.0+ (March 2018) ---> Gradle 4.4+ ---> Build Tools 27.0.3+
+3.0.0+[1] (October 2017) --- > Gradle 4.1+ ---> Build Tools 26.0.2+
+2.3.0+[1\2\3] (February 2017) ---> Gradle 3.3+ ---> Build Tools 25.0.0+
+2.2.0+ (September 2016) ---> Gradle 2.14.1+ ---> Build Tools 23.0.2+
+```
