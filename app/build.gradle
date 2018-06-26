@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
         applicationId "com.testerkit"
         minSdkVersion 18
-        targetSdkVersion 18
+        targetSdkVersion 25
         versionCode 20180622
         versionName "2018.06.22"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,14 +21,23 @@ android {
 
 dependencies {
     // 将jar包打在test apk中，否则会无法启动测试
-    compile 'com.android.support.constraint:constraint-layout:1.1.2'
     androidTestCompile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile 'com.android.support:support-annotations:25.3.1'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'junit:junit:4.12'
 
+    //App test for UnitTest
+    compile 'junit:junit:4.12'
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    //App compatibility
+    //compile 'com.android.support:appcompat-v7:25.3.1'
 
-    //androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
+    // App dependencies
+    compile 'com.android.support:support-annotations:' + rootProject.supportLibVersion;
+    compile 'com.google.guava:guava:18.0'
+    // Testing-only dependencies
+    // Force usage of support annotations in the test app, since it is internally used by the runner module.
+    androidTestCompile 'com.android.support:support-annotations:' + rootProject.supportLibVersion;
+    androidTestCompile 'com.android.support.test:runner:' + rootProject.runnerVersion;
+    androidTestCompile 'com.android.support.test:rules:' + rootProject.rulesVersion;
+    // UiAutomator Testing
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:' + rootProject.uiautomatorVersion;
+    //androidTestCompile 'com.android.support.test.espresso:espresso-core:' + rootProject.espressoVersion;
 }

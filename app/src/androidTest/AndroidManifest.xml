@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.testerkit.uia2">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.testerkit.test">
 
-    <uses-sdk android:minSdkVersion="18" android:targetSdkVersion="24" />
+    <uses-sdk android:minSdkVersion="18" android:targetSdkVersion="25" />
 
     <instrumentation
-        android:label="UIA2"
+        android:label="Tester"
         android:name="android.support.test.runner.AndroidJUnitRunner"
         android:targetPackage="com.testerkit"
         android:handleProfiling="false"
         android:functionalTest="false"/>
 
-    <application android:debuggable="true">
-
+    <application tools:replace="label" android:label="Tester" >
         <uses-library android:name="android.test.runner" />
     </application>
 

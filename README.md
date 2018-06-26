@@ -49,3 +49,13 @@ Plugin version--->Required Gradle version--->Required SDK Build Tolls version
 2.3.0+[1\2\3] (February 2017) ---> Gradle 3.3+ ---> Build Tools 25.0.0+
 2.2.0+ (September 2016) ---> Gradle 2.14.1+ ---> Build Tools 23.0.2+
 ```
+
+#### UIA2
+
+-   This framework requires Android 4.3 (API level 18) or higher.
+-   
+
+#### deployment
+
+- [bazel](https://github.com/bazelbuild/bazel/tree/master/examples)
+
