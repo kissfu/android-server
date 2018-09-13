@@ -50,6 +50,11 @@ Plugin version--->Required Gradle version--->Required SDK Build Tolls version
 2.2.0+ (September 2016) ---> Gradle 2.14.1+ ---> Build Tools 23.0.2+
 ```
 
+#### UIA1
+
+-   This framework requires Android 4.1 (API level 16) or higher.
+-   
+
 #### UIA2
 
 -   This framework requires Android 4.3 (API level 18) or higher.
@@ -58,4 +63,4 @@ Plugin version--->Required Gradle version--->Required SDK Build Tolls version
 #### deployment
 
 - [bazel](https://github.com/bazelbuild/bazel/tree/master/examples)
-
+- [bazel](https://docs.bazel.build/versions/master/install-os-x.html#install-on-mac-os-x-homebrew)

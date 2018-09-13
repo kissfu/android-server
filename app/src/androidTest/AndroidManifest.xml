@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.testerkit.test">
+    package="com.testerkit.tester">
 
     <uses-sdk android:minSdkVersion="18" android:targetSdkVersion="25" />
 
@@ -12,6 +12,7 @@
         android:handleProfiling="false"
         android:functionalTest="false"/>
 
+    <!--使用replace标记解决android:icon和android:label属性冲突-->
     <application tools:replace="label" android:label="Tester" >
         <uses-library android:name="android.test.runner" />
     </application>

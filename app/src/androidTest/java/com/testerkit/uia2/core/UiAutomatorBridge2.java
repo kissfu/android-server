@@ -1,0 +1,61 @@
+package com.testerkit.uia2.core;
+
+import android.app.UiAutomation;
+import android.view.Display;
+import android.view.InputEvent;
+
+import com.testerkit.uia.core.InteractionController;
+import com.testerkit.uia.core.QueryController;
+import com.testerkit.uia.core.UiAutomatorBridge;
+import com.testerkit.uia.exceptions.UIAException;
+
+import static com.testerkit.uia.utils.ReflectionUtils.getField;
+import static com.testerkit.uia.utils.ReflectionUtils.invoke;
+import static com.testerkit.uia.utils.ReflectionUtils.method;
+
+/**
+ * Created by able on 2018/2/11.
+ */
+
+public class UiAutomatorBridge2 extends UiAutomatorBridge{
+
+    protected static final String FIELD_UI_AUTOMATOR = "mUiAutomation";
+    protected static final String METHOD_GET_DEFAULT_DISPLAY = "getDefaultDisplay";
+    protected static final String METHOD_INJECT_INPUT_EVENT = "injectInputEvent";
+
+
+    public UiAutomatorBridge2() {
+        super();
+    }
+
+
+    //region  extends UiAutomatorBridge
+
+    @Override
+    public String CLASS_UI_AUTOMATOR_BRIDGE() {
+        return "android.support.test.uiautomator.UiAutomatorBridge";
+    }
+
+    @Override
+    public InteractionController getInteractionController() throws UIAException {
+        return new InteractionController2(getField(CLASS_UI_AUTOMATOR_BRIDGE(), FIELD_INTERACTION_CONTROLLER, uiAutomatorBridge));
+    }
+    @Override
+    public QueryController getQueryController() throws UIAException {
+        return new QueryController2(getField(CLASS_UI_AUTOMATOR_BRIDGE(), FIELD_QUERY_CONTROLLER, uiAutomatorBridge));
+    }
+
+    //endregion
+
+    public UiAutomation getUiAutomation() {
+        return (UiAutomation) getField(CLASS_UI_AUTOMATOR_BRIDGE(), FIELD_UI_AUTOMATOR, uiAutomatorBridge);
+    }
+
+    public Display getDefaultDisplay() throws UIAException {
+        return (Display) invoke(method(CLASS_UI_AUTOMATOR_BRIDGE(), METHOD_GET_DEFAULT_DISPLAY), uiAutomatorBridge);
+    }
+
+    public boolean injectInputEvent(InputEvent event, boolean sync) throws UIAException {
+        return (Boolean) invoke(method(CLASS_UI_AUTOMATOR_BRIDGE(), METHOD_INJECT_INPUT_EVENT, InputEvent.class, boolean.class), uiAutomatorBridge, event, sync);
+    }
+}

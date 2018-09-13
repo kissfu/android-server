@@ -1,8 +1,104 @@
 apply plugin: 'java-library'
 
+apply plugin: 'com.google.protobuf'
+
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-gradle-plugin
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.3'
+    }
+}
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    //compile group: 'com.google.guava', name: 'guava', version: '26.0-android'
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
+    compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.5.1'
+    //compile group: 'com.google.protobuf', name: 'protobuf-lite', version: '3.0.1'
+    compile 'com.google.protobuf:protoc:3.5.1'
+    // https://mvnrepository.com/artifact/io.netty/netty-all
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.17.Final'
+}
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/java/com/testerkit/proto'
+            include '**/*.proto'
+        }
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
+protobuf {
+    //这里配置protoc编译器
+    protoc {
+        // https://mvnrepository.com/artifact/com.google.protobuf/protoc
+        artifact = 'com.google.protobuf:protoc:3.5.1'
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                remove java
+            }
+            task.builtins {
+                java {}
+                // Add cpp output without any option.
+                // DO NOT omit the braces if you want this builtin to be added.
+                //cpp {}
+            }
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src"
 }
 
-sourceCompatibility = "1.6"
-targetCompatibility = "1.6"
+
+
+/**编译目录
+//project.ext {
+//    dexDir = new File('./build/dex')
+//    distDir = new File('./dist')
+//}
+*/
+////jar包发布
+//jar {
+//    doLast {
+//        println 'dex...'
+//        tasks.dex.execute()
+//    }
+//}
+
+/**
+ * cmd 命令编译
+ "/Users/able/Library/Android/sdk/build-tools/20.0.0/dx" --dex --output=./classes.dex ./bin ./libs/searchstrategy.jar
+ "/Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home/bin/jar" -cvf uitest.jar -C ./ ./classes.dex
+ cp ./uitest.jar /Users/able/Desktop/workspace/IdeaProjects/iTestin/tools/
+// *
+//task dex(dependsOn:jar, type:Exec) {
+//    println 'Building dex...'
+//    workingDir '.'
+//    project.dexDir.mkdirs()
+//    println "workingDir:"+workingDir
+//    println "buildDir:"+buildDir
+//    commandLine androidSdkHome + '/' + androidSdkBuildToolsDir + '/' + 'dx', '--dex', '--no-strict', '--output=' + buildDir +'/dex/' + project.name + '.jar', jar.archivePath
+//    doLast {
+//        tasks.dist.execute()
+//    }
+//}
+////拷贝最终目录
+//task dist(dependsOn:dex, type:Copy) {
+//    println 'Copy to dist...'
+//    project.distDir.mkdirs()
+//    from(project.dexDir)
+//    into(project.distDir)
+//    include('*.jar')
+//}
+
+ **/

@@ -1,0 +1,14 @@
+syntax = "proto3";
+package com.testerkit.ptoto;
+option java_package = "com.testerkit.proto";
+option java_outer_classname = "Wire";
+
+enum MessageType {
+    CAPTURE = 0;
+}
+
+message Envelope {
+    uint32 id = 1;
+    MessageType type = 2;
+    bytes message = 3;
+}
