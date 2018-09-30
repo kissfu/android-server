@@ -15,6 +15,7 @@
  */
 package com.testerkit.uia2.core;
 
+import android.app.UiAutomation;
 import android.app.UiAutomation.OnAccessibilityEventListener;
 import android.support.annotation.Nullable;
 
@@ -27,10 +28,11 @@ public class UiAutomation2 {
     private static final String FIELD_ON_ACCESSIBILITY_EVENT_LISTENER = "mOnAccessibilityEventListener";
     private static final UiAutomation2 INSTANCE = new UiAutomation2();
 
-    private final android.app.UiAutomation uiAutomation;
+    private final UiAutomation uiAutomation;
 
     private UiAutomation2() {
-        uiAutomation = ((UiAutomatorBridge2)UiAutomatorBridge.getInstance()).getUiAutomation();
+
+        uiAutomation = (UiAutomation)(((UiAutomatorBridge2)UiAutomatorBridge.getInstance()).getUiAutomation().getUiAutomation());
     }
 
     public static UiAutomation2 getInstance() {
@@ -51,4 +53,6 @@ public class UiAutomation2 {
     public void setOnAccessibilityEventListener(OnAccessibilityEventListener listener) {
         uiAutomation.setOnAccessibilityEventListener(listener);
     }
+
+
 }

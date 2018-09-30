@@ -82,6 +82,31 @@ public class ReflectionUtils {
         }
     }
 
+    public static Object invoke(Object object,String methodName) throws UIAException {
+        Method method = method(object,methodName,new Class[]{});
+        if(method == null){
+            return null;
+        }
+       return invoke(method,object,new Object[]{});
+    }
+
+    public static Method method(final Object object,final String methodName,final Class... parameterTypes) {
+        Method method = null;
+        if (object == null) {
+            return method;
+        }
+        Class clazz = object.getClass();
+        while(clazz != Object.class) {
+            try {
+                method = clazz.getDeclaredMethod(methodName, parameterTypes);
+                return method;
+            } catch (Exception e) {
+                clazz = clazz.getSuperclass();
+            }
+        }
+        return method;
+    }
+
     public static Method method(final Class clazz, final String methodName, final Class... parameterTypes) throws UIAException {
         try {
             final Method method = clazz.getDeclaredMethod(methodName, parameterTypes);

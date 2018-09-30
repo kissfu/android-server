@@ -1,25 +1,29 @@
 package com.testerkit.uia1.core;
 
 import android.os.RemoteException;
-import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
-import com.testerkit.uia.interfaces.IDevice;
+import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.KeyEnum;
 import com.testerkit.uia.model.ScreenSize;
-
-import java.util.List;
+import com.testerkit.uia.utils.Logger;
 
 /**
  * Created by able on 2018/9/6.
  */
 
-public class IDevice1  implements IDevice {
+public class DeviceCore1 extends DeviceCore {
 
     com.android.uiautomator.core.UiDevice uiDevice;
 
-    public IDevice1(com.android.uiautomator.core.UiDevice uiDevice) {
+    public DeviceCore1(com.android.uiautomator.core.UiDevice uiDevice) {
+        super(uiDevice);
         this.uiDevice = uiDevice;
+        //先有uiDevice 再有uiAutomatorBridge
+        uiAutomatorBridge = new UiAutomatorBridge1(uiDevice);
+        //仅仅是为了方便访问,可以通过device 访问
+        UiAutomatorBridge.setINSTANCE(uiAutomatorBridge);
     }
 
     @Override
@@ -27,16 +31,6 @@ public class IDevice1  implements IDevice {
         return uiDevice;
     }
 
-    @Override
-    public int getRotation() {
-        // 该方法只适用于4.2版本以上的手机使用
-        if (android.os.Build.VERSION.SDK_INT >= 17) {
-            //return uiDevice.get();
-        } else {
-            return -1;
-        }
-        return 0;
-    }
 
     @Override
     public void wake() throws RemoteException {
@@ -46,11 +40,6 @@ public class IDevice1  implements IDevice {
     @Override
     public ScreenSize getScreenSize() {
         return new ScreenSize(uiDevice.getDisplayWidth(),uiDevice.getDisplayHeight());
-    }
-
-    @Override
-    public List<AccessibilityNodeInfo> getRoots() {
-        return null;
     }
 
     @Override
@@ -89,6 +78,20 @@ public class IDevice1  implements IDevice {
     @Override
     public boolean pressKey(int keycode) throws UIAException {
         return uiDevice.pressKeyCode(keycode);
+    }
+
+    @Override
+    public void waitForIdle() {
+        try {
+            uiDevice.waitForIdle();
+        } catch (Exception e) {
+            Logger.error("Unable wait for AUT to idle");
+        }
+    }
+
+    @Override
+    public void waitForIdle(long timeInMS) {
+
     }
 
 }

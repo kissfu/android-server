@@ -8,7 +8,7 @@ import android.support.test.uiautomator.UiDevice;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.interfaces.ITestCase;
-import com.testerkit.uia2.core.IDevice2;
+import com.testerkit.uia2.core.DeviceCore2;
 import com.testerkit.uia2.core.UiAutomatorBridge2;
 
 import org.junit.Test;
@@ -35,8 +35,7 @@ public class TestCase2 implements ITestCase {
     public void initCore() {
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         BaseContext.getInstance().setTestCase(this);
-        BaseContext.getInstance().setIDevice( new IDevice2(uiDevice));
+        BaseContext.getInstance().setDevice( new DeviceCore2(uiDevice));
 
-        UiAutomatorBridge.setINSTANCE(new UiAutomatorBridge2());
     }
 }

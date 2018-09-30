@@ -6,6 +6,7 @@ import android.view.InputEvent;
 
 import com.testerkit.uia.core.InteractionController;
 import com.testerkit.uia.core.QueryController;
+import com.testerkit.uia.core.UiAutomationCore;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
 
@@ -24,8 +25,8 @@ public class UiAutomatorBridge2 extends UiAutomatorBridge{
     protected static final String METHOD_INJECT_INPUT_EVENT = "injectInputEvent";
 
 
-    public UiAutomatorBridge2() {
-        super();
+    public UiAutomatorBridge2(Object uiDevice) {
+        super(uiDevice);
     }
 
 
@@ -45,11 +46,16 @@ public class UiAutomatorBridge2 extends UiAutomatorBridge{
         return new QueryController2(getField(CLASS_UI_AUTOMATOR_BRIDGE(), FIELD_QUERY_CONTROLLER, uiAutomatorBridge));
     }
 
+    @Override
+    public UiAutomationCore getUiAutomation() {
+        UiAutomation uiAutomation = (UiAutomation) getField(CLASS_UI_AUTOMATOR_BRIDGE(), FIELD_UI_AUTOMATOR, uiAutomatorBridge);
+        UiAutomationCore2 uiAutomationCore2 = new UiAutomationCore2(uiAutomation);
+        return uiAutomationCore2;
+    }
+
     //endregion
 
-    public UiAutomation getUiAutomation() {
-        return (UiAutomation) getField(CLASS_UI_AUTOMATOR_BRIDGE(), FIELD_UI_AUTOMATOR, uiAutomatorBridge);
-    }
+
 
     public Display getDefaultDisplay() throws UIAException {
         return (Display) invoke(method(CLASS_UI_AUTOMATOR_BRIDGE(), METHOD_GET_DEFAULT_DISPLAY), uiAutomatorBridge);

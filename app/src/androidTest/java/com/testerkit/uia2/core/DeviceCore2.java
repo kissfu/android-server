@@ -1,37 +1,33 @@
 package com.testerkit.uia2.core;
 
 import android.os.RemoteException;
-import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.testerkit.uia.interfaces.IDevice;
+import com.testerkit.uia.core.UiAutomatorBridge;
+import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.ScreenSize;
-
-import java.util.List;
 
 /**
  * Created by able on 2018/9/6.
  */
 
-public class IDevice2 implements IDevice {
+public class DeviceCore2 extends DeviceCore {
 
     android.support.test.uiautomator.UiDevice uiDevice;
 
-    public IDevice2(android.support.test.uiautomator.UiDevice uiDevice) {
+    public DeviceCore2(android.support.test.uiautomator.UiDevice uiDevice) {
+        super(uiDevice);
         this.uiDevice = uiDevice;
+        //先有uiDevice 再有uiAutomatorBridge
+        uiAutomatorBridge = new UiAutomatorBridge2(uiDevice);
+        //仅仅是为了方便访问,可以通过device 访问
+        UiAutomatorBridge.setINSTANCE(uiAutomatorBridge);
     }
+
+
 
     @Override
     public Object getUiDevice() {
         return uiDevice;
-    }
-
-    @Override
-    public int getRotation() {
-        // 该方法只适用于4.2版本以上的手机使用
-        if (android.os.Build.VERSION.SDK_INT >= 17) {
-            return uiDevice.getDisplayRotation();
-        }
-        return -1;
     }
 
     @Override
@@ -44,10 +40,6 @@ public class IDevice2 implements IDevice {
         return null;
     }
 
-    @Override
-    public List<AccessibilityNodeInfo> getRoots() {
-        return null;
-    }
 
     @Override
     public boolean click(int x, int y, long holdTime) {
@@ -62,6 +54,16 @@ public class IDevice2 implements IDevice {
     @Override
     public boolean pressKey(int keycode) {
         return false;
+    }
+
+    @Override
+    public void waitForIdle() {
+        uiDevice.waitForIdle();
+    }
+
+    @Override
+    public void waitForIdle(long timeInMS) {
+        uiDevice.waitForIdle(timeInMS);
     }
 
 }

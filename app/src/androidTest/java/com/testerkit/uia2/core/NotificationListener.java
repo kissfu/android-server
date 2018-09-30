@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.testerkit.uia2.model;
+package com.testerkit.uia2.core;
 
 import android.support.annotation.NonNull;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.testerkit.uia.utils.Logger;
-import com.testerkit.uia2.core.UiAutomation2;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -28,6 +27,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import static android.app.UiAutomation.OnAccessibilityEventListener;
 import static java.lang.System.currentTimeMillis;
 
+/**
+ * 1、UIA2中可以被直接用
+ * 2、通用的可以通过UiAutomatorBridge.getInstance().getUiAutomation().getAccessibilityEventListener()
+ */
 public final class NotificationListener implements OnAccessibilityEventListener {
     private static final NotificationListener INSTANCE = new NotificationListener();
     private static final int TOAST_CLEAR_TIMEOUT = 3500;

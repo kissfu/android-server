@@ -1,6 +1,6 @@
 package com.testerkit.uia;
 
-import com.testerkit.uia.interfaces.IDevice;
+import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.interfaces.ITestCase;
 
 /**
@@ -9,16 +9,16 @@ import com.testerkit.uia.interfaces.ITestCase;
 
 public class BaseContext {
 
-    IDevice IDevice;
+    DeviceCore device;
 
     ITestCase testCase;
 
-    public IDevice getIDevice() {
-        return IDevice;
+    public DeviceCore getDevice() {
+        return device;
     }
 
-    public void setIDevice(IDevice IDevice) {
-        this.IDevice = IDevice;
+    public void setDevice(DeviceCore device) {
+        this.device = device;
     }
 
     public ITestCase getTestCase() {
@@ -30,10 +30,10 @@ public class BaseContext {
     }
 
 
-    private static class SingletonHolder
-    {
+    private static class SingletonHolder {
         public final static BaseContext instance = new BaseContext();
     }
+
     public static BaseContext getInstance()
     {
         return SingletonHolder.instance;

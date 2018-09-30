@@ -1,6 +1,6 @@
 apply plugin: 'java-library'
 
-apply plugin: 'com.google.protobuf'
+//apply plugin: 'com.google.protobuf'
 
 
 sourceCompatibility = "1.7"
@@ -18,46 +18,51 @@ buildscript {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // https://mvnrepository.com/artifact/com.google.guava/guava
-    //compile group: 'com.google.guava', name: 'guava', version: '26.0-android'
+    compile group: 'com.google.guava', name: 'guava', version: '26.0-android'
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
     compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.5.1'
     //compile group: 'com.google.protobuf', name: 'protobuf-lite', version: '3.0.1'
     compile 'com.google.protobuf:protoc:3.5.1'
     // https://mvnrepository.com/artifact/io.netty/netty-all
     compile group: 'io.netty', name: 'netty-all', version: '4.1.17.Final'
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    //compile group: 'com.alibaba', name: 'fastjson', version: '1.1.70.android'
+
 }
-sourceSets {
-    main {
-        proto {
-            srcDir 'src/main/java/com/testerkit/proto'
-            include '**/*.proto'
-        }
-        java {
-            srcDir 'src/main/java'
-        }
-    }
-}
-protobuf {
-    //这里配置protoc编译器
-    protoc {
-        // https://mvnrepository.com/artifact/com.google.protobuf/protoc
-        artifact = 'com.google.protobuf:protoc:3.5.1'
-    }
-    generateProtoTasks {
-        all().each { task ->
-            task.builtins {
-                remove java
-            }
-            task.builtins {
-                java {}
-                // Add cpp output without any option.
-                // DO NOT omit the braces if you want this builtin to be added.
-                //cpp {}
-            }
-        }
-    }
-    generatedFilesBaseDir = "$projectDir/src"
-}
+
+
+//sourceSets {
+//    main {
+//        proto {
+//            srcDir 'src/main/java/com/testerkit/proto'
+//            include '**/*.proto'
+//        }
+//        java {
+//            srcDir 'src/main/java'
+//        }
+//    }
+//}
+//protobuf {
+//    //这里配置protoc编译器
+//    protoc {
+//        // https://mvnrepository.com/artifact/com.google.protobuf/protoc
+//        artifact = 'com.google.protobuf:protoc:3.5.1'
+//    }
+//    generateProtoTasks {
+//        all().each { task ->
+//            task.builtins {
+//                remove java
+//            }
+//            task.builtins {
+//                java {}
+//                // Add cpp output without any option.
+//                // DO NOT omit the braces if you want this builtin to be added.
+//                //cpp {}
+//            }
+//        }
+//    }
+//    generatedFilesBaseDir = "$projectDir/src"
+//}
 
 
 

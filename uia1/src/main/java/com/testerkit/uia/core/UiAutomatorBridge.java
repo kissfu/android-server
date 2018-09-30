@@ -9,6 +9,8 @@ import static com.testerkit.uia.utils.ReflectionUtils.method;
 
 /**
  * Created by able on 2018/2/11.
+ * 1、通过UiAutomatorBridge.INSTANCE访问
+ * 2、通过BaseContext.getDevice().getUiAutomatorBridge() 访问
  */
 
 public abstract class UiAutomatorBridge {
@@ -23,10 +25,10 @@ public abstract class UiAutomatorBridge {
 
     private static UiAutomatorBridge INSTANCE ;
 
-    public UiAutomatorBridge() {
+    public UiAutomatorBridge(Object uiDevice) {
         try {
 
-            this.uiAutomatorBridge =getField(BaseContext.getInstance().getIDevice().getUiDevice().getClass(), FIELD_UI_AUTOMATOR_BRIDGE, BaseContext.getInstance().getIDevice().getUiDevice());
+            this.uiAutomatorBridge =getField(FIELD_UI_AUTOMATOR_BRIDGE, uiDevice);
         } catch (Error error) {
             Logger.error("ERROR", error);
             throw error;
@@ -48,5 +50,7 @@ public abstract class UiAutomatorBridge {
     public abstract InteractionController getInteractionController() ;
 
     public abstract QueryController getQueryController() ;
+
+    public abstract UiAutomationCore getUiAutomation();
 
 }

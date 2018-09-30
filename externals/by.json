@@ -1,0 +1,46 @@
+
+{
+    "action":"click",
+    "rule":"doubleClick",
+    "timeOut":"3000",
+    "bounds":{},
+    "node":{
+        "type":"uia",
+        "index":"3"
+    },
+    "scroll":{
+        "times":"1",
+        "toCenter":"true",
+        "direction":"up"
+    },
+    "by":[
+        {
+            "id":"",
+            "option":""
+        },{
+            "class":"",
+            "option":""  
+        }
+        ,{
+            "text":"",
+            "option":""  
+        },{
+            "packageName":"",
+            "option":""
+        }
+        ,{
+            "xpath":
+            [
+                {
+                    "option":"",
+                    "xp":""
+                },{
+                    "option":"",
+                    "xp":""
+                }
+            ],
+            "option":""  
+        }
+    ]
+}
+   

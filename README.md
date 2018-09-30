@@ -53,12 +53,15 @@ Plugin version--->Required Gradle version--->Required SDK Build Tolls version
 #### UIA1
 
 -   This framework requires Android 4.1 (API level 16) or higher.
--   
+-   UiAutomator工具是通过InputManager或者更早的WindowManager来注入KeyEvent等
 
 #### UIA2
 
 -   This framework requires Android 4.3 (API level 18) or higher.
--   
+-   新框架UiAutomation使用的Accessibility APIs来注入事件了，使用UiAutomation
+
+#### UIA1项目
+-   lib目录下使用android api 18
 
 #### deployment
 

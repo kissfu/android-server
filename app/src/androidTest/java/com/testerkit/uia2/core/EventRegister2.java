@@ -6,8 +6,6 @@ import android.view.accessibility.AccessibilityEvent;
 
 import com.testerkit.uia.core.ReturningRunnable;
 import com.testerkit.uia.core.UiAutomatorBridge;
-import com.testerkit.uia.utils.Logger;
-import com.testerkit.uia2.model.NotificationListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,7 @@ public abstract class EventRegister2 {
         AccessibilityEvent event = null;
         ArrayList<AccessibilityEvent> events = new ArrayList<>();
         UiAutomation.AccessibilityEventFilter filter = new EventCollectingPredicate(AccessibilityEvent.TYPE_VIEW_SCROLLED, events);
-        UiAutomation automation = ((UiAutomatorBridge2)UiAutomatorBridge.getInstance()).getUiAutomation();
+        UiAutomation automation = (UiAutomation)(((UiAutomatorBridge2)UiAutomatorBridge.getInstance()).getUiAutomation().getUiAutomation());
         try {
             automation.executeAndWaitForEvent(runnable, filter, timeout);
         } catch (TimeoutException ign) {
