@@ -19,9 +19,10 @@ package com.testerkit.uia.utils.dumps;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 //import org.apache.commons.lang.StringUtils;
-import com.google.common.base.Strings;
+
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.StringUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -128,7 +129,7 @@ public abstract class XMLHierarchy {
     }
 
     private static String cleanTagName(String name) {
-        if (Strings.isNullOrEmpty(name)) {
+        if (StringUtils.isNullOrEmpty(name)) {
             return DEFAULT_VIEW_NAME;
         }
 
@@ -144,7 +145,7 @@ public abstract class XMLHierarchy {
         if (!fixedName.equals(name)) {
             Logger.info(String.format("Rewrote XML tag name '%s' to '%s'", name, fixedName));
         }
-        return Strings.isNullOrEmpty(fixedName) ? DEFAULT_VIEW_NAME : fixedName;
+        return StringUtils.isNullOrEmpty(fixedName) ? DEFAULT_VIEW_NAME : fixedName;
     }
 
     public static String safeCharSeqToString(CharSequence cs) {

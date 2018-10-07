@@ -23,7 +23,7 @@ import android.graphics.Rect;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
-import com.google.common.base.Preconditions;
+
 import com.testerkit.uia.model.settings.Settings;
 import com.testerkit.uia.utils.Constants;
 import com.testerkit.uia.utils.Logger;
@@ -62,7 +62,7 @@ public class UiAutomationElement extends UiElement<AccessibilityNodeInfo, UiAuto
      * instance will be created in
      */
     protected UiAutomationElement(AccessibilityNodeInfo node, UiAutomationElement parent, int index) {
-        this.node = Preconditions.checkNotNull(node);
+        this.node = node;
         this.parent = parent;
 
         Map<Attribute, Object> attribs = new EnumMap<>(Attribute.class);

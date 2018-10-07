@@ -2,10 +2,10 @@ package com.testerkit.uia1;
 
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.interfaces.ITestCase;
+import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia1.core.DeviceCore1;
-import com.testerkit.uia1.core.UiAutomatorBridge1;
 
 /**
  * Created by able on 2018/9/6.
@@ -19,8 +19,16 @@ public class TestCase1  extends UiAutomatorTestCase implements ITestCase {
 
 
     public void runTest(){
+        int i=0;
+        while (true){
+            Logger.info("seconds elapsed,"+i);
+            i++;
+            SleepUtils.sleep(1);
+        }
 
     }
+
+
 
     @Override
     public void initCore() {

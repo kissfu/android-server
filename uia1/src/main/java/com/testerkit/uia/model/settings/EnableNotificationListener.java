@@ -18,7 +18,7 @@ package com.testerkit.uia.model.settings;
 
 //import io.appium.uiautomator2.model.NotificationListener;
 
-import com.google.common.base.Preconditions;
+
 import com.testerkit.uia.core.NotificationListenerCore;
 import com.testerkit.uia.core.UiAutomatorBridge;
 

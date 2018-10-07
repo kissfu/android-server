@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion rootProject.buildToolsVersion
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.testerkit"
         minSdkVersion 18
@@ -16,28 +16,36 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = outputFileName.replace('debug.apk', "v${defaultConfig.versionName}.apk")
+            }
+        }
+    }
+    lintOptions {
+        abortOnError false
     }
 
 }
 dependencies {
     // 将jar包打在test apk中，否则会无法启动测试
-    androidTestCompile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation fileTree(include: ['*.jar'], dir: 'libs')
     //App test for UnitTest
-    compile 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
     //App compatibility
     //compile 'com.android.support:appcompat-v7:25.3.1'
     // App dependencies
-    compile 'com.android.support:support-annotations:' + rootProject.supportLibVersion
-    compile 'com.google.guava:guava:18.0'
+    implementation 'com.android.support:support-annotations:25.4.0'
+    //compile 'com.google.guava:guava:18.0'
     // Testing-only dependencies
     // Force usage of support annotations in the test app, since it is internally used by the runner module.
-    androidTestCompile 'com.android.support:support-annotations:' + rootProject.supportLibVersion
-    androidTestCompile 'com.android.support.test:runner:' + rootProject.runnerVersion
-    androidTestCompile 'com.android.support.test:rules:' + rootProject.rulesVersion
+    androidTestImplementation 'com.android.support:support-annotations:25.4.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.0'
+    androidTestImplementation 'com.android.support.test:rules:1.0.0'
     // UiAutomator Testing
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:' + rootProject.uiautomatorVersion
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.3'
     //androidTestCompile 'com.android.support.test.espresso:espresso-core:' + rootProject.espressoVersion;
-    compile project(':uia1')
+    androidTestImplementation project(':uia1')
 }
 
 
@@ -45,45 +53,45 @@ dependencies {
  * 1、如果重新编译了项目或者clear，需要注释一下代码，编译成功后再恢复代码编译一次即可
  * 忽略AndroidTestManifest的合并
  */
- android.testVariants.all{ variant ->
-     // 开始构建当前变体的即时时间
-     def currentTime = buildTime()
-
-     variant.outputs.each { output ->
-         output.processResources.manifestFile = file('src/androidTest/AndroidManifest.xml')
-         output.processManifest.enabled=false
-         println "[testVariants][in]**************************************"
-         println "currentTime: ${currentTime}"
-         println "variant: ${output.name}"
-         println "buildType: ${variant.buildType.name}"
-         println "flavor: ${variant.flavorName}"
-         println "manifest:  ${output.processResources.manifestFile}"
-         //将生成的apk文件保存至根目录的_apk文件下
-         def outputFile = output.outputFile
-         println "outputFile:  ${outputFile}"
-         println "[testVariants][out]**************************************"
-     }
- }
+// android.testVariants.all{ variant ->
+//     // 开始构建当前变体的即时时间
+//     def currentTime = buildTime()
+//
+//     variant.outputs.each { output ->
+//         output.processResources.manifestFile = file('src/androidTest/AndroidManifest.xml')
+//         output.processManifest.enabled=false
+//         println "[testVariants][in]**************************************"
+//         println "currentTime: ${currentTime}"
+//         println "variant: ${output.name}"
+//         println "buildType: ${variant.buildType.name}"
+//         println "flavor: ${variant.flavorName}"
+//         println "manifest:  ${output.processResources.manifestFile}"
+//         //将生成的apk文件保存至根目录的_apk文件下
+//         def outputFile = output.outputFile
+//         println "outputFile:  ${outputFile}"
+//         println "[testVariants][out]**************************************"
+//     }
+// }
 
 
 //https://blog.csdn.net/u013394527/article/details/50977701
-android.applicationVariants.all { variant ->
-    // 开始构建当前变体的即时时间
-    def currentTime = buildTime()
-
-    variant.outputs.each { output ->
-        println "[applicationVariants][in]**************************************"
-        println "currentTime: ${currentTime}"
-        println "variant: ${output.name}"
-        println "buildType: ${variant.buildType.name}"
-        println "flavor: ${variant.flavorName}"
-        println "manifest:  ${output.processResources.manifestFile}"
-        //将生成的apk文件保存至根目录的_apk文件下
-        def outputFile = output.outputFile
-        println "outputFile:  ${outputFile}"
-        println "[applicationVariants][out]**************************************"
-    }
-}
-def buildTime() {
-    return new Date().format("yyyy.MM.dd_HH.mm.ss", TimeZone.getTimeZone("UTC"))
-}
+//android.applicationVariants.all { variant ->
+//    // 开始构建当前变体的即时时间
+//    def currentTime = buildTime()
+//
+//    variant.outputs.each { output ->
+//        println "[applicationVariants][in]**************************************"
+//        println "currentTime: ${currentTime}"
+//        println "variant: ${output.name}"
+//        println "buildType: ${variant.buildType.name}"
+//        println "flavor: ${variant.flavorName}"
+//        println "manifest:  ${output.processResources.manifestFile}"
+//        //将生成的apk文件保存至根目录的_apk文件下
+//        def outputFile = output.outputFile
+//        println "outputFile:  ${outputFile}"
+//        println "[applicationVariants][out]**************************************"
+//    }
+//}
+//def buildTime() {
+//    return new Date().format("yyyy.MM.dd_HH.mm.ss", TimeZone.getTimeZone("UTC"))
+//}
