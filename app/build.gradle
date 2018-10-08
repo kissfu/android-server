@@ -22,18 +22,23 @@ android {
             }
         }
     }
+    //解决编译错误
     lintOptions {
         abortOnError false
     }
-    flavorDimensions "test"
+    //for e2eTest flavors
+    //纬度和app对应默认
+    flavorDimensions 'default'
     productFlavors {
+        //名字和目录对应
         e2eTest {
-            dimension "test"
-            applicationId 'com.testerkit.uia2.e2etest'
+            //applicationId 'com.testerkit'
         }
     }
-
-    //sourceSets { e2eTest { java.srcDirs = ['src/e2eTest/java', 'src/e2eTest/java/'] } }
+    //for e2eTest 使用默认的设置，可以使用Android Instrumented Tests测试
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 dependencies {
     // 将jar包打在test apk中，否则会无法启动测试
@@ -47,6 +52,12 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:design:26.1.0'
+    //for e2e test
+    implementation 'com.android.support.test:runner:1.0.0'
+    implementation 'com.android.support.test:rules:1.0.0'
+    implementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    implementation project(':uia1')
+
     //compile 'com.google.guava:guava:18.0'
     // Testing-only dependencies
     // Force usage of support annotations in the test app, since it is internally used by the runner module.

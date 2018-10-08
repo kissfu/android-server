@@ -18,7 +18,10 @@ package com.testerkit.uia2.e2etest;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.Configurator;
+//import android.support.test.uiautomator.Configurator;
+
+import com.testerkit.uia.servers.socket.NettyServer;
+import com.testerkit.uia.utils.Logger;
 
 import org.json.JSONException;
 import org.junit.AfterClass;
@@ -49,10 +52,10 @@ import static org.junit.Assert.assertNotNull;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public abstract class BaseTest {
-    protected static ServerInstrumentation serverInstrumentation;
+
     private static Context ctx;
 
-    @Rule
+    //@Rule
     //public TestWatcher watcher = new TestWatcher();
 
     /**
@@ -60,42 +63,33 @@ public abstract class BaseTest {
      */
     @BeforeClass
     public static void startServer() throws JSONException, IOException {
-        if (serverInstrumentation != null) {
-            return;
-        }
 
-//        assertNotNull(getUiDevice());
-//        ctx = InstrumentationRegistry.getInstrumentation().getContext();
-//        serverInstrumentation = ServerInstrumentation.getInstance();
-//        Logger.info("Starting Server");
-//        serverInstrumentation.startServer();
-//        Client.waitForNettyStatus(NettyStatus.ONLINE);
-//        createSession();
-//        Configurator.getInstance().setWaitForSelectorTimeout(0);
-//        Configurator.getInstance().setWaitForIdleTimeout(50000);
-//        TestUtils.grantPermission(getTargetContext(), READ_EXTERNAL_STORAGE);
-//        TestUtils.grantPermission(getTargetContext(), WRITE_EXTERNAL_STORAGE);
+        ctx = InstrumentationRegistry.getInstrumentation().getContext();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NettyServer.getInstance().start();
+            }
+        },"Server Bind Port").start();
+        //NettyServer.getInstance().start();
+        Logger.info("e2e","startServer");
     }
 
     @AfterClass
     public static void stopSever() {
-//        deleteSession();
-//        if (serverInstrumentation == null) {
-//            return;
-//        }
-//        serverInstrumentation.stopServer();
-//        Client.waitForNettyStatus(NettyStatus.OFFLINE);
-//        serverInstrumentation = null;
+        NettyServer.getInstance().stop();
+        Logger.info("e2e","stop server");
     }
 
     @Before
     public void launchAUT() throws JSONException {
-//        startActivity(Config.APP_NAME);
+        startActivity(Config.APP_NAME);
 //        waitForElement(By.accessibilityId("Accessibility"));
+        Logger.info("e2e","launchAUT");
     }
 
     protected void startActivity(String activity) throws JSONException {
-//        TestUtils.startActivity(ctx, activity);
+        TestUtils.startActivity(ctx, activity);
     }
 
     protected void clickAndWaitForStaleness(String elementId) throws JSONException {
