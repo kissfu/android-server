@@ -27,7 +27,7 @@ public abstract class UiAutomatorBridge {
 
     public UiAutomatorBridge(Object uiDevice) {
         try {
-
+            //uiautomator-v18:2.1.3没有这个属性mUiAutomationBridge
             this.uiAutomatorBridge =getField(FIELD_UI_AUTOMATOR_BRIDGE, uiDevice);
         } catch (Error error) {
             Logger.error("ERROR", error);

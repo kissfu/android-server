@@ -20,6 +20,7 @@ public class DeviceCore1 extends DeviceCore {
     public DeviceCore1(com.android.uiautomator.core.UiDevice uiDevice) {
         super(uiDevice);
         this.uiDevice = uiDevice;
+
         //先有uiDevice 再有uiAutomatorBridge
         uiAutomatorBridge = new UiAutomatorBridge1(uiDevice);
         //仅仅是为了方便访问,可以通过device 访问

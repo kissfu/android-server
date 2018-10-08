@@ -27,7 +27,11 @@ buildscript {
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
+    compileOnly files('libs/android.jar')
+    compile files('libs/netty-all-4.1.17.Final.jar')
+    //并不传递依赖关系类似idea的provided
+    compileOnly files('libs/uiautomator.jar')
     // https://mvnrepository.com/artifact/com.google.guava/guava
     //compile group: 'com.google.guava', name: 'guava', version: '26.0-android'
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
@@ -38,7 +42,6 @@ dependencies {
     //compile group: 'io.netty', name: 'netty-all', version: '4.1.17.Final'
     // https://mvnrepository.com/artifact/com.alibaba/fastjson
     //compile group: 'com.alibaba', name: 'fastjson', version: '1.1.70.android'
-
 }
 
 
@@ -119,13 +122,18 @@ dependencies {
 
  **/
 
+//有问题
 task release(type:Exec) {
     group "test"
     commandLine './release.sh',dxFile,jarFile,'./libs/netty-all-4.1.17.Final.jar'
 }
 
+task release2(dependsOn:build,type:Exec) {
+    group "test"
+    commandLine dxFile, '--dex', '--no-strict', '--output=./dest/' + project.name + '.jar', jar.archivePath ,'./libs/netty-all-4.1.17.Final.jar'
+}
 
 task run(type:Exec) {
     group "test"
-    commandLine './run.sh','uia1'
+    commandLine './run.sh','uiautomator'
 }

@@ -26,7 +26,8 @@ fi
 
 echo 'dx...'
 
-${dexFile} --dex --output=${destDir}/classes.dex ${destDir} ${libArr}
+#./build/classes/java/main  有问题./bin
+${dexFile} --dex --output=${destDir}/classes.dex ./build/classes/java/main ${libArr}
 
 echo 'jar...'
 

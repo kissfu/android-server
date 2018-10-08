@@ -14,14 +14,20 @@ import com.testerkit.uia1.core.DeviceCore1;
 public class TestCase1  extends UiAutomatorTestCase implements ITestCase {
 
     public TestCase1(){
-        this.initCore();
+        super();
+        //构造方法无法获取this.getUiDevice()
+        //this.initCore();
     }
 
 
     public void runTest(){
+        this.initCore();
+
+
         int i=0;
         while (true){
             Logger.info("seconds elapsed,"+i);
+
             i++;
             SleepUtils.sleep(1);
         }
