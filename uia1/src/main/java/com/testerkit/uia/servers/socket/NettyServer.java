@@ -108,12 +108,12 @@ public class NettyServer extends ServerBase {
 
     @Override
     public void start() {
-
+        bindTry();
     }
 
     @Override
     public void stop() {
-
+        close();
     }
 
     /**

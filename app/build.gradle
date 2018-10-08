@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '28.0.2'
+    //buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.testerkit"
         minSdkVersion 18
@@ -16,16 +16,24 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-//        applicationVariants.all { variant ->
-//            variant.outputs.all {
-//                outputFileName = outputFileName.replace('debug.apk', "v${defaultConfig.versionName}.apk")
-//            }
-//        }
+        applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = outputFileName.replace('debug.apk', "v${defaultConfig.versionName}.apk")
+            }
+        }
     }
     lintOptions {
         abortOnError false
     }
+    flavorDimensions "test"
+    productFlavors {
+        e2eTest {
+            dimension "test"
+            applicationId 'com.testerkit.uia2.e2etest'
+        }
+    }
 
+    //sourceSets { e2eTest { java.srcDirs = ['src/e2eTest/java', 'src/e2eTest/java/'] } }
 }
 dependencies {
     // 将jar包打在test apk中，否则会无法启动测试
@@ -36,6 +44,9 @@ dependencies {
     //compile 'com.android.support:appcompat-v7:25.3.1'
     // App dependencies
     implementation 'com.android.support:support-annotations:25.4.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:26.1.0'
     //compile 'com.google.guava:guava:18.0'
     // Testing-only dependencies
     // Force usage of support annotations in the test app, since it is internally used by the runner module.
@@ -47,7 +58,6 @@ dependencies {
     //androidTestCompile 'com.android.support.test.espresso:espresso-core:' + rootProject.espressoVersion;
     androidTestImplementation project(':uia1')
 }
-
 
 /**==================注意==============
  * 1、如果重新编译了项目或者clear，需要注释一下代码，编译成功后再恢复代码编译一次即可
@@ -72,7 +82,6 @@ dependencies {
 //         println "[testVariants][out]**************************************"
 //     }
 // }
-
 
 //https://blog.csdn.net/u013394527/article/details/50977701
 //android.applicationVariants.all { variant ->

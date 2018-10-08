@@ -8,6 +8,10 @@ import android.support.test.uiautomator.UiDevice;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.interfaces.ITestCase;
+import com.testerkit.uia.servers.socket.NettyServer;
+import com.testerkit.uia.utils.Constants;
+import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia2.core.DeviceCore2;
 import com.testerkit.uia2.core.UiAutomatorBridge2;
 
@@ -29,10 +33,13 @@ public class TestCase2 implements ITestCase {
     @Test
     public void runTest(){
 
+        NettyServer.getInstance().start();
+
     }
 
     @Override
     public void initCore() {
+        Constants.PRO = "2";
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         BaseContext.getInstance().setTestCase(this);
         BaseContext.getInstance().setDevice( new DeviceCore2(uiDevice));

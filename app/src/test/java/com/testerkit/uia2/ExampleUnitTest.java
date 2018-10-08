@@ -1,4 +1,4 @@
-package com.testerkit.android_server;
+package com.testerkit.uia2;
 
 import org.junit.Test;
 

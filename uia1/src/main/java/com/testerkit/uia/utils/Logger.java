@@ -7,7 +7,7 @@ package com.testerkit.uia.utils;
 
 public class Logger {
     //[总标签][uia版本][功能]
-    private static  String TAG = Constants.TAG + Constants.VERSION;
+    private static  String TAG = Constants.TAG + "["+Constants.PRO + "." + Constants.VERSION + "]";
 
     private static String getString(Object... args) {
         StringBuilder content = new StringBuilder();
