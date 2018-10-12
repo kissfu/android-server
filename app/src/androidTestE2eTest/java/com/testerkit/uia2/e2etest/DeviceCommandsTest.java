@@ -16,6 +16,11 @@
 package com.testerkit.uia2.e2etest;
 
 
+import android.content.res.AssetManager;
+
+import com.testerkit.uia.requests.socket.FullSocketRequest;
+import com.testerkit.uia.utils.Logger;
+
 import org.junit.Test;
 
 
@@ -29,7 +34,16 @@ public class DeviceCommandsTest extends BaseTest {
     @Test
     public void getSource() {
 
-        int i = 1;
+
+
+        String command = getAssets("source.json");
+
+        FullSocketRequest fullSocketRequest = new FullSocketRequest(command);
+
+        //ResultInfo resultInfo = SocketUtil.request(Config.HOST,Config.PORT,command,5*60*1000);
+
+        //Logger.info(resultInfo.getDetail());
+
     }
 
 }

@@ -64,6 +64,10 @@ public abstract class By {
     public static class ById extends By {
         private final String id;
 
+        public ById() {
+            id= "";
+        }
+
         public ById(String id) {
             this.id = id;
         }
@@ -82,6 +86,9 @@ public abstract class By {
     public static class ByClass extends By {
         private final String clazz;
 
+        public ByClass() {
+            clazz= "";
+        }
         public ByClass(String clazz) {
             this.clazz = clazz;
         }
@@ -100,6 +107,9 @@ public abstract class By {
     public static class ByXPath extends By {
         private final String xpathExpression;
 
+        public ByXPath() {
+            xpathExpression= "";
+        }
         public ByXPath(String xpathExpression) {
             this.xpathExpression = xpathExpression;
         }
@@ -115,9 +125,32 @@ public abstract class By {
         }
     }
 
+    public static class ByPackageName extends By {
+        private final String packageName;
+
+        public ByPackageName() {
+            packageName= "";
+        }
+        public ByPackageName(String packageName) {
+            this.packageName = packageName;
+        }
+
+        @Override
+        public String getElementLocator() {
+            return packageName;
+        }
+
+        @Override
+        public String toString() {
+            return "By.ByPackageName: " + packageName;
+        }
+    }
+
     public static class ByText extends By {
         private final String text;
-
+        public ByText() {
+            text= "";
+        }
         public ByText(String text) {
             this.text = text;
         }

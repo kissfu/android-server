@@ -1,4 +1,4 @@
-package com.testerkit.uia.model;
+package com.testerkit.uia.model.serach;
 
 /**
  * Created by able on 2018/9/28.
@@ -6,9 +6,8 @@ package com.testerkit.uia.model;
 
 public class ScrollInfo {
     private int times;
-
+    private int timeOut ;
     private String toCenter;
-
     private String direction;
 
     public void setTimes(int times){
@@ -17,6 +16,15 @@ public class ScrollInfo {
     public int getTimes(){
         return this.times;
     }
+
+    public int getTimeOut() {
+        return timeOut;
+    }
+
+    public void setTimeOut(int timeOut) {
+        this.timeOut = timeOut;
+    }
+
     public void setToCenter(String toCenter){
         this.toCenter = toCenter;
     }

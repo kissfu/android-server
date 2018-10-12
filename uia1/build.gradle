@@ -28,10 +28,14 @@ buildscript {
 
 dependencies {
     //compile fileTree(include: ['*.jar'], dir: 'libs')
-    compileOnly files('libs/android.jar')
-    compile files('libs/netty-all-4.1.17.Final.jar')
+
     //并不传递依赖关系类似idea的provided
+    compileOnly files('libs/android.jar')
     compileOnly files('libs/uiautomator.jar')
+    //传递依赖关系，且在运行时使用
+    compile files('libs/netty-all-4.1.17.Final.jar')
+    compile files('libs/gson-2.8.5.jar')
+
     // https://mvnrepository.com/artifact/com.google.guava/guava
     //compile group: 'com.google.guava', name: 'guava', version: '26.0-android'
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
@@ -130,7 +134,7 @@ task release(type:Exec) {
 
 task release2(dependsOn:build,type:Exec) {
     group "test"
-    commandLine dxFile, '--dex', '--no-strict', '--output=./dest/' + project.name + '.jar', jar.archivePath ,'./libs/netty-all-4.1.17.Final.jar'
+    commandLine dxFile, '--dex', '--no-strict', '--output=./dest/' + project.name + '.jar', jar.archivePath ,'./libs/netty-all-4.1.17.Final.jar','./libs/gson-2.8.5.jar'
 }
 
 task run(type:Exec) {

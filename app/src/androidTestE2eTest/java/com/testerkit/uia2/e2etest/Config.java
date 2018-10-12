@@ -24,6 +24,7 @@ public class Config {
     public static final int DEFAULT_POLLING_INTERVAL = 300;
     public static final String APP_PKG = "com.testerkit";
     public static final String APP_NAME = ".MainActivity";
-    //public static final String HOST = "http://localhost:" + ServerConfig.getServerPort();
-    //public static final String BASE_URL = HOST + "/wd/hub/session/:sessionId";
+    public static final String HOST = "127.0.0.1";
+    public static final int PORT = 20008;
+    public static final String BASE_URL = HOST + "/wd/hub/session/:sessionId";
 }

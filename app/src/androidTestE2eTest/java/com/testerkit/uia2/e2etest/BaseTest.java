@@ -23,7 +23,9 @@ import android.support.test.runner.AndroidJUnit4;
 import com.testerkit.uia.servers.socket.NettyServer;
 import com.testerkit.uia.utils.Logger;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -32,7 +34,9 @@ import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 //import io.appium.uiautomator2.model.By;
 //import io.appium.uiautomator2.server.ServerInstrumentation;
@@ -53,7 +57,7 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(AndroidJUnit4.class)
 public abstract class BaseTest {
 
-    private static Context ctx;
+    protected static Context ctx;
 
     //@Rule
     //public TestWatcher watcher = new TestWatcher();
@@ -95,5 +99,25 @@ public abstract class BaseTest {
     protected void clickAndWaitForStaleness(String elementId) throws JSONException {
 //        click(elementId);
 //        waitForElementInvisibility(elementId);
+    }
+
+
+    public String getAssets(String fileName){
+        try {
+            InputStreamReader isr = new InputStreamReader(ctx.getAssets().open(fileName),"UTF-8");
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+            StringBuilder builder = new StringBuilder();
+            while((line = br.readLine()) != null){
+                builder.append(line);
+            }
+            br.close();
+            isr.close();
+            return builder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 }

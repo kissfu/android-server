@@ -1,6 +1,4 @@
-package com.testerkit.uia.model;
-
-import com.testerkit.uia.model.serach.By;
+package com.testerkit.uia.model.serach;
 
 import java.util.List;
 
@@ -13,7 +11,6 @@ public class StepInfo {
 
     private String rule;
 
-    private String timeOut;
 
     private NodeInfo node;
 
@@ -34,12 +31,6 @@ public class StepInfo {
     }
     public String getRule(){
         return this.rule;
-    }
-    public void setTimeOut(String timeOut){
-        this.timeOut = timeOut;
-    }
-    public String getTimeOut(){
-        return this.timeOut;
     }
     public void setNode(NodeInfo node){
         this.node = node;

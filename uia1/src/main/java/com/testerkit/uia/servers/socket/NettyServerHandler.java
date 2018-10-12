@@ -39,8 +39,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
+        String input = new String(((String)msg).getBytes(),"UTF-8");
         //解析请求的msg
-        FullSocketRequest request = new FullSocketRequest();
+        FullSocketRequest request = new FullSocketRequest(input);
 
         //初始化返回类
         FullSocketResponse response = new FullSocketResponse();
