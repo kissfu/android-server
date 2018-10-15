@@ -41,8 +41,8 @@ android {
     }
 }
 dependencies {
-    // 将jar包打在test apk中，否则会无法启动测试
-    androidTestImplementation fileTree(include: ['*.jar'], dir: 'libs')
+    // libs
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //App test for UnitTest
     implementation 'junit:junit:4.12'
     //App compatibility
