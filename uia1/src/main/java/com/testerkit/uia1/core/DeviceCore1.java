@@ -1,6 +1,7 @@
 package com.testerkit.uia1.core;
 
 import android.os.RemoteException;
+import android.os.SystemClock;
 
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
@@ -41,11 +42,6 @@ public class DeviceCore1 extends DeviceCore {
     @Override
     public ScreenSize getScreenSize() {
         return new ScreenSize(uiDevice.getDisplayWidth(),uiDevice.getDisplayHeight());
-    }
-
-    @Override
-    public boolean click(int x, int y, long holdTime) {
-        return false;
     }
 
     @Override
@@ -92,7 +88,11 @@ public class DeviceCore1 extends DeviceCore {
 
     @Override
     public void waitForIdle(long timeInMS) {
-
+        try {
+            uiDevice.waitForIdle(timeInMS);
+        } catch (Exception e) {
+            Logger.error("Unable wait for AUT to idle");
+        }
     }
 
 }

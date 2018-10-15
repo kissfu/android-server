@@ -1,5 +1,6 @@
 package com.testerkit.uia.core;
 
+import android.os.SystemClock;
 import android.view.Display;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -30,16 +31,6 @@ public abstract class DeviceCore {
    public abstract ScreenSize getScreenSize();
 
    //List<String> getRootsPackageName
-
-   /**
-    * 用反射实现点击、长按
-    * @param x 坐标点x值
-    * @param y 坐标点y值
-    * @param holdTime 长按时长
-    * @return true/false 长按成功/失败
-    */
-   public abstract boolean click(int x, int y,long holdTime);
-
 
    /**
     * 根据给定的按键名称，执行按键。
@@ -110,6 +101,32 @@ public abstract class DeviceCore {
       return uiAutomatorBridge;
    }
 
+   /**
+    * 用反射实现点击、长按
+    * @param x 坐标点x值
+    * @param y 坐标点y值
+    * @param holdTime 长按时长
+    * @return true/false 长按成功/失败
+    */
+   public boolean click(int x, int y, long holdTime) {
+      boolean isDown = uiAutomatorBridge.getInteractionController().touchDown(x,y);
+      if(isDown == false) {
+         return false;//this.uiDevice.click(x,y);
+      }
+      SystemClock.sleep(holdTime);
+      uiAutomatorBridge.getInteractionController().touchUp(x,y);
+      return true;
+   }
+
+   public boolean touchDown(final int x, final int y){
+      return uiAutomatorBridge.getInteractionController().touchDown(x,y);
+   }
+   public boolean touchMove(final int x, final int y){
+      return uiAutomatorBridge.getInteractionController().touchMove(x,y);
+   }
+   public boolean touchUp(final int x, final int y){
+      return uiAutomatorBridge.getInteractionController().touchUp(x,y);
+   }
    //endregion
 
 

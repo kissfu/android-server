@@ -4,6 +4,7 @@ import android.os.RemoteException;
 
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.core.DeviceCore;
+import com.testerkit.uia.model.KeyEnum;
 import com.testerkit.uia.model.ScreenSize;
 
 /**
@@ -32,28 +33,45 @@ public class DeviceCore2 extends DeviceCore {
 
     @Override
     public void wake() throws RemoteException {
-
+        uiDevice.wakeUp();
     }
 
     @Override
     public ScreenSize getScreenSize() {
-        return null;
-    }
-
-
-    @Override
-    public boolean click(int x, int y, long holdTime) {
-        return false;
+        return new ScreenSize(uiDevice.getDisplayWidth(),uiDevice.getDisplayHeight());
     }
 
     @Override
     public boolean pressKey(String keyName) {
+        KeyEnum keyEnum = KeyEnum.valueOf(keyName);
+        switch (keyEnum) {
+            case MENU:
+                return uiDevice.pressMenu();
+            case BACK:
+                return uiDevice.pressBack();
+            case HOME:
+                return uiDevice.pressHome();
+            case SEARCH:
+                return uiDevice.pressSearch();
+            case ENTER:
+                return uiDevice.pressEnter();
+            case LEFT:
+                return uiDevice.pressDPadLeft();
+            case RIGHT:
+                return uiDevice.pressDPadRight();
+            case UP:
+                return uiDevice.pressDPadUp();
+            case DOWN:
+                return uiDevice.pressDPadDown();
+            case CENTER:
+                return uiDevice.pressDPadCenter();
+        }
         return false;
     }
 
     @Override
     public boolean pressKey(int keycode) {
-        return false;
+        return uiDevice.pressKeyCode(keycode);
     }
 
     @Override
