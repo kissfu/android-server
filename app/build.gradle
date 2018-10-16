@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+    //指定jdk版本,1.8解决编译rtc编译问题
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion 26
     //buildToolsVersion '28.0.2'
     defaultConfig {
@@ -26,13 +32,27 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    //统一设置了androidTest对应的内容，优先级最高
+    sourceSets{
+        androidTest{
+            manifest.srcFile 'src/androidTestServer/AndroidManifest.xml'
+        }
+    }
     //for e2eTest flavors
-    //纬度和app对应默认
+    //纬度和app对应默认defaultConfig
     flavorDimensions 'default'
     productFlavors {
         //名字和目录对应
         e2eTest {
-            //applicationId 'com.testerkit'
+            testApplicationId 'com.testerkit.uia2.e2etest'
+            //manifestPlaceholders = [suffix :'e2etest']
+            //applicationId 'com.testerkit.uia2.e2etest'
+        }
+        server{
+            testApplicationId 'com.testerkit.uia2.server'
+            //manifestPlaceholders = [suffix :'server']
+            //applicationId 'com.testerkit.uia2.server'
         }
     }
     //for e2eTest 使用默认的设置，可以使用Android Instrumented Tests测试
@@ -40,23 +60,43 @@ android {
         unitTests.returnDefaultValues = true
     }
 }
+
+
 dependencies {
     // libs
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //App test for UnitTest
     implementation 'junit:junit:4.12'
+
+    //region App dependencies
+
     //App compatibility
     //compile 'com.android.support:appcompat-v7:25.3.1'
-    // App dependencies
     implementation 'com.android.support:support-annotations:25.4.0'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:design:26.1.0'
-    //for e2e test
+    //endregion
+
+    //region for e2e test
     implementation 'com.android.support.test:runner:1.0.0'
     implementation 'com.android.support.test:rules:1.0.0'
     implementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     implementation project(':uia1')
+    //endregion
+
+    //region webRTC
+
+    // https://mvnrepository.com/artifact/io.socket/socket.io-client/1.0.0
+//    implementation ('io.socket:socket.io-client:1.0.0') {
+//        //(排除) excluding org.json which is provided by Android
+//        //老版本：compile 'com.github.nkzawa:socket.io-client:0.4.2'
+//        exclude group: 'org.json', module: 'json'
+//    }
+
+    //endregion webRTC
+
+    //region uia2
 
     //compile 'com.google.guava:guava:18.0'
     // Testing-only dependencies
@@ -68,8 +108,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     //androidTestCompile 'com.android.support.test.espresso:espresso-core:' + rootProject.espressoVersion;
     androidTestImplementation project(':uia1')
+    //endregion
 }
 
+
+//region Variants忽略AndroidTestManifest的合并
 /**==================注意==============
  * 1、如果重新编译了项目或者clear，需要注释一下代码，编译成功后再恢复代码编译一次即可
  * 忽略AndroidTestManifest的合并
@@ -115,4 +158,25 @@ dependencies {
 //def buildTime() {
 //    return new Date().format("yyyy.MM.dd_HH.mm.ss", TimeZone.getTimeZone("UTC"))
 //}
+////替换AndroidManifest.xml的REPLACE_KEY字符串为渠道名称
+//android.applicationVariants.all { variant ->
+//    variant.outputs.each { output ->
+//        output.processManifest.doLast {
+//            //v1.11之前这里用的copy{}，我换成了文件操作，这样可以在v1.11版本正常运行，并保持文件夹整洁
+//            //${buildDir}是指build文件夹
+//            //${variant.dirName}是flavor/buildtype，例如GooglePlay/release，运行时会自动生成
+//            //下面的路径是类似这样：build/intermediates/manifests/GooglePlay/release/AndroidManifest.xml
+//            def manifestFile = "${buildDir}/intermediates/manifests/full/${variant.dirName}/AndroidManifest.xml"
+//            println '===>'+manifestFile
+//
+//            //将字符串REPLACE_KEY替换成flavor的名字
+//            //def updatedContent = new File(manifestFile).getText('UTF-8').replaceAll("REPLACE_KEY", "${variant.productFlavors[0].name}")
+//            //new File(manifestFile).write(updatedContent, 'UTF-8')
+//
+//            //将此次flavor的AndroidManifest.xml文件指定为我们修改过的这个文件
+//            //variant.processResources.manifestFile = file("${buildDir}/intermediates/manifests/full/${variant.dirName}/AndroidManifest.xml")
+//        }
+//    }
+//}
 
+//endregion
