@@ -4,6 +4,7 @@ public class PointInfo {
     private String type;
     private int x;
     private int y;
+    private long duration;
 
     public String getType() {
         return type;
@@ -27,5 +28,13 @@ public class PointInfo {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 }

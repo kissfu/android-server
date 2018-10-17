@@ -2,6 +2,10 @@ package com.testerkit.uia.servers.socket;
 
 import com.testerkit.uia.handlers.Source;
 import com.testerkit.uia.handlers.request.BaseRequestHandler;
+import com.testerkit.uia.handlers.touch.TouchDown;
+import com.testerkit.uia.handlers.touch.TouchLongClick;
+import com.testerkit.uia.handlers.touch.TouchMove;
+import com.testerkit.uia.handlers.touch.TouchUp;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.socket.ISocketRequest;
 import com.testerkit.uia.requests.socket.ISocketResponse;
@@ -26,13 +30,17 @@ public class NettyServlet implements ISocketServlet {
     }
 
     //region init request handler
-    private final static String baseUri = "/wd/hub/session/:sessionId/";
+    private final static String baseUri = "";//"/wd/hub/session/:sessionId/";
 
     private void init() {
         registerGetHandler();
     }
     private void  registerGetHandler(){
         register(getHandler, new Source(baseUri+"source"));
+        register(getHandler, new TouchDown(baseUri+"touch/down"));
+        register(getHandler, new TouchUp(baseUri+"touch/up"));
+        register(getHandler, new TouchMove(baseUri+"touch/move"));
+        register(getHandler, new TouchLongClick(baseUri+"touch/click"));
     }
     protected void register(Map<String, BaseRequestHandler> registerOn, BaseRequestHandler handler) {
         registerOn.put(handler.getMappedUri(), handler);

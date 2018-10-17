@@ -16,14 +16,9 @@
 package com.testerkit.uia2.e2etest;
 
 
-import android.content.res.AssetManager;
-import android.support.test.runner.AndroidJUnit4;
-
 import com.testerkit.uia.requests.socket.FullSocketRequest;
-import com.testerkit.uia.utils.Logger;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 
 //@SuppressWarnings("JavaDoc")
@@ -37,11 +32,11 @@ public class DeviceCommandsTest extends BaseTest {
 
 
 
-        String command = super.getAssets("touch.json");
+        String command = super.getAssets("touch-click.json");
 
         FullSocketRequest fullSocketRequest = new FullSocketRequest(command);
 
-        //ResultInfo resultInfo = SocketUtil.request(Config.HOST,Config.PORT,command,5*60*1000);
+        ResultInfo resultInfo = SocketUtil.request(Config.HOST,Config.PORT,command,5*60*1000);
 
         //Logger.info(resultInfo.getDetail());
 
