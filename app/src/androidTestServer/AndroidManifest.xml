@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.testerkit.uia2">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.testerkit.uia2"
+    android:versionCode="20180622"
+    android:versionName="2018.06.22">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -12,9 +15,17 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
 
-    <application android:debuggable="true">
-        <activity android:name="com.testerkit.uia2.RTCActivity"></activity>
+    <!--不起作用，不会被使用-->
+    <!--<instrumentation-->
+        <!---->
+        <!--android:label="UIA2"-->
+        <!--android:name="android.support.test.runner.AndroidJUnitRunner"-->
+        <!--android:targetPackage="com.testerkit.uia2.server"-->
+        <!--android:functionalTest="false"-->
+        <!--android:handleProfiling="false"/>-->
 
+    <application android:debuggable="true" android:label="UIA2 Server">
+        <!--<activity android:name="com.testerkit.uia2.RTCActivity" android:exported="true"></activity>-->
     </application>
     <!--<meta-data android:name="aaa" android:value="${suffix}" />-->
 

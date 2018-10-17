@@ -44,9 +44,13 @@ public class Logger {
     /**
      * Logger info
      */
-    public static void info(String functionDescription,Object... messages) {
+    public static void info(String func,Object... messages) {
 
-        android.util.Log.i(TAG + String.format( "[%s]" , functionDescription), getString(messages));
+        if (StringUtils.isNullOrEmpty(func)) {
+            android.util.Log.i(TAG , getString(messages));
+        } else {
+            android.util.Log.i(TAG + String.format("[%s]", func), getString(messages));
+        }
     }
 
     /**

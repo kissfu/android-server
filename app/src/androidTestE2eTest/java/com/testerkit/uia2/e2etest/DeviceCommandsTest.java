@@ -17,15 +17,16 @@ package com.testerkit.uia2.e2etest;
 
 
 import android.content.res.AssetManager;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.testerkit.uia.requests.socket.FullSocketRequest;
 import com.testerkit.uia.utils.Logger;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 
-
-@SuppressWarnings("JavaDoc")
+//@SuppressWarnings("JavaDoc")
 public class DeviceCommandsTest extends BaseTest {
 
     /**
@@ -36,7 +37,7 @@ public class DeviceCommandsTest extends BaseTest {
 
 
 
-        String command = getAssets("source.json");
+        String command = super.getAssets("touch.json");
 
         FullSocketRequest fullSocketRequest = new FullSocketRequest(command);
 

@@ -53,7 +53,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 //import static io.appium.uiautomator2.utils.Device.getUiDevice;
 import static org.junit.Assert.assertNotNull;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public abstract class BaseTest {
 

@@ -5,7 +5,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.testerkit.uia.model.serach.NodeInfo;
+import com.testerkit.uia.model.serach.PointInfo;
 import com.testerkit.uia.model.serach.ScrollInfo;
 import com.testerkit.uia.model.serach.StepInfo;
 import com.testerkit.uia.model.serach.By;
@@ -36,11 +38,16 @@ public class FullSocketRequest {
 
         // 1. 创建Gson对象
         Gson gson = new Gson();
+
+        if(js.has("points")){
+            List<PointInfo> list=  gson.fromJson(js.get("points"),new TypeToken<List<PointInfo>>(){}.getType());
+            step.setPoints(list);
+        }
         if(js.has("node")){
-            step.setNode(gson.fromJson(msg,NodeInfo.class));
+            step.setNode(gson.fromJson(js.get("node"),NodeInfo.class));
         }
         if(js.has("scroll")){
-            step.setScroll(gson.fromJson(msg,ScrollInfo.class));
+            step.setScroll(gson.fromJson(js.get("scroll"),ScrollInfo.class));
         }
         if(js.has("by")){
 

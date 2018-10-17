@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+
     //指定jdk版本,1.8解决编译rtc编译问题
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -8,6 +9,7 @@ android {
     }
 
     compileSdkVersion 26
+    //gradle自带编译工具
     //buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.testerkit"
@@ -27,6 +29,7 @@ android {
                 outputFileName = outputFileName.replace('debug.apk', "v${defaultConfig.versionName}.apk")
             }
         }
+
     }
     //解决编译错误
     lintOptions {
@@ -35,6 +38,10 @@ android {
 
     //统一设置了androidTest对应的内容，优先级最高
     sourceSets{
+        main{
+            jniLibs.srcDir 'libs'
+            jni.srcDirs = []//disable automatic ndk-build call
+        }
         androidTest{
             manifest.srcFile 'src/androidTestServer/AndroidManifest.xml'
         }
@@ -78,25 +85,22 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     //endregion
 
-    //region for e2e test
+    //region app for webRTC
     implementation 'com.android.support.test:runner:1.0.0'
     implementation 'com.android.support.test:rules:1.0.0'
     implementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     implementation project(':uia1')
-    //endregion
-
-    //region webRTC
 
     // https://mvnrepository.com/artifact/io.socket/socket.io-client/1.0.0
-//    implementation ('io.socket:socket.io-client:1.0.0') {
-//        //(排除) excluding org.json which is provided by Android
-//        //老版本：compile 'com.github.nkzawa:socket.io-client:0.4.2'
-//        exclude group: 'org.json', module: 'json'
-//    }
+    implementation ('io.socket:socket.io-client:1.0.0') {
+        //(排除) excluding org.json which is provided by Android
+        //老版本：compile 'com.github.nkzawa:socket.io-client:0.4.2'
+        exclude group: 'org.json', module: 'json'
+    }
 
     //endregion webRTC
 
-    //region uia2
+    //region AndroidTest server
 
     //compile 'com.google.guava:guava:18.0'
     // Testing-only dependencies
@@ -119,13 +123,13 @@ dependencies {
  */
 // android.testVariants.all{ variant ->
 //     // 开始构建当前变体的即时时间
-//     def currentTime = buildTime()
+//     //def currentTime = buildTime()
 //
 //     variant.outputs.each { output ->
 //         output.processResources.manifestFile = file('src/androidTest/AndroidManifest.xml')
 //         output.processManifest.enabled=false
 //         println "[testVariants][in]**************************************"
-//         println "currentTime: ${currentTime}"
+//         //println "currentTime: ${currentTime}"
 //         println "variant: ${output.name}"
 //         println "buildType: ${variant.buildType.name}"
 //         println "flavor: ${variant.flavorName}"

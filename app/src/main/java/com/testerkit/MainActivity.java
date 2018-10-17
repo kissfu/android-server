@@ -11,6 +11,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startService(new Intent(this, ServiceAntiKilled.class));
+        //Intent intent=new Intent(MainActivity.this, RTCActivity.class);
+        //startActivity(intent);
         finish();
     }
 }

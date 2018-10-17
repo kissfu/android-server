@@ -18,6 +18,8 @@ public class StepInfo {
 
     private List<By> by ;
 
+    private List<PointInfo> points;
+
 
 
     public void setAction(String action){
@@ -51,4 +53,11 @@ public class StepInfo {
         return this.by;
     }
 
+    public List<PointInfo> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<PointInfo> points) {
+        this.points = points;
+    }
 }
