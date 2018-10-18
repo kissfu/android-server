@@ -51,11 +51,6 @@ android {
     flavorDimensions 'default'
     productFlavors {
         //名字和目录对应
-        e2eTest {
-            testApplicationId 'com.testerkit.uia2.e2etest'
-            //manifestPlaceholders = [suffix :'e2etest']
-            //applicationId 'com.testerkit.uia2.e2etest'
-        }
         server{
             testApplicationId 'com.testerkit.uia2.server'
             //manifestPlaceholders = [suffix :'server']

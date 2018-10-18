@@ -54,6 +54,7 @@ Plugin version--->Required Gradle version--->Required SDK Build Tolls version
 
 -   This framework requires Android 4.1 (API level 16) or higher.
 -   UiAutomator工具是通过InputManager或者更早的WindowManager来注入KeyEvent等
+-   可以通过socket与其他app通信
 
 #### UIA2
 
