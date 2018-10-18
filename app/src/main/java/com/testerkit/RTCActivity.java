@@ -36,6 +36,7 @@ public class RTCActivity extends Activity implements RtcListener{
     }
 
 
+    public static final int SCREEN_RESOLUTION_SCALE = 2;
     private static final int CAPTURE_PERMISSION_REQUEST_CODE = 1;
     private static Intent mMediaProjectionPermissionResultData;
     private static int mMediaProjectionPermissionResultCode;
@@ -71,7 +72,7 @@ public class RTCActivity extends Activity implements RtcListener{
         getWindowManager().getDefaultDisplay().getSize(displaySize);
 
         PeerConnectionClient.PeerConnectionParameters params = new PeerConnectionClient.PeerConnectionParameters(
-                true, false, true,displaySize.x, displaySize.y, 0, 0, "VP8",false,
+                true, false, true,displaySize.x/SCREEN_RESOLUTION_SCALE, displaySize.y/SCREEN_RESOLUTION_SCALE, 0, 0, "VP8",false,
                 true, 0, "OPUS", false, false, false, false, false, false, false, false, null);
         mWebRtcClient = new WebRtcClient(getApplicationContext(), this, createScreenCapturer(), params);
 

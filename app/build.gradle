@@ -13,6 +13,7 @@ android {
     //buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.testerkit"
+        testApplicationId 'com.testerkit.uia2.server'
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 20180622
@@ -25,8 +26,39 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         applicationVariants.all { variant ->
-            variant.outputs.all {
+            variant.outputs.all { output ->
                 outputFileName = outputFileName.replace('debug.apk', "v${defaultConfig.versionName}.apk")
+            }
+        }
+
+        android.testVariants.all { variant ->
+            //开始构建当前变体的即时时间
+            def time = currentTime()
+            variant.outputs.all { output ->
+                output.processManifest.doLast {
+                    println "**************************************"
+                    println "startTime: ${time}"
+                    /**
+                     * Stores the path to the maifest.
+                     * "$manifestOutputDirectory"等价output.processManifest.manifestOutputDirectory
+                     * output.processResources.manifestFile 直接输出文件路径
+                     */
+
+//                    println "$manifestOutputDirectory"
+//                    println output.processManifest.manifestOutputDirectory
+//                    println output.processResources.manifestFile
+                    String manifestPath = "$manifestOutputDirectory/AndroidManifest.xml"
+                    // Stores the contents of the manifest.
+                    def manifestContent = file(manifestPath).getText()
+                    // Changes the version code in the stored text.
+                    manifestContent = manifestContent.replace('android:versionCode="1"', String.format('android:versionCode="%s"', defaultConfig.versionCode))
+                    manifestContent = manifestContent.replace('android:versionName="1"', String.format('android:versionName="%s"', defaultConfig.versionName))
+                    // Overwrites the manifest with the new text.
+                    file(manifestPath).write(manifestContent)
+                    println "endTime:  ${currentTime()}"
+                    println "**************************************"
+                }
+                outputFileName = outputFileName.replace('app-debug-androidTest.apk', "uia2-v${defaultConfig.versionName}.apk")
             }
         }
 
@@ -43,24 +75,11 @@ android {
             jni.srcDirs = []//disable automatic ndk-build call
         }
         androidTest{
-            manifest.srcFile 'src/androidTestServer/AndroidManifest.xml'
+            manifest.srcFile 'src/androidTest/AndroidManifest.xml'
+            //setRoot 'src/androidTest'
         }
     }
-    //for e2eTest flavors
-    //纬度和app对应默认defaultConfig
-    flavorDimensions 'default'
-    productFlavors {
-        //名字和目录对应
-        server{
-            testApplicationId 'com.testerkit.uia2.server'
-            //manifestPlaceholders = [suffix :'server']
-            //applicationId 'com.testerkit.uia2.server'
-        }
-    }
-    //for e2eTest 使用默认的设置，可以使用Android Instrumented Tests测试
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
+
 }
 
 
@@ -110,72 +129,10 @@ dependencies {
     //endregion
 }
 
-
-//region Variants忽略AndroidTestManifest的合并
-/**==================注意==============
- * 1、如果重新编译了项目或者clear，需要注释一下代码，编译成功后再恢复代码编译一次即可
- * 忽略AndroidTestManifest的合并
+/**
+ * 获取当前事件
+ * @return
  */
-// android.testVariants.all{ variant ->
-//     // 开始构建当前变体的即时时间
-//     //def currentTime = buildTime()
-//
-//     variant.outputs.each { output ->
-//         output.processResources.manifestFile = file('src/androidTest/AndroidManifest.xml')
-//         output.processManifest.enabled=false
-//         println "[testVariants][in]**************************************"
-//         //println "currentTime: ${currentTime}"
-//         println "variant: ${output.name}"
-//         println "buildType: ${variant.buildType.name}"
-//         println "flavor: ${variant.flavorName}"
-//         println "manifest:  ${output.processResources.manifestFile}"
-//         //将生成的apk文件保存至根目录的_apk文件下
-//         def outputFile = output.outputFile
-//         println "outputFile:  ${outputFile}"
-//         println "[testVariants][out]**************************************"
-//     }
-// }
-
-//https://blog.csdn.net/u013394527/article/details/50977701
-//android.applicationVariants.all { variant ->
-//    // 开始构建当前变体的即时时间
-//    def currentTime = buildTime()
-//
-//    variant.outputs.each { output ->
-//        println "[applicationVariants][in]**************************************"
-//        println "currentTime: ${currentTime}"
-//        println "variant: ${output.name}"
-//        println "buildType: ${variant.buildType.name}"
-//        println "flavor: ${variant.flavorName}"
-//        println "manifest:  ${output.processResources.manifestFile}"
-//        //将生成的apk文件保存至根目录的_apk文件下
-//        def outputFile = output.outputFile
-//        println "outputFile:  ${outputFile}"
-//        println "[applicationVariants][out]**************************************"
-//    }
-//}
-//def buildTime() {
-//    return new Date().format("yyyy.MM.dd_HH.mm.ss", TimeZone.getTimeZone("UTC"))
-//}
-////替换AndroidManifest.xml的REPLACE_KEY字符串为渠道名称
-//android.applicationVariants.all { variant ->
-//    variant.outputs.each { output ->
-//        output.processManifest.doLast {
-//            //v1.11之前这里用的copy{}，我换成了文件操作，这样可以在v1.11版本正常运行，并保持文件夹整洁
-//            //${buildDir}是指build文件夹
-//            //${variant.dirName}是flavor/buildtype，例如GooglePlay/release，运行时会自动生成
-//            //下面的路径是类似这样：build/intermediates/manifests/GooglePlay/release/AndroidManifest.xml
-//            def manifestFile = "${buildDir}/intermediates/manifests/full/${variant.dirName}/AndroidManifest.xml"
-//            println '===>'+manifestFile
-//
-//            //将字符串REPLACE_KEY替换成flavor的名字
-//            //def updatedContent = new File(manifestFile).getText('UTF-8').replaceAll("REPLACE_KEY", "${variant.productFlavors[0].name}")
-//            //new File(manifestFile).write(updatedContent, 'UTF-8')
-//
-//            //将此次flavor的AndroidManifest.xml文件指定为我们修改过的这个文件
-//            //variant.processResources.manifestFile = file("${buildDir}/intermediates/manifests/full/${variant.dirName}/AndroidManifest.xml")
-//        }
-//    }
-//}
-
-//endregion
+def currentTime() {
+    return new Date().format("yyyy.MM.dd_HH.mm.ss", TimeZone.getTimeZone("UTC"))
+}
