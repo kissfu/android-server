@@ -20,6 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 
+import com.testerkit.uia.model.serach.PointInfo;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.SocketUtils;
 
@@ -377,8 +378,9 @@ public class WebRtcClient {
             data.get(bytes);
             String msg = null;
             try {
+
                 msg = new String(bytes,"utf-8");
-                SocketUtils.tcpPost("127.0.0.1","20008",msg);
+                SocketUtils.request("127.0.0.1",20008,msg,500);
                 //ClientHelper.getInstance().write(msg);
                 //ClientHelper.getInstance().write("c\n");
             } catch (UnsupportedEncodingException e) {

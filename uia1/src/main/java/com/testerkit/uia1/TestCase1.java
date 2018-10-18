@@ -3,6 +3,7 @@ package com.testerkit.uia1;
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
+import com.testerkit.uia.servers.socket.NettyServer;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia1.core.DeviceCore1;
@@ -23,7 +24,7 @@ public class TestCase1  extends UiAutomatorTestCase implements ITestCase {
     public void runTest(){
         this.initCore();
 
-
+        NettyServer.getInstance().start();
         int i=0;
         while (true){
             Logger.info("seconds elapsed,"+i);

@@ -127,10 +127,10 @@ dependencies {
  **/
 
 //有问题
-task release(type:Exec) {
-    group "test"
-    commandLine './release.sh',dxFile,jarFile,'./libs/netty-all-4.1.17.Final.jar'
-}
+//task release(type:Exec) {
+//    group "test"
+//    commandLine './release.sh',dxFile,jarFile,'./libs/netty-all-4.1.17.Final.jar'
+//}
 
 task release2(dependsOn:build,type:Exec) {
     group "test"

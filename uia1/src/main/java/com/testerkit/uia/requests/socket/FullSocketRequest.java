@@ -77,7 +77,7 @@ public class FullSocketRequest {
 
 
     public String uri() {
-        return step.getAction();
+        return step.getAction()+"/"+step.getRule();
     }
 
 

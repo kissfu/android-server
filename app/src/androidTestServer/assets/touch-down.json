@@ -1,0 +1,12 @@
+{
+  "action": "touch",
+  "rule": "down",
+  "points": [
+    {
+      "type": "d",
+      "x": 143,
+      "y": 181,
+      "duration": 0
+    }
+  ]
+}

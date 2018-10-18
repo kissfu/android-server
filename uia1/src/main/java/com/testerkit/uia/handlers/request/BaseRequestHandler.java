@@ -70,6 +70,9 @@ public abstract class BaseRequestHandler {
 
     public String getSessionId(IRequest request) {
 
+        if(request.data() == null){
+            return "NO_SESSION_ID";
+        }
         return (String) request.data().get(AppiumServlet.SESSION_ID_KEY);
     }
 

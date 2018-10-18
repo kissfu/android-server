@@ -1,0 +1,99 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.testerkit.uia2.e2etest;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.Until;
+
+import com.testerkit.uia.utils.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.concurrent.TimeoutException;
+
+
+import static android.os.SystemClock.elapsedRealtime;
+import static android.os.SystemClock.sleep;
+
+@SuppressWarnings("JavaDoc")
+public class TestUtils {
+
+    private static final int APP_LAUNCH_RETRIES_COUNT = 3;
+    private static final String PM_GRANT_COMMAND = "pm grant %s %s";
+
+    public static void waitForSeconds(int seconds) {
+        sleep(seconds * 1000);
+    }
+
+    public static void waitForMillis(int millis) {
+        sleep(millis);
+    }
+
+
+
+    protected static void startActivity(Context ctx, String activity) throws JSONException {
+        final String fullActivityName = Config.APP_PKG + activity;
+        int retriesCount = 0;
+        while (retriesCount < APP_LAUNCH_RETRIES_COUNT) {
+            try {
+                Intent intent = new Intent().setClassName(Config.APP_PKG, fullActivityName)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                ctx.stopService(intent);
+                ctx.startActivity(intent);
+                Logger.info("Waiting for app to launch:" + fullActivityName);
+                //waitForAppToLaunch(Config.APP_PKG);
+                return;
+            } catch (Exception e) {
+                Logger.error("App launch retries count:" + retriesCount, e);
+            }
+            retriesCount++;
+        }
+    }
+
+    public static void grantPermission(final Context context, final String permission) throws
+            IOException {
+        Logger.info(String.format("Granting permission '%s' to %s", permission, context
+                .getPackageName()));
+        UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).executeShellCommand(
+                String.format(PM_GRANT_COMMAND, context.getPackageName(), permission));
+    }
+
+
+    /**
+     * return JSONObjects count in a JSONArray
+     *
+     * @param jsonArray
+     * @return count of JSONObjects
+     */
+    public static int getJsonObjectCountInJsonArray(JSONArray jsonArray) {
+        int count = 0;
+        for (int i = 0; i < jsonArray.length(); i++, count++) {
+            try {
+                jsonArray.getJSONObject(i);
+            } catch (JSONException ignore) {
+            }
+        }
+        return count;
+    }
+}
