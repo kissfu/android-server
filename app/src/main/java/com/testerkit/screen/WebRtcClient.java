@@ -20,6 +20,8 @@ import android.content.Context;
 import android.util.Log;
 
 
+import com.testerkit.logcat.ILogcat;
+import com.testerkit.logcat.LogcatHelper;
 import com.testerkit.uia.model.serach.PointInfo;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.SocketUtils;
@@ -177,6 +179,17 @@ public class WebRtcClient {
                     String type = data.optString("type");
                     Log.d(TAG, "socket received " + type + " from " + from);
                     JSONObject payload = null;
+                    if(type.equals("logcat")){
+                        payload = data.optJSONObject("payload");
+                        boolean isOpen = payload.getBoolean("isOpen");
+                        String cmd = payload.getString("cmd");
+                        if(isOpen){
+                           LogcatHelper.getInstance().start(cmd);
+                        }else {
+                            LogcatHelper.getInstance().stop();
+                        }
+                        return;
+                    }
 
                     if (!type.equals("init")) {
                         payload = data.optJSONObject("payload");
@@ -213,7 +226,7 @@ public class WebRtcClient {
         };
     }
 
-    public class Peer implements SdpObserver, PeerConnection.Observer, DataChannel.Observer {
+    public class Peer implements SdpObserver, PeerConnection.Observer, DataChannel.Observer ,ILogcat {
         public PeerConnection pc;
         public String id;
         public int endPoint;
@@ -319,7 +332,34 @@ public class WebRtcClient {
             this.endPoint = endPoint;
             pc.addStream(mLocalMediaStream); //, new MediaConstraints()
             initDataChannel();
+            LogcatHelper.getInstance().setLogcat(this);
         }
+        //region
+
+        @Override
+        public void onLocat(String msg) {
+            if(dc == null){
+                return;
+            }
+            new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            byte[] bytes = msg.getBytes();
+                            DataChannel.Buffer buffer = new DataChannel.Buffer(ByteBuffer.wrap(bytes), false);
+                            dc.send(buffer);
+                            //Thread.sleep(3*1000);
+                            Logger.info(TAG, "onDataChannel send...:" + dc.state());
+                        } catch (Exception e) {
+                            Logger.error(e);
+                        }
+                    }}).start();
+        }
+
+
+        //endregion
+
+        //region DataChannel
         DataChannel dc;
         private void initDataChannel(){
             /*
@@ -344,28 +384,6 @@ public class WebRtcClient {
             Log.d(TAG, "onDataChannel onStateChange:" + dc.state());
             if(dc.state() == DataChannel.State.OPEN){
 
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                        for (int i = 0; i < 10; i++) {
-//                            byte[] msg = (i+"send from android").getBytes();
-//                            DataChannel.Buffer buffer = new DataChannel.Buffer(
-//                                    ByteBuffer.wrap(msg),
-//                                    false);
-//
-//
-//                            try {
-//                                dc.send(buffer);
-//                                Thread.sleep(3*1000);
-//                                Log.d(TAG, "onDataChannel send...:" + dc.state());
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                }).start();
-
             }
         }
 
@@ -389,6 +407,8 @@ public class WebRtcClient {
 
             Log.d(TAG,"onMessage..."+msg);
         }
+
+        //endregion
     }
 
     private Peer addPeer(String id, int endPoint) {
@@ -419,7 +439,7 @@ public class WebRtcClient {
         PeerConnectionFactory.initializeAndroidGlobals(mContext, true, true, params.videoCodecHwAcceleration);
         factory = new PeerConnectionFactory();
 
-        String host = "http://192.168.2.2:9003";
+        String host = "http://10.215.101.86:9003";
         try {
             mSocket = IO.socket(host);
         } catch (URISyntaxException e) {
@@ -478,7 +498,9 @@ public class WebRtcClient {
     }
 
     private int findEndPoint() {
-        for (int i = 0; i < MAX_PEER; i++) if (!endPoints[i]) return i;
+        for (int i = 0; i < MAX_PEER; i++)
+            if (!endPoints[i])
+                return i;
         return MAX_PEER;
     }
 

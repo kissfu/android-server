@@ -64,6 +64,17 @@ Plugin version--->Required Gradle version--->Required SDK Build Tolls version
 #### UIA1项目
 -   lib目录下使用android api 18
 
+#### APP webRTC
+-   autobanh.jar
+    https://github.com/crossbario/autobahn-java
+    dependencies {
+        implementation 'io.crossbar.autobahn:autobahn-android:18.5.1'
+    }
+-   google-webrtc
+    https://webrtc.org/native-code/android/
+    implementation 'org.webrtc:google-webrtc:1.0.+'
+
+
 #### deployment
 
 - [bazel](https://github.com/bazelbuild/bazel/tree/master/examples)
