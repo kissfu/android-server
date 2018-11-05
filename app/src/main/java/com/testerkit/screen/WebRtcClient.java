@@ -337,7 +337,7 @@ public class WebRtcClient {
         //region
 
         @Override
-        public void onLocat(String msg) {
+        public void onLocat(final String msg) {
             if(dc == null){
                 return;
             }
