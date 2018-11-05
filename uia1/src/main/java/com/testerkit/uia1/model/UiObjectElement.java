@@ -24,6 +24,7 @@ import com.testerkit.uia.exceptions.NoAttributeFoundException;
 import com.testerkit.uia.model.AndroidElement;
 import com.testerkit.uia.model.serach.By;
 import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.ReflectionUtils;
 import com.testerkit.uia.utils.elements.Point;
 import com.testerkit.uia.utils.elements.PositionHelper;
 
@@ -47,6 +48,9 @@ public class UiObjectElement implements AndroidElement {
         this.element = element;
 
     }
+
+
+    //region implements AndroidElement
 
     @Override
     public void click() throws UiObjectNotFoundException {
@@ -157,4 +161,41 @@ public class UiObjectElement implements AndroidElement {
         Logger.error("Destination should be either UiObject or UiObject2");
         return false;
     }
+
+
+    //endregion
+
+    //region type text
+
+    @Override
+    public boolean typeDefault(String text){
+        boolean success = false;
+
+        try {
+            UiObject uiObject = getFocusedObject();
+            if(uiObject != null && uiObject.exists() && uiObject.getClassName().equals("android.widget.EditText")){
+                return  uiObject.setText(text);
+            }
+            uiObject = getEditObject();
+
+            if(uiObject != null && uiObject.exists()){
+                return  uiObject.setText(text);
+            }
+        }catch (Exception e){
+            Logger.error(e);
+        }
+
+        return success;
+    }
+
+    private UiObject getFocusedObject() throws Exception{
+        return new UiObject(new UiSelector().focusable(true));
+    }
+
+    private UiObject getEditObject()  throws Exception{
+        return new UiObject(new UiSelector().className(android.widget.EditText.class).instance(0));
+    }
+
+
+    //endregion
 }

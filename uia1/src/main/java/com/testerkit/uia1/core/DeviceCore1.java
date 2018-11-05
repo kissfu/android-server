@@ -7,9 +7,11 @@ import com.android.uiautomator.core.UiSelector;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
+import com.testerkit.uia.model.AndroidElement;
 import com.testerkit.uia.model.KeyEnum;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia1.model.UiObjectElement;
 
 /**
  * Created by able on 2018/9/6.
@@ -34,16 +36,25 @@ public class DeviceCore1 extends DeviceCore {
         return uiDevice;
     }
 
+    //region wakeup
 
     @Override
     public void wake() throws RemoteException {
         uiDevice.wakeUp();
     }
 
+    //endregion
+
+    //region deviceinfo
+
     @Override
     public ScreenSize getScreenSize() {
-        return new ScreenSize(uiDevice.getDisplayWidth(),uiDevice.getDisplayHeight());
+        return new ScreenSize(uiDevice.getDisplayWidth(), uiDevice.getDisplayHeight());
     }
+
+    //endregion
+
+    //region pressKey
 
     @Override
     public boolean pressKey(String keyName) throws UIAException {
@@ -79,9 +90,13 @@ public class DeviceCore1 extends DeviceCore {
     }
 
     @Override
-    public boolean pressKey(int keycode,int metaState) throws UIAException {
-        return uiDevice.pressKeyCode(keycode,metaState);
+    public boolean pressKey(int keycode, int metaState) throws UIAException {
+        return uiDevice.pressKeyCode(keycode, metaState);
     }
+
+    //endregion
+
+    //region waitForIdle
 
     @Override
     public void waitForIdle() {
@@ -101,9 +116,14 @@ public class DeviceCore1 extends DeviceCore {
         }
     }
 
-    //TODO
-    public void type(String txt){
+    //endregion
 
+    @Override
+    public boolean type(String text) {
+        AndroidElement objectElement = new UiObjectElement(null, null);
+
+        objectElement.typeDefault(text);
+        return true;
     }
 
 }

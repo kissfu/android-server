@@ -18,7 +18,9 @@ package com.testerkit.uia2.model;
 
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
+import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
+import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
@@ -26,10 +28,12 @@ import android.support.test.uiautomator.UiSelector;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
+import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.exceptions.InvalidCoordinatesException;
 import com.testerkit.uia.exceptions.NoAttributeFoundException;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.model.AndroidElement;
+import com.testerkit.uia.model.serach.ByMatcher;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.elements.Point;
 import com.testerkit.uia.utils.elements.PositionHelper;
@@ -54,6 +58,9 @@ public class UiObject2Element implements AndroidElement {
     private static boolean isToastElement(AccessibilityNodeInfo nodeInfo) {
         return nodeInfo.getClassName().toString().equals(Toast.class.getName());
     }
+
+    //region
+
     @Override
     public void click() {
         element.click();
@@ -160,4 +167,52 @@ public class UiObject2Element implements AndroidElement {
         element.drag(new android.graphics.Point(coords.x.intValue(), coords.y.intValue()), steps);
         return true;
     }
+
+    //endregion
+
+
+    //region type text
+
+    @Override
+    public boolean typeDefault(String text){
+        boolean success = false;
+
+        try {
+            UiObject2 uiObject = getFocusedObject();
+            if(uiObject != null &&  uiObject.getClassName().equals("android.widget.EditText")){
+                uiObject.setText(text);
+                return true;
+            }
+            uiObject = getEditObject();
+
+            if(uiObject != null){
+                uiObject.setText(text);
+                return true;
+            }
+        }catch (Exception e){
+            Logger.error(e);
+        }
+
+        return success;
+    }
+
+    private UiObject2 getFocusedObject() throws Exception{
+        BySelector bySelector = By.focused(true);
+
+        UiDevice uiDevice =  (UiDevice) BaseContext.getInstance().getDevice().getUiDevice();
+        return  uiDevice.findObject(bySelector);
+        //return new UiObject(new UiSelector().focusable(true));
+    }
+
+    private UiObject2 getEditObject()  throws Exception{
+        BySelector bySelector = By.clazz(android.widget.EditText.class);
+        UiDevice uiDevice =  (UiDevice) BaseContext.getInstance().getDevice().getUiDevice();
+        return  uiDevice.findObject(bySelector);
+
+        //return new UiObject(new UiSelector().className(android.widget.EditText.class).instance(0));
+    }
+
+
+
+    //endregion
 }

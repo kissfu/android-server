@@ -123,4 +123,17 @@ public class ReflectionUtils {
     public static Method method(final String className, final String method, final Class... parameterTypes) throws UIAException {
         return method(getClass(className), method, parameterTypes);
     }
+
+    public static boolean isMethodExist(Class clazz, String methodName, Class... parameterTypes) {
+        try {
+            clazz.getMethod(methodName, parameterTypes);
+            return true;
+        } catch (NoSuchMethodException e) {
+            Logger.error( "Cannot find method " + methodName,e);
+        } catch (SecurityException e) {
+            Logger.error("Due to security issue, unable to access method " + methodName,e);
+        }
+
+        return false;
+    }
 }

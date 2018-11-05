@@ -38,6 +38,7 @@ public abstract class PressEvent extends SafeRequestHandler {
         super(mappedUri);
     }
 
+    protected String FUNC = "PressEvent";
     protected StepInfo step;
 
     @Override
@@ -54,9 +55,5 @@ public abstract class PressEvent extends SafeRequestHandler {
     }
 
     protected abstract boolean executePressEvent() throws Exception;
-
-    private void test(){
-        
-    }
 
 }

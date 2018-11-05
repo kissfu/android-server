@@ -69,4 +69,6 @@ public interface AndroidElement {
 
     boolean dragTo(final Object destObj, final int steps)
             throws Exception, InvalidCoordinatesException;
+
+    boolean typeDefault(String text);
 }

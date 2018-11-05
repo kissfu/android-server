@@ -23,8 +23,14 @@ import android.view.KeyEvent;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.KeyEnum;
+import com.testerkit.uia.utils.Constants;
 import com.testerkit.uia.utils.InteractionUtils;
 import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.SleepUtils;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 
 public class PressKeyCodeLong extends PressEvent {
@@ -41,8 +47,12 @@ public class PressKeyCodeLong extends PressEvent {
         metaState = metaState == -1 ? 0 : metaState;
         Integer flags = step.getKey().getFlags();
         flags = flags == -1 ? 0 : flags;
-        if(keyEnum != null){
+        if (keyEnum != null) {
             keyCode = keyEnum.getValue();
+        }
+
+        if (Constants.API_LEVEL() >= 18 && monkeyPressLong(keyCode)) {
+            return true;
         }
 
         final long downTime = SystemClock.uptimeMillis();
@@ -59,5 +69,33 @@ public class PressKeyCodeLong extends PressEvent {
 
         return isSuccessful;
     }
+
+    private boolean monkeyPressLong(int keyCode) {
+        boolean success = false;
+
+        try {
+
+            File file = new File("/data/local/tmp/key.monkey");
+            BufferedWriter output = new BufferedWriter(new FileWriter(file));
+            String monkey = "#Start of Script\r\ntype= user\r\ncount= 49\r\nspeed= 1.0\r\nstart data >>\r\nDispatchKey(0,0,0,%d,0,0,0,0)\r\nUserWait(4000)\r\nDispatchKey(0,0,1,%d,0,0,0,0)";
+            monkey = String.format(monkey, keyCode, keyCode);
+            output.write(monkey);
+            output.flush();
+            output.close();
+
+            SleepUtils.sleep(200L);
+
+            Process process = Runtime.getRuntime().exec("monkey -f /data/local/tmp/key.monkey 1");
+            process.waitFor();
+            SleepUtils.sleep(500L);
+            success = true;
+
+        } catch (Exception e) {
+            Logger.error(e);
+        }
+
+        return success;
+    }
+
 
 }

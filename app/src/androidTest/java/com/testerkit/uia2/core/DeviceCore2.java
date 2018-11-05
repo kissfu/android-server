@@ -4,8 +4,10 @@ import android.os.RemoteException;
 
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.core.DeviceCore;
+import com.testerkit.uia.model.AndroidElement;
 import com.testerkit.uia.model.KeyEnum;
 import com.testerkit.uia.model.ScreenSize;
+import com.testerkit.uia2.model.UiObject2Element;
 
 /**
  * Created by able on 2018/9/6.
@@ -90,4 +92,11 @@ public class DeviceCore2 extends DeviceCore {
         uiDevice.waitForIdle(timeInMS);
     }
 
+    @Override
+    public boolean type(String text) {
+        AndroidElement objectElement = new UiObject2Element(null, null);
+
+        objectElement.typeDefault(text);
+        return true;
+    }
 }

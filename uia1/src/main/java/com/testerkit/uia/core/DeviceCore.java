@@ -57,6 +57,8 @@ public abstract class DeviceCore {
 
    public abstract void waitForIdle(long timeInMS);
 
+   public abstract boolean type(String text);
+
    //region public method
    protected UiAutomatorBridge uiAutomatorBridge ;
    protected final Object uiDevice;
