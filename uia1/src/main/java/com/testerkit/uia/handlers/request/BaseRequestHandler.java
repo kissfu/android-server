@@ -2,9 +2,11 @@ package com.testerkit.uia.handlers.request;
 
 //import android.support.test.uiautomator.UiObjectNotFoundException;
 
+import com.testerkit.uia.model.serach.StepInfo;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.http.IHttpRequest;
+import com.testerkit.uia.requests.socket.ISocketRequest;
 import com.testerkit.uia.servers.http.AppiumServlet;
 import com.testerkit.uia.utils.Logger;
 
@@ -49,6 +51,13 @@ public abstract class BaseRequestHandler {
             return new JSONObject(json);
         }
         return new JSONObject();
+    }
+
+    public StepInfo getStep(IRequest request){
+        if(request instanceof  ISocketRequest) {
+            return ((ISocketRequest)request).getStepInfo();
+        }
+        return null;
     }
 
     public Map<String, Object> getPayload(IHttpRequest request, String jsonKey) throws JSONException {

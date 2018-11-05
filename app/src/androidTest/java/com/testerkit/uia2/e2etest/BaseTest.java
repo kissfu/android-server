@@ -70,7 +70,6 @@ public abstract class BaseTest {
      */
     @BeforeClass
     public static void startServer() throws JSONException, IOException {
-
         ctx = InstrumentationRegistry.getInstrumentation().getContext();
         new Thread(new Runnable() {
             @Override
@@ -123,4 +122,6 @@ public abstract class BaseTest {
 
         return "";
     }
+
+
 }

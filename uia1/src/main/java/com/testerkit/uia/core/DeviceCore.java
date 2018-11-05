@@ -40,13 +40,18 @@ public abstract class DeviceCore {
    public abstract  boolean pressKey(String keyName);
 
    /**
+    * 这里的metastate实际上就是控制按键，比如说shift键，alt键，ctrl键等控制键
+    * @param keycode
+    * @param metaState 默认是 0
+    * @return
+    */
+   public abstract boolean pressKey(int keycode,int metaState);
+   /**
     * 给定keycode，由UIDevice执行press keycode.
     * @param keycode
     * @return true/false 表示按键是否执行成功。
     */
    public abstract boolean pressKey(int keycode);
-
-
 
    public abstract void waitForIdle();
 

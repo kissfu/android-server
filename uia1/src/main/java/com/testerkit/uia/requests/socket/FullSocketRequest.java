@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.testerkit.uia.model.serach.KeyInfo;
 import com.testerkit.uia.model.serach.NodeInfo;
 import com.testerkit.uia.model.serach.PointInfo;
 import com.testerkit.uia.model.serach.ScrollInfo;
@@ -49,6 +50,9 @@ public class FullSocketRequest {
         if(js.has("scroll")){
             step.setScroll(gson.fromJson(js.get("scroll"),ScrollInfo.class));
         }
+        if(js.has("key")){
+            step.setKey(gson.fromJson(js.get("key"),KeyInfo.class));
+        }
         if(js.has("by")){
 
             JsonArray arr = js.getAsJsonArray("by");
@@ -87,16 +91,13 @@ public class FullSocketRequest {
 
     public static void main(String[] args) {
         String json = "{\n" +
-                "  \"action\": \"touch\",\n" +
-                "  \"rule\": \"down\",\n" +
-                "  \"points\": [\n" +
-                "    {\n" +
-                "      \"type\": \"d\",\n" +
-                "      \"x\": 143.123,\n" +
-                "      \"y\": 181.456,\n" +
-                "      \"duration\": 0\n" +
-                "    }\n" +
-                "  ]\n" +
+                "  \"action\":\"press\",\n" +
+                "  \"rule\":\"keycode\",\n" +
+                "  \"key\":{\n" +
+                "    \"keyName\":\"HOME\",\n" +
+                "    \"keyCode\":3,\n" +
+                "    \"metaState\":0\n"+
+                "  }\n" +
                 "}";
         FullSocketRequest socketRequest = new FullSocketRequest(json);
     }

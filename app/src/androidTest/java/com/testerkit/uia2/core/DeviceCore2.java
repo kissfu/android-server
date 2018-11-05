@@ -69,6 +69,12 @@ public class DeviceCore2 extends DeviceCore {
         return false;
     }
 
+
+    @Override
+    public boolean pressKey(int keycode,int metaState) {
+        return uiDevice.pressKeyCode(keycode,metaState);
+    }
+
     @Override
     public boolean pressKey(int keycode) {
         return uiDevice.pressKeyCode(keycode);

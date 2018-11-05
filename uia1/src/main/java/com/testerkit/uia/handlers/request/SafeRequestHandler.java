@@ -75,7 +75,6 @@ public abstract class SafeRequestHandler extends BaseRequestHandler {
             Logger.error("The coordinates provided to an interactions operation are invalid. ", e);
             return new AppiumResponse(getSessionId(request), WDStatus.INVALID_ELEMENT_COORDINATES, e);
         } catch (NoSuchContextException e) {
-            //TODO: update error code when w3c spec gets updated
             return new AppiumResponse(getSessionId(request), WDStatus.NO_SUCH_WINDOW,
                     new UIAException("Invalid window handle was used: only 'NATIVE_APP' and 'WEBVIEW' are supported."));
         } catch ( StaleElementReferenceException e) {//StaleObjectException |

@@ -103,8 +103,7 @@ public class UiAutomationElement extends UiElement<AccessibilityNodeInfo, UiAuto
         this.children = mutableChildren == null ? null : Collections.unmodifiableList(mutableChildren);
     }
 
-    protected UiAutomationElement(String hierarchyClassName,
-                                  AccessibilityNodeInfo childNode, int index) {
+    protected UiAutomationElement(String hierarchyClassName, AccessibilityNodeInfo childNode, int index) {
         this.parent = null;
         Map<Attribute, Object> attribs = new EnumMap<>(Attribute.class);
 
@@ -142,7 +141,7 @@ public class UiAutomationElement extends UiElement<AccessibilityNodeInfo, UiAuto
         return rootElement;
     }
 
-    //@Nullable
+
     public static UiAutomationElement getCachedElement(AccessibilityNodeInfo rawElement,
                                                        AccessibilityNodeInfo windowRoot) {
         if (cache.get(rawElement) == null) {

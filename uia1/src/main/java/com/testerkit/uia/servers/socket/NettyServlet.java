@@ -1,6 +1,9 @@
 package com.testerkit.uia.servers.socket;
 
 import com.testerkit.uia.handlers.Source;
+import com.testerkit.uia.handlers.key.PressKeyCode;
+import com.testerkit.uia.handlers.key.PressKeyCodeLong;
+import com.testerkit.uia.handlers.key.PressKeyName;
 import com.testerkit.uia.handlers.request.BaseRequestHandler;
 import com.testerkit.uia.handlers.touch.TouchDown;
 import com.testerkit.uia.handlers.touch.TouchLongClick;
@@ -36,7 +39,12 @@ public class NettyServlet implements ISocketServlet {
         registerGetHandler();
     }
     private void  registerGetHandler(){
-        register(getHandler, new Source(baseUri+"source"));
+        register(getHandler, new Source(baseUri+"source/xml"));
+
+        register(getHandler, new PressKeyCode(baseUri+"press/key_code"));
+        register(getHandler, new PressKeyName(baseUri+"press/key_name"));
+        register(getHandler, new PressKeyCodeLong(baseUri+"press/key_code_long"));
+
         register(getHandler, new TouchDown(baseUri+"touch/down"));
         register(getHandler, new TouchUp(baseUri+"touch/up"));
         register(getHandler, new TouchMove(baseUri+"touch/move"));

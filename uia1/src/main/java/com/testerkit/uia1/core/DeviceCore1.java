@@ -3,6 +3,7 @@ package com.testerkit.uia1.core;
 import android.os.RemoteException;
 import android.os.SystemClock;
 
+import com.android.uiautomator.core.UiSelector;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
@@ -78,6 +79,11 @@ public class DeviceCore1 extends DeviceCore {
     }
 
     @Override
+    public boolean pressKey(int keycode,int metaState) throws UIAException {
+        return uiDevice.pressKeyCode(keycode,metaState);
+    }
+
+    @Override
     public void waitForIdle() {
         try {
             uiDevice.waitForIdle();
@@ -93,6 +99,11 @@ public class DeviceCore1 extends DeviceCore {
         } catch (Exception e) {
             Logger.error("Unable wait for AUT to idle");
         }
+    }
+
+    //TODO
+    public void type(String txt){
+
     }
 
 }

@@ -1,0 +1,10 @@
+{
+  "action":"press",
+  "rule":"key_code_long",
+  "key":{
+    "keyCode":3,
+    "metaState":-1,
+    "flags":-1
+  }
+}
+

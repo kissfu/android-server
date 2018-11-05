@@ -1,0 +1,8 @@
+{
+  "action":"press",
+  "rule":"key_name",
+  "key":{
+    "keyName":"HOME"
+  }
+}
+

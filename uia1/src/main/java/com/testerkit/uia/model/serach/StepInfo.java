@@ -11,6 +11,7 @@ public class StepInfo {
 
     private String rule;
 
+    private KeyInfo key;
 
     private NodeInfo node;
 
@@ -40,6 +41,15 @@ public class StepInfo {
     public NodeInfo getNode(){
         return this.node;
     }
+
+    public KeyInfo getKey() {
+        return key;
+    }
+
+    public void setKey(KeyInfo key) {
+        this.key = key;
+    }
+
     public void setScroll(ScrollInfo scroll){
         this.scroll = scroll;
     }
@@ -59,5 +69,10 @@ public class StepInfo {
 
     public void setPoints(List<PointInfo> points) {
         this.points = points;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("key=%s",key.toString());
     }
 }

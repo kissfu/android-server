@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentMap;
 //import static io.appium.uiautomator2.model.settings.Settings.ELEMENT_RESPONSE_ATTRIBUTES;
 //import static io.appium.uiautomator2.model.settings.Settings.SHOULD_USE_COMPACT_RESPONSES;
 
-//TODO
+
 public class Session {
     public static final String SEND_KEYS_TO_ELEMENT = "sendKeysToElement";
     public static Map<String, Object> capabilities = new HashMap<>();

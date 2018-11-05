@@ -30,7 +30,7 @@ public class SocketUtils {
                 writer.flush();
             }
             // 获取Socket Server的响应。
-            //line = reader.readLine();
+            line = reader.readLine();
         }catch (Exception e) {
             Logger.error("Socket Error: " + e.getMessage(), e);
         } finally {

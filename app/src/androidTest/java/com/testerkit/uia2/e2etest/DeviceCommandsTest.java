@@ -23,6 +23,7 @@ import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
 import com.testerkit.uia.requests.socket.FullSocketRequest;
 import com.testerkit.uia.utils.Constants;
+import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.SocketUtils;
 import com.testerkit.uia2.core.DeviceCore2;
 
@@ -32,21 +33,49 @@ import org.junit.Test;
 //@SuppressWarnings("JavaDoc")
 public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
+
     /**
-     * 界面元素获取
+     * 坐标 点下去和抬上去
      */
     @Test
-    public void getSource() {
-
-        this.initCore();
+    public void touchDownAndUp(){
+        initCore();
 
         String command = super.getAssets("touch-down.json");
 
         FullSocketRequest fullSocketRequest = new FullSocketRequest(command);
         String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-         command = super.getAssets("touch-up.json");
-         resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+        command = super.getAssets("touch-up.json");
+        resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
         //Logger.info(resultInfo.getDetail());
+    }
+    /**
+     * 界面元素获取
+     */
+    @Test
+    public void getSource() {
+        initCore();
+
+        String command = super.getAssets("source.json");
+
+        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+        Logger.debug("===>",resultInfo);
+
+    }
+    /**
+     * 按键操作
+     */
+    @Test
+    public void pressKey() {
+        initCore();
+
+//        String command = super.getAssets("press-key_name.json");
+//        String command = super.getAssets("press-key_code.json");
+        String command = super.getAssets("press-key_code_long.json");
+
+        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+        Logger.debug("===>",resultInfo);
+
 
     }
 

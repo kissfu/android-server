@@ -1,6 +1,6 @@
 {
   "action":"source",
-  "rule":"original",
+  "rule":"xml",
   "node":{
     "type":"uia",
     "index":"3",
