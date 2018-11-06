@@ -20,6 +20,6 @@ public class DeviceCommandsTest extends BaseTest {
         String command = super.getAssets("input-default.json");
 
         String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-        Logger.debug("===>",resultInfo);
+        Logger.info("===>",resultInfo);
     }
 }

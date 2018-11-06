@@ -173,7 +173,7 @@ public class UiObjectElement implements AndroidElement {
 
         try {
             UiObject uiObject = getFocusedObject();
-            if(uiObject != null && uiObject.exists() && uiObject.getClassName().equals("android.widget.EditText")){
+            if(uiObject != null && uiObject.exists()){
                 return  uiObject.setText(text);
             }
             uiObject = getEditObject();
@@ -189,7 +189,10 @@ public class UiObjectElement implements AndroidElement {
     }
 
     private UiObject getFocusedObject() throws Exception{
-        return new UiObject(new UiSelector().focusable(true));
+        UiSelector uiSelector = new UiSelector();
+        uiSelector.focusable(true);
+        uiSelector.className(android.widget.EditText.class);
+        return new UiObject(uiSelector);
     }
 
     private UiObject getEditObject()  throws Exception{

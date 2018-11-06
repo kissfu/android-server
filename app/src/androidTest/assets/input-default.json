@@ -3,7 +3,7 @@
   "rule":"default",
   "node":{
     "type":"uia",
-    "text":"hello你好"
+    "text":"hello"
   }
 }
 

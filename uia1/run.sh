@@ -7,6 +7,11 @@ then
   exit 1
 fi
 
+isDebug=false
+if [ $# == 2 ]
+then
+  isDebug="$2"
+fi
 PROCESS=`adb shell ps |grep $1|grep -v grep|grep -v PPID|awk '{ print $2}'`
 for i in $PROCESS
 do
@@ -23,6 +28,6 @@ echo "delete..."
 adb shell rm -f /data/local/tmp/${target}
 echo "push..."
 adb push ${destDir}/${target} /data/local/tmp/${target}
-echo "runtest..."
-adb shell uiautomator runtest /data/local/tmp/${target} -c com.testerkit.uia1.TestCase1#runTest --nohup  -e debug false
+echo "runtest...$*"
+adb shell uiautomator runtest /data/local/tmp/${target} -c com.testerkit.uia1.TestCase1#runTest --nohup  -e debug ${isDebug}
 echo 'OK ^_^..........'

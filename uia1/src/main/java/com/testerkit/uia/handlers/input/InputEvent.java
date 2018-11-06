@@ -34,7 +34,7 @@ public abstract class InputEvent extends SafeRequestHandler {
 
     @Override
     protected AppiumResponse safeHandle(IRequest request) throws Exception {
-        Logger.info("Calling PressKey... ");
+        Logger.info("Calling InputEvent... ");
 
         step = getStep(request);
 

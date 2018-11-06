@@ -49,7 +49,19 @@ public class Logger {
      * Logger error
      */
     public static void error(String message, Throwable throwable) {
-        android.util.Log.e(TAG, getString(message), throwable);
+        switch (DEBUG_LOCAL){
+            case 0:
+                android.util.Log.e(TAG, message, throwable);
+                break;
+            case 1:
+                System.err.println(TAG+message);
+                break;
+            case 2:
+                android.util.Log.e(TAG, message, throwable);
+                System.err.println(TAG+message);
+                break;
+        }
+
     }
 
     /**
@@ -86,6 +98,18 @@ public class Logger {
      * Logger debug
      */
     public static void debug(Object... messages) {
-        android.util.Log.d(TAG, getString(messages));
+        switch (DEBUG_LOCAL){
+            case 0:
+                android.util.Log.d(TAG, getString(messages));
+                break;
+            case 1:
+                System.out.println(TAG+getString(messages));
+                break;
+            case 2:
+                android.util.Log.d(TAG, getString(messages));
+                System.out.println(TAG+getString(messages));
+                break;
+        }
+
     }
 }
