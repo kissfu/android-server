@@ -46,7 +46,7 @@ public class LogcatHelper {
                     BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
                     String line = null;
                     while ((line = in.readLine()) != null) {
-                        Logger.info(FUNC,line+"\n");
+                        Logger.iFunc(FUNC,line+"\n");
                         if(logcat != null){
                             logcat.onLocat(line+"\n");
                         }

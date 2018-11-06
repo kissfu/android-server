@@ -29,7 +29,7 @@ public class TouchMove extends TouchEvent {
 
     @Override
     public boolean executeTouchEvent() throws UIAException {
-        Logger.info(FUNC,"TouchMove");
+        Logger.iFunc(FUNC,"TouchMove");
         try {
             int clickX = points.get(0).getX();
             int clickY = points.get(0).getY();

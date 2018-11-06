@@ -87,7 +87,7 @@ dependencies {
     // libs
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //App test for UnitTest
-    implementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
     //region App dependencies
 

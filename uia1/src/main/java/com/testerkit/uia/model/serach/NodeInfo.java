@@ -15,6 +15,7 @@ public class NodeInfo {
     private String type;
     private int index;
     private Rect bounds;
+    private String text;
 
 
     public String getType() {
@@ -39,5 +40,13 @@ public class NodeInfo {
 
     public void setBounds(Rect bounds) {
         this.bounds = bounds;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

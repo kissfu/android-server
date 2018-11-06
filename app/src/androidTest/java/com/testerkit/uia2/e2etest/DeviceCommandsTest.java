@@ -75,8 +75,19 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
         String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
         Logger.debug("===>",resultInfo);
+    }
 
+    /**
+     * 按键操作
+     */
+    @Test
+    public void inputText() {
+        initCore();
 
+        String command = super.getAssets("input-default.json");
+
+        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+        Logger.debug("===>",resultInfo);
     }
 
     @Override

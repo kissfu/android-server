@@ -80,7 +80,7 @@ public class RTCActivity extends Activity implements RtcListener{
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Logger.info(FUNC,"startScreenCapture,",requestCode,resultCode,",",data);
+        Logger.iFunc(FUNC,"startScreenCapture,",requestCode,resultCode,",",data);
         if (requestCode != CAPTURE_PERMISSION_REQUEST_CODE)
             return;
         mMediaProjectionPermissionResultCode = resultCode;
@@ -97,7 +97,7 @@ public class RTCActivity extends Activity implements RtcListener{
     }
 
     @Override
-    public void onStatusChanged(String newStatus) {
+    public void onStatusChanged(final String newStatus) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

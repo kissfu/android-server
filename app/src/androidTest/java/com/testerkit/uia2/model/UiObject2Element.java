@@ -179,7 +179,7 @@ public class UiObject2Element implements AndroidElement {
 
         try {
             UiObject2 uiObject = getFocusedObject();
-            if(uiObject != null &&  uiObject.getClassName().equals("android.widget.EditText")){
+            if(uiObject != null){
                 uiObject.setText(text);
                 return true;
             }
@@ -198,7 +198,7 @@ public class UiObject2Element implements AndroidElement {
 
     private UiObject2 getFocusedObject() throws Exception{
         BySelector bySelector = By.focused(true);
-
+        bySelector.clazz(android.widget.EditText.class);
         UiDevice uiDevice =  (UiDevice) BaseContext.getInstance().getDevice().getUiDevice();
         return  uiDevice.findObject(bySelector);
         //return new UiObject(new UiSelector().focusable(true));

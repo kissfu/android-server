@@ -1,6 +1,7 @@
 package com.testerkit.uia.servers.socket;
 
 import com.testerkit.uia.handlers.Source;
+import com.testerkit.uia.handlers.input.InputDefault;
 import com.testerkit.uia.handlers.key.PressKeyCode;
 import com.testerkit.uia.handlers.key.PressKeyCodeLong;
 import com.testerkit.uia.handlers.key.PressKeyName;
@@ -40,6 +41,8 @@ public class NettyServlet implements ISocketServlet {
     }
     private void  registerGetHandler(){
         register(getHandler, new Source(baseUri+"source/xml"));
+
+        register(getHandler, new InputDefault(baseUri+"input/default"));
 
         register(getHandler, new PressKeyCode(baseUri+"press/key_code"));
         register(getHandler, new PressKeyName(baseUri+"press/key_name"));

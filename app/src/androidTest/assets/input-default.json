@@ -1,0 +1,9 @@
+{
+  "action":"input",
+  "rule":"default",
+  "node":{
+    "type":"uia",
+    "text":"hello你好"
+  }
+}
+

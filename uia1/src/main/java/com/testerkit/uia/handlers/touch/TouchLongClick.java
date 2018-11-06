@@ -56,7 +56,7 @@ public class TouchLongClick extends TouchEvent {
     protected boolean executeTouchEvent() throws UIAException {
         PointInfo point = points.get(0);
         long duration = point.getDuration() > 0 ? point.getDuration() : 2000;
-        Logger.info(FUNC,"TouchLongClick", duration);
+        Logger.iFunc(FUNC,"TouchLongClick", duration);
         if (correctLongClick(point.getX(), point.getY(), duration)) {
             return true;
         }

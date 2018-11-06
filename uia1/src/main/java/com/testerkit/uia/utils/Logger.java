@@ -6,6 +6,12 @@ package com.testerkit.uia.utils;
  */
 
 public class Logger {
+
+    /**
+     * 1 表示打开，0表示关闭，2并表示双开
+     */
+    public static int DEBUG_LOCAL = 0;
+
     //[总标签][uia版本][功能]
     private static  String TAG = Constants.TAG + "["+Constants.PRO + "." + Constants.VERSION + "]";
 
@@ -25,7 +31,18 @@ public class Logger {
      * Logger error
      */
     public static void error(Object... messages) {
-        android.util.Log.e(TAG, getString(messages));
+        switch (DEBUG_LOCAL){
+            case 0:
+                android.util.Log.e(TAG, getString(messages));
+                break;
+            case 1:
+                System.err.println(TAG+getString(messages));
+                break;
+            case 2:
+                android.util.Log.e(TAG, getString(messages));
+                System.err.println(TAG+getString(messages));
+                break;
+        }
     }
 
     /**
@@ -39,17 +56,29 @@ public class Logger {
      * Logger info
      */
     public static void info(Object... messages) {
-        android.util.Log.i(TAG, getString(messages));
+        switch (DEBUG_LOCAL){
+            case 0:
+                android.util.Log.i(TAG, getString(messages));
+                break;
+            case 1:
+                System.out.println(TAG+getString(messages));
+                break;
+            case 2:
+                android.util.Log.i(TAG, getString(messages));
+                System.out.println(TAG+getString(messages));
+                break;
+        }
+
     }
     /**
      * Logger info
      */
-    public static void info(String func,Object... messages) {
+    public static void iFunc(String func,Object... messages) {
 
         if (StringUtils.isNullOrEmpty(func)) {
-            android.util.Log.i(TAG , getString(messages));
+            info(messages);
         } else {
-            android.util.Log.i(TAG + String.format("[%s]", func), getString(messages));
+            info(String.format("[%s]", func),getString(messages));
         }
     }
 

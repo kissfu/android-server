@@ -104,7 +104,7 @@ public abstract class BaseTest {
     }
 
 
-    public String getAssets(String fileName){
+    protected String getAssets(String fileName){
         try {
             InputStreamReader isr = new InputStreamReader(ctx.getAssets().open(fileName),"UTF-8");
             BufferedReader br = new BufferedReader(isr);

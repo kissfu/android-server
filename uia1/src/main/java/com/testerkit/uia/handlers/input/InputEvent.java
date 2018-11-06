@@ -1,0 +1,50 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.testerkit.uia.handlers.input;
+
+import com.testerkit.uia.handlers.request.SafeRequestHandler;
+import com.testerkit.uia.model.serach.StepInfo;
+import com.testerkit.uia.requests.IRequest;
+import com.testerkit.uia.requests.http.AppiumResponse;
+import com.testerkit.uia.servers.WDStatus;
+import com.testerkit.uia.utils.Logger;
+
+
+public abstract class InputEvent extends SafeRequestHandler {
+    public InputEvent(String mappedUri) {
+        super(mappedUri);
+    }
+
+    protected String FUNC = "InputEvent";
+    protected StepInfo step;
+
+    @Override
+    protected AppiumResponse safeHandle(IRequest request) throws Exception {
+        Logger.info("Calling PressKey... ");
+
+        step = getStep(request);
+
+        if(step == null || step.getNode() == null || executeInputEvent() == false){
+            return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
+                    "Cannot generate key input event for InputEvent %s", step));
+        }
+        return new AppiumResponse(getSessionId(request), WDStatus.SUCCESS, true);
+    }
+
+    protected abstract boolean executeInputEvent() throws Exception;
+
+}
