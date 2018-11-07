@@ -50,11 +50,13 @@ Plugin version--->Required Gradle version--->Required SDK Build Tolls version
 2.2.0+ (September 2016) ---> Gradle 2.14.1+ ---> Build Tools 23.0.2+
 ```
 
-#### UIA1
-
+#### UIA
 -   This framework requires Android 4.1 (API level 16) or higher.
 -   UiAutomator工具是通过InputManager或者更早的WindowManager来注入KeyEvent等
 -   可以通过socket与其他app通信
+-   添加unittest
+-   添加handler presskey，keycode、keyname、keycode long
+-   添加handler inputtext，UiObject原生输入不能输入中文，UiObject2可以输入中文
 
 #### UIA2
 

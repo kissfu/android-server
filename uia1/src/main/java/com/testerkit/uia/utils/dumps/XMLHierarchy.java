@@ -46,10 +46,7 @@ import javax.xml.xpath.XPathFactory;
 //import static io.appium.uiautomator2.utils.AXWindowHelpers.refreshRootAXNode;
 
 public abstract class XMLHierarchy {
-    // XML 1.0 Legal Characters (http://stackoverflow.com/a/4237934/347155)
-    // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
-    private final static Pattern XML10Pattern = Pattern.compile("[^" + "\u0009\r\n" +
-            "\u0020-\uD7FF" + "\uE000-\uFFFD" + "\ud800\udc00-\udbff\udfff" + "]");
+
     private final static String DEFAULT_VIEW_NAME = "android.view.View";
 
     public static InputSource getRawXMLHierarchy() throws UIAException {
@@ -58,7 +55,7 @@ public abstract class XMLHierarchy {
     }
 
     private static InputSource getRawXMLHierarchy(AccessibilityNodeInfo root) throws UIAException {
-        String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(root);
+        String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(new AccessibilityNodeInfo[]{root});
         return new InputSource(new StringReader(xmlDump));
     }
 
@@ -148,10 +145,29 @@ public abstract class XMLHierarchy {
         return StringUtils.isNullOrEmpty(fixedName) ? DEFAULT_VIEW_NAME : fixedName;
     }
 
+
+    //region 过滤无效字符
+
+    // XML 1.0 Legal Characters (http://stackoverflow.com/a/4237934/347155)
+    // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+    private final static Pattern XML10Pattern = Pattern.compile("[^" + "\u0009\r\n" +
+            "\u0020-\uD7FF" + "\uE000-\uFFFD" + "\ud800\udc00-\udbff\udfff" + "]");
+
+
+
     public static String safeCharSeqToString(CharSequence cs) {
         if (cs == null) {
             return "";
         }
         return XML10Pattern.matcher(String.valueOf(cs)).replaceAll("?");
+    }
+
+
+    //endregion
+
+
+    public static void main(String[] args) {
+        Logger.DEBUG_LOCAL = 1;
+        System.out.printf(cleanTagName("ASD.ASDF.ASDF.ASD@SD"));
     }
 }

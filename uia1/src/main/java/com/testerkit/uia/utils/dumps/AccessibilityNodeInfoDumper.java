@@ -23,6 +23,7 @@ import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.ScreenSize;
+import com.testerkit.uia.utils.Constants;
 import com.testerkit.uia.utils.Logger;
 
 import org.xmlpull.v1.XmlSerializer;
@@ -58,9 +59,9 @@ public class AccessibilityNodeInfoDumper {
      * Using {@link AccessibilityNodeInfo} this method will walk the layout hierarchy and return
      * String object of xml hierarchy
      *
-     * @param root The root accessibility node.
+     * @param roots The root accessibility node.
      */
-    public static String getWindowXMLHierarchy(AccessibilityNodeInfo root) {
+    public static String getWindowXMLHierarchy(AccessibilityNodeInfo[] roots) {
         final long startTime = SystemClock.uptimeMillis();
         StringWriter xmlDump = new StringWriter();
         try {
@@ -69,7 +70,7 @@ public class AccessibilityNodeInfoDumper {
             serializer.startDocument("UTF-8", true);
             serializer.startTag("", "hierarchy");
 
-            if (root != null) {
+            if (roots != null && roots.length != 0) {
                 DeviceCore device = BaseContext.getInstance().getDevice();
                 ScreenSize size = device.getScreenSize();
 
@@ -77,8 +78,9 @@ public class AccessibilityNodeInfoDumper {
                 final int height = size.getHeight();
 
                 serializer.attribute("", "rotation", Integer.toString(device.getRotation()));
-
-                dumpNodeRec(root, serializer, 0, width, height, 0);
+                for (int i = 0; i < roots.length; i++) {
+                    dumpNodeRec(roots[i], serializer, i, width, height, 0);
+                }
             }
 
             serializer.endTag("", "hierarchy");
@@ -96,28 +98,20 @@ public class AccessibilityNodeInfoDumper {
     }
     
     private static void dumpNodeRec(AccessibilityNodeInfo node, XmlSerializer serializer,
-                                    int index, int width, int height, final int depth)
-            throws IOException {
+                                    int index, int width, int height, final int depth) throws IOException {
         // Some views might have unlimited number of children:
         // https://bugs.chromium.org/p/chromium/issues/detail?id=805014
         if (depth >= MAX_DEPTH) {
             Logger.error(String.format("The xml tree dump has reached its maximum depth of %s at " +
-                            "%s. The recursion is stopped to avoid StackOverflowError", MAX_DEPTH,
-                    node.toString()));
+                            "%s. The recursion is stopped to avoid StackOverflowError", MAX_DEPTH, node.toString()));
             return;
         }
 
         serializer.startTag("", "node");
-        if (!isOfNafExcludedClass(node) && !isAccessibilityFriendly(node))
-            serializer.attribute("", "NAF", Boolean.toString(true));
+
         serializer.attribute("", "index", Integer.toString(index));
-        final String text;
-        //Constants.API_LEVEL_ACTUAL();
-        //if (node.getRangeInfo() == null) {
-            text = safeCharSeqToString(node.getText());
-//        } else {
-//            text = Float.toString(node.getRangeInfo().getCurrent());
-//        }
+        final String text = safeCharSeqToString(node.getText());
+
         serializer.attribute("", "text", text);
         serializer.attribute("", "class", safeCharSeqToString(node.getClassName()));
         serializer.attribute("", "package", safeCharSeqToString(node.getPackageName()));
@@ -134,7 +128,11 @@ public class AccessibilityNodeInfoDumper {
         serializer.attribute("", "selected", Boolean.toString(node.isSelected()));
         serializer.attribute("", "bounds",
                 AccessibilityNodeInfoHelper.getVisibleBoundsInScreen(node, width, height).toShortString());
-        serializer.attribute("", "resource-id", safeCharSeqToString(node.getViewIdResourceName()));
+        String resourceId = "";
+        if(Constants.API_LEVEL() >= 18){
+            resourceId =  safeCharSeqToString(node.getViewIdResourceName());
+        }
+        serializer.attribute("", "name",resourceId);
 
         int count = node.getChildCount();
         for (int i = 0; i < count; i++) {

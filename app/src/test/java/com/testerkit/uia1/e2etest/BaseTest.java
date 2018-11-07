@@ -25,9 +25,10 @@ public abstract class BaseTest {
 
     @Before
     public void setup() {
-        Logger.DEBUG_LOCAL = 1;
         Logger.iFunc(FUNC, "===>setup");
         IS_OPEN = false;
+        Logger.DEBUG_LOCAL = 1;
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -48,7 +49,7 @@ public abstract class BaseTest {
             }
         }).start();
         try {
-            Runtime.getRuntime().exec("adb forward tcp:20008 tcp:20008");
+            Runtime.getRuntime().exec(String.format("adb forward tcp:%s tcp:%s",Config.PORT,Config.PORT));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,7 +73,6 @@ public abstract class BaseTest {
 
     }
 
-    //System.getProperty("user.dir")
 
     protected String getAssets(String fileName) {
         try {
