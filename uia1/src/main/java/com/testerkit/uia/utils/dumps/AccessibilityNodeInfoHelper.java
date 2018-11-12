@@ -53,6 +53,26 @@ public class AccessibilityNodeInfoHelper {
     }
 
     /**
+     * 判断一个区域是否在屏幕内
+     *
+     * @param node
+     * @param screenWidth
+     * @param screenHeight
+     * @return
+     */
+    public static boolean isVisibleToUser(AccessibilityNodeInfo node, int screenWidth, int screenHeight) {
+        //child.isVisibleToUser()
+        Rect bounds = new Rect();
+        node.getBoundsInScreen(bounds);
+        // 指定元素是否在屏幕内
+        boolean isVisible = bounds.left < screenWidth && bounds.top < screenHeight &&
+                bounds.right > 0 && bounds.bottom > 0 && bounds.width() * bounds.height() > 0;
+
+        return isVisible;
+    }
+
+
+    /**
      * Perform accessibility action ACTION_SET_PROGRESS on the node
      *
      * @param value desired progress value

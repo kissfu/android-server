@@ -55,13 +55,21 @@ public class AccessibilityNodeInfoDumper {
     // https://github.com/appium/appium/issues/10204
     private static final int MAX_DEPTH = 70;
 
+
+    static UIDumpInfo  uiDumpInfo ;
+    public static synchronized UIDumpInfo getUIDumpInfo(AccessibilityNodeInfo[] roots){
+        uiDumpInfo = new UIDumpInfo();
+        uiDumpInfo.setUiXml(getWindowXMLHierarchy(roots));
+        return uiDumpInfo;
+    }
+
     /**
      * Using {@link AccessibilityNodeInfo} this method will walk the layout hierarchy and return
      * String object of xml hierarchy
      *
      * @param roots The root accessibility node.
      */
-    public static String getWindowXMLHierarchy(AccessibilityNodeInfo[] roots) {
+    public static synchronized String getWindowXMLHierarchy(AccessibilityNodeInfo[] roots) {
         final long startTime = SystemClock.uptimeMillis();
         StringWriter xmlDump = new StringWriter();
         try {
@@ -79,7 +87,13 @@ public class AccessibilityNodeInfoDumper {
 
                 serializer.attribute("", "rotation", Integer.toString(device.getRotation()));
                 for (int i = 0; i < roots.length; i++) {
-                    dumpNodeRec(roots[i], serializer, i, width, height, 0);
+                    AccessibilityNodeInfo root = roots[i];
+                    if(root.isVisibleToUser()) {
+                        dumpNodeRec(root, serializer, i, width, height, 0);
+                        root.recycle();
+                    }else {
+                        Logger.info(String.format("Skipping invisible root: %s", root.toString()));
+                    }
                 }
             }
 
@@ -97,8 +111,7 @@ public class AccessibilityNodeInfoDumper {
         return xmlDump.toString();
     }
     
-    private static void dumpNodeRec(AccessibilityNodeInfo node, XmlSerializer serializer,
-                                    int index, int width, int height, final int depth) throws IOException {
+    private static void dumpNodeRec(AccessibilityNodeInfo node, XmlSerializer serializer, int index, int width, int height, final int depth) throws IOException {
         // Some views might have unlimited number of children:
         // https://bugs.chromium.org/p/chromium/issues/detail?id=805014
         if (depth >= MAX_DEPTH) {
@@ -108,32 +121,62 @@ public class AccessibilityNodeInfoDumper {
         }
 
         serializer.startTag("", "node");
-
+        MyNode myNode = new MyNode();
         serializer.attribute("", "index", Integer.toString(index));
+        myNode.setIndex(index);
         final String text = safeCharSeqToString(node.getText());
-
         serializer.attribute("", "text", text);
-        serializer.attribute("", "class", safeCharSeqToString(node.getClassName()));
-        serializer.attribute("", "package", safeCharSeqToString(node.getPackageName()));
-        serializer.attribute("", "content-desc", safeCharSeqToString(node.getContentDescription()));
+        myNode.setText(text);
+        String className =  safeCharSeqToString(node.getClassName());
+        serializer.attribute("", "class",className);
+        myNode.setClassName(className);
+        String packageName = safeCharSeqToString(node.getPackageName());
+        serializer.attribute("", "package", packageName);
+        myNode.setPackageName(packageName);
+        String contentDesc = safeCharSeqToString(node.getContentDescription());
+        serializer.attribute("", "content-desc", contentDesc);
+        myNode.setContentDesc(contentDesc);
         serializer.attribute("", "checkable", Boolean.toString(node.isCheckable()));
+        myNode.setCheckable(node.isCheckable());
         serializer.attribute("", "checked", Boolean.toString(node.isChecked()));
+        myNode.setChecked(node.isChecked());
         serializer.attribute("", "clickable", Boolean.toString(node.isClickable()));
+        myNode.setClickable(node.isClickable());
         serializer.attribute("", "enabled", Boolean.toString(node.isEnabled()));
+        myNode.setEnabled(node.isEnabled());
         serializer.attribute("", "focusable", Boolean.toString(node.isFocusable()));
+        myNode.setFocusable(node.isFocusable());
         serializer.attribute("", "focused", Boolean.toString(node.isFocused()));
+        myNode.setFocused(node.isFocused());
         serializer.attribute("", "scrollable", Boolean.toString(node.isScrollable()));
+        myNode.setScrollable(node.isScrollable());
         serializer.attribute("", "long-clickable", Boolean.toString(node.isLongClickable()));
+        myNode.setLongClickable(node.isLongClickable());
         serializer.attribute("", "password", Boolean.toString(node.isPassword()));
+        myNode.setPassword(node.isPassword());
         serializer.attribute("", "selected", Boolean.toString(node.isSelected()));
-        serializer.attribute("", "bounds",
-                AccessibilityNodeInfoHelper.getVisibleBoundsInScreen(node, width, height).toShortString());
+        myNode.setSelected(node.isSelected());
+        String bounds = AccessibilityNodeInfoHelper.getVisibleBoundsInScreen(node, width, height).toShortString();
+        serializer.attribute("", "bounds", bounds);
+        myNode.setBounds(bounds);
         String resourceId = "";
+        boolean isEditable = false;
         if(Constants.API_LEVEL() >= 18){
             resourceId =  safeCharSeqToString(node.getViewIdResourceName());
+            isEditable = node.isEditable();
         }
         serializer.attribute("", "name",resourceId);
-
+        myNode.setName(resourceId);
+        if(!isEditable){
+            if(className.equals("android.widget.EditText") || className.toLowerCase().contains("edit")){
+                isEditable = true;
+            }
+        }
+        serializer.attribute("", "editable", Boolean.toString(isEditable));
+        myNode.setEnabled(isEditable);
+        String nodeType = "uia";
+        serializer.attribute("", "node-type", nodeType);
+        myNode.setNodeType(nodeType);
         int count = node.getChildCount();
         for (int i = 0; i < count; i++) {
             AccessibilityNodeInfo child = node.getChild(i);
@@ -149,82 +192,9 @@ public class AccessibilityNodeInfoDumper {
             }
         }
         serializer.endTag("", "node");
+        uiDumpInfo.addNode(myNode);
     }
 
-    /**
-     * The list of classes to exclude may not be complete. We're attempting to only reduce noise from
-     * standard layout classes that may be falsely configured to accept clicks and are also
-     * enabled.
-     *
-     * @return true if node is excluded.
-     */
-    private static boolean isOfNafExcludedClass(AccessibilityNodeInfo node) {
-        String className = safeCharSeqToString(node.getClassName());
-        for (String excludedClassName : NAF_EXCLUDED_CLASSES) {
-            if (className.endsWith(excludedClassName)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    /**
-     * We're looking for UI controls that are enabled, clickable but have no text nor
-     * content-description. Such controls configuration indicate an interactive control is present
-     * in the UI and is most likely not accessibility friendly. We refer to such controls here as
-     * NAF controls (Not Accessibility Friendly)
-     *
-     * @return false if a node fails the check, true if all is OK
-     */
-    private static boolean isAccessibilityFriendly(AccessibilityNodeInfo node) {
-        boolean isNaf = node.isClickable() && node.isEnabled() &&
-                safeCharSeqToString(node.getContentDescription()).isEmpty() &&
-                safeCharSeqToString(node.getText()).isEmpty();
-        if (!isNaf) {
-            return true;
-        }
-        // check children since sometimes the containing element is clickable
-        // and NAF but a child's text or description is available. Will assume
-        // such layout as fine.
-        return isAnyDescendantAccessibilityFriendly(node, 0);
-    }
 
-    /**
-     * This should be used when it's already determined that the node is NAF and a further check of
-     * its children is in order. A node maybe a container such as LinerLayout and may be set to be
-     * clickable but have no text or content description but it is counting on one of its children
-     * to fulfill the requirement for being accessibility friendly by having one or more of its
-     * children fill the text or content-description. Such a combination is considered by this
-     * dumper as acceptable for accessibility.
-     *
-     * @return false if node fails the check.
-     */
-    private static boolean isAnyDescendantAccessibilityFriendly(AccessibilityNodeInfo node,
-                                                                final int depth) {
-        // Some views might have unlimited number of children:
-        // https://bugs.chromium.org/p/chromium/issues/detail?id=805014
-        if (depth >= MAX_DEPTH) {
-            Logger.error(String.format("The NAF verification has reached its maximum depth of %s at " +
-                            "%s. The recursion is stopped to avoid StackOverflowError", MAX_DEPTH,
-                    node.toString()));
-            return false;
-        }
-
-        int childCount = node.getChildCount();
-        for (int x = 0; x < childCount; x++) {
-            AccessibilityNodeInfo childNode = node.getChild(x);
-            if (childNode == null) {
-                Logger.info(String.format("Null child %s/%s, parent: %s", x, childCount, node.toString()));
-                continue;
-            }
-            if (!safeCharSeqToString(childNode.getContentDescription()).isEmpty()
-                    || !safeCharSeqToString(childNode.getText()).isEmpty()) {
-                return true;
-            }
-            if (isAnyDescendantAccessibilityFriendly(childNode, depth + 1)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
