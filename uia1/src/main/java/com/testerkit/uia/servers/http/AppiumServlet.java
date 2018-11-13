@@ -113,7 +113,7 @@ public class AppiumServlet implements IHttpServlet {
 //        register(getHandler, new GetElementScreenshot("/wd/hub/session/:sessionId/screenshot/:id"));
 //        register(getHandler, new Location("/wd/hub/session/:sessionId/element/:id/location"));
 //        register(getHandler, new GetDeviceSize("/wd/hub/session/:sessionId/window/:windowHandle/size"));
-//        register(getHandler, new Source("/wd/hub/session/:sessionId/source"));
+//        register(getHandler, new SourceClass("/wd/hub/session/:sessionId/source"));
 //        register(getHandler, new GetSystemBars("/wd/hub/session/:sessionId/appium/device/system_bars"));
 //        register(getHandler, new GetBatteryInfo("/wd/hub/session/:sessionId/appium/device/battery_info"));
 //        register(getHandler, new GetSettings("/wd/hub/session/:sessionId/appium/settings"));

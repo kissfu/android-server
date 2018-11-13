@@ -90,7 +90,7 @@ public class ReflectionUtils {
        return invoke(method,object,new Object[]{});
     }
 
-    public static Method method(final Object object,final String methodName,final Class... parameterTypes) {
+    private static Method method(final Object object,final String methodName,final Class... parameterTypes) {
         Method method = null;
         if (object == null) {
             return method;
@@ -99,6 +99,7 @@ public class ReflectionUtils {
         while(clazz != Object.class) {
             try {
                 method = clazz.getDeclaredMethod(methodName, parameterTypes);
+                method.setAccessible(true);
                 return method;
             } catch (Exception e) {
                 clazz = clazz.getSuperclass();

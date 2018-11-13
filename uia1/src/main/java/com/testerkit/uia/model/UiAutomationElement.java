@@ -44,6 +44,7 @@ import java.util.WeakHashMap;
 
 /**
  * A UiElement that gets attributes via the Accessibility API.
+ * 缓存界面所有元素
  */
 @TargetApi(16)
 public class UiAutomationElement extends UiElement<AccessibilityNodeInfo, UiAutomationElement> {

@@ -1,4 +1,4 @@
-package com.testerkit.uia.handlers;
+package com.testerkit.uia.handlers.dump;
 
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.handlers.request.SafeRequestHandler;
@@ -33,14 +33,13 @@ import javax.xml.transform.stream.StreamResult;
 /**
  * Get page source. Return as string of XML doc
  */
-public class Source extends SafeRequestHandler {
+public class SourceClass extends SourceEvent {
 
-    public Source(String mappedUri) {
+    public SourceClass(String mappedUri) {
         super(mappedUri);
     }
 
-    @Override
-    protected AppiumResponse safeHandle(IRequest request) {
+    protected AppiumResponse executeDumpEvent(IRequest request) {
         try {
             ReflectionUtils.clearAccessibilityCache();
 
@@ -59,7 +58,7 @@ public class Source extends SafeRequestHandler {
             Logger.error("Unable to handle the request:" + e);
             return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, "Could not parse xml hierarchy to string: " + e);
         } catch (UIAException e) {
-            Logger.error("Exception while performing LongPressKeyCode action: ", e);
+            Logger.error("Exception while performing dump SourceClass action: ", e);
             return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, e);
         }
 

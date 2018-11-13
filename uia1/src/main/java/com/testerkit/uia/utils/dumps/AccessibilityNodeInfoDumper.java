@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2012 The Android Open SourceClass Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.utils.Constants;
 import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.StringUtils;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -33,20 +34,17 @@ import java.io.StringWriter;
 
 import static com.testerkit.uia.utils.dumps.XMLHierarchy.safeCharSeqToString;
 
-//import io.appium.uiautomator2.common.exceptions.UiAutomator2Exception;
-//import io.appium.uiautomator2.utils.Logger;
-//
-//import static io.appium.uiautomator2.utils.XMLHierarchy.safeCharSeqToString;
 
 
 /**
- * The AccessibilityNodeInfoDumper in Android Open Source Project contains a lot of bugs which will
+ * The AccessibilityNodeInfoDumper in Android Open SourceClass Project contains a lot of bugs which will
  * stay in old android versions forever. By coping the code of the latest version it is ensured that
  * all patches become available on old android versions. <p/> down ported bugs are e.g. { @link
  * https://code.google.com/p/android/issues/detail?id=62906 } { @link
  * https://code.google.com/p/android/issues/detail?id=58733 }
  */
 public class AccessibilityNodeInfoDumper {
+    private static String FUNC = "DUMPER";
     private static final String[] NAF_EXCLUDED_CLASSES = new String[]{
             android.widget.GridView.class.getName(),
             android.widget.GridLayout.class.getName(),
@@ -56,11 +54,12 @@ public class AccessibilityNodeInfoDumper {
     private static final int MAX_DEPTH = 70;
 
 
-    static UIDumpInfo  uiDumpInfo ;
-    public static synchronized UIDumpInfo getUIDumpInfo(AccessibilityNodeInfo[] roots){
-        uiDumpInfo = new UIDumpInfo();
-        uiDumpInfo.setUiXml(getWindowXMLHierarchy(roots));
-        return uiDumpInfo;
+    public static UIDumpInfo uiDumpInfo;
+
+    public static synchronized UIDumpInfo getUIDumpInfo(AccessibilityNodeInfo[] roots) {
+        AccessibilityNodeInfoDumper.uiDumpInfo = new UIDumpInfo();
+        AccessibilityNodeInfoDumper.uiDumpInfo.setUiXml(getWindowXMLHierarchy(roots));
+        return AccessibilityNodeInfoDumper.uiDumpInfo;
     }
 
     /**
@@ -70,6 +69,7 @@ public class AccessibilityNodeInfoDumper {
      * @param roots The root accessibility node.
      */
     public static synchronized String getWindowXMLHierarchy(AccessibilityNodeInfo[] roots) {
+        AccessibilityNodeInfoDumper.uiDumpInfo = new UIDumpInfo();
         final long startTime = SystemClock.uptimeMillis();
         StringWriter xmlDump = new StringWriter();
         try {
@@ -88,10 +88,10 @@ public class AccessibilityNodeInfoDumper {
                 serializer.attribute("", "rotation", Integer.toString(device.getRotation()));
                 for (int i = 0; i < roots.length; i++) {
                     AccessibilityNodeInfo root = roots[i];
-                    if(root.isVisibleToUser()) {
-                        dumpNodeRec(root, serializer, i, width, height, 0);
+                    if (root.isVisibleToUser()) {
+                        dumpNodeRec(root, serializer, i, width, height, 0,"");
                         root.recycle();
-                    }else {
+                    } else {
                         Logger.info(String.format("Skipping invisible root: %s", root.toString()));
                     }
                 }
@@ -107,28 +107,37 @@ public class AccessibilityNodeInfoDumper {
             throw new UIAException("Cannot dump views hierarchy to XML format", e);
         }
         final long endTime = SystemClock.uptimeMillis();
-        Logger.info("Fetch time: " + (endTime - startTime) + "ms");
-        return xmlDump.toString();
+        Logger.iFunc(FUNC,"Fetch time: " + (endTime - startTime) + "ms");
+        AccessibilityNodeInfoDumper.uiDumpInfo.setUiXml(xmlDump.toString());
+        return AccessibilityNodeInfoDumper.uiDumpInfo.getUiXml();
     }
-    
-    private static void dumpNodeRec(AccessibilityNodeInfo node, XmlSerializer serializer, int index, int width, int height, final int depth) throws IOException {
+
+    private static void dumpNodeRec(AccessibilityNodeInfo node, XmlSerializer serializer, int index, int width, int height, final int depth, String xpathParent) throws IOException {
         // Some views might have unlimited number of children:
         // https://bugs.chromium.org/p/chromium/issues/detail?id=805014
         if (depth >= MAX_DEPTH) {
             Logger.error(String.format("The xml tree dump has reached its maximum depth of %s at " +
-                            "%s. The recursion is stopped to avoid StackOverflowError", MAX_DEPTH, node.toString()));
+                    "%s. The recursion is stopped to avoid StackOverflowError", MAX_DEPTH, node.toString()));
             return;
         }
 
         serializer.startTag("", "node");
         MyNode myNode = new MyNode();
-        serializer.attribute("", "index", Integer.toString(index));
+        String indexStr = Integer.toString(index);
+        serializer.attribute("", "index", indexStr);
         myNode.setIndex(index);
+        String xpath = indexStr;
+        if (false == StringUtils.isNullOrEmpty(xpathParent)) {
+            xpath = String.format("%s-%s",xpathParent ,xpath);
+        }
+        serializer.attribute("", "xpath", xpath);
+        myNode.setXpathSimple(xpath);
+
         final String text = safeCharSeqToString(node.getText());
         serializer.attribute("", "text", text);
         myNode.setText(text);
-        String className =  safeCharSeqToString(node.getClassName());
-        serializer.attribute("", "class",className);
+        String className = safeCharSeqToString(node.getClassName());
+        serializer.attribute("", "class", className);
         myNode.setClassName(className);
         String packageName = safeCharSeqToString(node.getPackageName());
         serializer.attribute("", "package", packageName);
@@ -161,14 +170,14 @@ public class AccessibilityNodeInfoDumper {
         myNode.setBounds(bounds);
         String resourceId = "";
         boolean isEditable = false;
-        if(Constants.API_LEVEL() >= 18){
-            resourceId =  safeCharSeqToString(node.getViewIdResourceName());
+        if (Constants.API_LEVEL() >= 18) {
+            resourceId = LocationHelpers.getID(safeCharSeqToString(node.getViewIdResourceName()));
             isEditable = node.isEditable();
         }
-        serializer.attribute("", "name",resourceId);
+        serializer.attribute("", "name", resourceId);
         myNode.setName(resourceId);
-        if(!isEditable){
-            if(className.equals("android.widget.EditText") || className.toLowerCase().contains("edit")){
+        if (!isEditable) {
+            if (className.equals("android.widget.EditText") || className.toLowerCase().contains("edit")) {
                 isEditable = true;
             }
         }
@@ -178,11 +187,12 @@ public class AccessibilityNodeInfoDumper {
         serializer.attribute("", "node-type", nodeType);
         myNode.setNodeType(nodeType);
         int count = node.getChildCount();
+        myNode.setLeaf(count == 0);
         for (int i = 0; i < count; i++) {
             AccessibilityNodeInfo child = node.getChild(i);
             if (child != null) {
                 if (child.isVisibleToUser()) {
-                    dumpNodeRec(child, serializer, i, width, height, depth + 1);
+                    dumpNodeRec(child, serializer, i, width, height, depth + 1,xpath);
                     child.recycle();
                 } else {
                     Logger.info(String.format("Skipping invisible child: %s", child.toString()));
@@ -194,7 +204,6 @@ public class AccessibilityNodeInfoDumper {
         serializer.endTag("", "node");
         uiDumpInfo.addNode(myNode);
     }
-
 
 
 }

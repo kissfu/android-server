@@ -39,46 +39,46 @@ import java.util.List;
 public class AXWindowHelpers {
     public static final long AX_ROOT_RETRIEVAL_TIMEOUT = 10000;
     private static final boolean MULTI_WINDOW = false;
-    private static AccessibilityNodeInfo currentActiveWindowRoot = null;
+//    private static AccessibilityNodeInfo currentActiveWindowRoot = null;
 
-    public static void refreshRootAXNode() throws UIAException {
-        BaseContext.getInstance().getDevice().waitForIdle();
-        // This call invokes `AccessibilityInteractionClient.getInstance().clearCache();` method
-        // which resets the internal accessibility cache
-        //noinspection EmptyCatchBlock
-        try {
-            //UIA1会报错, 暂时还没有UiAutomation
-            UiAutomatorBridge.getInstance().getUiAutomation().setServiceInfo(null);
-        } catch (Exception ign) {}
-
-        long end = SystemClock.uptimeMillis() + AX_ROOT_RETRIEVAL_TIMEOUT;
-        while (end > SystemClock.uptimeMillis()) {
-            AccessibilityNodeInfo root = null;
-            try {
-                root = UiAutomatorBridge.getInstance().getQueryController().getAccessibilityRootNode();
-            } catch (Exception e) {
-                /*
-                 * Sometimes getAccessibilityRootNode() throws
-                 * "java.lang.IllegalStateException: Cannot perform this action on a sealed instance."
-                 * Ignore it and try to re-get root node.
-                 */
-                Logger.debug(String.format("'%s' exception was caught while invoking " +
-                        "getRootAccessibilityNodeInActiveWindow() - ignoring it", e.getMessage()));
-            }
-            if (root != null) {
-                List<CharSequence> toastMSGs = null;
-                try {
-                    toastMSGs = UiAutomatorBridge.getInstance().getUiAutomation().getAccessibilityEventListener().getToastMessage();
-                }catch (Exception ign) {}
-                UiAutomationElement.rebuildForNewRoot(root, toastMSGs);
-                currentActiveWindowRoot = root;
-                return;
-            }
-        }
-        throw new UIAException(String.format(
-                "Timed out after %d milliseconds waiting for root AccessibilityNodeInfo",
-                AX_ROOT_RETRIEVAL_TIMEOUT));
-    }
+//    public static void refreshRootAXNode() throws UIAException {
+//        BaseContext.getInstance().getDevice().waitForIdle();
+//        // This call invokes `AccessibilityInteractionClient.getInstance().clearCache();` method
+//        // which resets the internal accessibility cache
+//        //noinspection EmptyCatchBlock
+//        try {
+//            //UIA1会报错, 暂时还没有UiAutomation
+//            UiAutomatorBridge.getInstance().getUiAutomation().setServiceInfo(null);
+//        } catch (Exception ign) {}
+//
+//        long end = SystemClock.uptimeMillis() + AX_ROOT_RETRIEVAL_TIMEOUT;
+//        while (end > SystemClock.uptimeMillis()) {
+//            AccessibilityNodeInfo root = null;
+//            try {
+//                root = UiAutomatorBridge.getInstance().getQueryController().getAccessibilityRootNode();
+//            } catch (Exception e) {
+//                /*
+//                 * Sometimes getAccessibilityRootNode() throws
+//                 * "java.lang.IllegalStateException: Cannot perform this action on a sealed instance."
+//                 * Ignore it and try to re-get root node.
+//                 */
+//                Logger.debug(String.format("'%s' exception was caught while invoking " +
+//                        "getRootAccessibilityNodeInActiveWindow() - ignoring it", e.getMessage()));
+//            }
+//            if (root != null) {
+//                List<CharSequence> toastMSGs = null;
+//                try {
+//                    toastMSGs = UiAutomatorBridge.getInstance().getUiAutomation().getAccessibilityEventListener().getToastMessage();
+//                }catch (Exception ign) {}
+//                UiAutomationElement.rebuildForNewRoot(root, toastMSGs);
+//                currentActiveWindowRoot = root;
+//                return;
+//            }
+//        }
+//        throw new UIAException(String.format(
+//                "Timed out after %d milliseconds waiting for root AccessibilityNodeInfo",
+//                AX_ROOT_RETRIEVAL_TIMEOUT));
+//    }
 
     /**
      * Returns a list containing the root {@link AccessibilityNodeInfo}s for each active window
@@ -89,10 +89,10 @@ public class AXWindowHelpers {
         return ret.toArray(new AccessibilityNodeInfo[ret.size()]);
     }
 
-    public static synchronized AccessibilityNodeInfo currentActiveWindowRoot() {
-        if (currentActiveWindowRoot == null) {
-            refreshRootAXNode();
-        }
-        return currentActiveWindowRoot;
-    }
+//    public static synchronized AccessibilityNodeInfo currentActiveWindowRoot() {
+//        if (currentActiveWindowRoot == null) {
+//            refreshRootAXNode();
+//        }
+//        return currentActiveWindowRoot;
+//    }
 }

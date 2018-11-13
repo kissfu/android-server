@@ -256,8 +256,14 @@ public class MyNode {
         this.packageName = packageName;
     }
 
+    public String getXpathSimple() {
+        return xpathSimple;
+    }
 
-    //endregion
+    public void setXpathSimple(String xpathSimple) {
+        this.xpathSimple = xpathSimple;
+    }
+//endregion
 
 
     @Override

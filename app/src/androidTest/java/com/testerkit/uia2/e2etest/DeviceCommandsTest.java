@@ -56,7 +56,10 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
     public void getSource() {
         initCore();
 
-        String command = super.getAssets("source.json");
+        //耗费时间要长，以node的class名字为标签
+        String command = super.getAssets("source-class.json");
+        //比较快，以node为标签，className为属性
+//        String command = super.getAssets("source-node.json");
 
         String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
         Logger.debug("===>",resultInfo);

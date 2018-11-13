@@ -50,13 +50,20 @@ public abstract class XMLHierarchy {
     private final static String DEFAULT_VIEW_NAME = "android.view.View";
 
     public static InputSource getRawXMLHierarchy() throws UIAException {
-        AXWindowHelpers.refreshRootAXNode();
-        return getRawXMLHierarchy(AXWindowHelpers.currentActiveWindowRoot());
+        //AXWindowHelpers.refreshRootAXNode();
+//        return getRawXMLHierarchy(AXWindowHelpers.currentActiveWindowRoot());
+        return getRawXMLHierarchy(AXWindowHelpers.getWindowRoots());
     }
 
-    private static InputSource getRawXMLHierarchy(AccessibilityNodeInfo root) throws UIAException {
-        String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(new AccessibilityNodeInfo[]{root});
+    private static InputSource getRawXMLHierarchy(AccessibilityNodeInfo[] root) throws UIAException {
+        String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(root);
         return new InputSource(new StringReader(xmlDump));
+    }
+
+    public static String getRawXMLHierarchyStr() throws  UIAException{
+        AccessibilityNodeInfo[] roots = AXWindowHelpers.getWindowRoots();
+        String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(roots);
+        return xmlDump;
     }
 
     public static Node getFormattedXMLDoc() throws UIAException {

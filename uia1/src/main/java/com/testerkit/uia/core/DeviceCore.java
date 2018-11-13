@@ -14,6 +14,7 @@ import com.testerkit.uia.utils.ReflectionUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -77,8 +78,8 @@ public abstract class DeviceCore {
       // Support multi-window searches for API level 21 and up
       if(Constants.API_LEVEL_ACTUAL() >= 21){
          Object obj = ReflectionUtils.invoke(uiDevice,METHOD_GET_WINDOW_ROOTS);
-         ArrayList<AccessibilityNodeInfo> roots = (ArrayList<AccessibilityNodeInfo>)obj;
-         ret.addAll(roots);
+         AccessibilityNodeInfo[] rootArr = (AccessibilityNodeInfo[])obj;
+         ret.addAll(Arrays.asList(rootArr));
       }else {
          AccessibilityNodeInfo root = uiAutomatorBridge.getQueryController().getAccessibilityRootNode();
          if(root != null ) {
