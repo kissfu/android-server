@@ -16,7 +16,7 @@
 
 package com.testerkit.uia2.core;
 
-import android.support.annotation.NonNull;
+
 import android.view.accessibility.AccessibilityEvent;
 
 import com.testerkit.uia.utils.Logger;
@@ -97,7 +97,7 @@ public final class NotificationListener implements OnAccessibilityEventListener 
         return TOAST_CLEAR_TIMEOUT;
     }
 
-    @NonNull
+
     public List<CharSequence> getToastMessage() {
         if (!toastMessage.isEmpty() && currentTimeMillis() - recentToastTimestamp > getToastClearTimeout()) {
             Logger.debug("Clearing toast message: " + toastMessage);
@@ -106,7 +106,7 @@ public final class NotificationListener implements OnAccessibilityEventListener 
         return toastMessage;
     }
 
-    protected void setToastMessage(@NonNull List<CharSequence> text) {
+    protected void setToastMessage(List<CharSequence> text) {
         toastMessage.clear();
         toastMessage.addAll(text);
         recentToastTimestamp = currentTimeMillis();

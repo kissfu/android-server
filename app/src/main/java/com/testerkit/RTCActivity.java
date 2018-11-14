@@ -9,7 +9,7 @@ import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
+
 import android.util.Log;
 import android.widget.Toast;
 

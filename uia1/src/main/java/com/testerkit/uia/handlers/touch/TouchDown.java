@@ -14,7 +14,7 @@ public class TouchDown extends TouchEvent {
 
     @Override
     public boolean executeTouchEvent() throws UIAException {
-        Logger.info("TouchDown");
+        Logger.iFunc(FUNC,"TouchDown");
         try {
             int clickX = points.get(0).getX();
             int clickY = points.get(0).getY();
