@@ -1,5 +1,13 @@
 package com.testerkit.uia.model.serach;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,5 +82,55 @@ public class StepInfo {
     @Override
     public String toString() {
         return String.format("key=%s",key.toString());
+    }
+
+    public void parse(String msg){
+        JsonObject js = new JsonParser().parse(msg).getAsJsonObject();
+
+        this.setAction(js.get("action").getAsString());
+
+        this.setRule(js.get("rule").getAsString());
+
+        // 1. 创建Gson对象
+        Gson gson = new Gson();
+
+        if(js.has("points")){
+            List<PointInfo> list=  gson.fromJson(js.get("points"),new TypeToken<List<PointInfo>>(){}.getType());
+            this.setPoints(list);
+        }
+        if(js.has("node")){
+            this.setNode(gson.fromJson(js.get("node"),NodeInfo.class));
+        }
+        if(js.has("scroll")){
+            this.setScroll(gson.fromJson(js.get("scroll"),ScrollInfo.class));
+        }
+        if(js.has("key")){
+            this.setKey(gson.fromJson(js.get("key"),KeyInfo.class));
+        }
+        if(js.has("by")){
+
+            JsonArray arr = js.getAsJsonArray("by");
+            List<By> byList = new ArrayList<By>();
+
+
+            for (JsonElement ele:arr) {
+                JsonObject obj = ele.getAsJsonObject();
+                if(obj.has("id")){
+                    byList.add(gson.fromJson(obj,By.ById.class));
+                }else if(obj.has("text")){
+                    byList.add(gson.fromJson(obj,By.ByText.class));
+                }else if(obj.has("class")){
+                    byList.add(gson.fromJson(obj,By.ByClass.class));
+                }else if(obj.has("packageName")){
+                    byList.add(gson.fromJson(obj,By.ByPackageName.class));
+                }else if(obj.has("xpath")){
+                    byList.add(gson.fromJson(obj,By.ByXPath.class));
+                }
+            }
+
+
+            this.setBy(byList);
+        }
+
     }
 }
