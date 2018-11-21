@@ -34,7 +34,7 @@ public class FullSocketRequest {
 
 
     public String uri() {
-        return step.getAction()+"/"+step.getRule();
+        return step.uri();
     }
 
 

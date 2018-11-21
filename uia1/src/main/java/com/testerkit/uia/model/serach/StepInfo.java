@@ -84,6 +84,10 @@ public class StepInfo {
         return String.format("key=%s",key.toString());
     }
 
+    public String uri() {
+        return this.getAction()+"/"+this.getRule();
+    }
+
     public void parse(String msg){
         JsonObject js = new JsonParser().parse(msg).getAsJsonObject();
 
