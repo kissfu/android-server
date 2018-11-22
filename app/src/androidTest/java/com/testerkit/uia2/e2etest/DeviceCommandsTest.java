@@ -93,6 +93,18 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         Logger.debug("===>",resultInfo);
     }
 
+
+    @Test
+    public void findClick(){
+        initCore();
+
+        String command = super.getAssets("find-click.json");
+
+        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+        Logger.debug("===>",resultInfo);
+    }
+
+
     @Override
     public void initCore() {
         Constants.PRO = "2";

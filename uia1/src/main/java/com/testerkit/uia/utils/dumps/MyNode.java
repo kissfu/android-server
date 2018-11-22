@@ -2,13 +2,15 @@ package com.testerkit.uia.utils.dumps;
 
 import android.graphics.Rect;
 
+import java.util.UUID;
+
 public class MyNode {
 
 
     /**
      * uuid
      */
-    private String id;
+    private String id = UUID.randomUUID().toString();
 
     /**
      * 唯一名称
@@ -65,7 +67,7 @@ public class MyNode {
     private boolean isScrollable;
 
     private String bounds;
-    private String className = "";
+    private String clazzName = "";
     private String packageName = "";
     private String xpathSimple = "";
 
@@ -240,12 +242,12 @@ public class MyNode {
         this.bounds = bounds;
     }
 
-    public String getClassName() {
-        return className;
+    public String getClazzName() {
+        return clazzName;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setClazzName(String clazzName) {
+        this.clazzName = clazzName;
     }
 
     public String getPackageName() {
@@ -273,7 +275,7 @@ public class MyNode {
                 ", name='" + name + '\'' +
                 ", text='" + text + '\'' +
                 ", contentDesc='" + contentDesc + '\'' +
-                ", className='" + className + '\'' +
+                ", clazzName='" + clazzName + '\'' +
                 ", xpathSimple='" + xpathSimple + '\'' +
                 ", bounds='" + bounds + '\'' +
                 ", packageName='" + packageName + '\'' +

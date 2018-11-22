@@ -1,5 +1,6 @@
 package com.testerkit.uia1.e2etest;
 
+import com.testerkit.uia.requests.socket.FullSocketRequest;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia.utils.SocketUtils;
@@ -19,7 +20,19 @@ public class DeviceCommandsTest extends BaseTest {
 
         String command = super.getAssets("input-default.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-        Logger.info("===>",resultInfo);
+        String resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        Logger.info("===>", resultInfo);
+    }
+
+    @Test
+    public void findClick() {
+
+        String command = super.getAssets("find-click.json");
+
+        FullSocketRequest request = new FullSocketRequest(command);
+
+
+//        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+//        Logger.debug("===>",resultInfo);
     }
 }

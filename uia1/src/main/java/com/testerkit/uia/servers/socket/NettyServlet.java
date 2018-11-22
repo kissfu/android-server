@@ -2,6 +2,7 @@ package com.testerkit.uia.servers.socket;
 
 import com.testerkit.uia.handlers.dump.SourceClass;
 import com.testerkit.uia.handlers.dump.SourceNode;
+import com.testerkit.uia.handlers.find.FindAndClick;
 import com.testerkit.uia.handlers.input.InputDefault;
 import com.testerkit.uia.handlers.key.PressKeyCode;
 import com.testerkit.uia.handlers.key.PressKeyCodeLong;
@@ -41,6 +42,8 @@ public class NettyServlet implements ISocketServlet {
         registerGetHandler();
     }
     private void  registerGetHandler(){
+        register(getHandler, new FindAndClick(baseUri+"find/click"));
+
         register(getHandler, new SourceClass(baseUri+"source/class"));
         register(getHandler, new SourceNode(baseUri+"source/node"));
 

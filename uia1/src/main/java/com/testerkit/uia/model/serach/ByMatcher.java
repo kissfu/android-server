@@ -7,7 +7,12 @@ import java.util.List;
  */
 
 public class ByMatcher {
-    List<By> byList;
+    private StepInfo step;
+
+    public ByMatcher(StepInfo step) {
+        this.step = step;
+    }
+
 
 
 

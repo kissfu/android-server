@@ -19,16 +19,20 @@ import java.util.concurrent.Executors;
 public abstract class BaseTest {
 
     private static boolean IS_OPEN = false;
+    //是否开启server测试
+    protected boolean NEED_SERVER = false;
     protected boolean DEBUG_REMOTE = false;
     protected String FUNC = "uia1 unit";
     private String runSh = "/Users/able/Desktop/workspace/mycode/githubs/testerkit/android-server/uia1/run.sh";
 
     @Before
     public void setup() {
-        Logger.iFunc(FUNC, "===>setup");
-        IS_OPEN = false;
         Logger.DEBUG_LOCAL = 1;
-
+        IS_OPEN = false;
+        Logger.iFunc(FUNC, "===>setup");
+        if (NEED_SERVER == false) {
+            return;
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -49,7 +53,7 @@ public abstract class BaseTest {
             }
         }).start();
         try {
-            Runtime.getRuntime().exec(String.format("adb forward tcp:%s tcp:%s",Config.PORT,Config.PORT));
+            Runtime.getRuntime().exec(String.format("adb forward tcp:%s tcp:%s", Config.PORT, Config.PORT));
         } catch (Exception e) {
             e.printStackTrace();
         }

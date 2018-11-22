@@ -25,28 +25,32 @@ public class StepInfo {
 
     private ScrollInfo scroll;
 
-    private List<By> by ;
+    private List<By> by;
 
     private List<PointInfo> points;
 
 
-
-    public void setAction(String action){
+    public void setAction(String action) {
         this.action = action;
     }
-    public String getAction(){
+
+    public String getAction() {
         return this.action;
     }
-    public void setRule(String rule){
+
+    public void setRule(String rule) {
         this.rule = rule;
     }
-    public String getRule(){
+
+    public String getRule() {
         return this.rule;
     }
-    public void setNode(NodeInfo node){
+
+    public void setNode(NodeInfo node) {
         this.node = node;
     }
-    public NodeInfo getNode(){
+
+    public NodeInfo getNode() {
         return this.node;
     }
 
@@ -58,16 +62,19 @@ public class StepInfo {
         this.key = key;
     }
 
-    public void setScroll(ScrollInfo scroll){
+    public void setScroll(ScrollInfo scroll) {
         this.scroll = scroll;
     }
-    public ScrollInfo getScroll(){
+
+    public ScrollInfo getScroll() {
         return this.scroll;
     }
-    public void setBy(List<By> by){
+
+    public void setBy(List<By> by) {
         this.by = by;
     }
-    public List<By> getBy(){
+
+    public List<By> getBy() {
         return this.by;
     }
 
@@ -81,7 +88,8 @@ public class StepInfo {
 
     @Override
     public String toString() {
-        return String.format("key=%s",key.toString());
+        return String.format("key=%s",
+                key == null ? "" : key.toString());
     }
 
     public String uri() {

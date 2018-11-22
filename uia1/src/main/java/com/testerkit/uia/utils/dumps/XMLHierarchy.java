@@ -30,12 +30,18 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
@@ -60,7 +66,7 @@ public abstract class XMLHierarchy {
         return new InputSource(new StringReader(xmlDump));
     }
 
-    public static String getRawXMLHierarchyStr() throws  UIAException{
+    public static String getRawXMLHierarchyStr() throws UIAException {
         AccessibilityNodeInfo[] roots = AXWindowHelpers.getWindowRoots();
         String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(roots);
         return xmlDump;
@@ -152,6 +158,49 @@ public abstract class XMLHierarchy {
         return StringUtils.isNullOrEmpty(fixedName) ? DEFAULT_VIEW_NAME : fixedName;
     }
 
+    /**
+     * 根据xpath查找node
+     *
+     * @param xmlSource 文档对象
+     * @param xpath
+     * @return 返回查找到的多个simple xpath
+     */
+    public static List<String> findByXpath(String xmlSource, String xpath) {
+        List<String> results = new ArrayList<String>();
+        if (StringUtils.isNullOrEmpty(xmlSource) || StringUtils.isNullOrEmpty(xpath)) {
+            return results;
+        }
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xp = factory.newXPath();
+        ByteArrayInputStream is = new ByteArrayInputStream(xmlSource.getBytes());
+        InputSource doc = new InputSource(new InputStreamReader(is));
+        try {
+            //String nxpath = XPathParser.parse(xpath);
+            //Log.i(Utils.tag, "search by xpath:" + nxpath);
+            NodeList nodelist = (NodeList) xp.evaluate(xpath, doc, XPathConstants.NODESET);
+            XPathExpression xpe = xp.compile("@xpath");
+            if (nodelist.getLength() == 0) {
+                return results;
+            }
+            for (int i = 0; i < nodelist.getLength(); i++) {
+                Object result = xpe.evaluate(nodelist.item(i), XPathConstants.STRING);
+                if (result == null || StringUtils.isNullOrEmpty(result.toString())) {
+                    continue;
+                }
+                results.add(result.toString());
+            }
+            return results;
+        } catch (XPathExpressionException e) {
+            Logger.error(e.getLocalizedMessage(), e);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                Logger.error(e.getMessage(), e);
+            }
+        }
+        return results;
+    }
 
     //region 过滤无效字符
 
@@ -159,7 +208,6 @@ public abstract class XMLHierarchy {
     // #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
     private final static Pattern XML10Pattern = Pattern.compile("[^" + "\u0009\r\n" +
             "\u0020-\uD7FF" + "\uE000-\uFFFD" + "\ud800\udc00-\udbff\udfff" + "]");
-
 
 
     public static String safeCharSeqToString(CharSequence cs) {

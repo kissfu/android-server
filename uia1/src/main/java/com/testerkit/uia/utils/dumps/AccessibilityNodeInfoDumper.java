@@ -136,9 +136,9 @@ public class AccessibilityNodeInfoDumper {
         final String text = safeCharSeqToString(node.getText());
         serializer.attribute("", "text", text);
         myNode.setText(text);
-        String className = safeCharSeqToString(node.getClassName());
-        serializer.attribute("", "class", className);
-        myNode.setClassName(className);
+        String clazzName = safeCharSeqToString(node.getClassName());
+        serializer.attribute("", "clazz", clazzName);
+        myNode.setClazzName(clazzName);
         String packageName = safeCharSeqToString(node.getPackageName());
         serializer.attribute("", "package", packageName);
         myNode.setPackageName(packageName);
@@ -177,7 +177,7 @@ public class AccessibilityNodeInfoDumper {
         serializer.attribute("", "name", resourceId);
         myNode.setName(resourceId);
         if (!isEditable) {
-            if (className.equals("android.widget.EditText") || className.toLowerCase().contains("edit")) {
+            if (clazzName.equals("android.widget.EditText") || clazzName.toLowerCase().contains("edit")) {
                 isEditable = true;
             }
         }

@@ -10,41 +10,6 @@
     "type":"uia",
     "index":"3",
     "bounds":{}
-  },
-  "scroll":{
-    "times":"1",
-    "timeOut":"3000",
-    "toCenter":"true",
-    "direction":"up"
-  },
-  "by":[
-    {
-      "id":"",
-      "option":""
-    },{
-      "class":"",
-      "option":""
-    }
-  ,{
-      "text":"",
-      "option":""
-    },{
-      "packageName":"",
-      "option":""
-    }
-  ,{
-      "xpath":
-      [
-        {
-          "option":"",
-          "xp":""
-        },{
-        "option":"",
-        "xp":""
-      }
-      ],
-      "option":""
-    }
-  ]
+  }
 }
 

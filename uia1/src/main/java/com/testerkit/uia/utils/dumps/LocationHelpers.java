@@ -23,7 +23,6 @@ import com.testerkit.uia.model.serach.By;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.StringUtils;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 
@@ -47,7 +46,7 @@ public class LocationHelpers {
     private static final Pattern resourceIdRegex = Pattern
             .compile("^[a-zA-Z_][a-zA-Z0-9._]*:[^/]+/[\\S]+$");
 
-    public static String rewriteIdLocator(By.ById by) {
+    public static String rewriteIdLocator(By.ByName by) {
         String locator = by.getElementLocator();
 
         if (!resourceIdRegex.matcher(by.getElementLocator()).matches()) {
