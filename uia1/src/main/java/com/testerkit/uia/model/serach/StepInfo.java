@@ -127,8 +127,8 @@ public class StepInfo {
 
             for (JsonElement ele:arr) {
                 JsonObject obj = ele.getAsJsonObject();
-                if(obj.has("id")){
-                    byList.add(gson.fromJson(obj,By.ById.class));
+                if(obj.has("name")){
+                    byList.add(gson.fromJson(obj,By.ByName.class));
                 }else if(obj.has("text")){
                     byList.add(gson.fromJson(obj,By.ByText.class));
                 }else if(obj.has("class")){
