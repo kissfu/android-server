@@ -1,5 +1,6 @@
 package com.testerkit.uia1.e2etest;
 
+import com.testerkit.uia.model.serach.StepInfo;
 import com.testerkit.uia.requests.socket.FullSocketRequest;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.SleepUtils;
@@ -10,6 +11,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class DeviceCommandsTest extends BaseTest {
+
+
+    @Override
+    protected boolean needServer() {
+        return false;
+    }
 
     /**
      * 按键操作
@@ -35,4 +42,20 @@ public class DeviceCommandsTest extends BaseTest {
 //        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
 //        Logger.debug("===>",resultInfo);
     }
+
+
+    @Test
+    public void parseStep() {
+
+        String value = null;
+
+        System.out.println(value + "");
+//        String msg = super.getAssets("find-click.json");
+//        StepInfo step = new StepInfo();
+//        step.parse(msg);
+
+
+    }
+
+
 }

@@ -6,8 +6,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.testerkit.uia.utils.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -135,11 +138,10 @@ public class StepInfo {
                     byList.add(gson.fromJson(obj,By.ByClass.class));
                 }else if(obj.has("packageName")){
                     byList.add(gson.fromJson(obj,By.ByPackageName.class));
-                }else if(obj.has("xpath")){
+                }else if(obj.has("xpathes")){
                     byList.add(gson.fromJson(obj,By.ByXPath.class));
                 }
             }
-
 
             this.setBy(byList);
         }

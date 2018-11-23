@@ -22,9 +22,15 @@ package com.testerkit.uia.model.serach;
 //import static io.appium.uiautomator2.model.internal.NativeAndroidBySelector.SELECTOR_NATIVE_ID;
 //import static io.appium.uiautomator2.model.internal.NativeAndroidBySelector.SELECTOR_XPATH;
 
+import com.testerkit.uia.utils.ClazzUtil;
+import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.RegExUtil;
 import com.testerkit.uia.utils.StringUtils;
+import com.testerkit.uia.utils.dumps.UIDumpInfo;
+import com.testerkit.uia.utils.dumps.XMLHierarchy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -35,31 +41,23 @@ import java.util.regex.Pattern;
  */
 public abstract class By {
 
-    public final static String REGULAR = "/";
-    protected ByOption option = ByOption.REQUIRED;
 
+
+    protected ByOption option = ByOption.REQUIRED;
 
     public abstract String getElementLocator();
 
-    protected boolean checkCriteria(String value) {
+    public abstract boolean isMatch(Object value);
+
+    protected boolean checkCriteria() {
         if (this.option == null || this.option == ByOption.IGNORED) {
+            return true;
+        }
+        if (StringUtils.isNullOrEmpty(getElementLocator())) {
             return true;
         }
         return false;
     }
-
-    //region public
-
-    public static boolean isMatch(Pattern criteria, String value) {
-        if (criteria == null) {
-            return true;
-        }
-        return criteria.matcher(value != null ? value : "").matches();
-    }
-
-
-
-    //endregion
 
     //region Override
 
@@ -104,17 +102,15 @@ public abstract class By {
         }
 
         @Override
-        protected boolean checkCriteria(String value) {
+        public boolean isMatch(Object value) {
             String criteria = name;
-            if (super.checkCriteria(criteria)) {
+            if (super.checkCriteria()) {
                 return true;
             }
-            if (StringUtils.isNullOrEmpty(criteria)) {
-                return true;
+            if(value == null){
+                return false;
             }
-
-            return criteria.equals(value);
-
+            return criteria.equals(value.toString());
         }
 
         @Override
@@ -139,52 +135,22 @@ public abstract class By {
             this.clazz = clazz;
         }
 
-        private String specialHandle() {
-            String newClazz = "";
-            if (StringUtils.isNullOrEmpty(clazz)) {
-                return newClazz;
-            }
-            // 兼容android.widget.TextView和android.support.v7.widget.AppCompatTextView
-            // 兼容android.widget.Button和android.support.v7.widget.AppCompatButton
-            // 兼容com.android.internal.policy.impl.PhoneWindow$DecorView和com.android.internal.policy.PhoneWindow$DecorView
-
-            if (clazz.equalsIgnoreCase("android.widget.TextView")
-                    || clazz.equalsIgnoreCase("android.support.v7.widget.AppCompatTextView")) {
-                newClazz = "android*widget*TextView";
-            }
-            if (clazz.equalsIgnoreCase("android.widget.Button")
-                    || clazz.equalsIgnoreCase("android.support.v7.widget.AppCompatButton")) {
-                newClazz = "android*widget*Button";
-            }
-            if (clazz.equalsIgnoreCase("com.android.internal.policy.impl.PhoneWindow$DecorView")
-                    || clazz.equalsIgnoreCase("com.android.internal.policy.PhoneWindow$DecorView")
-                    || clazz.equalsIgnoreCase("com.android.internal.policy.MultiPhoneWindow$MultiPhoneDecorView")) {
-                newClazz = "com.android.internal.policy*PhoneWindow$*DecorView";
-            }
-
-            if (StringUtils.isNullOrEmpty(newClazz)) {
-                return clazz;
-            }
-            return newClazz;
-        }
-
         @Override
-        protected boolean checkCriteria(String value) {
+        public boolean isMatch(Object value) {
             String criteria = clazz;
-            if (super.checkCriteria(criteria)) {
+            if (super.checkCriteria()) {
                 return true;
             }
-            if (StringUtils.isNullOrEmpty(criteria)) {
-                return true;
+            if(value == null){
+                return false;
             }
-
-            if (criteria.startsWith(REGULAR) && criteria.endsWith(REGULAR)) {
-                criteria = criteria.substring(1, criteria.lastIndexOf(REGULAR));
-                return By.isMatch(Pattern.compile(criteria), value);
+            if (criteria.startsWith(RegExUtil.REGULAR) && criteria.endsWith(RegExUtil.REGULAR)) {
+                criteria = criteria.substring(1, criteria.lastIndexOf(RegExUtil.REGULAR));
+                return RegExUtil.isMatch(criteria, value.toString());
 
             }
-            criteria = specialHandle();
-            return By.isMatch(Pattern.compile(criteria), value);
+            criteria = ClazzUtil.compatibleRegEx(criteria);
+            return RegExUtil.isMatchWithStar(criteria, value.toString());
 
         }
 
@@ -210,24 +176,40 @@ public abstract class By {
             this.xpathes = xpathList;
         }
 
+        public List<XPathInfo> getXpathes() {
+            return xpathes;
+        }
 
         @Override
-        protected boolean checkCriteria(String value) {
+        public boolean isMatch(Object value) {
             List<XPathInfo> criteria = xpathes;
-            if(super.checkCriteria(value)){
+            if (super.checkCriteria()) {
                 return true;
             }
-            if(criteria == null || criteria.size() == 0){
-                return true;
+            //升序排列
+            Collections.sort(xpathes);
+
+            UIDumpInfo dumpInfo = null;
+            if(value instanceof UIDumpInfo){
+                dumpInfo = (UIDumpInfo)value;
             }
 
-
+            //TODO xpath match
+            for (XPathInfo xp : xpathes) {
+                if(xp.getOption() == XPathOption.SIMPLE){
+                    continue;
+                }
+                XMLHierarchy.findByXpath(dumpInfo.getUiXml(),xp.getXpath());
+            }
 
             return true;
         }
 
         @Override
         public String getElementLocator() {
+            if (xpathes == null || xpathes.size() == 0) {
+                return "";
+            }
             return StringUtils.join(xpathes.toArray(), ",");
         }
 
@@ -235,6 +217,7 @@ public abstract class By {
         public String toString() {
             return "By.xpathList: " + getElementLocator();
         }
+
     }
 
     public static class ByPackageName extends By {
@@ -254,17 +237,16 @@ public abstract class By {
         }
 
         @Override
-        public boolean checkCriteria(String value) {
+        public boolean isMatch(Object value) {
             String criteria = packageName;
-            if (super.checkCriteria(criteria)) {
+            if (super.checkCriteria()) {
                 return true;
             }
-            //如果查找时候，当前包名为空，或者待查找的包名为空都不参与查找,暂时不需要验证查找到的元素包名
-            if (StringUtils.isNullOrEmpty(criteria)) {
-                return true;
+            if(value == null){
+                return false;
             }
 
-            return criteria.equals(value);
+            return criteria.equals(value.toString());
         }
 
         @Override
@@ -291,35 +273,25 @@ public abstract class By {
         }
 
         @Override
-        public boolean checkCriteria(String value) {
+        public boolean isMatch(Object value) {
             String criteria = text;
-            if (super.checkCriteria(criteria)) {
+            if (super.checkCriteria()) {
                 return true;
             }
-            if (StringUtils.isNullOrEmpty(criteria)) {
-                return true;
+            if(value == null){
+                return false;
             }
-
-            if (criteria.startsWith(REGULAR) && criteria.endsWith(REGULAR)) {
-                criteria = criteria.substring(1, criteria.lastIndexOf(REGULAR));
-                return By.isMatch(Pattern.compile(criteria), value);
+            if (criteria.startsWith(RegExUtil.REGULAR) && criteria.endsWith(RegExUtil.REGULAR)) {
+                criteria = criteria.substring(1, criteria.lastIndexOf(RegExUtil.REGULAR));
+                return RegExUtil.isMatch(criteria, value.toString());
 
             }
-            criteria = specialHandle(criteria);
-            value = specialHandle(value);
-            return By.isMatch(Pattern.compile(criteria), value);
+            return RegExUtil.isMatchWithStar(criteria, value.toString());
         }
 
         @Override
         public String toString() {
             return "By.text: " + text;
-        }
-
-        private String specialHandle(String str) {
-            if (StringUtils.isNullOrEmpty(str)) {
-                return "";
-            }
-            return str.replaceAll("[\r\n\\t\\s]", "");
         }
     }
 
@@ -334,11 +306,22 @@ public abstract class By {
     }
 
     public static enum XPathOption {
-        ALL,
-        SIMPLE,
-        NO_ID,
-        NO_TEXT,
-        NO_ID_TEXT
+        ALL(0),
+        SIMPLE(4),
+        NO_ID(2),
+        NO_TEXT(1),
+        NO_ID_TEXT(3);
+
+        private final int value;
+
+        XPathOption(final int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
     }
 
     //endregion

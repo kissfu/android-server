@@ -19,8 +19,7 @@ import java.util.concurrent.Executors;
 public abstract class BaseTest {
 
     private static boolean IS_OPEN = false;
-    //是否开启server测试
-    protected boolean NEED_SERVER = false;
+
     protected boolean DEBUG_REMOTE = false;
     protected String FUNC = "uia1 unit";
     private String runSh = "/Users/able/Desktop/workspace/mycode/githubs/testerkit/android-server/uia1/run.sh";
@@ -30,7 +29,7 @@ public abstract class BaseTest {
         Logger.DEBUG_LOCAL = 1;
         IS_OPEN = false;
         Logger.iFunc(FUNC, "===>setup");
-        if (NEED_SERVER == false) {
+        if (needServer() == false) {
             return;
         }
         new Thread(new Runnable() {
@@ -77,6 +76,9 @@ public abstract class BaseTest {
 
     }
 
+
+    //是否开启server测试
+    protected abstract boolean needServer();
 
     protected String getAssets(String fileName) {
         try {

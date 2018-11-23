@@ -178,7 +178,7 @@ public abstract class XMLHierarchy {
             //String nxpath = XPathParser.parse(xpath);
             //Log.i(Utils.tag, "search by xpath:" + nxpath);
             NodeList nodelist = (NodeList) xp.evaluate(xpath, doc, XPathConstants.NODESET);
-            XPathExpression xpe = xp.compile("@xpath");
+            XPathExpression xpe = xp.compile(       "@xpath");
             if (nodelist.getLength() == 0) {
                 return results;
             }

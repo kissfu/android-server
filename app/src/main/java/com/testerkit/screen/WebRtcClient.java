@@ -233,7 +233,6 @@ public class WebRtcClient {
 
         @Override
         public void onCreateSuccess(final SessionDescription sdp) {
-            // TODO: modify sdp to use mPeerConnParams prefered codecs
             try {
                 Log.d(TAG, "new Peer:onCreateSuccess: " + id + " " + endPoint);
                 JSONObject payload = new JSONObject();
