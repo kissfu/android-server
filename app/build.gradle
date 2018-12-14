@@ -4,8 +4,8 @@ android {
 
     //指定jdk版本,1.8解决编译rtc编译问题
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     compileSdkVersion 26
@@ -99,20 +99,6 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     //endregion
 
-    //region app for webRTC
-    implementation 'com.android.support.test:runner:1.0.0'
-    implementation 'com.android.support.test:rules:1.0.0'
-    implementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-    implementation project(':uia1')
-
-    // https://mvnrepository.com/artifact/io.socket/socket.io-client/1.0.0
-    implementation ('io.socket:socket.io-client:1.0.0') {
-        //(排除) excluding org.json which is provided by Android
-        //老版本：compile 'com.github.nkzawa:socket.io-client:0.4.2'
-        exclude group: 'org.json', module: 'json'
-    }
-
-    //endregion webRTC
 
     //region AndroidTest server
 
