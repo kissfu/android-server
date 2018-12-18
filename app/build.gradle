@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
 
-    //指定jdk版本,1.8解决编译rtc编译问题
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -17,7 +17,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 20180622
-        versionName "2018.06.22"
+        versionName currentDay()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,6 +25,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
                 outputFileName = outputFileName.replace('debug.apk', "v${defaultConfig.versionName}.apk")
@@ -61,7 +62,6 @@ android {
                 outputFileName = outputFileName.replace('app-debug-androidTest.apk', "uia2-v${defaultConfig.versionName}.apk")
             }
         }
-
     }
     //解决编译错误
     lintOptions {
@@ -70,11 +70,8 @@ android {
 
     //统一设置了androidTest对应的内容，优先级最高
     sourceSets{
-        main{
-            jniLibs.srcDir 'libs'
-            jni.srcDirs = []//disable automatic ndk-build call
-        }
         androidTest{
+            //不起作用
             manifest.srcFile 'src/androidTest/AndroidManifest.xml'
             //setRoot 'src/androidTest'
         }
@@ -120,5 +117,8 @@ dependencies {
  * @return
  */
 def currentTime() {
-    return new Date().format("yyyy.MM.dd_HH.mm.ss", TimeZone.getTimeZone("UTC"))
+    return new Date().format("yyyy.MM.dd_HH.mm.ss", TimeZone.getTimeZone("GMT+8"))
+}
+def currentDay() {
+    return new Date().format("yyyy.MM.dd", TimeZone.getTimeZone("GMT+8"))
 }

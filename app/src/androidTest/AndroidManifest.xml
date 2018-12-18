@@ -23,7 +23,6 @@
         <!--android:handleProfiling="false"/>-->
 
     <application android:debuggable="true" android:label="UIA2 Server">
-        <!--<activity android:name="com.testerkit.uia2.RTCActivity" android:exported="true"></activity>-->
     </application>
     <!--<meta-data android:name="aaa" android:value="${suffix}" />-->
 

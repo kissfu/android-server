@@ -1,49 +1,51 @@
 {
-  "action":"find",
-  "rule":"click",
-  "node":{
-    "type":"uia",
-    "index":"3",
-    "bounds":{
-      "left":0,
-      "top":2,
-      "right":3,
-      "bottom":4
+  "action": "find",
+  "rule": "click",
+  "node": {
+    "type": "uia",
+    "index": "3",
+    "bounds": {
+      "left": 0,
+      "top": 2,
+      "right": 3,
+      "bottom": 4
     }
   },
-  "scroll":{
-    "times":"1",
-    "timeOut":"3000",
-    "toCenter":"true",
-    "direction":"up"
+  "scroll": {
+    "times": "1",
+    "timeOut": "3000",
+    "toCenter": "true",
+    "direction": "up"
   },
-  "by":[
+  "by": [
     {
-      "name":"id",
-      "option":"REQUIRED"
-    },{
-      "clazz":"com.test.demo.MainActivity",
-      "option":"REQUIRED"
-    }
-  ,{
-      "text":"hello world",
-      "option":"REQUIRED"
-    },{
-      "packageName":"com.test.demo",
-      "option":"IGNORED"
-    }
-  ,{
-      "xpathes":
-      [
+      "name": "id",
+      "option": "REQUIRED"
+    },
+    {
+      "clazz": "com.test.demo.MainActivity",
+      "option": "REQUIRED"
+    },
+    {
+      "text": "hello world",
+      "option": "REQUIRED"
+    },
+    {
+      "packageName": "com.test.demo",
+      "option": "IGNORED"
+    },
+    {
+      "xpathes": [
         {
-          "option":"SIMPLE",
-          "xpath":"0-0-0"
-        },{
-        "option":"NO_TEXT",
-        "xpath":"//node[@name='id' and @clazz='com.test.demo.MainActivity']/node[@name='id']"
-      }
+          "option": "SIMPLE",
+          "xpath": "0-0-0"
+        },
+        {
+          "option": "NO_TEXT",
+          "xpath": "//node[@name='id' and @clazz='com.test.demo.MainActivity']/node[@name='id']"
+        }
       ],
-      "option":"FILTER"
+      "option": "FILTER"
     }
   ]
 }

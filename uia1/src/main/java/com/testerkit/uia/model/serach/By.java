@@ -16,11 +16,6 @@
 
 package com.testerkit.uia.model.serach;
 
-//import static io.appium.uiautomator2.model.internal.NativeAndroidBySelector.SELECTOR_ACCESSIBILITY_ID;
-//import static io.appium.uiautomator2.model.internal.NativeAndroidBySelector.SELECTOR_ANDROID_UIAUTOMATOR;
-//import static io.appium.uiautomator2.model.internal.NativeAndroidBySelector.SELECTOR_CLASS;
-//import static io.appium.uiautomator2.model.internal.NativeAndroidBySelector.SELECTOR_NATIVE_ID;
-//import static io.appium.uiautomator2.model.internal.NativeAndroidBySelector.SELECTOR_XPATH;
 
 import com.testerkit.uia.utils.ClazzUtil;
 import com.testerkit.uia.utils.Logger;
@@ -40,7 +35,6 @@ import java.util.regex.Pattern;
  * required.
  */
 public abstract class By {
-
 
 
     protected ByOption option = ByOption.REQUIRED;
@@ -107,7 +101,7 @@ public abstract class By {
             if (super.checkCriteria()) {
                 return true;
             }
-            if(value == null){
+            if (value == null) {
                 return false;
             }
             return criteria.equals(value.toString());
@@ -141,7 +135,7 @@ public abstract class By {
             if (super.checkCriteria()) {
                 return true;
             }
-            if(value == null){
+            if (value == null) {
                 return false;
             }
             if (criteria.startsWith(RegExUtil.REGULAR) && criteria.endsWith(RegExUtil.REGULAR)) {
@@ -190,16 +184,19 @@ public abstract class By {
             Collections.sort(xpathes);
 
             UIDumpInfo dumpInfo = null;
-            if(value instanceof UIDumpInfo){
-                dumpInfo = (UIDumpInfo)value;
+            if (value instanceof UIDumpInfo) {
+                dumpInfo = (UIDumpInfo) value;
             }
+
 
             //TODO xpath match
             for (XPathInfo xp : xpathes) {
-                if(xp.getOption() == XPathOption.SIMPLE){
+                if (xp.getOption() == XPathOption.SIMPLE) {
                     continue;
                 }
-                XMLHierarchy.findByXpath(dumpInfo.getUiXml(),xp.getXpath());
+                List<String> arr = XMLHierarchy.findByXpath(dumpInfo.getUiXml(), xp.getXpath());
+                //if(arr.)
+
             }
 
             return true;
@@ -242,7 +239,7 @@ public abstract class By {
             if (super.checkCriteria()) {
                 return true;
             }
-            if(value == null){
+            if (value == null) {
                 return false;
             }
 
@@ -278,7 +275,7 @@ public abstract class By {
             if (super.checkCriteria()) {
                 return true;
             }
-            if(value == null){
+            if (value == null) {
                 return false;
             }
             if (criteria.startsWith(RegExUtil.REGULAR) && criteria.endsWith(RegExUtil.REGULAR)) {

@@ -1,1 +1,1 @@
-include ':app', ':uia1'
+include ':app', ':uia1', ':common_java'
