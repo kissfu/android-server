@@ -1,8 +1,6 @@
 package com.testerkit.uia.handlers.request;
 
-//import android.support.test.uiautomator.UiObjectNotFoundException;
-
-import com.testerkit.uia.model.serach.StepInfo;
+import com.testerkit.common.json.StepJson;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.http.IHttpRequest;
@@ -16,11 +14,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-//import io.appium.uiautomator2.http.AppiumResponse;
-//import io.appium.uiautomator2.http.IHttpRequest;
-//import io.appium.uiautomator2.server.AppiumServlet;
-//import io.appium.uiautomator2.utils.Logger;
 
 public abstract class BaseRequestHandler {
 
@@ -53,7 +46,7 @@ public abstract class BaseRequestHandler {
         return new JSONObject();
     }
 
-    public StepInfo getStep(IRequest request){
+    public StepJson getStep(IRequest request){
         if(request instanceof  ISocketRequest) {
             return ((ISocketRequest)request).getStepInfo();
         }

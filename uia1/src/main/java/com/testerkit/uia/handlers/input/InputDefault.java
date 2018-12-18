@@ -1,9 +1,8 @@
 package com.testerkit.uia.handlers.input;
 
+import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.handlers.request.SafeRequestHandler;
 import com.testerkit.uia.utils.Logger;
-import com.testerkit.uia.utils.StringUtils;
 
 public class InputDefault extends InputEvent {
     public InputDefault(String mappedUri) {
@@ -14,7 +13,7 @@ public class InputDefault extends InputEvent {
     protected boolean executeInputEvent() throws Exception {
 
         String text = step.getNode().getText();
-        if(StringUtils.isNullOrEmpty(text)){
+        if(StringUtil.isNullOrEmpty(text)){
             return false;
         }
         Logger.iFunc(FUNC,String.format("input text=%s",text));

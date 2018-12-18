@@ -1,6 +1,8 @@
 package com.testerkit.uia.utils;
 
 
+import com.testerkit.common.utils.StringUtil;
+
 /**
  * Created by able on 2018/2/11.
  */
@@ -87,7 +89,7 @@ public class Logger {
      */
     public static void iFunc(String func,Object... messages) {
 
-        if (StringUtils.isNullOrEmpty(func)) {
+        if (StringUtil.isNullOrEmpty(func)) {
             info(messages);
         } else {
             info(String.format("[%s]", func),getString(messages));

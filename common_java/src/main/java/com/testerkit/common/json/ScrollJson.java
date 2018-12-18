@@ -1,10 +1,10 @@
-package com.testerkit.uia.model.serach;
+package com.testerkit.common.json;
 
 /**
  * Created by able on 2018/9/28.
  */
 
-public class ScrollInfo {
+public class ScrollJson {
     private int times;
     private int timeOut ;
     private String toCenter;

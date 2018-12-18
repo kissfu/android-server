@@ -17,22 +17,10 @@
 package com.testerkit.uia.model;
 
 import android.graphics.Rect;
-//import android.support.test.uiautomator.Exception;
 
 import com.testerkit.uia.exceptions.InvalidCoordinatesException;
-import com.testerkit.uia.exceptions.InvalidSelectorException;
-import com.testerkit.uia.exceptions.NoAttributeFoundException;
-import com.testerkit.uia.exceptions.UIAException;
-import com.testerkit.uia.model.serach.By;
 import com.testerkit.uia.utils.elements.Point;
 
-import java.util.List;
-
-//import io.appium.uiautomator2.common.exceptions.InvalidCoordinatesException;
-//import io.appium.uiautomator2.common.exceptions.InvalidSelectorException;
-//import io.appium.uiautomator2.common.exceptions.NoAttributeFoundException;
-//import io.appium.uiautomator2.common.exceptions.UiAutomator2Exception;
-//import io.appium.uiautomator2.utils.Point;
 
 public interface AndroidElement {
 

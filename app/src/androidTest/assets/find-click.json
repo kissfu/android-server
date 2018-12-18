@@ -17,25 +17,38 @@
     "toCenter": "true",
     "direction": "up"
   },
-  "by": [
-    {
-      "name": "id",
-      "option": "REQUIRED"
+  "condition": {
+    "relation":"AND",
+    "name": {
+      "text": [
+        "id"
+      ],
+      "option": "REQUIRED",
+      "relation":"AND"
     },
-    {
-      "clazz": "com.test.demo.MainActivity",
-      "option": "REQUIRED"
+    "clazz": {
+      "text": [
+        "com.test.demo.MainActivity"
+      ],
+      "option": "REQUIRED",
+      "relation":"AND"
     },
-    {
-      "text": "hello world",
-      "option": "REQUIRED"
+    "text": {
+      "text": [
+        "hello world"
+      ],
+      "option": "REQUIRED",
+      "relation":"AND"
     },
-    {
-      "packageName": "com.test.demo",
-      "option": "IGNORED"
+    "packageName": {
+      "text": [
+        "com.test.demo"
+      ],
+      "option": "IGNORED",
+      "relation":"AND"
     },
-    {
-      "xpathes": [
+    "xpath": {
+      "arr": [
         {
           "option": "SIMPLE",
           "xpath": "0-0-0"
@@ -45,8 +58,9 @@
           "xpath": "//node[@name='id' and @clazz='com.test.demo.MainActivity']/node[@name='id']"
         }
       ],
-      "option": "FILTER"
+      "option": "FILTER",
+      "relation":"OR"
     }
-  ]
+  }
 }
 

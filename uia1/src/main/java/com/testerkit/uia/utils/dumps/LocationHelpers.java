@@ -18,10 +18,10 @@ package com.testerkit.uia.utils.dumps;
 
 
 
+import com.testerkit.common.search.by.ByName;
+import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.model.Session;
-import com.testerkit.uia.model.serach.By;
 import com.testerkit.uia.utils.Logger;
-import com.testerkit.uia.utils.StringUtils;
 
 import java.util.regex.Pattern;
 
@@ -46,7 +46,7 @@ public class LocationHelpers {
     private static final Pattern resourceIdRegex = Pattern
             .compile("^[a-zA-Z_][a-zA-Z0-9._]*:[^/]+/[\\S]+$");
 
-    public static String rewriteIdLocator(By.ByName by) {
+    public static String rewriteIdLocator(ByName by) {
         String locator = by.getElementLocator();
 
         if (!resourceIdRegex.matcher(by.getElementLocator()).matches()) {
@@ -62,7 +62,7 @@ public class LocationHelpers {
 
     public static String getID(String viewIdResourceName){
         String id = "";
-        if (StringUtils.isNullOrEmpty(viewIdResourceName) ) {
+        if (StringUtil.isNullOrEmpty(viewIdResourceName) ) {
             return id;
         }
         if (viewIdResourceName.contains(":id/")) {

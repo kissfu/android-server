@@ -1,10 +1,10 @@
-package com.testerkit.uia.utils;
+package com.testerkit.common.utils;
 
 public class ClazzUtil {
 
     public static String compatibleRegEx(String clazz) {
         String newClazz = "";
-        if (StringUtils.isNullOrEmpty(clazz)) {
+        if (StringUtil.isNullOrEmpty(clazz)) {
             return newClazz;
         }
         /**
@@ -24,7 +24,7 @@ public class ClazzUtil {
             newClazz = "com.android.internal.policy*PhoneWindow$*DecorView";
         }
 
-        if (StringUtils.isNullOrEmpty(newClazz)) {
+        if (StringUtil.isNullOrEmpty(newClazz)) {
             return clazz;
         }
         return newClazz;
@@ -38,7 +38,7 @@ public class ClazzUtil {
      */
     public static String compatibleSwitch(String clazz,boolean isXPath){
         String newClazz = "";
-        if (StringUtils.isNullOrEmpty(clazz)) {
+        if (StringUtil.isNullOrEmpty(clazz)) {
             return newClazz;
         }
         // 有些手机上android.view.ViewGroup 是 android.view.View 如华为手机
@@ -57,7 +57,7 @@ public class ClazzUtil {
             }
         }
 
-        if (StringUtils.isNullOrEmpty(newClazz)) {
+        if (StringUtil.isNullOrEmpty(newClazz)) {
             return clazz;
         }
 

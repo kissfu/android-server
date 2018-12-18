@@ -15,21 +15,17 @@ import com.android.uiautomator.core.UiObject;
 
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiSelector;
-import com.testerkit.uia.core.DeviceCore;
+
 import com.testerkit.uia.exceptions.InvalidCoordinatesException;
-import com.testerkit.uia.exceptions.InvalidSelectorException;
-import com.testerkit.uia.exceptions.NoAttributeFoundException;
 
 
 import com.testerkit.uia.model.AndroidElement;
-import com.testerkit.uia.model.serach.By;
+
 import com.testerkit.uia.utils.Logger;
-import com.testerkit.uia.utils.ReflectionUtils;
+
 import com.testerkit.uia.utils.elements.Point;
 import com.testerkit.uia.utils.elements.PositionHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import static com.testerkit.uia.utils.ReflectionUtils.invoke;

@@ -16,20 +16,11 @@
 
 package com.testerkit.uia.handlers.key;
 
-import android.hardware.input.InputManager;
-import android.os.SystemClock;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-
-import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.core.DeviceCore;
+import com.testerkit.common.json.StepJson;
 import com.testerkit.uia.handlers.request.SafeRequestHandler;
-import com.testerkit.uia.model.KeyEnum;
-import com.testerkit.uia.model.serach.StepInfo;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.servers.WDStatus;
-import com.testerkit.uia.utils.InteractionUtils;
 import com.testerkit.uia.utils.Logger;
 
 
@@ -39,7 +30,7 @@ public abstract class PressEvent extends SafeRequestHandler {
     }
 
     protected String FUNC = "PressEvent";
-    protected StepInfo step;
+    protected StepJson step;
 
     @Override
     protected AppiumResponse safeHandle(IRequest request) throws Exception {

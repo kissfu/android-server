@@ -19,13 +19,15 @@ import android.os.SystemClock;
 import android.util.Xml;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.testerkit.common.model.NodeInfo;
+import com.testerkit.common.model.UIDumpInfo;
+import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.utils.Constants;
 import com.testerkit.uia.utils.Logger;
-import com.testerkit.uia.utils.StringUtils;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -122,12 +124,12 @@ public class AccessibilityNodeInfoDumper {
         }
 
         serializer.startTag("", "node");
-        MyNode myNode = new MyNode();
+        NodeInfo myNode = new NodeInfo();
         String indexStr = Integer.toString(index);
         serializer.attribute("", "index", indexStr);
         myNode.setIndex(index);
         String xpath = indexStr;
-        if (false == StringUtils.isNullOrEmpty(xpathParent)) {
+        if (false == StringUtil.isNullOrEmpty(xpathParent)) {
             xpath = String.format("%s-%s",xpathParent ,xpath);
         }
         serializer.attribute("", "xpath", xpath);

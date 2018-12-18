@@ -1,10 +1,11 @@
-package com.testerkit.uia.utils.dumps;
+package com.testerkit.common.model;
 
-import android.graphics.Rect;
+
+
 
 import java.util.UUID;
 
-public class MyNode {
+public class NodeInfo {
 
 
     /**
@@ -25,11 +26,11 @@ public class MyNode {
     /**
      * 控件可见区域（只会控件在界面可见部分的区域，不可见的会被忽略）
      */
-    private Rect rectVisible;
+    private RectInfo rectVisible;
     /**
      * 控件的真实区域
      */
-    private Rect rectReal;
+    private RectInfo rectReal;
 
     /**
      * 控件node文本内容
@@ -98,19 +99,19 @@ public class MyNode {
         this.nodeType = nodeType;
     }
 
-    public Rect getRectVisible() {
+    public RectInfo getRectVisible() {
         return rectVisible;
     }
 
-    public void setRectVisible(Rect rectVisible) {
+    public void setRectVisible(RectInfo rectVisible) {
         this.rectVisible = rectVisible;
     }
 
-    public Rect getRectReal() {
+    public RectInfo getRectReal() {
         return rectReal;
     }
 
-    public void setRectReal(Rect rectReal) {
+    public void setRectReal(RectInfo rectReal) {
         this.rectReal = rectReal;
     }
 

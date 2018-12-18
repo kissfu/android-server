@@ -1,14 +1,13 @@
 package com.testerkit.uia1.core;
 
 import android.os.RemoteException;
-import android.os.SystemClock;
 
-import com.android.uiautomator.core.UiSelector;
+import com.testerkit.common.enums.KeyEnum;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.AndroidElement;
-import com.testerkit.uia.model.KeyEnum;
+
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia1.model.UiObjectElement;

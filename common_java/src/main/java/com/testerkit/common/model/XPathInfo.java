@@ -1,10 +1,11 @@
-package com.testerkit.uia.model.serach;
+package com.testerkit.common.model;
 
-import com.testerkit.uia.utils.Logger;
+
+import com.testerkit.common.enums.XPathOption;
 
 public class XPathInfo implements Comparable<XPathInfo> {
     private String xpath;
-    private By.XPathOption option = By.XPathOption.ALL;
+    private XPathOption option = XPathOption.ALL;
 
 
     public String getXpath() {
@@ -15,11 +16,11 @@ public class XPathInfo implements Comparable<XPathInfo> {
         this.xpath = xpath;
     }
 
-    public By.XPathOption getOption() {
+    public XPathOption getOption() {
         return option;
     }
 
-    public void setOption(By.XPathOption option) {
+    public void setOption(XPathOption option) {
         this.option = option;
     }
 
@@ -37,7 +38,7 @@ public class XPathInfo implements Comparable<XPathInfo> {
     @Override
     public int compareTo(XPathInfo another) {
         if(this.option == null || another.option == null){
-            Logger.error("XPathInfo option is NULL!!!");
+            //Logger.error("XPathInfo option is NULL!!!");
             return -1;
         }
         //自定义比较方法，如果认为此实体本身大则返回1，否则返回-1

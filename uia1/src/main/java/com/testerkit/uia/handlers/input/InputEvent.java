@@ -16,8 +16,8 @@
 
 package com.testerkit.uia.handlers.input;
 
+import com.testerkit.common.json.StepJson;
 import com.testerkit.uia.handlers.request.SafeRequestHandler;
-import com.testerkit.uia.model.serach.StepInfo;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.servers.WDStatus;
@@ -30,7 +30,7 @@ public abstract class InputEvent extends SafeRequestHandler {
     }
 
     protected String FUNC = "InputEvent";
-    protected StepInfo step;
+    protected StepJson step;
 
     @Override
     protected AppiumResponse safeHandle(IRequest request) throws Exception {

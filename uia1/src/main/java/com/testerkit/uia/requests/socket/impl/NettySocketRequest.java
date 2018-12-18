@@ -1,6 +1,6 @@
 package com.testerkit.uia.requests.socket.impl;
 
-import com.testerkit.uia.model.serach.StepInfo;
+import com.testerkit.common.json.StepJson;
 import com.testerkit.uia.requests.socket.FullSocketRequest;
 import com.testerkit.uia.requests.socket.ISocketRequest;
 
@@ -30,7 +30,7 @@ public class NettySocketRequest implements ISocketRequest {
     }
 
     @Override
-    public StepInfo getStepInfo() {
+    public StepJson getStepInfo() {
         return request.step;
     }
 }

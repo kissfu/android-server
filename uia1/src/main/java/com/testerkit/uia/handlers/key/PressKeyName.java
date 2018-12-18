@@ -15,15 +15,9 @@
  */
 
 package com.testerkit.uia.handlers.key;
-
-import android.os.SystemClock;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-
+import com.testerkit.common.enums.KeyEnum;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.DeviceCore;
-import com.testerkit.uia.model.KeyEnum;
-import com.testerkit.uia.utils.InteractionUtils;
 import com.testerkit.uia.utils.Logger;
 
 

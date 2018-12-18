@@ -19,10 +19,10 @@ package com.testerkit.uia.handlers.touch;
 import android.os.SystemClock;
 
 
+import com.testerkit.common.json.PointJson;
 import com.testerkit.uia.core.InteractionController;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
-import com.testerkit.uia.model.serach.PointInfo;
 import com.testerkit.uia.utils.Logger;
 
 import org.json.JSONException;
@@ -54,7 +54,7 @@ public class TouchLongClick extends TouchEvent {
 
     @Override
     protected boolean executeTouchEvent() throws UIAException {
-        PointInfo point = points.get(0);
+        PointJson point = points.get(0);
         long duration = point.getDuration() > 0 ? point.getDuration() : 2000;
         Logger.iFunc(FUNC,"TouchLongClick", duration);
         if (correctLongClick(point.getX(), point.getY(), duration)) {

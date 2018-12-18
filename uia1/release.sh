@@ -33,4 +33,4 @@ echo 'jar...'
 
 ${jarFile} -cvf ${destDir}/${target} -C ./ ${destDir}/classes.dex
 
-echo 'OK ^_^..........'
+echo 'OK ^_^..........release'

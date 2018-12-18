@@ -16,25 +16,20 @@
 
 package com.testerkit.uia.handlers.dump;
 
-//import android.support.test.uiautomator.UiObjectNotFoundException;
-
+import com.testerkit.common.json.StepJson;
 import com.testerkit.uia.handlers.request.SafeRequestHandler;
-import com.testerkit.uia.model.serach.PointInfo;
-import com.testerkit.uia.model.serach.StepInfo;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
-import com.testerkit.uia.requests.socket.ISocketRequest;
 import com.testerkit.uia.servers.WDStatus;
 import com.testerkit.uia.utils.Logger;
 
-import java.util.List;
 
 
 
 public abstract class SourceEvent extends SafeRequestHandler {
 
     protected String FUNC = "SourceEvent";
-    protected StepInfo step;
+    protected StepJson step;
 
     public SourceEvent(String mappedUri) {
         super(mappedUri);

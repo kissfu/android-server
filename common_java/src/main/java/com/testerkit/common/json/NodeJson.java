@@ -1,6 +1,7 @@
-package com.testerkit.uia.model.serach;
+package com.testerkit.common.json;
 
-import android.graphics.Rect;
+
+import com.testerkit.common.model.RectInfo;
 
 /**
  * Created by able on 2018/9/28.
@@ -11,10 +12,10 @@ import android.graphics.Rect;
  *   },
  */
 
-public class NodeInfo {
+public class NodeJson {
     private String type;
     private int index;
-    private Rect bounds;
+    private RectInfo bounds;
     private String text;
 
 
@@ -34,11 +35,11 @@ public class NodeInfo {
         this.index = index;
     }
 
-    public Rect getBounds() {
+    public RectInfo getBounds() {
         return bounds;
     }
 
-    public void setBounds(Rect bounds) {
+    public void setBounds(RectInfo bounds) {
         this.bounds = bounds;
     }
 

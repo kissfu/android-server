@@ -1,6 +1,7 @@
-package com.testerkit.uia.model.serach;
+package com.testerkit.common.json;
 
-import com.testerkit.uia.model.KeyEnum;
+
+import com.testerkit.common.enums.KeyEnum;
 
 /**
  *   "key":{
@@ -10,7 +11,7 @@ import com.testerkit.uia.model.KeyEnum;
  *     "flags":-1
  *   }
  */
-public class KeyInfo {
+public class KeyJson {
     private KeyEnum keyName;
     private int keyCode;
     private int metaState;

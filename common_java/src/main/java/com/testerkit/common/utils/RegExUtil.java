@@ -1,4 +1,4 @@
-package com.testerkit.uia.utils;
+package com.testerkit.common.utils;
 
 import java.util.regex.Pattern;
 
@@ -17,7 +17,7 @@ public class RegExUtil {
      * @return
      */
     public static String escapeExprSpecialWord(String str) {
-        if(StringUtils.isNullOrEmpty(str)){
+        if(StringUtil.isNullOrEmpty(str)){
             return "";
         }
 //        String[] fbsArr = {"\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|"};
@@ -36,7 +36,7 @@ public class RegExUtil {
      * @return
      */
     public static String removeLineSeparatorAndSpace(String str){
-        if(StringUtils.isNullOrEmpty(str)){
+        if(StringUtil.isNullOrEmpty(str)){
             return "";
         }
         return str.replaceAll("[\r\n\\t\\s]", "");

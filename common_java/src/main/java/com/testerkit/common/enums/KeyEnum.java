@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.testerkit.uia.model;
+package com.testerkit.common.enums;
 
 /**
- * An enumeration that mirrors {@link android.view.Surface}.
+ * An enumeration that mirrors android.view.Surface
  * KeyEnum.RIGHT.ordinal() 从0开始返回枚举的index
  * KeyEnum.RIGHT.name() 返回该对象的字符串，即“RIGHT”--->.toString()
  */

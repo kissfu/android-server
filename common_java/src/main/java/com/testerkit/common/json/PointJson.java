@@ -1,6 +1,6 @@
-package com.testerkit.uia.model.serach;
+package com.testerkit.common.json;
 
-public class PointInfo {
+public class PointJson {
     private String type;
     private int x;
     private int y;

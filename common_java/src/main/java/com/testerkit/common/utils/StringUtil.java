@@ -1,6 +1,6 @@
-package com.testerkit.uia.utils;
+package com.testerkit.common.utils;
 
-public class StringUtils {
+public class StringUtil {
     public static boolean isNullOrEmpty(String str) {
         return (str == null || str.equals(""));
     }

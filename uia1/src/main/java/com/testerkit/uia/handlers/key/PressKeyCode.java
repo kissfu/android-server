@@ -22,16 +22,8 @@ import android.view.KeyEvent;
 
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.DeviceCore;
-import com.testerkit.uia.handlers.request.SafeRequestHandler;
-import com.testerkit.uia.model.KeyEnum;
-import com.testerkit.uia.model.serach.StepInfo;
-import com.testerkit.uia.requests.IRequest;
-import com.testerkit.uia.requests.http.AppiumResponse;
-import com.testerkit.uia.requests.socket.ISocketRequest;
-import com.testerkit.uia.servers.WDStatus;
 import com.testerkit.uia.utils.InteractionUtils;
 import com.testerkit.uia.utils.Logger;
-import com.testerkit.uia.utils.SleepUtils;
 
 
 public class PressKeyCode extends PressEvent {

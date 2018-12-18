@@ -1,4 +1,4 @@
-package com.testerkit.uia.model.serach;
+package com.testerkit.common.json;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -6,31 +6,34 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.search.by.ByBase;
+import com.testerkit.common.search.by.ByClazz;
+import com.testerkit.common.search.by.ByName;
+import com.testerkit.common.search.by.ByPackageName;
+import com.testerkit.common.search.by.ByText;
+import com.testerkit.common.search.by.ByXPath;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by able on 2018/9/28.
  */
 
-public class StepInfo {
+public class StepJson {
     private String action;
 
     private String rule;
 
-    private KeyInfo key;
+    private KeyJson key;
 
-    private NodeInfo node;
+    private NodeJson node;
 
-    private ScrollInfo scroll;
+    private ScrollJson scroll;
 
-    private List<By> by;
+    private List<ByBase> by;
 
-    private List<PointInfo> points;
+    private List<PointJson> points;
 
 
     public void setAction(String action) {
@@ -49,43 +52,43 @@ public class StepInfo {
         return this.rule;
     }
 
-    public void setNode(NodeInfo node) {
+    public void setNode(NodeJson node) {
         this.node = node;
     }
 
-    public NodeInfo getNode() {
+    public NodeJson getNode() {
         return this.node;
     }
 
-    public KeyInfo getKey() {
+    public KeyJson getKey() {
         return key;
     }
 
-    public void setKey(KeyInfo key) {
+    public void setKey(KeyJson key) {
         this.key = key;
     }
 
-    public void setScroll(ScrollInfo scroll) {
+    public void setScroll(ScrollJson scroll) {
         this.scroll = scroll;
     }
 
-    public ScrollInfo getScroll() {
+    public ScrollJson getScroll() {
         return this.scroll;
     }
 
-    public void setBy(List<By> by) {
+    public void setBy(List<ByBase> by) {
         this.by = by;
     }
 
-    public List<By> getBy() {
+    public List<ByBase> getBy() {
         return this.by;
     }
 
-    public List<PointInfo> getPoints() {
+    public List<PointJson> getPoints() {
         return points;
     }
 
-    public void setPoints(List<PointInfo> points) {
+    public void setPoints(List<PointJson> points) {
         this.points = points;
     }
 
@@ -110,36 +113,36 @@ public class StepInfo {
         Gson gson = new Gson();
 
         if(js.has("points")){
-            List<PointInfo> list=  gson.fromJson(js.get("points"),new TypeToken<List<PointInfo>>(){}.getType());
+            List<PointJson> list=  gson.fromJson(js.get("points"),new TypeToken<List<PointJson>>(){}.getType());
             this.setPoints(list);
         }
         if(js.has("node")){
-            this.setNode(gson.fromJson(js.get("node"),NodeInfo.class));
+            this.setNode(gson.fromJson(js.get("node"),NodeJson.class));
         }
         if(js.has("scroll")){
-            this.setScroll(gson.fromJson(js.get("scroll"),ScrollInfo.class));
+            this.setScroll(gson.fromJson(js.get("scroll"),ScrollJson.class));
         }
         if(js.has("key")){
-            this.setKey(gson.fromJson(js.get("key"),KeyInfo.class));
+            this.setKey(gson.fromJson(js.get("key"),KeyJson.class));
         }
         if(js.has("by")){
 
             JsonArray arr = js.getAsJsonArray("by");
-            List<By> byList = new ArrayList<By>();
+            List<ByBase> byList = new ArrayList<ByBase>();
 
 
             for (JsonElement ele:arr) {
                 JsonObject obj = ele.getAsJsonObject();
                 if(obj.has("name")){
-                    byList.add(gson.fromJson(obj,By.ByName.class));
+                    byList.add(gson.fromJson(obj,ByName.class));
                 }else if(obj.has("text")){
-                    byList.add(gson.fromJson(obj,By.ByText.class));
+                    byList.add(gson.fromJson(obj,ByText.class));
                 }else if(obj.has("class")){
-                    byList.add(gson.fromJson(obj,By.ByClass.class));
+                    byList.add(gson.fromJson(obj,ByClazz.class));
                 }else if(obj.has("packageName")){
-                    byList.add(gson.fromJson(obj,By.ByPackageName.class));
+                    byList.add(gson.fromJson(obj,ByPackageName.class));
                 }else if(obj.has("xpathes")){
-                    byList.add(gson.fromJson(obj,By.ByXPath.class));
+                    byList.add(gson.fromJson(obj,ByXPath.class));
                 }
             }
 

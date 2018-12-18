@@ -37,7 +37,7 @@ dependencies {
     compileOnly files('libs/uiautomator.jar')
     //传递依赖关系，且在运行时使用
     compile files('libs/netty-all-4.1.17.Final.jar')
-    compile files('libs/gson-2.8.5.jar')
+    //compile files('libs/gson-2.8.5.jar')
     compile project(':common_java')
 
     // https://mvnrepository.com/artifact/com.google.guava/guava
@@ -136,7 +136,7 @@ dependencies {
 //    commandLine './release.sh',dxFile,jarFile,'./libs/netty-all-4.1.17.Final.jar'
 //}
 
-//打包jar文件并且带有cmpile的依赖包
+//打包jar文件并且带有cmpile的依赖包,依赖jar包的compile依赖jar包也会包含
 jar {
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
@@ -145,8 +145,9 @@ jar {
 
 task release2(dependsOn:build,type:Exec) {
     group "test"
-    File distDir = new File('./dest')
-    distDir.mkdirs()
+//    File destDir = new File('./dest')
+//    destDir.deleteDir()
+//    destDir.mkdirs()
     commandLine dxFile, '--dex', '--no-strict', '--output=./dest/' + project.name + '.jar', jar.archivePath //,'./libs/netty-all-4.1.17.Final.jar','./libs/gson-2.8.5.jar'
 }
 
