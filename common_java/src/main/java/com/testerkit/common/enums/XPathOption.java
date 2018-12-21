@@ -2,10 +2,10 @@ package com.testerkit.common.enums;
 
 public enum XPathOption {
     ALL(0),
-    SIMPLE(4),
-    NO_ID(2),
     NO_TEXT(1),
-    NO_ID_TEXT(3);
+    NO_ID(2),
+    NO_ID_TEXT(3),
+    SIMPLE(4);
 
     private final int value;
 

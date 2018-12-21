@@ -3,7 +3,7 @@
   "rule": "click",
   "node": {
     "type": "uia",
-    "index": "3",
+    "index": 3,
     "bounds": {
       "left": 0,
       "top": 2,
@@ -12,43 +12,43 @@
     }
   },
   "scroll": {
-    "times": "1",
-    "timeOut": "3000",
-    "toCenter": "true",
+    "times": 1,
+    "timeOut": 3000,
+    "toCenter": true,
     "direction": "up"
   },
   "condition": {
     "relation":"AND",
     "name": {
-      "text": [
+      "arr": [
         "id"
       ],
       "option": "REQUIRED",
       "relation":"AND"
     },
     "clazz": {
-      "text": [
+      "arr": [
         "com.test.demo.MainActivity"
       ],
       "option": "REQUIRED",
       "relation":"AND"
     },
     "text": {
-      "text": [
+      "arr": [
         "hello world"
       ],
       "option": "REQUIRED",
       "relation":"AND"
     },
     "packageName": {
-      "text": [
+      "arr": [
         "com.test.demo"
       ],
       "option": "IGNORED",
       "relation":"AND"
     },
     "xpath": {
-      "arr": [
+      "xps": [
         {
           "option": "SIMPLE",
           "xpath": "0-0-0"

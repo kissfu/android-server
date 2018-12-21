@@ -31,9 +31,11 @@ public class StepJson {
 
     private ScrollJson scroll;
 
-    private List<ByBase> by;
+    //private List<ByBase> by;
 
     private List<PointJson> points;
+
+    private ConditionJson condition;
 
 
     public void setAction(String action) {
@@ -76,13 +78,13 @@ public class StepJson {
         return this.scroll;
     }
 
-    public void setBy(List<ByBase> by) {
-        this.by = by;
-    }
-
-    public List<ByBase> getBy() {
-        return this.by;
-    }
+//    public void setBy(List<ByBase> by) {
+//        this.by = by;
+//    }
+//
+//    public List<ByBase> getBy() {
+//        return this.by;
+//    }
 
     public List<PointJson> getPoints() {
         return points;
@@ -92,62 +94,80 @@ public class StepJson {
         this.points = points;
     }
 
-    @Override
-    public String toString() {
-        return String.format("key=%s",
-                key == null ? "" : key.toString());
-    }
+
 
     public String uri() {
         return this.getAction()+"/"+this.getRule();
     }
 
-    public void parse(String msg){
-        JsonObject js = new JsonParser().parse(msg).getAsJsonObject();
+    public ConditionJson getCondition() {
+        return condition;
+    }
 
-        this.setAction(js.get("action").getAsString());
+    public void setCondition(ConditionJson condition) {
+        this.condition = condition;
+    }
 
-        this.setRule(js.get("rule").getAsString());
-
-        // 1. 创建Gson对象
-        Gson gson = new Gson();
-
-        if(js.has("points")){
-            List<PointJson> list=  gson.fromJson(js.get("points"),new TypeToken<List<PointJson>>(){}.getType());
-            this.setPoints(list);
+    public static StepJson newParse(String msg){
+        try {
+            Gson gson =  new Gson();
+            return gson.fromJson(msg,StepJson.class);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        if(js.has("node")){
-            this.setNode(gson.fromJson(js.get("node"),NodeJson.class));
-        }
-        if(js.has("scroll")){
-            this.setScroll(gson.fromJson(js.get("scroll"),ScrollJson.class));
-        }
-        if(js.has("key")){
-            this.setKey(gson.fromJson(js.get("key"),KeyJson.class));
-        }
-        if(js.has("by")){
+      return null;
 
-            JsonArray arr = js.getAsJsonArray("by");
-            List<ByBase> byList = new ArrayList<ByBase>();
+//        JsonObject js = new JsonParser().parse(msg).getAsJsonObject();
+//
+//        this.setAction(js.get("action").getAsString());
+//
+//        this.setRule(js.get("rule").getAsString());
+//
+//        // 1. 创建Gson对象
+//        Gson gson = new Gson();
+//
+//        if(js.has("points")){
+//            List<PointJson> list=  gson.fromJson(js.get("points"),new TypeToken<List<PointJson>>(){}.getType());
+//            this.setPoints(list);
+//        }
+//        if(js.has("node")){
+//            this.setNode(gson.fromJson(js.get("node"),NodeJson.class));
+//        }
+//        if(js.has("scroll")){
+//            this.setScroll(gson.fromJson(js.get("scroll"),ScrollJson.class));
+//        }
+//        if(js.has("key")){
+//            this.setKey(gson.fromJson(js.get("key"),KeyJson.class));
+//        }
+//        if(js.has("by")){
+//
+//            JsonArray arr = js.getAsJsonArray("by");
+//            List<ByBase> byList = new ArrayList<ByBase>();
+//
+//
+//            for (JsonElement ele:arr) {
+//                JsonObject obj = ele.getAsJsonObject();
+//                if(obj.has("name")){
+//                    byList.add(gson.fromJson(obj,ByName.class));
+//                }else if(obj.has("text")){
+//                    byList.add(gson.fromJson(obj,ByText.class));
+//                }else if(obj.has("class")){
+//                    byList.add(gson.fromJson(obj,ByClazz.class));
+//                }else if(obj.has("packageName")){
+//                    byList.add(gson.fromJson(obj,ByPackageName.class));
+//                }else if(obj.has("xpathes")){
+//                    byList.add(gson.fromJson(obj,ByXPath.class));
+//                }
+//            }
+//
+//            this.setBy(byList);
+//        }
+    }
 
 
-            for (JsonElement ele:arr) {
-                JsonObject obj = ele.getAsJsonObject();
-                if(obj.has("name")){
-                    byList.add(gson.fromJson(obj,ByName.class));
-                }else if(obj.has("text")){
-                    byList.add(gson.fromJson(obj,ByText.class));
-                }else if(obj.has("class")){
-                    byList.add(gson.fromJson(obj,ByClazz.class));
-                }else if(obj.has("packageName")){
-                    byList.add(gson.fromJson(obj,ByPackageName.class));
-                }else if(obj.has("xpathes")){
-                    byList.add(gson.fromJson(obj,ByXPath.class));
-                }
-            }
-
-            this.setBy(byList);
-        }
-
+    @Override
+    public String toString() {
+        return String.format("key=%s",
+                key == null ? "" : key.toString());
     }
 }

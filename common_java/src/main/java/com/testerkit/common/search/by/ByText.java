@@ -1,43 +1,34 @@
 package com.testerkit.common.search.by;
 
-import com.testerkit.common.utils.RegExUtil;
+
+import com.testerkit.common.enums.Attribute;
+
+import java.util.List;
 
 public class ByText extends ByBase {
-    private final String text;
-
-    public ByText() {
-        text = "";
-    }
-
-    public ByText(String text) {
-        this.text = text;
-    }
 
 
-    @Override
-    public String getElementLocator() {
-        return text;
+    public ByText(List<String> arr) {
+        super(arr);
     }
 
     @Override
-    public boolean isMatch(Object value) {
-        String criteria = text;
-        if (super.checkCriteria()) {
-            return true;
-        }
-        if (value == null) {
-            return false;
-        }
-        if (criteria.startsWith(RegExUtil.REGULAR) && criteria.endsWith(RegExUtil.REGULAR)) {
-            criteria = criteria.substring(1, criteria.lastIndexOf(RegExUtil.REGULAR));
-            return RegExUtil.isMatch(criteria, value.toString());
+    public List<String> compatibleMode() {
+        return null;
+    }
 
-        }
-        return RegExUtil.isMatchWithStar(criteria, value.toString());
+    @Override
+    public String compatibleMode(String item) {
+        return null;
+    }
+
+    @Override
+    public Attribute getAttribute() {
+        return Attribute.TEXT;
     }
 
     @Override
     public String toString() {
-        return "By.text: " + text;
+        return "By.text: " + getElementLocator();
     }
 }

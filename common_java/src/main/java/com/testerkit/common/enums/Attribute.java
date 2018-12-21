@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.testerkit.uia.utils.dumps;
+package com.testerkit.common.enums;
 
 public enum Attribute {
     CHECKABLE("checkable"),
@@ -35,7 +35,9 @@ public enum Attribute {
     SELECTED("selected"),
     TEXT("text"),
     BOUNDS("bounds"),
-    INDEX("index");
+    INDEX("index"),
+    NAME("name"),
+    XPATH("xpath");
 
     private final String name;
 

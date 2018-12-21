@@ -1,5 +1,7 @@
 package com.testerkit.common.search.by;
 
+import com.testerkit.common.enums.Attribute;
+import com.testerkit.common.enums.ByOption;
 import com.testerkit.common.model.UIDumpInfo;
 import com.testerkit.common.model.XPathInfo;
 import com.testerkit.common.enums.XPathOption;
@@ -11,54 +13,54 @@ import java.util.Collections;
 import java.util.List;
 
 public class ByXPath extends ByBase {
-    private final List<XPathInfo> xpathes;
 
-    public ByXPath() {
-        xpathes = new ArrayList<>();
+    private List<XPathInfo> xps;
+
+    public List<XPathInfo> getXps() {
+        return xps;
     }
 
-    public ByXPath(List<XPathInfo> xpathList) {
-        this.xpathes = xpathList;
+    public ByXPath(List<String> arr) {
+        super(arr);
     }
 
-    public List<XPathInfo> getXpathes() {
-        return xpathes;
+    public ByXPath(List<String> arr, List<XPathInfo> xps) {
+        super(arr);
+        this.xps = xps;
     }
 
     @Override
-    public boolean isMatch(Object value) {
-        List<XPathInfo> criteria = xpathes;
-        if (super.checkCriteria()) {
+    public List<String> compatibleMode() {
+        return null;
+    }
+
+    @Override
+    public String compatibleMode(String item) {
+        return null;
+    }
+
+    @Override
+    public Attribute getAttribute() {
+        return Attribute.XPATH;
+    }
+
+
+    @Override
+    public boolean isMatchPre() {
+        if (this.option == null || this.option == ByOption.IGNORED) {
             return true;
         }
-        //升序排列
-        Collections.sort(xpathes);
-
-        UIDumpInfo dumpInfo = null;
-        if (value instanceof UIDumpInfo) {
-            dumpInfo = (UIDumpInfo) value;
+        if(xps == null || xps.isEmpty()){
+            return true;
         }
-
-
-        //TODO xpath match
-        for (XPathInfo xp : xpathes) {
-            if (xp.getOption() == XPathOption.SIMPLE) {
-                continue;
-            }
-            List<String> arr = XmlUtil.findByXpath(dumpInfo.getUiXml(), xp.getXpath());
-            //if(arr.)
-
+        arr = new ArrayList<String>();
+        for (XPathInfo xp:xps) {
+            arr.add(xp.getXpath());
         }
-
-        return true;
-    }
-
-    @Override
-    public String getElementLocator() {
-        if (xpathes == null || xpathes.size() == 0) {
-            return "";
+        if(arr == null || arr.isEmpty()){
+            return true;
         }
-        return StringUtil.join(xpathes.toArray(), ",");
+        return false;
     }
 
     @Override

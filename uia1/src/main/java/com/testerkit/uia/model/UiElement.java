@@ -19,7 +19,8 @@ package com.testerkit.uia.model;
 import android.graphics.Rect;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.testerkit.uia.utils.dumps.Attribute;
+
+import com.testerkit.common.enums.Attribute;
 
 import java.util.List;
 import java.util.Map;

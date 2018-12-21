@@ -1,45 +1,43 @@
 package com.testerkit.common.search.by;
 
+import com.testerkit.common.enums.Attribute;
 import com.testerkit.common.utils.ClazzUtil;
 import com.testerkit.common.utils.RegExUtil;
+import com.testerkit.common.utils.StringUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ByClazz extends ByBase {
-    private final String clazz;
 
-    public ByClazz() {
-        clazz = "";
-    }
-
-    public ByClazz(String clazz) {
-        this.clazz = clazz;
+    public ByClazz(List<String> arr) {
+        super(arr);
     }
 
     @Override
-    public boolean isMatch(Object value) {
-        String criteria = clazz;
-        if (super.checkCriteria()) {
-            return true;
-        }
-        if (value == null) {
-            return false;
-        }
-        if (criteria.startsWith(RegExUtil.REGULAR) && criteria.endsWith(RegExUtil.REGULAR)) {
-            criteria = criteria.substring(1, criteria.lastIndexOf(RegExUtil.REGULAR));
-            return RegExUtil.isMatch(criteria, value.toString());
+    public List<String> compatibleMode() {
+        List<String> list = new ArrayList<String>();
 
+        for (String str:arr) {
+            list.add(ClazzUtil.compatibleRegEx(str));
         }
-        criteria = ClazzUtil.compatibleRegEx(criteria);
-        return RegExUtil.isMatchWithStar(criteria, value.toString());
 
+        return list;
     }
 
     @Override
-    public String getElementLocator() {
-        return clazz;
+    public String compatibleMode(String item) {
+        return ClazzUtil.compatibleRegEx(item);
     }
+
+    @Override
+    public Attribute getAttribute() {
+        return Attribute.CLASS;
+    }
+
 
     @Override
     public String toString() {
-        return "By.clazz: " + clazz;
+        return "By.clazz: " + getElementLocator();
     }
 }

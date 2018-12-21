@@ -7,7 +7,7 @@ package com.testerkit.common.json;
 public class ScrollJson {
     private int times;
     private int timeOut ;
-    private String toCenter;
+    private boolean toCenter;
     private String direction;
 
     public void setTimes(int times){
@@ -25,10 +25,10 @@ public class ScrollJson {
         this.timeOut = timeOut;
     }
 
-    public void setToCenter(String toCenter){
+    public void setToCenter(boolean toCenter){
         this.toCenter = toCenter;
     }
-    public String getToCenter(){
+    public boolean getToCenter(){
         return this.toCenter;
     }
     public void setDirection(String direction){

@@ -1,8 +1,6 @@
 package com.testerkit.common.model;
 
 
-
-
 import java.util.UUID;
 
 public class NodeInfo {
@@ -16,7 +14,7 @@ public class NodeInfo {
     /**
      * 唯一名称
      */
-    private String name="";
+    private String name = "";
 
     /**
      * 表示该元素是什么类型的uia，h5，x5
@@ -40,7 +38,7 @@ public class NodeInfo {
     /**
      * 盲人辅助朗读文本
      */
-    private String  contentDesc = "";
+    private String contentDesc = "";
 
     /**
      * 是否是叶子节点
@@ -58,7 +56,7 @@ public class NodeInfo {
     /**
      * 如果是checkbox, 是否是勾选状态
      */
-    private boolean isChecked ;
+    private boolean isChecked;
     private boolean isClickable;
     private boolean isEnabled;
     private boolean isFocusable;
@@ -268,6 +266,13 @@ public class NodeInfo {
     }
 //endregion
 
+
+    public NodeInfo() {
+    }
+
+    public NodeInfo(String xpathSimple) {
+        this.xpathSimple = xpathSimple;
+    }
 
     @Override
     public String toString() {

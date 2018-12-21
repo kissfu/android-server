@@ -17,8 +17,7 @@ public class FullSocketRequest {
 
 
     public FullSocketRequest(String msg) {
-        step = new StepJson();
-        step.parse(msg);
+        step = StepJson.newParse(msg);
     }
 
 

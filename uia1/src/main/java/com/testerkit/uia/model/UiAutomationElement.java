@@ -19,15 +19,15 @@ package com.testerkit.uia.model;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.Rect;
-//import android.support.annotation.Nullable;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
 
+import com.testerkit.common.enums.Attribute;
 import com.testerkit.uia.model.settings.Settings;
 import com.testerkit.uia.utils.Constants;
 import com.testerkit.uia.utils.Logger;
-import com.testerkit.uia.utils.dumps.Attribute;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
