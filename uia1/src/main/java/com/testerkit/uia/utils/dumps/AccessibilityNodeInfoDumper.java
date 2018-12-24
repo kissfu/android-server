@@ -139,7 +139,7 @@ public class AccessibilityNodeInfoDumper {
         serializer.attribute("", "text", text);
         myNode.setText(text);
         String clazzName = safeCharSeqToString(node.getClassName());
-        serializer.attribute("", "clazz", clazzName);
+        serializer.attribute("", "class", clazzName);
         myNode.setClazzName(clazzName);
         String packageName = safeCharSeqToString(node.getPackageName());
         serializer.attribute("", "package", packageName);

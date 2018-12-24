@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 
 import com.testerkit.common.enums.Attribute;
+import com.testerkit.common.model.UiElement;
 import com.testerkit.uia.model.settings.Settings;
 import com.testerkit.uia.utils.Constants;
 import com.testerkit.uia.utils.Logger;
@@ -36,11 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-//import io.appium.uiautomator2.utils.Attribute;
-//import io.appium.uiautomator2.utils.Logger;
-//
-//import static android.support.test.internal.util.Checks.checkNotNull;
-//import static io.appium.uiautomator2.model.settings.Settings.ALLOW_INVISIBLE_ELEMENTS;
 
 /**
  * A UiElement that gets attributes via the Accessibility API.

@@ -37,7 +37,10 @@ public enum Attribute {
     BOUNDS("bounds"),
     INDEX("index"),
     NAME("name"),
-    XPATH("xpath");
+    XPATH("xpath"),
+    ROTATION("rotation"),
+    EDITABLE("editable"),
+    NODE_TYPE("node-type");
 
     private final String name;
 

@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package com.testerkit.uia.model;
-
-import android.graphics.Rect;
-import android.view.accessibility.AccessibilityNodeInfo;
+package com.testerkit.common.model;
 
 
 import com.testerkit.common.enums.Attribute;
@@ -38,7 +35,7 @@ public abstract class UiElement<R, E extends UiElement<R, E>> {
     // The two constants are used internally and must match to-uiautomator.xsl.
     public static final String ATTRIB_VISIBLE_BOUNDS = "VisibleBounds";
     public static final String ATTRIB_NOT_VISIBLE = "NotVisible";
-    public AccessibilityNodeInfo node;
+    public R node;
 
 
     @SuppressWarnings("unchecked")
@@ -112,7 +109,7 @@ public abstract class UiElement<R, E extends UiElement<R, E>> {
 
     protected abstract List<E> getChildren();
 
-    public Rect getBounds() {
+    public RectInfo getBounds() {
         return get(Attribute.BOUNDS);
     }
 
