@@ -7,11 +7,6 @@ import android.os.Build;
  */
 
 public class Constants {
-    public final static String TAG = "[UIA]";
-    public static String PRO = "1";
-    public final static String VERSION = "180906";
-
-
     public static int API_LEVEL(){
         return Build.VERSION.SDK_INT;
     }

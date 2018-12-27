@@ -104,7 +104,7 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
 
 
     //region init attributes and NodeInfo firstly
-
+    //TODO 初始化NodeInfo 和 属性对应关系
     public void put(Attribute attribute, Object value) {
         String val = value == null ? "" : value.toString();
         switch (attribute) {

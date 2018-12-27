@@ -40,6 +40,7 @@ public class CriteriaBase implements ICriteria<NodeInfo> {
         this.attribute = attribute;
         this.text = text;
     }
+    //TODO 文本条件 和 属性对应关系
     private String getValue(NodeInfo nodeOther){
         if(attribute == Attribute.TEXT){
             return nodeOther.getText();

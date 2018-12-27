@@ -63,6 +63,7 @@ public class MatcherText extends MatcherBase<ByBase, UIDumpInfo> {
         return isMatch(getValue(node));
     }
 
+    //TODO ByBase条件 和 属性对应关系
     private String getValue(NodeInfo node){
         Attribute attribute = by.getAttribute();
         if(attribute == Attribute.CLASS){
