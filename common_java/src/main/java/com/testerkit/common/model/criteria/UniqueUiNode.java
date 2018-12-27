@@ -18,6 +18,7 @@ package com.testerkit.common.model.criteria;
 
 
 import com.testerkit.common.enums.Attribute;
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.utils.StringUtil;
 
@@ -58,7 +59,7 @@ public class UniqueUiNode {
         }
         initGroups(criterias);
         if (criterias.size() == 0) {
-            System.out.println("--->no unique:" + criterias.size() + "," + groups.size());
+            Logger.info("--->no unique:" + criterias.size() + "," + groups.size());
         }
     }
 

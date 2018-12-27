@@ -18,8 +18,11 @@ package com.testerkit.common.model;
 
 
 import com.testerkit.common.enums.Attribute;
+import com.testerkit.common.enums.XPathOption;
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.criteria.UniqueUiNode;
 import com.testerkit.common.utils.RegExUtil;
+import com.testerkit.common.utils.StopWatch;
 import com.testerkit.common.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -45,6 +48,11 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
     private final static String tagNode = "node";
     private final static String tagRoot = "hierarchy";
     private int rotation;
+    private final List<XPathInfo> xpathes = new ArrayList<XPathInfo>();
+
+    public List<XPathInfo> getXpathes() {
+        return xpathes;
+    }
 
     public UiElementNode() {
         node = new NodeInfo();
@@ -189,7 +197,7 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
             }
             for (UiElementNode item : removeList) {
                 children.remove(item);
-                System.out.println("--->remove same bounds:" + item);
+                Logger.info("--->remove same bounds:" + item);
             }
         }
     }
@@ -234,21 +242,31 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
 
     //endregion
 
-    //region unique node
+    //region unique node and xpath
 
     private final static List<NodeInfo> allNodeInfo = new ArrayList<NodeInfo>();
+    private final static List<UiElementNode> allUiNode = new ArrayList<UiElementNode>();
 
-    public void getAllNodeInfo() {
+    public List<NodeInfo> getAllNodeInfo() {
         if (allNodeInfo.size() > 0) {
-            return;
+            return allNodeInfo;
         }
         for (Map.Entry<NodeInfo, UiElementNode> entry : cache.entrySet()) {
             allNodeInfo.add(entry.getKey());
             //list.add(entry.getValue());
         }
-        //return list;
+        return allNodeInfo;
     }
 
+    public List<UiElementNode> getAllUiNode() {
+        if (allUiNode.size() > 0) {
+            return allUiNode;
+        }
+        for (Map.Entry<NodeInfo, UiElementNode> entry : cache.entrySet()) {
+            allUiNode.add(entry.getValue());
+        }
+        return allUiNode;
+    }
 
     /**
      * root 节点不需要生成xpath
@@ -265,10 +283,11 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
      * root 节点不需要生成xpath
      * 跟节点的时候 xpath为空，所以排除了跟节点生成XPATH
      */
+    //TODO 1、多个xpath生成。2、xpath生成方式，通过兄弟定位
     public void generateXPath() {
         this.getUnique();
         String xpath = "";
-
+        StopWatch stopWatch = new StopWatch();
         UiElementNode parent = this;
         String plus = "";
         while (parent != null && parent.getUnique().hasGroupUni() == false) {
@@ -282,8 +301,11 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
         } else {
             xpath = "//" + getTagName() + parent.uniqueUiNode.getGroupUniMini() + plus;
         }
-
-        System.out.println("===>" + xpath + ",xp:" + this.get(Attribute.XPATH));
+        XPathInfo xp = new XPathInfo();
+        xp.setXpath(xpath);
+        xp.setOption(XPathOption.ALL);
+        this.xpathes.add(xp);
+        Logger.info(stopWatch.toElapsedMS()+"===>" + xpath + ",xp:" + this.get(Attribute.XPATH));
     }
 
     public UniqueUiNode getUnique() {

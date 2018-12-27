@@ -1,5 +1,6 @@
 package com.testerkit.common.utils;
 
+import com.testerkit.common.log.Logger;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
@@ -28,6 +29,7 @@ public class XmlUtil {
         if (StringUtil.isNullOrEmpty(xmlSource) || StringUtil.isNullOrEmpty(xpath)) {
             return results;
         }
+        StopWatch stopWatch = new StopWatch();
         XPathFactory factory = XPathFactory.newInstance();
         XPath xp = factory.newXPath();
         ByteArrayInputStream is = new ByteArrayInputStream(xmlSource.getBytes());
@@ -36,7 +38,7 @@ public class XmlUtil {
             //String nxpath = XPathParser.parse(xpath);
             //Log.i(Utils.tag, "search by xpath:" + nxpath);
             NodeList nodelist = (NodeList) xp.evaluate(xpath, doc, XPathConstants.NODESET);
-            XPathExpression xpe = xp.compile(       "@xpath");
+            XPathExpression xpe = xp.compile("@xpath");
             if (nodelist.getLength() == 0) {
                 return results;
             }
@@ -47,6 +49,7 @@ public class XmlUtil {
                 }
                 results.add(result.toString());
             }
+            Logger.info(stopWatch.toElapsedMS() + "xpath find:" + results.size());
             return results;
         } catch (XPathExpressionException e) {
             //Logger.error(e.getLocalizedMessage(), e);
@@ -63,9 +66,8 @@ public class XmlUtil {
     /**
      * 替换xml中特殊字符 &, <, >, ", '
      */
-    public static String encodeSpecialCharInXML(String str)
-    {
-        if (StringUtil.isNullOrEmpty(str)){
+    public static String encodeSpecialCharInXML(String str) {
+        if (StringUtil.isNullOrEmpty(str)) {
             return str;
         }
         str = str.replace("&", "&amp;");
@@ -79,8 +81,8 @@ public class XmlUtil {
     /**
      * 还原xml中特殊字符
      */
-    public static String decodeSpecialCharInXML(String str){
-        if(StringUtil.isNullOrEmpty(str)){
+    public static String decodeSpecialCharInXML(String str) {
+        if (StringUtil.isNullOrEmpty(str)) {
             return str;
         }
         str = str.replace("&lt;", "<");
