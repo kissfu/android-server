@@ -10,9 +10,9 @@ import com.testerkit.common.utils.RegExUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatcherTest extends MatcherBase<ByBase, UIDumpInfo> {
+public class MatcherText extends MatcherBase<ByBase, UIDumpInfo> {
 
-    public MatcherTest(ByBase by, UIDumpInfo dump) {
+    public MatcherText(ByBase by, UIDumpInfo dump) {
         super(by, dump);
     }
 

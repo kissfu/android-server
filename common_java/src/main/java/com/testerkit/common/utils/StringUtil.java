@@ -1,6 +1,11 @@
 package com.testerkit.common.utils;
 
 public class StringUtil {
+
+    public static boolean isNotNullOrEmpty(String str) {
+        return isNullOrEmpty(str) == false;
+    }
+
     public static boolean isNullOrEmpty(String str) {
         return (str == null || str.equals(""));
     }

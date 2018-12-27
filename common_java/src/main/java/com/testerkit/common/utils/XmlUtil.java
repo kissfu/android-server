@@ -60,4 +60,34 @@ public class XmlUtil {
         return results;
     }
 
+    /**
+     * 替换xml中特殊字符 &, <, >, ", '
+     */
+    public static String encodeSpecialCharInXML(String str)
+    {
+        if (StringUtil.isNullOrEmpty(str)){
+            return str;
+        }
+        str = str.replace("&", "&amp;");
+        str = str.replace("<", "&lt;");
+        str = str.replace(">", "&gt;");
+        str = str.replace("\'", "&apos;");
+        str = str.replace("\"", "&quot;");
+        return str;
+    }
+
+    /**
+     * 还原xml中特殊字符
+     */
+    public static String decodeSpecialCharInXML(String str){
+        if(StringUtil.isNullOrEmpty(str)){
+            return str;
+        }
+        str = str.replace("&lt;", "<");
+        str = str.replace("&gt;", ">");
+        str = str.replace("&apos;", "\'");
+        str = str.replace("&quot;", "\"");
+        str = str.replace("&amp;", "&");
+        return str;
+    }
 }

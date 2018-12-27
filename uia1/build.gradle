@@ -137,11 +137,14 @@ dependencies {
 //}
 
 //打包jar文件并且带有cmpile的依赖包,依赖jar包的compile依赖jar包也会包含
-jar {
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
+
+//编译UIA2 的时候需要注释掉，因为会产生依赖冲突。（assembleAndroiudTest）
+//TODO
+//jar {
+//    from {
+//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
 
 task release2(dependsOn:build,type:Exec) {
     group "test"

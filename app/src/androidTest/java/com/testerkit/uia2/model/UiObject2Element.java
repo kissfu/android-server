@@ -30,10 +30,7 @@ import android.widget.Toast;
 
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.exceptions.InvalidCoordinatesException;
-import com.testerkit.uia.exceptions.NoAttributeFoundException;
-import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.model.AndroidElement;
-import com.testerkit.uia.model.serach.ByMatcher;
 import com.testerkit.uia.utils.Logger;
 import com.testerkit.uia.utils.elements.Point;
 import com.testerkit.uia.utils.elements.PositionHelper;

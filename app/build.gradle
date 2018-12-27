@@ -49,8 +49,10 @@ android {
 //                    println output.processManifest.manifestOutputDirectory
 //                    println output.processResources.manifestFile
                     String manifestPath = "$manifestOutputDirectory/AndroidManifest.xml"
+                    String fileTest = "src/androidTest/AndroidManifest.xml";
                     // Stores the contents of the manifest.
-                    def manifestContent = file(manifestPath).getText()
+                    def manifestContent = file(fileTest).getText()
+                    //println manifestContent
                     // Changes the version code in the stored text.
                     manifestContent = manifestContent.replace('android:versionCode="1"', String.format('android:versionCode="%s"', defaultConfig.versionCode))
                     manifestContent = manifestContent.replace('android:versionName="1"', String.format('android:versionName="%s"', defaultConfig.versionName))

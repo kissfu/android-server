@@ -45,7 +45,7 @@ public class NodeInfo {
      */
     private boolean isLeaf;
 
-    private int index;
+    private int index = -1;
     private boolean isPassword;
     private boolean isEditable;
     /**

@@ -2,10 +2,11 @@ package com.testerkit.uia2.core;
 
 import android.os.RemoteException;
 
+import com.testerkit.common.enums.KeyEnum;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.AndroidElement;
-import com.testerkit.uia.model.KeyEnum;
+
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia2.model.UiObject2Element;
 

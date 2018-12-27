@@ -1,23 +1,27 @@
 package com.testerkit.common.utils;
 
+import com.testerkit.common.model.RectInfo;
+
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegExUtil {
 
-
+    private static final Pattern PATTERN_BOUNDS = Pattern.compile("\\[(-?\\d+),(-?\\d+)\\]\\[(-?\\d+),(-?\\d+)\\]");
     /**
      * 全部正则匹配的条件
      */
-    public final static String REGULAR = "/";
+    public static final String REGULAR = "/";
 
     /**
      * 转义正则特殊字符 （$()+.[]?\^{},|）
      * 星号* 不特殊处理
+     *
      * @param str
      * @return
      */
     public static String escapeExprSpecialWord(String str) {
-        if(StringUtil.isNullOrEmpty(str)){
+        if (StringUtil.isNullOrEmpty(str)) {
             return "";
         }
 //        String[] fbsArr = {"\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|"};
@@ -32,11 +36,12 @@ public class RegExUtil {
 
     /**
      * 去除换行符和空格
+     *
      * @param str
      * @return
      */
-    public static String removeLineSeparatorAndSpace(String str){
-        if(StringUtil.isNullOrEmpty(str)){
+    public static String removeLineSeparatorAndSpace(String str) {
+        if (StringUtil.isNullOrEmpty(str)) {
             return "";
         }
         return str.replaceAll("[\r\n\\t\\s]", "");
@@ -44,6 +49,7 @@ public class RegExUtil {
 
     /**
      * 只使用星号（*）作为正则匹配
+     *
      * @param criteria 条件
      * @param value
      * @return
@@ -56,19 +62,34 @@ public class RegExUtil {
         criteria = criteria.replaceAll("\\*", ".*");
         criteria = removeLineSeparatorAndSpace(criteria);
         value = removeLineSeparatorAndSpace(value);
-        return isMatch(Pattern.compile(criteria),value);
+        return isMatch(Pattern.compile(criteria), value);
     }
 
     public static boolean isMatch(String criteria, String value) {
         if (criteria == null) {
             return true;
         }
-        return isMatch(Pattern.compile(criteria),value);    }
+        return isMatch(Pattern.compile(criteria), value);
+    }
 
     public static boolean isMatch(Pattern criteria, String value) {
         if (criteria == null) {
             return true;
         }
         return criteria.matcher(value != null ? value : "").matches();
+    }
+
+    public static RectInfo getRect(String bounds) {
+        Matcher m = PATTERN_BOUNDS.matcher(bounds);
+        RectInfo rect = null;
+        if (m.matches()) {
+            int left = Integer.parseInt(m.group(1)),
+                    top = Integer.parseInt(m.group(2)),
+                    right = Integer.parseInt(m.group(3)),
+                    bottom = Integer.parseInt(m.group(4));
+            rect = new RectInfo(left, top, right, bottom);
+        }
+
+        return rect;
     }
 }

@@ -52,6 +52,15 @@ public enum Attribute {
         return name;
     }
 
+    public static Attribute fromString(final String str) {
+        for (Attribute em : values()) {
+            if (em.name == str) {
+                return em;
+            }
+        }
+        throw new IllegalArgumentException(String.format("Attribute str '%s' is not supported", str));
+    }
+
     @Override
     public String toString() {
         return name;

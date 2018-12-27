@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.testerkit.uia2" android:versionCode="1" android:versionName="1">
+    package="com.testerkit.uia2.server" android:versionCode="1" android:versionName="1">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -13,16 +12,20 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
 
+    <uses-sdk android:minSdkVersion="18" />
+
     <!--不起作用，不会被使用-->
-    <!--<instrumentation-->
-        <!---->
-        <!--android:label="UIA2"-->
-        <!--android:name="android.support.test.runner.AndroidJUnitRunner"-->
-        <!--android:targetPackage="com.testerkit.uia2.server"-->
-        <!--android:functionalTest="false"-->
-        <!--android:handleProfiling="false"/>-->
+    <instrumentation
+
+        android:label="UIA2 Server"
+        android:name="android.support.test.runner.AndroidJUnitRunner"
+        android:targetPackage="com.testerkit"
+        android:functionalTest="false"
+        android:handleProfiling="false"/>
 
     <application android:debuggable="true" android:label="UIA2 Server">
+        <uses-library
+            android:name="android.test.runner" />
     </application>
     <!--<meta-data android:name="aaa" android:value="${suffix}" />-->
 

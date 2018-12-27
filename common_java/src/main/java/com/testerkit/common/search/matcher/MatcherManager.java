@@ -136,19 +136,19 @@ public class MatcherManager {
 
         ByBase by = condition.getName();
         if (by != null && by.isMatchPre() == false && by.getOption() == option) {
-            matchers.add(new MatcherTest(by, dump));
+            matchers.add(new MatcherText(by, dump));
         }
         by = condition.getClazz();
         if (by != null && by.isMatchPre() == false && by.getOption() == option) {
-            matchers.add(new MatcherTest(by, dump));
+            matchers.add(new MatcherText(by, dump));
         }
         by = condition.getPackageName();
         if (by != null && by.isMatchPre() == false && by.getOption() == option) {
-            matchers.add(new MatcherTest(by, dump));
+            matchers.add(new MatcherText(by, dump));
         }
         by = condition.getText();
         if (by != null && by.isMatchPre() == false && by.getOption() == option) {
-            matchers.add(new MatcherTest(by, dump));
+            matchers.add(new MatcherText(by, dump));
         }
         return matchers;
     }
