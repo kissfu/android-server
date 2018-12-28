@@ -39,7 +39,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-        String input = new String(((String)msg).getBytes(),"UTF-8");
+        String input = new String(((String) msg).getBytes(), "UTF-8");
+        Logger.info("<===" + input);
         //解析请求的msg
         FullSocketRequest request = new FullSocketRequest(input);
 
@@ -49,9 +50,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         ISocketRequest socketRequest = new NettySocketRequest(request);
         ISocketResponse socketResponse = new NettySocketResponse(response);
 
-        for (ISocketServlet servlet : servletHandlers){
-            servlet.handleSocketRequest(socketRequest,socketResponse);
-            if(socketResponse.isClosed()){
+        for (ISocketServlet servlet : servletHandlers) {
+            servlet.handleSocketRequest(socketRequest, socketResponse);
+            if (socketResponse.isClosed()) {
                 break;
             }
         }
@@ -71,7 +72,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
         ctx.fireChannelReadComplete();
-        Logger.info( "server", " ReadComplete:");
+        Logger.info("server", " ReadComplete:");
     }
 
     @Override

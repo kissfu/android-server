@@ -40,17 +40,26 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
      * 坐标 点下去和抬上去
      */
     @Test
-    public void touchDownAndUp(){
+    public void touchDownAndUp() {
         initCore();
 
-        String command = super.getAssets("touch-down.json");
+        String resultInfo = "";
+        String command = "";
 
-        FullSocketRequest fullSocketRequest = new FullSocketRequest(command);
-        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-        command = super.getAssets("touch-up.json");
-        resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-        //Logger.info(resultInfo.getDetail());
+//        command = super.getAssets("touch-down.json");
+//        resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+//        Logger.info("===>" + resultInfo);
+//
+//
+//        command = super.getAssets("touch-up.json");
+//        resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+//        Logger.info("===>" + resultInfo);
+
+        command = super.getAssets("touch-click.json");
+        resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        Logger.info("===>" + resultInfo);
     }
+
     /**
      * 界面元素获取
      */
@@ -65,13 +74,14 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
         String resultInfo = null;
         try {
-            resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+            resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Logger.debug("result===>",resultInfo);
+        Logger.debug("result===>", resultInfo);
 
     }
+
     /**
      * 按键操作
      */
@@ -83,8 +93,8 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 //        String command = super.getAssets("press-key_code.json");
         String command = super.getAssets("press-key_code_long.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-        Logger.debug("===>",resultInfo);
+        String resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        Logger.debug("===>", resultInfo);
     }
 
     /**
@@ -96,21 +106,20 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
         String command = super.getAssets("input-default.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-        Logger.debug("===>",resultInfo);
+        String resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        Logger.debug("===>", resultInfo);
     }
 
 
     @Test
-    public void findClick(){
+    public void findClick() {
         initCore();
 
         String command = super.getAssets("find-click.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-        Logger.debug("===>",resultInfo);
+        String resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        Logger.debug("===>", resultInfo);
     }
-
 
     @Override
     public void initCore() {
@@ -118,7 +127,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         Logger.addLog(new LogAndroid());
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         BaseContext.getInstance().setTestCase(this);
-        BaseContext.getInstance().setDevice( new DeviceCore2(uiDevice));
+        BaseContext.getInstance().setDevice(new DeviceCore2(uiDevice));
 
     }
 

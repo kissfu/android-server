@@ -2,7 +2,7 @@
   "action":"touch",
   "rule":"click",
   "points":[
-    {"type":"d","x":154,"y":203,"duration":12}
+    {"type":"d","x":154,"y":203,"duration":100}
   ],
   "node":{
     "type":"uia",

@@ -16,18 +16,16 @@
 
 package com.testerkit.uia.handlers.touch;
 
-import android.os.SystemClock;
-
 
 import com.testerkit.common.json.PointJson;
-import com.testerkit.uia.core.InteractionController;
-import com.testerkit.uia.core.UiAutomatorBridge;
+import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
 
-import org.json.JSONException;
 
-
+/**
+ * 点击 duration：100
+ */
 public class TouchLongClick extends TouchEvent {
 
     public TouchLongClick(String mappedUri) {
@@ -40,12 +38,13 @@ public class TouchLongClick extends TouchEvent {
              * bridge.getClass() returns ShellUiAutomatorBridge on API 18/19 so use
              * the super class.
              */
-            InteractionController interactionController = UiAutomatorBridge.getInstance().getInteractionController();
-            if (interactionController.touchDown(x, y)) {
-                SystemClock.sleep(duration);
-                return interactionController.touchUp(x, y);
-            }
-            return false;
+            return BaseContext.getInstance().getDevice().click(x, y, duration);
+//            InteractionController interactionController = UiAutomatorBridge.getInstance().getInteractionController();
+//            if (interactionController.touchDown(x, y)) {
+//                SystemClock.sleep(duration);
+//                return interactionController.touchUp(x, y);
+//            }
+//            return false;
         } catch (final Exception e) {
             Logger.debug("Problem invoking correct long click: " + e);
             return false;
@@ -56,7 +55,6 @@ public class TouchLongClick extends TouchEvent {
     protected boolean executeTouchEvent() throws UIAException {
         PointJson point = points.get(0);
         long duration = point.getDuration() > 0 ? point.getDuration() : 2000;
-        Logger.iFunc(FUNC,"TouchLongClick", duration);
         if (correctLongClick(point.getX(), point.getY(), duration)) {
             return true;
         }
