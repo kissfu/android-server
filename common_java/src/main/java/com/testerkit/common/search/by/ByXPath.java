@@ -31,12 +31,12 @@ public class ByXPath extends ByBase {
 
     @Override
     public List<String> compatibleMode() {
-        return null;
+        return arr;
     }
 
     @Override
     public String compatibleMode(String item) {
-        return null;
+        return item;
     }
 
     @Override
