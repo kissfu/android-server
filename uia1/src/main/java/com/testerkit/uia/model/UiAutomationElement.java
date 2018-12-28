@@ -26,8 +26,8 @@ import android.widget.Toast;
 import com.testerkit.common.enums.Attribute;
 import com.testerkit.common.model.UiElement;
 import com.testerkit.uia.model.settings.Settings;
-import com.testerkit.uia.utils.Constants;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.SystemUtil;
+import com.testerkit.common.log.Logger;
 
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class UiAutomationElement extends UiElement<AccessibilityNodeInfo, UiAuto
         put(attribs, Attribute.TEXT, charSequenceToString(node.getText()));
         put(attribs, Attribute.CONTENT_DESC, charSequenceToString(node.getContentDescription()));
         String resourceId = "";
-        if(Constants.API_LEVEL() >= 18){
+        if(SystemUtil.API_LEVEL() >= 18){
             resourceId = charSequenceToString(node.getViewIdResourceName());
         }
         put(attribs, Attribute.RESOURCE_ID, resourceId);
@@ -83,7 +83,7 @@ public class UiAutomationElement extends UiElement<AccessibilityNodeInfo, UiAuto
         put(attribs, Attribute.LONG_CLICKABLE, node.isLongClickable());
         put(attribs, Attribute.PASSWORD, node.isPassword());
         put(attribs, Attribute.SCROLLABLE, node.isScrollable());
-        if(Constants.API_LEVEL() >= 18) {
+        if(SystemUtil.API_LEVEL() >= 18) {
             if (node.getTextSelectionStart() >= 0 && node.getTextSelectionStart() != node.getTextSelectionEnd()) {
                 attribs.put(Attribute.SELECTION_START, node.getTextSelectionStart());
                 attribs.put(Attribute.SELECTION_END, node.getTextSelectionEnd());

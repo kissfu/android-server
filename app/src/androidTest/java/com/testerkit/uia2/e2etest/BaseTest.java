@@ -18,24 +18,16 @@ package com.testerkit.uia2.e2etest;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiDevice;
 //import android.support.test.uiautomator.Configurator;
 
-import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.servers.socket.NettyServer;
-import com.testerkit.uia.utils.Constants;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Rule;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,8 +37,6 @@ import java.io.InputStreamReader;
 //import io.appium.uiautomator2.server.ServerInstrumentation;
 //import io.appium.uiautomator2.unittest.test.Config;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 //import static android.support.test.InstrumentationRegistry.getTargetContext;
 //import static io.appium.uiautomator2.unittest.test.internal.TestUtils.waitForElement;
 //import static io.appium.uiautomator2.unittest.test.internal.TestUtils.waitForElementInvisibility;
@@ -78,6 +68,11 @@ public abstract class BaseTest {
             }
         },"Server Bind Port").start();
         //NettyServer.getInstance().start();
+        try {
+            Thread.sleep(5*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Logger.info("e2e","startServer");
     }
 

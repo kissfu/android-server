@@ -4,7 +4,7 @@ package com.testerkit.uia.requests.http;
 import android.util.Log;
 
 import com.testerkit.uia.servers.WDStatus;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +48,7 @@ public class AppiumResponse {
         } catch (JSONException e) {
             Logger.error("Unable to create JSON Object:", e);
         }
-        Logger.info("AppiumResponse: ", o.toString());
+        //Logger.info("AppiumResponse: ", o.toString());
         return o.toString();
     }
 

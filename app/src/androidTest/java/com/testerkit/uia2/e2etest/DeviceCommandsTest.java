@@ -19,11 +19,13 @@ package com.testerkit.uia2.e2etest;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
+import com.testerkit.common.utils.Constants;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
+import com.testerkit.uia.log.LogAndroid;
 import com.testerkit.uia.requests.socket.FullSocketRequest;
-import com.testerkit.uia.utils.Constants;
-import com.testerkit.uia.utils.Logger;
+
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.SocketUtils;
 import com.testerkit.uia2.core.DeviceCore2;
 
@@ -61,8 +63,13 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         //比较快，以node为标签，className为属性
         String command = super.getAssets("source-node.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
-        Logger.debug("===>",resultInfo);
+        String resultInfo = null;
+        try {
+            resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Logger.debug("result===>",resultInfo);
 
     }
     /**
@@ -108,6 +115,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
     @Override
     public void initCore() {
         Constants.PRO = "2";
+        Logger.addLog(new LogAndroid());
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         BaseContext.getInstance().setTestCase(this);
         BaseContext.getInstance().setDevice( new DeviceCore2(uiDevice));

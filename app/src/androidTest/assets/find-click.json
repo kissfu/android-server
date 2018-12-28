@@ -19,47 +19,12 @@
   },
   "condition": {
     "relation":"AND",
-    "name": {
-      "arr": [
-        "id"
-      ],
-      "option": "REQUIRED",
-      "relation":"AND"
-    },
-    "clazz": {
-      "arr": [
-        "com.test.demo.MainActivity"
-      ],
-      "option": "REQUIRED",
-      "relation":"AND"
-    },
     "text": {
       "arr": [
-        "hello world"
+        "今日头条"
       ],
       "option": "REQUIRED",
       "relation":"AND"
-    },
-    "packageName": {
-      "arr": [
-        "com.test.demo"
-      ],
-      "option": "IGNORED",
-      "relation":"AND"
-    },
-    "xpath": {
-      "xps": [
-        {
-          "option": "SIMPLE",
-          "xpath": "0-0-0"
-        },
-        {
-          "option": "NO_TEXT",
-          "xpath": "//node[@name='id' and @clazz='com.test.demo.MainActivity']/node[@name='id']"
-        }
-      ],
-      "option": "FILTER",
-      "relation":"OR"
     }
   }
 }

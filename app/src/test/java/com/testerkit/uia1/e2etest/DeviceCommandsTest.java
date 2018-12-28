@@ -1,8 +1,7 @@
 package com.testerkit.uia1.e2etest;
 
-import com.testerkit.uia.model.serach.StepInfo;
 import com.testerkit.uia.requests.socket.FullSocketRequest;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia.utils.SocketUtils;
 
@@ -15,7 +14,7 @@ public class DeviceCommandsTest extends BaseTest {
 
     @Override
     protected boolean needServer() {
-        return false;
+        return true;
     }
 
     /**
@@ -41,6 +40,22 @@ public class DeviceCommandsTest extends BaseTest {
 
 //        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
 //        Logger.debug("===>",resultInfo);
+    }
+
+    /**
+     * 界面元素获取
+     */
+    @Test
+    public void getSource() {
+
+        //耗费时间要长，以node的class名字为标签
+//        String command = super.getAssets("source-class.json");
+        //比较快，以node为标签，className为属性
+        String command = super.getAssets("source-node.json");
+
+        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+        Logger.debug("===>",resultInfo);
+
     }
 
 

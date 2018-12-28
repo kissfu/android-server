@@ -22,6 +22,7 @@ import android.view.InputEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.BaseContext;
 
 import java.lang.reflect.InvocationTargetException;

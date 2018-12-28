@@ -9,7 +9,7 @@ import com.testerkit.uia.requests.socket.ISocketResponse;
 import com.testerkit.uia.requests.socket.impl.NettySocketRequest;
 import com.testerkit.uia.requests.socket.impl.NettySocketResponse;
 import com.testerkit.uia.servers.IServlet;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -61,18 +61,10 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             socketResponse.end();
         }
 
-        ctx.write(response).addListener(ChannelFutureListener.CLOSE);
+//        ctx.write(response).addListener(ChannelFutureListener.CLOSE);
+        ctx.writeAndFlush(Unpooled.copiedBuffer(socketResponse.getBytesWithLen()));
         super.channelRead(ctx, msg);
 
-
-//        String input = new String(((String)msg).getBytes(),"UTF-8");
-//        Log.i(Utils.tag, String.format("【server receive %s】:",++counter)+input);
-//        MessageHandler messageHandler = new MessageHandler();
-//        byte[] respBytes = messageHandler.handler(input);
-//        byte[] numBytes = ByteUtil.intToByteArray(respBytes.length);
-//        byte[] totalBytes = ByteUtil.byteMerger(numBytes,respBytes);
-//        ByteBuf resp = Unpooled.copiedBuffer(totalBytes);
-//        ctx.writeAndFlush(resp);
     }
 
     @Override

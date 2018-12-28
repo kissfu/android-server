@@ -3,6 +3,7 @@ package com.testerkit.uia.requests.socket.impl;
 import com.testerkit.uia.requests.IResponse;
 import com.testerkit.uia.requests.socket.FullSocketResponse;
 import com.testerkit.uia.requests.socket.ISocketResponse;
+import com.testerkit.uia.utils.ByteUtil;
 
 import java.nio.charset.Charset;
 
@@ -30,14 +31,26 @@ public class NettySocketResponse implements ISocketResponse {
 
 
     public IResponse setContent(byte[] data) {
-        //response.headers().add(CONTENT_LENGTH, data.length);
         response.setContent(data);
+        response.setContent(new String(data,charset));
         return this;
     }
 
     public IResponse setContent(String message) {
+        response.setContent(message);
         response.setContent(message.getBytes(charset));
         return this;
+    }
+
+    @Override
+    public byte[] getBytesWithLen(){
+        byte[] bytes = response.getBytes();
+
+        byte[] numBytes = ByteUtil.intToByteArray(bytes.length);
+
+        byte[] totalBytes = ByteUtil.byteMerger(numBytes,bytes);
+
+        return totalBytes;
     }
 
 

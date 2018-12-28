@@ -19,7 +19,7 @@ package com.testerkit.uia.model.settings;
 //import io.appium.uiautomator2.model.Session;
 //import io.appium.uiautomator2.utils.Logger;
 
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 public class ShouldUseCompactResponses extends AbstractSetting<Boolean> {
 

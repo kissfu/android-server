@@ -21,9 +21,9 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 
 import com.testerkit.common.enums.KeyEnum;
-import com.testerkit.uia.utils.Constants;
+import com.testerkit.uia.utils.SystemUtil;
 import com.testerkit.uia.utils.InteractionUtils;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.SleepUtils;
 
 import java.io.BufferedWriter;
@@ -49,7 +49,7 @@ public class PressKeyCodeLong extends PressEvent {
             keyCode = keyEnum.getValue();
         }
 
-        if (Constants.API_LEVEL() >= 18 && monkeyPressLong(keyCode)) {
+        if (SystemUtil.API_LEVEL() >= 18 && monkeyPressLong(keyCode)) {
             return true;
         }
 

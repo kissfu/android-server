@@ -18,38 +18,26 @@ package com.testerkit.uia.utils.dumps;
 
 import android.view.accessibility.AccessibilityNodeInfo;
 
-//import org.apache.commons.lang.StringUtils;
-
+import com.testerkit.common.log.LogPrint;
+import com.testerkit.common.model.UIDumpInfo;
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.exceptions.UIAException;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-//import io.appium.uiautomator2.common.exceptions.UiAutomator2Exception;
-//import io.appium.uiautomator2.core.AccessibilityNodeInfoDumper;
-//
-//import static io.appium.uiautomator2.utils.AXWindowHelpers.currentActiveWindowRoot;
-//import static io.appium.uiautomator2.utils.AXWindowHelpers.refreshRootAXNode;
 
 public abstract class XMLHierarchy {
 
@@ -70,6 +58,10 @@ public abstract class XMLHierarchy {
         AccessibilityNodeInfo[] roots = AXWindowHelpers.getWindowRoots();
         String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(roots);
         return xmlDump;
+    }
+    public static UIDumpInfo getDumpInfo() throws UIAException {
+        AccessibilityNodeInfo[] roots = AXWindowHelpers.getWindowRoots();
+        return AccessibilityNodeInfoDumper.getUIDumpInfo(roots);
     }
 
     public static Node getFormattedXMLDoc() throws UIAException {
@@ -179,7 +171,7 @@ public abstract class XMLHierarchy {
 
 
     public static void main(String[] args) {
-        Logger.DEBUG_LOCAL = 1;
+        Logger.addLog(new LogPrint());
         System.out.printf(cleanTagName("ASD.ASDF.ASDF.ASD@SD"));
     }
 }

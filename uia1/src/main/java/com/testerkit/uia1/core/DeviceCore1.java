@@ -9,7 +9,7 @@ import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.AndroidElement;
 
 import com.testerkit.uia.model.ScreenSize;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia1.model.UiObjectElement;
 
 /**

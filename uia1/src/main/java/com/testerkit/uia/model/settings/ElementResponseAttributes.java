@@ -20,7 +20,7 @@ package com.testerkit.uia.model.settings;
 //
 //import static io.appium.uiautomator2.model.Session.capabilities;
 
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 
 public class ElementResponseAttributes extends AbstractSetting<String> {

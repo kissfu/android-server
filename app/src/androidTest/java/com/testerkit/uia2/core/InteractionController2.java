@@ -26,7 +26,8 @@ import com.testerkit.uia.exceptions.UIAException;
 import static com.testerkit.uia.utils.ReflectionUtils.invoke;
 import static com.testerkit.uia.utils.ReflectionUtils.method;
 
-public  class InteractionController2 extends InteractionController {
+//TODO EventRegister2.runAndRegisterScrollEvents  clickNoSync,目前都是clickAndSync
+public class InteractionController2 extends InteractionController {
 
     protected static final String METHOD_PERFORM_MULTI_POINTER_GESTURE = "performMultiPointerGesture";
 
@@ -34,6 +35,8 @@ public  class InteractionController2 extends InteractionController {
         super(interactionController);
     }
 
+    //是否同步等待某个事件
+    private boolean isSync = false;
 
     //region extends InteractionController
 
@@ -44,60 +47,85 @@ public  class InteractionController2 extends InteractionController {
 
     @Override
     public boolean injectEventSync(final InputEvent event) throws UIAException {
-        return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
-            @Override
-            public void run() {
-                Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
-                        METHOD_INJECT_EVENT_SYNC, InputEvent.class), interactionController, event);
-                setResult(result);
-            }
-        });
+        if (isSync) {
+            return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
+                @Override
+                public void run() {
+                    Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
+                            METHOD_INJECT_EVENT_SYNC, InputEvent.class), interactionController, event);
+                    setResult(result);
+                }
+            });
+        }
+        return (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
+                    METHOD_INJECT_EVENT_SYNC, InputEvent.class), interactionController, event);
+
     }
+
     @Override
     public boolean touchDown(final int x, final int y) throws UIAException {
-        return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
-            @Override
-            public void run() {
-                Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
-                        METHOD_TOUCH_DOWN, int.class, int.class), interactionController, x, y);
-                setResult(result);
-            }
-        });
+        if (isSync) {
+            return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
+                @Override
+                public void run() {
+                    Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
+                            METHOD_TOUCH_DOWN, int.class, int.class), interactionController, x, y);
+                    setResult(result);
+                }
+            });
+        }
+        return (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
+                METHOD_TOUCH_DOWN, int.class, int.class), interactionController, x, y);
     }
+
     @Override
     public boolean touchUp(final int x, final int y) throws UIAException {
-        return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
-            @Override
-            public void run() {
-                Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(), METHOD_TOUCH_UP,
-                        int.class, int.class), interactionController, x, y);
-                setResult(result);
-            }
-        });
+        if(isSync) {
+            return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
+                @Override
+                public void run() {
+                    Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(), METHOD_TOUCH_UP,
+                            int.class, int.class), interactionController, x, y);
+                    setResult(result);
+                }
+            });
+        }
+        return (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(), METHOD_TOUCH_UP,
+                int.class, int.class), interactionController, x, y);
     }
+
     @Override
     public boolean touchMove(final int x, final int y) throws UIAException {
-        return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
-            @Override
-            public void run() {
-                Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
-                        METHOD_TOUCH_MOVE, int.class, int.class), interactionController, x, y);
-                setResult(result);
-            }
-        });
+        if(isSync) {
+            return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
+                @Override
+                public void run() {
+                    Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
+                            METHOD_TOUCH_MOVE, int.class, int.class), interactionController, x, y);
+                    setResult(result);
+                }
+            });
+        }
+        return (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
+                METHOD_TOUCH_MOVE, int.class, int.class), interactionController, x, y);
     }
 
     //endregion
 
     public Boolean performMultiPointerGesture(final MotionEvent.PointerCoords[][] pcs) throws UIAException {
-        return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
-            @Override
-            public void run() {
-                Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
-                        METHOD_PERFORM_MULTI_POINTER_GESTURE, MotionEvent.PointerCoords[][].class),
-                        interactionController, (Object) pcs);
-                setResult(result);
-            }
-        });
+        if(isSync) {
+            return EventRegister2.runAndRegisterScrollEvents(new ReturningRunnable<Boolean>() {
+                @Override
+                public void run() {
+                    Boolean result = (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
+                            METHOD_PERFORM_MULTI_POINTER_GESTURE, MotionEvent.PointerCoords[][].class),
+                            interactionController, (Object) pcs);
+                    setResult(result);
+                }
+            });
+        }
+        return (Boolean) invoke(method(CLASS_INTERACTION_CONTROLLER(),
+                METHOD_PERFORM_MULTI_POINTER_GESTURE, MotionEvent.PointerCoords[][].class),
+                interactionController, (Object) pcs);
     }
 }

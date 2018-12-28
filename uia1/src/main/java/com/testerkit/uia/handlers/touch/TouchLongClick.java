@@ -23,7 +23,7 @@ import com.testerkit.common.json.PointJson;
 import com.testerkit.uia.core.InteractionController;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import org.json.JSONException;
 

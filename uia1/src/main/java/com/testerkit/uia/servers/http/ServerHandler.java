@@ -4,7 +4,7 @@ import com.testerkit.uia.requests.http.IHttpRequest;
 import com.testerkit.uia.requests.http.IHttpResponse;
 import com.testerkit.uia.requests.http.impl.NettyHttpRequest;
 import com.testerkit.uia.requests.http.impl.NettyHttpResponse;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import java.util.List;
 import java.util.logging.Level;

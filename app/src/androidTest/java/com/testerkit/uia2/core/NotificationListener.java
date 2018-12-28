@@ -19,7 +19,7 @@ package com.testerkit.uia2.core;
 
 import android.view.accessibility.AccessibilityEvent;
 
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -30,6 +30,7 @@ import static java.lang.System.currentTimeMillis;
 /**
  * 1、UIA2中可以被直接用
  * 2、通用的可以通过UiAutomatorBridge.getInstance().getUiAutomation().getAccessibilityEventListener()
+ * 3、for toastMessage
  */
 public final class NotificationListener implements OnAccessibilityEventListener {
     private static final NotificationListener INSTANCE = new NotificationListener();

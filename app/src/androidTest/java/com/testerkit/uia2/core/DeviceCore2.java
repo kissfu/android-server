@@ -28,6 +28,10 @@ public class DeviceCore2 extends DeviceCore {
     }
 
 
+//    @Override
+//    public boolean click(int x, int y) {
+//        return uiDevice.click(x,y);
+//    }
 
     @Override
     public Object getUiDevice() {
@@ -41,6 +45,7 @@ public class DeviceCore2 extends DeviceCore {
 
     @Override
     public ScreenSize getScreenSize() {
+        uiDevice.click(0,0);
         return new ScreenSize(uiDevice.getDisplayWidth(),uiDevice.getDisplayHeight());
     }
 

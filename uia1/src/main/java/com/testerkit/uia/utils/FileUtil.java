@@ -2,6 +2,8 @@ package com.testerkit.uia.utils;
 
 
 
+import com.testerkit.common.log.Logger;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;

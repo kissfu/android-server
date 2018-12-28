@@ -2,7 +2,7 @@ package com.testerkit.uia.handlers.input;
 
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 public class InputDefault extends InputEvent {
     public InputDefault(String mappedUri) {

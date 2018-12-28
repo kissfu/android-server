@@ -20,7 +20,7 @@ package com.testerkit.uia.model.settings;
 //import io.appium.uiautomator2.utils.Logger;
 
 import com.testerkit.uia.model.Session;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 public class AllowInvisibleElements extends AbstractSetting<Boolean> {
 

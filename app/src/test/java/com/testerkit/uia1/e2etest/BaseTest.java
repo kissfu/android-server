@@ -1,8 +1,9 @@
 package com.testerkit.uia1.e2etest;
 
+import com.testerkit.common.log.LogPrint;
 import com.testerkit.uia.servers.socket.NettyServer;
 import com.testerkit.uia.utils.FileUtil;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.SleepUtils;
 
 import org.junit.After;
@@ -20,13 +21,13 @@ public abstract class BaseTest {
 
     private static boolean IS_OPEN = false;
 
-    protected boolean DEBUG_REMOTE = false;
+    protected boolean DEBUG_REMOTE = true;
     protected String FUNC = "uia1 unit";
     private String runSh = "/Users/able/Desktop/workspace/mycode/githubs/testerkit/android-server/uia1/run.sh";
 
     @Before
     public void setup() {
-        Logger.DEBUG_LOCAL = 1;
+        Logger.addLog(new LogPrint());
         IS_OPEN = false;
         Logger.iFunc(FUNC, "===>setup");
         if (needServer() == false) {

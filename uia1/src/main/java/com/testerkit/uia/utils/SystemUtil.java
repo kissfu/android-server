@@ -6,7 +6,7 @@ import android.os.Build;
  * Created by able on 2018/9/6.
  */
 
-public class Constants {
+public class SystemUtil {
     public static int API_LEVEL(){
         return Build.VERSION.SDK_INT;
     }

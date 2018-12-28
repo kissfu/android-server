@@ -23,7 +23,7 @@ import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.exceptions.InvalidCoordinatesException;
 import com.testerkit.uia.model.ScreenSize;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 
 public abstract class PositionHelper {

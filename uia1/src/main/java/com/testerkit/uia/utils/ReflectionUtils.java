@@ -1,5 +1,6 @@
 package com.testerkit.uia.utils;
 
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.exceptions.UIAException;
 
 import java.lang.reflect.Field;

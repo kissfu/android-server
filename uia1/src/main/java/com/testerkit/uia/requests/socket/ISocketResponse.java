@@ -6,4 +6,5 @@ import java.nio.charset.Charset;
 
 public interface ISocketResponse extends IResponse {
 
+    byte[] getBytesWithLen();
 }

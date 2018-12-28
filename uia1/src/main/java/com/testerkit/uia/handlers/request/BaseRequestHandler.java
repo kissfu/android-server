@@ -6,7 +6,7 @@ import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.http.IHttpRequest;
 import com.testerkit.uia.requests.socket.ISocketRequest;
 import com.testerkit.uia.servers.http.AppiumServlet;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;

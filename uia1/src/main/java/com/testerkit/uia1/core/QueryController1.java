@@ -4,7 +4,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.testerkit.uia.core.QueryController;
 import com.testerkit.uia.exceptions.UIAException;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import static com.testerkit.uia.utils.ReflectionUtils.invoke;
 import static com.testerkit.uia.utils.ReflectionUtils.method;

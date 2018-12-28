@@ -5,7 +5,7 @@ import android.util.Log;
 //import cn.testin.utils.Utils;
 import com.testerkit.uia.servers.IServlet;
 import com.testerkit.uia.servers.ServerBase;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

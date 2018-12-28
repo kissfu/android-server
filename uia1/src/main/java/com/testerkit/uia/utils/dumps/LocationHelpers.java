@@ -21,7 +21,7 @@ package com.testerkit.uia.utils.dumps;
 import com.testerkit.common.search.by.ByName;
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.model.Session;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import java.util.regex.Pattern;
 

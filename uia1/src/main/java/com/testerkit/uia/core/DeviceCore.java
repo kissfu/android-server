@@ -4,11 +4,10 @@ import android.os.SystemClock;
 import android.view.Display;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.model.ScreenSize;
-import com.testerkit.uia.utils.Constants;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.SystemUtil;
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.ReflectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -76,7 +75,7 @@ public abstract class DeviceCore {
    public List<AccessibilityNodeInfo> getRoots() {
       List<AccessibilityNodeInfo> ret = new ArrayList<>();
       // Support multi-window searches for API level 21 and up
-      if(Constants.API_LEVEL_ACTUAL() >= 21){
+      if(SystemUtil.API_LEVEL_ACTUAL() >= 21){
          Object obj = ReflectionUtils.invoke(uiDevice,METHOD_GET_WINDOW_ROOTS);
          AccessibilityNodeInfo[] rootArr = (AccessibilityNodeInfo[])obj;
          ret.addAll(Arrays.asList(rootArr));
@@ -95,7 +94,7 @@ public abstract class DeviceCore {
     */
    public int getRotation(){
       int rotation = -1;
-      if(Constants.API_LEVEL() >= 17){
+      if(SystemUtil.API_LEVEL() >= 17){
          Object obj = ReflectionUtils.invoke(uiDevice,METHOD_GET_DISPLAY_ROTATION);
          rotation = (int)obj;
       }else {
@@ -122,6 +121,15 @@ public abstract class DeviceCore {
          return false;//this.uiDevice.click(x,y);
       }
       SystemClock.sleep(holdTime);
+      uiAutomatorBridge.getInteractionController().touchUp(x,y);
+      return true;
+   }
+   public boolean click(int x, int y) {
+      boolean isDown = uiAutomatorBridge.getInteractionController().touchDown(x,y);
+      if(isDown == false) {
+         return false;//this.uiDevice.click(x,y);
+      }
+      SystemClock.sleep(100);
       uiAutomatorBridge.getInteractionController().touchUp(x,y);
       return true;
    }

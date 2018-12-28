@@ -8,12 +8,13 @@ import android.support.test.filters.SdkSuppress;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 
+import com.testerkit.common.utils.Constants;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.interfaces.ITestCase;
+import com.testerkit.uia.log.LogAndroid;
 import com.testerkit.uia.servers.socket.NettyServer;
-import com.testerkit.uia.utils.Constants;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia2.core.DeviceCore2;
 import com.testerkit.uia2.core.UiAutomatorBridge2;
@@ -49,6 +50,7 @@ public class TestCase2 implements ITestCase {
     @Override
     public void initCore() {
         Constants.PRO = "2";
+        Logger.addLog(new LogAndroid());
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         BaseContext.getInstance().setTestCase(this);
         BaseContext.getInstance().setDevice( new DeviceCore2(uiDevice));

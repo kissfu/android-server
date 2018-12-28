@@ -19,7 +19,7 @@ package com.testerkit.uia.handlers.touch;
 
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 public class TouchMove extends TouchEvent {
 

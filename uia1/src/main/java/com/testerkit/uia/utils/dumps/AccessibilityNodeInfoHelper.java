@@ -19,7 +19,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 //import android.view.accessibility.AccessibilityNodeInfo.AccessibilityAction;
 //
 //import io.appium.uiautomator2.utils.Logger;

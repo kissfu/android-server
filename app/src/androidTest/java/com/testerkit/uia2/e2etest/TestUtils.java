@@ -21,7 +21,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.Until;
 
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;

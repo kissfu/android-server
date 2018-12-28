@@ -1,5 +1,7 @@
 package com.testerkit.uia.utils;
 
+import com.testerkit.common.log.Logger;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,161 +10,108 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class SocketUtils {
     static String FUNC= "socket";
-    public static String request(String ip,int port,String command,int timeout){
-        String line="";
+    /**
+     * @param ipAddress adb地址映射
+     * @param command   命令
+     * @param port      手机端的UIAutomator端口
+     * @param timeout   超时时间设置 单位：毫秒
+     * @return 执行结果 json格式字符串
+     */
+    public synchronized static String request(String ipAddress, int port, String command, int timeout) {
         Socket socket = null;
         BufferedReader reader = null;
         PrintWriter writer = null;
         InputStreamReader input = null;
+        InputStream stream = null;
+        OutputStreamWriter outputStream = null;
+
         try {
-            socket = new Socket(ip, port);
+            socket = new Socket();
             socket.setSoTimeout(timeout);
-            input = new InputStreamReader(socket.getInputStream(),"UTF-8");
+            socket.connect(new InetSocketAddress(ipAddress, port), 5000);
+            stream = socket.getInputStream();
+            input = new InputStreamReader(stream, "UTF-8");
             reader = new BufferedReader(input);
-            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
+            outputStream = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
+            writer = new PrintWriter(outputStream);
+
             // 向socket server发送指令。
             if (command != null && command.length() > 0) {
-                writer.println(command);
+                writer.println(command);//包括发送"\n"
                 writer.flush();
             }
-            // 获取Socket Server的响应。
-            line = reader.readLine();
-        }catch (Exception e) {
-            Logger.error("Socket Error: " + e.getMessage(), e);
+            byte[] reply = new byte[4];
+            stream.read(reply);
+            int len = ByteUtil.byteArrayToInt(reply);
+            byte[] bytesReceived = new byte[len];
+            int counter = 0;
+            do {
+                // 当UIA被kill后，read会立即返回-1，并不抛出异常
+                int bytes = stream.read(bytesReceived, counter, bytesReceived.length - counter);
+                counter = counter + bytes;
+                if (counter >= len) {
+                    break;
+                }
+            } while (counter > 0);
+            if(counter > 0) {
+                return new String(bytesReceived, "UTF-8");
+            }
+        } catch (Exception e) {
+            Logger.error( "request error: " + e.getMessage(), e);
+            //throw e;
+
         } finally {
+            try {
+                if (stream != null) {
+                    stream.close();
+                }
+            } catch (Exception e) {
+                Logger.error( e.getMessage());
+            }
             try {
                 if (input != null) {
                     input.close();
                 }
+            } catch (Exception e) {
+                Logger.error( e.getMessage(), e);
+            }
+            try {
                 if (reader != null) {
                     reader.close();
                 }
+            } catch (Exception e) {
+                Logger.error( e.getMessage(), e);
+            }
+
+            try {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            } catch (Exception e) {
+                Logger.error(e.getMessage(), e);
+            }
+            try {
                 if (writer != null) {
                     writer.close();
                 }
+            } catch (Exception e) {
+                Logger.error( e.getMessage(), e);
+            }
+            try {
                 if (socket != null) {
                     socket.close();
                 }
-            } catch (Exception ignored) {
-                Logger.error("Socket finally Error: " + ignored.getMessage(), ignored);
+            } catch (Exception e) {
+                Logger.error( e.getMessage(), e);
             }
         }
-        return line;
+
+        return null;
     }
 
-    /**
-     * 发送socket请求
-     * @param clientIp
-     * @param clientPort
-     * @param msg
-     * @return
-     */
-//    public static synchronized String tcpPost(String clientIp,String clientPort,String msg){
-//        String rs = "";
-//
-//        if(clientIp==null||"".equals(clientIp)||clientPort==null||"".equals(clientPort)){
-//            Logger.error("Ip或端口不存在...");
-//            return null;
-//        }
-//
-//        int clientPortInt = Integer.parseInt(clientPort);
-//
-//        Logger.info(FUNC,"clientIp："+clientIp+" clientPort："+clientPort);
-//
-//        Socket s = null;
-//        OutputStream out = null;
-//        InputStream in = null;
-//        try {
-//            s = new Socket(clientIp, clientPortInt);
-//            s.setSendBufferSize(4096);
-//            s.setTcpNoDelay(true);
-//            s.setSoTimeout(60*1000);
-//            s.setKeepAlive(true);
-//            out = s.getOutputStream();
-//            in = s.getInputStream();
-//
-//            //准备报文msg
-//            Logger.info(FUNC,"准备发送报文："+msg);
-//
-//            out.write(msg.getBytes("utf-8"));
-//            out.flush();
-//
-////            byte[] rsByte = readStream(in);
-////
-////            if(rsByte!=null){
-////                rs = new String(rsByte, "utf-8");
-////            }
-//
-//
-//        } catch (Exception e) {
-//            Logger.error("tcpPost发送请求异常："+e.getMessage());
-//        }finally{
-//            Logger.info(FUNC,"tcpPost(rs)："+rs);
-//            try {
-//                if(out!=null){
-//                    out.close();
-//                    out = null;
-//                }
-//                if(in!=null){
-//                    in.close();
-//                    in = null;
-//                }
-//                if(s!=null){
-//                    s.close();
-//                    s = null;
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return rs;
-//
-//    }
-//
-//    /**
-//     * 读取输入流
-//     * @param in
-//     * @return
-//     */
-//    private static byte[] readStream(InputStream in){
-//        if(in==null){
-//            return null;
-//        }
-//
-//        byte[] b = null;
-//        ByteArrayOutputStream outSteam = null;
-//        try {
-//            byte[] buffer = new byte[1024];
-//            outSteam = new ByteArrayOutputStream();
-//
-//            int len = -1;
-//            while ((len = in.read(buffer)) != -1) {
-//                outSteam.write(buffer, 0, len);
-//            }
-//
-//            b = outSteam.toByteArray();
-//        } catch (IOException e) {
-//            Logger.error("读取流信息异常"+e);
-//            e.printStackTrace();
-//        } finally{
-//            try {
-//                if(outSteam!=null){
-//                    outSteam.close();
-//                    outSteam = null;
-//                }
-//                if(in!=null){
-//                    in.close();
-//                    in = null;
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return b;
-//    }
 }

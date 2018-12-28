@@ -5,7 +5,7 @@ import com.testerkit.common.MyClass;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
 import com.testerkit.uia.servers.socket.NettyServer;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia1.core.DeviceCore1;
 

@@ -15,19 +15,22 @@
  */
 package com.testerkit.uia.utils.dumps;
 
+import android.graphics.Rect;
 import android.os.SystemClock;
 import android.util.Xml;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.testerkit.common.model.NodeInfo;
+import com.testerkit.common.model.RectInfo;
 import com.testerkit.common.model.UIDumpInfo;
+import com.testerkit.common.utils.StopWatch;
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.ScreenSize;
-import com.testerkit.uia.utils.Constants;
-import com.testerkit.uia.utils.Logger;
+import com.testerkit.uia.utils.SystemUtil;
+import com.testerkit.common.log.Logger;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -72,7 +75,7 @@ public class AccessibilityNodeInfoDumper {
      */
     public static synchronized String getWindowXMLHierarchy(AccessibilityNodeInfo[] roots) {
         AccessibilityNodeInfoDumper.uiDumpInfo = new UIDumpInfo();
-        final long startTime = SystemClock.uptimeMillis();
+        StopWatch stopWatch = new StopWatch();
         StringWriter xmlDump = new StringWriter();
         try {
             XmlSerializer serializer = Xml.newSerializer();
@@ -109,7 +112,7 @@ public class AccessibilityNodeInfoDumper {
             throw new UIAException("Cannot dump views hierarchy to XML format", e);
         }
         final long endTime = SystemClock.uptimeMillis();
-        Logger.iFunc(FUNC,"Fetch time: " + (endTime - startTime) + "ms");
+        Logger.iFunc(FUNC,"Fetch time: ",stopWatch.toElapsedMS());
         AccessibilityNodeInfoDumper.uiDumpInfo.setUiXml(xmlDump.toString());
         return AccessibilityNodeInfoDumper.uiDumpInfo.getUiXml();
     }
@@ -167,12 +170,13 @@ public class AccessibilityNodeInfoDumper {
         myNode.setPassword(node.isPassword());
         serializer.attribute("", "selected", Boolean.toString(node.isSelected()));
         myNode.setSelected(node.isSelected());
-        String bounds = AccessibilityNodeInfoHelper.getVisibleBoundsInScreen(node, width, height).toShortString();
-        serializer.attribute("", "bounds", bounds);
-        myNode.setBounds(bounds);
+        Rect bounds = AccessibilityNodeInfoHelper.getVisibleBoundsInScreen(node, width, height);
+        serializer.attribute("", "bounds", bounds.toShortString());
+        myNode.setBounds(bounds.toShortString());
+        myNode.setRectVisible(new RectInfo(bounds.left,bounds.top,bounds.right,bounds.bottom));
         String resourceId = "";
         boolean isEditable = false;
-        if (Constants.API_LEVEL() >= 18) {
+        if (SystemUtil.API_LEVEL() >= 18) {
             resourceId = LocationHelpers.getID(safeCharSeqToString(node.getViewIdResourceName()));
             isEditable = node.isEditable();
         }
