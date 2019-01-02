@@ -1,4 +1,4 @@
-package com.testerkit.uia.utils;
+package com.testerkit.common.utils;
 
 public class ByteUtil {
     /**

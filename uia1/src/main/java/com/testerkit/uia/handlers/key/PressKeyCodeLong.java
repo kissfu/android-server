@@ -21,10 +21,10 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 
 import com.testerkit.common.enums.KeyEnum;
+import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.uia.utils.SystemUtil;
 import com.testerkit.uia.utils.InteractionUtils;
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.SleepUtils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -81,11 +81,11 @@ public class PressKeyCodeLong extends PressEvent {
             output.flush();
             output.close();
 
-            SleepUtils.sleep(200L);
+            SleepUtil.sleep(200L);
 
             Process process = Runtime.getRuntime().exec("monkey -f /data/local/tmp/key.monkey 1");
             process.waitFor();
-            SleepUtils.sleep(500L);
+            SleepUtil.sleep(500L);
             success = true;
 
         } catch (Exception e) {

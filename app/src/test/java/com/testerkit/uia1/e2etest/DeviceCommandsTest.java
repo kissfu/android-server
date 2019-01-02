@@ -1,13 +1,11 @@
 package com.testerkit.uia1.e2etest;
 
+import com.testerkit.common.utils.SocketUtil;
 import com.testerkit.uia.requests.socket.FullSocketRequest;
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.SleepUtils;
-import com.testerkit.uia.utils.SocketUtils;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 
 public class DeviceCommandsTest extends BaseTest {
 
@@ -26,7 +24,7 @@ public class DeviceCommandsTest extends BaseTest {
 
         String command = super.getAssets("input-default.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        String resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
         Logger.info("===>", resultInfo);
     }
 
@@ -53,7 +51,7 @@ public class DeviceCommandsTest extends BaseTest {
         //比较快，以node为标签，className为属性
         String command = super.getAssets("source-node.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST,Config.PORT,command,5*60*1000);
+        String resultInfo = SocketUtil.request(Config.HOST,Config.PORT,command,5*60*1000);
         Logger.debug("===>",resultInfo);
 
     }

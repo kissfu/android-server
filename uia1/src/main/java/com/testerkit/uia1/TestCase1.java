@@ -2,11 +2,11 @@ package com.testerkit.uia1;
 
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 import com.testerkit.common.MyClass;
+import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
 import com.testerkit.uia.servers.socket.NettyServer;
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia1.core.DeviceCore1;
 
 /**
@@ -32,7 +32,7 @@ public class TestCase1  extends UiAutomatorTestCase implements ITestCase {
             Logger.info("seconds elapsed,"+i);
 
             i++;
-            SleepUtils.sleep(1);
+            SleepUtil.sleep(1);
         }
 
     }

@@ -13,11 +13,10 @@ android {
     //buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.testerkit"
-        testApplicationId 'com.testerkit.uia2.server'
         minSdkVersion 18
         targetSdkVersion 26
-        versionCode 20180622
-        versionName currentDay()
+        versionCode 20180623
+        versionName "2018.06.23"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -28,7 +27,7 @@ android {
 
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
-                outputFileName = outputFileName.replace('debug.apk', "v${defaultConfig.versionName}.apk")
+                outputFileName = outputFileName.replace('app-debug.apk', "target-v${defaultConfig.versionName}.apk")
             }
         }
 

@@ -1,10 +1,9 @@
 package com.testerkit.uia1.e2etest;
 
 import com.testerkit.common.log.LogPrint;
-import com.testerkit.uia.servers.socket.NettyServer;
-import com.testerkit.uia.utils.FileUtil;
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.SleepUtils;
+import com.testerkit.common.utils.FileUtil;
+import com.testerkit.common.utils.SleepUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,9 +12,8 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.Executors;
+
 
 public abstract class BaseTest {
 
@@ -57,14 +55,14 @@ public abstract class BaseTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SleepUtils.sleep(2);
+        SleepUtil.sleep(2);
         while (BaseTest.IS_OPEN == false) {
-            SleepUtils.sleep(1);
+            SleepUtil.sleep(1);
             Logger.info("===>waiting for opening...");
         }
         if (DEBUG_REMOTE) {
             for (int i = 20; i > 0; i--) {
-                SleepUtils.sleep(1);
+                SleepUtil.sleep(1);
                 Logger.info("===>waiting for remote debug...", i);
             }
 

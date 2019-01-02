@@ -1,9 +1,9 @@
 package com.testerkit.uia.requests.socket.impl;
 
+import com.testerkit.common.utils.ByteUtil;
 import com.testerkit.uia.requests.IResponse;
 import com.testerkit.uia.requests.socket.FullSocketResponse;
 import com.testerkit.uia.requests.socket.ISocketResponse;
-import com.testerkit.uia.utils.ByteUtil;
 
 import java.nio.charset.Charset;
 

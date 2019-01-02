@@ -20,13 +20,12 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
 import com.testerkit.common.utils.Constants;
+import com.testerkit.common.utils.SocketUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
 import com.testerkit.uia.log.LogAndroid;
-import com.testerkit.uia.requests.socket.FullSocketRequest;
 
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.SocketUtils;
 import com.testerkit.uia2.core.DeviceCore2;
 
 import org.junit.Test;
@@ -56,7 +55,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 //        Logger.info("===>" + resultInfo);
 
         command = super.getAssets("touch-click.json");
-        resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
         Logger.info("===>" + resultInfo);
     }
 
@@ -74,7 +73,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
         String resultInfo = null;
         try {
-            resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+            resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,7 +92,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 //        String command = super.getAssets("press-key_code.json");
         String command = super.getAssets("press-key_code_long.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        String resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
         Logger.debug("===>", resultInfo);
     }
 
@@ -106,7 +105,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
         String command = super.getAssets("input-default.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        String resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
         Logger.debug("===>", resultInfo);
     }
 
@@ -117,7 +116,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
         String command = super.getAssets("find-click.json");
 
-        String resultInfo = SocketUtils.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        String resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
         Logger.debug("===>", resultInfo);
     }
 

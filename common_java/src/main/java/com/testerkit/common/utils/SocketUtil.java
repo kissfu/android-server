@@ -1,19 +1,16 @@
-package com.testerkit.uia.utils;
+package com.testerkit.common.utils;
 
 import com.testerkit.common.log.Logger;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class SocketUtils {
+public class SocketUtil {
     static String FUNC= "socket";
     /**
      * @param ipAddress adb地址映射

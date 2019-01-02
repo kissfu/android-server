@@ -10,14 +10,11 @@ import android.support.test.uiautomator.UiDevice;
 
 import com.testerkit.common.utils.Constants;
 import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.interfaces.ITestCase;
 import com.testerkit.uia.log.LogAndroid;
 import com.testerkit.uia.servers.socket.NettyServer;
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.SleepUtils;
 import com.testerkit.uia2.core.DeviceCore2;
-import com.testerkit.uia2.core.UiAutomatorBridge2;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +51,7 @@ public class TestCase2 implements ITestCase {
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         BaseContext.getInstance().setTestCase(this);
         BaseContext.getInstance().setDevice( new DeviceCore2(uiDevice));
-
+        startActivity();
     }
 
     public Context getContext(){
@@ -68,7 +65,7 @@ public class TestCase2 implements ITestCase {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             //启动应用
-            intent.setComponent(new ComponentName("com.testerkit.uia2.server", "com.testerkit.uia2.RTCActivity"));
+            intent.setComponent(new ComponentName("com.testerkit", "com.testerkit.MainActivity"));
             //starts the app
             context.startActivity(intent);
             Logger.info("","startActivity");
