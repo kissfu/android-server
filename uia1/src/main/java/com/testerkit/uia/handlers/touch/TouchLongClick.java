@@ -18,6 +18,7 @@ package com.testerkit.uia.handlers.touch;
 
 
 import com.testerkit.common.json.PointJson;
+import com.testerkit.common.utils.NumberUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
@@ -55,7 +56,9 @@ public class TouchLongClick extends TouchEvent {
     protected boolean executeTouchEvent() throws UIAException {
         PointJson point = points.get(0);
         long duration = point.getDuration() > 0 ? point.getDuration() : 2000;
-        if (correctLongClick(point.getX(), point.getY(), duration)) {
+        int clickX = NumberUtil.round(points.get(0).getX());
+        int clickY = NumberUtil.round(points.get(0).getY());
+        if (correctLongClick(clickX, clickY, duration)) {
             return true;
         }
 

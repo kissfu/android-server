@@ -2,8 +2,8 @@ package com.testerkit.common.json;
 
 public class PointJson {
     private String type;
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private long duration;
 
     public String getType() {
@@ -14,7 +14,7 @@ public class PointJson {
         this.type = type;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -22,7 +22,7 @@ public class PointJson {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 

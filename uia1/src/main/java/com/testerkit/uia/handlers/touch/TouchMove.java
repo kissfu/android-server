@@ -17,6 +17,7 @@
 package com.testerkit.uia.handlers.touch;
 
 
+import com.testerkit.common.utils.NumberUtil;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
@@ -31,8 +32,8 @@ public class TouchMove extends TouchEvent {
     public boolean executeTouchEvent() throws UIAException {
         Logger.iFunc(FUNC,"TouchMove");
         try {
-            int clickX = points.get(0).getX();
-            int clickY = points.get(0).getY();
+            int clickX = NumberUtil.round(points.get(0).getX());
+            int clickY = NumberUtil.round(points.get(0).getY());
             return UiAutomatorBridge.getInstance().getInteractionController().touchMove(clickX, clickY);
         } catch (Exception e) {
             Logger.error("Problem invoking touchMove: " + e);

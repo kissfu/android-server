@@ -13,6 +13,7 @@ android {
     //buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.testerkit"
+        testApplicationId "com.testerkit.uia2"
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 20180623
