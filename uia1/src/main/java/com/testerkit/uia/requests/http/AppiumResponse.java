@@ -3,28 +3,30 @@ package com.testerkit.uia.requests.http;
 
 import android.util.Log;
 
-import com.testerkit.uia.servers.WDStatus;
+import com.testerkit.common.enums.WDStatus;
+import com.testerkit.common.json.ResponseJson;
 import com.testerkit.common.log.Logger;
+import com.testerkit.common.utils.GsonUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class AppiumResponse {
-    private final int status;
-    private final Object value;
-    private final String sessionId;
+    private final ResponseJson responseJson;
 
     public AppiumResponse(String sessionId, WDStatus status, Object value) {
-        this.sessionId = sessionId;
-        this.status = status.code();
-        this.value = value;
+        responseJson = new ResponseJson(status.code(),value,sessionId);
+//        this.sessionId = sessionId;
+//        this.status = status.code();
+//        this.value = value;
     }
 
     public AppiumResponse(String sessionId, WDStatus status, Throwable throwable) {
-        this.sessionId = sessionId;
-        this.status = status.code();
-        this.value = Log.getStackTraceString(throwable);
+        responseJson = new ResponseJson(status.code(),Log.getStackTraceString(throwable),sessionId);
+//        this.sessionId = sessionId;
+//        this.status = status.code();
+//        this.value = Log.getStackTraceString(throwable);
     }
 
     public AppiumResponse(String sessionId, Object value) {
@@ -40,24 +42,25 @@ public class AppiumResponse {
     }
 
     public String render() {
-        JSONObject o = new JSONObject();
+
         try {
-            o.put("sessionId", sessionId == null ? JSONObject.NULL : sessionId);
-            o.put("status", status);
-            o.put("value", value == null ? JSONObject.NULL : value);
-        } catch (JSONException e) {
+            return GsonUtil.gsonString(responseJson);
+        } catch (Exception e) {
+            responseJson.setStatus(WDStatus.JSON_DECODER_ERROR.code());
+            responseJson.setValue(e.getMessage());
             Logger.error("Unable to create JSON Object:", e);
         }
-        //Logger.info("AppiumResponse: ", o.toString());
-        return o.toString();
+        return GsonUtil.gsonString(responseJson);
     }
 
     public int getStatus() {
-        return status;
+        return responseJson.getStatus();
     }
 
     public Object getValue() {
-        return value;
+        return responseJson.getValue();
     }
+
+
 }
 

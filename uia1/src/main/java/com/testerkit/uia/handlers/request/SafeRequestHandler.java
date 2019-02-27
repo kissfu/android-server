@@ -17,7 +17,7 @@ import com.testerkit.uia.exceptions.UiSelectorSyntaxException;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.http.IHttpRequest;
-import com.testerkit.uia.servers.WDStatus;
+import com.testerkit.common.enums.WDStatus;
 import com.testerkit.common.log.Logger;
 
 import org.json.JSONException;

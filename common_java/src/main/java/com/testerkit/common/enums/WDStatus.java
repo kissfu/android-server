@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.testerkit.uia.servers;
+package com.testerkit.common.enums;
 
 //@formatter:off
 
@@ -60,6 +60,14 @@ public enum WDStatus {
     WDStatus(final int code, final String message) {
         statusCode = code;
         statusMessage = message;
+    }
+    public static WDStatus fromCode(final int code) {
+        for (WDStatus em : values()) {
+            if (em.code() == code) {
+                return em;
+            }
+        }
+        throw new IllegalArgumentException(String.format("WDStatus code '%s' is not supported", code));
     }
 
     public int code() {

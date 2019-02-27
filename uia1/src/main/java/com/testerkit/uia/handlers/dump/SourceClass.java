@@ -5,7 +5,7 @@ import com.testerkit.uia.handlers.request.SafeRequestHandler;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.http.IHttpRequest;
-import com.testerkit.uia.servers.WDStatus;
+import com.testerkit.common.enums.WDStatus;
 import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.ReflectionUtils;
 import com.testerkit.uia.utils.dumps.XMLHierarchy;

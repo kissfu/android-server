@@ -131,17 +131,18 @@ public class NettyServlet implements ISocketServlet {
             //response.setContentType("application/json");
             response.setEncoding(Charset.forName("UTF-8"));
             response.setContent(resultString);
-            try {
-                //new JSONObject(resultString).getInt("status")
-
-                if (result.getStatus() == 0) {
-                    response.setStatus(HttpStatusCode.OK.getStatusCode());
-                } else {
-                    response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.getStatusCode());
-                }
-            } catch (Exception e) {
-                response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.getStatusCode());
-            }
+            response.setStatus(result.getStatus());
+//            try {
+//                //new JSONObject(resultString).getInt("status")
+//
+//                if (result.getStatus() == 0) {
+//                    response.setStatus(HttpStatusCode.OK.getStatusCode());
+//                } else {
+//                    response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.getStatusCode());
+//                }
+//            } catch (Exception e) {
+//                response.setStatus(HttpStatusCode.INTERNAL_SERVER_ERROR.getStatusCode());
+//            }
         }
         response.end();
     }

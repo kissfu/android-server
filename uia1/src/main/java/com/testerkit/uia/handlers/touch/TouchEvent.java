@@ -21,7 +21,7 @@ import com.testerkit.uia.handlers.request.SafeRequestHandler;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.socket.ISocketRequest;
-import com.testerkit.uia.servers.WDStatus;
+import com.testerkit.common.enums.WDStatus;
 
 import java.util.List;
 
