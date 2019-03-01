@@ -14,7 +14,7 @@ public abstract class ByBase {
     protected Relation relation = Relation.AND;
 
 
-    protected List<String> arr;
+    protected final List<String> arr;
 
     public List<String> getArr() {
         return arr;
@@ -24,8 +24,16 @@ public abstract class ByBase {
         return option;
     }
 
+    public void setOption(ByOption option) {
+        this.option = option;
+    }
+
     public Relation getRelation() {
         return relation;
+    }
+
+    public void setRelation(Relation relation) {
+        this.relation = relation;
     }
 
     public ByBase(List<String> arr) {

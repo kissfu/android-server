@@ -70,10 +70,12 @@ public class MatcherText extends MatcherBase<ByBase, UIDumpInfo> {
             return node.getClazzName();
         }else if(attribute == Attribute.NAME){
             return node.getName();
-        }if(attribute == Attribute.PACKAGE){
+        }else  if(attribute == Attribute.PACKAGE){
             return node.getPackageName();
-        }if(attribute == Attribute.TEXT){
+        }else if(attribute == Attribute.TEXT){
             return node.getText();
+        }else if(attribute == Attribute.CONTENT_DESC){
+            return node.getContentDesc();
         }
         return null;
     }

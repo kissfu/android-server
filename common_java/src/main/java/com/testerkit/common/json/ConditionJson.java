@@ -8,13 +8,22 @@ import com.testerkit.common.search.by.ByPackageName;
 import com.testerkit.common.search.by.ByText;
 import com.testerkit.common.search.by.ByXPath;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConditionJson {
-    private Relation relation;
+    private Relation relation = Relation.AND;
     private ByName name;
     private ByClazz clazz;
     private ByText text;
     private ByPackageName packageName;
     private ByXPath xpath;
+
+    private List<ByBase> bys;
+
+    public ConditionJson() {
+        bys = new ArrayList<ByBase>();
+    }
 
     public Relation getRelation() {
         return relation;
@@ -30,6 +39,7 @@ public class ConditionJson {
 
     public void setName(ByName name) {
         this.name = name;
+        this.bys.add(name);
     }
 
     public ByClazz getClazz() {
@@ -38,6 +48,7 @@ public class ConditionJson {
 
     public void setClazz(ByClazz clazz) {
         this.clazz = clazz;
+        this.bys.add(clazz);
     }
 
     public ByText getText() {
@@ -46,6 +57,7 @@ public class ConditionJson {
 
     public void setText(ByText text) {
         this.text = text;
+        this.bys.add(text);
     }
 
     public ByPackageName getPackageName() {
@@ -54,6 +66,7 @@ public class ConditionJson {
 
     public void setPackageName(ByPackageName packageName) {
         this.packageName = packageName;
+        this.bys.add(packageName);
     }
 
     public ByXPath getXpath() {
@@ -62,5 +75,10 @@ public class ConditionJson {
 
     public void setXpath(ByXPath xpath) {
         this.xpath = xpath;
+        this.bys.add(xpath);
+    }
+
+    public List<ByBase> getBys() {
+        return bys;
     }
 }

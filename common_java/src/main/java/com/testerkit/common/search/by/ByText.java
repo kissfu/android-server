@@ -8,6 +8,7 @@ import java.util.List;
 public class ByText extends ByBase {
 
 
+    private Attribute attribute = Attribute.TEXT;
     public ByText(List<String> arr) {
         super(arr);
     }
@@ -24,7 +25,12 @@ public class ByText extends ByBase {
 
     @Override
     public Attribute getAttribute() {
-        return Attribute.TEXT;
+        return this.attribute ;
+    }
+
+    //有可能是contentDesc / TEXT
+    public void setAttribute(Attribute attribute){
+        this.attribute = attribute;
     }
 
     @Override
