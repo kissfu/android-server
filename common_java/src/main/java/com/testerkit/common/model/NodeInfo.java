@@ -1,6 +1,8 @@
 package com.testerkit.common.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class NodeInfo {
@@ -69,6 +71,7 @@ public class NodeInfo {
     private String clazzName = "";
     private String packageName = "";
     private String xpathSimple = "";
+    private List<XPathInfo> xpaths;
 
 
     //region getter setter
@@ -264,7 +267,16 @@ public class NodeInfo {
     public void setXpathSimple(String xpathSimple) {
         this.xpathSimple = xpathSimple;
     }
-//endregion
+
+    public List<XPathInfo> getXpaths() {
+        return xpaths;
+    }
+
+    public void setXpaths(List<XPathInfo> xpaths) {
+        this.xpaths = xpaths;
+    }
+
+    //endregion
 
 
     public NodeInfo() {

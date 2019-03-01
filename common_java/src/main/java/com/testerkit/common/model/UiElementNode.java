@@ -48,15 +48,16 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
     private final static String tagNode = "node";
     private final static String tagRoot = "hierarchy";
     private int rotation;
-    private final List<XPathInfo> xpathes = new ArrayList<XPathInfo>();
+    private final List<XPathInfo> xpaths = new ArrayList<XPathInfo>();
 
-    public List<XPathInfo> getXpathes() {
-        return xpathes;
+    public List<XPathInfo> getXpaths() {
+        return xpaths;
     }
 
     public UiElementNode() {
-        node = new NodeInfo();
-        attributes = new EnumMap<>(Attribute.class);
+        this.node = new NodeInfo();
+        this.node.setXpaths(this.xpaths);//建立索引
+        this.attributes = new EnumMap<>(Attribute.class);
     }
 
 
@@ -273,6 +274,7 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
      * root 节点不需要生成xpath
      */
     public void generateXPathRecursion() {
+
         //this.generateXPath(); 获取root跟节点的xpath
         for (UiElementNode uiNode : children) {
             uiNode.generateXPath();
@@ -288,7 +290,7 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
     public void generateXPath() {
         this.getUnique();
         String xpath = "";
-        StopWatch stopWatch = new StopWatch();
+//        StopWatch stopWatch = new StopWatch();
         UiElementNode parent = this;
         String plus = "";
         while (parent != null && parent.getUnique().hasGroupUni() == false) {
@@ -305,8 +307,8 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
         XPathInfo xp = new XPathInfo();
         xp.setXpath(xpath);
         xp.setOption(XPathOption.ALL);
-        this.xpathes.add(xp);
-        Logger.info(stopWatch.toElapsedMS()+"===>" + xpath + ",xp:" + this.get(Attribute.XPATH));
+        this.xpaths.add(xp);
+//        Logger.info(stopWatch.toElapsedMS()+"===>" + xpath + ",xp:" + this.get(Attribute.XPATH));
     }
 
     public UniqueUiNode getUnique() {

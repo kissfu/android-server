@@ -53,7 +53,7 @@ public class ByXPath extends ByBase {
         if(xps == null || xps.isEmpty()){
             return true;
         }
-        arr = new ArrayList<String>();
+        arr.clear();
         for (XPathInfo xp:xps) {
             arr.add(xp.getXpath());
         }

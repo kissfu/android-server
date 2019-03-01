@@ -31,7 +31,7 @@ public class XPathInfo implements Comparable<XPathInfo> {
 
 
     /**
-     * Collections.sort(byXPath.getXpathes()); //升序输出：;
+     * Collections.sort(byXPath.getXpaths()); //升序输出：;
      * @param another
      * @return
      */
