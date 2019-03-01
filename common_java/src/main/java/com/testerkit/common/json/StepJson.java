@@ -1,19 +1,7 @@
 package com.testerkit.common.json;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import com.testerkit.common.search.by.ByBase;
-import com.testerkit.common.search.by.ByClazz;
-import com.testerkit.common.search.by.ByName;
-import com.testerkit.common.search.by.ByPackageName;
-import com.testerkit.common.search.by.ByText;
-import com.testerkit.common.search.by.ByXPath;
+import com.testerkit.common.utils.GsonUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -110,8 +98,7 @@ public class StepJson {
 
     public static StepJson newParse(String msg){
         try {
-            Gson gson =  new Gson();
-            return gson.fromJson(msg,StepJson.class);
+            return GsonUtil.toBean(msg,StepJson.class);
         }catch (Exception e){
             e.printStackTrace();
         }

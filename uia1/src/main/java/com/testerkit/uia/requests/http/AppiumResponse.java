@@ -8,9 +8,6 @@ import com.testerkit.common.json.ResponseJson;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.utils.GsonUtil;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 public class AppiumResponse {
     private final ResponseJson responseJson;

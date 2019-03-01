@@ -85,6 +85,7 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
     public void clearAll() {
         cache.clear();
         allNodeInfo.clear();
+        allUiNode.clear();
         this.clearAllChildren();
     }
 

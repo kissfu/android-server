@@ -1,7 +1,5 @@
 package com.testerkit.common.json;
 
-import com.testerkit.common.enums.WDStatus;
-
 public class ResponseJson {
     private  int status = -1;
     private  String value = "";
