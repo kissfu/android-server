@@ -40,7 +40,6 @@ import java.io.StringWriter;
 import static com.testerkit.uia.utils.dumps.XMLHierarchy.safeCharSeqToString;
 
 
-
 /**
  * The AccessibilityNodeInfoDumper in Android Open SourceClass Project contains a lot of bugs which will
  * stay in old android versions forever. By coping the code of the latest version it is ensured that
@@ -57,7 +56,8 @@ public class AccessibilityNodeInfoDumper {
             android.widget.TableLayout.class.getName()};
     // https://github.com/appium/appium/issues/10204
     private static final int MAX_DEPTH = 70;
-
+    private static int counter_invisible_root = 0;
+    private static int counter_invisible_child = 0;
 
     public static UIDumpInfo uiDumpInfo;
 
@@ -94,10 +94,11 @@ public class AccessibilityNodeInfoDumper {
                 for (int i = 0; i < roots.length; i++) {
                     AccessibilityNodeInfo root = roots[i];
                     if (root.isVisibleToUser()) {
-                        dumpNodeRec(root, serializer, i, width, height, 0,"");
+                        dumpNodeRec(root, serializer, i, width, height, 0, "");
                         root.recycle();
                     } else {
-                        Logger.info(String.format("Skipping invisible root: %s", root.toString()));
+                        counter_invisible_root++;
+//                        Logger.info(String.format("Skipping invisible root: %s", root.toString()));
                     }
                 }
             }
@@ -110,9 +111,14 @@ public class AccessibilityNodeInfoDumper {
             writer.close();*/
         } catch (IOException e) {
             throw new UIAException("Cannot dump views hierarchy to XML format", e);
+        } finally {
+            Logger.info(String.format("Skipping invisible root: %s", counter_invisible_root));
+            Logger.info(String.format("Skipping invisible child: %s", counter_invisible_child));
+            counter_invisible_root = 0;
+            counter_invisible_child = 0;
         }
         final long endTime = SystemClock.uptimeMillis();
-        Logger.iFunc(FUNC,"Fetch time: ",stopWatch.toElapsedMS());
+        Logger.iFunc(FUNC, "Fetch time: ", stopWatch.toElapsedMS());
         AccessibilityNodeInfoDumper.uiDumpInfo.setUiXml(xmlDump.toString());
         return AccessibilityNodeInfoDumper.uiDumpInfo.getUiXml();
     }
@@ -133,7 +139,7 @@ public class AccessibilityNodeInfoDumper {
         myNode.setIndex(index);
         String xpath = indexStr;
         if (false == StringUtil.isNullOrEmpty(xpathParent)) {
-            xpath = String.format("%s-%s",xpathParent ,xpath);
+            xpath = String.format("%s-%s", xpathParent, xpath);
         }
         serializer.attribute("", "xpath", xpath);
         myNode.setXpathSimple(xpath);
@@ -173,7 +179,7 @@ public class AccessibilityNodeInfoDumper {
         Rect bounds = AccessibilityNodeInfoHelper.getVisibleBoundsInScreen(node, width, height);
         serializer.attribute("", "bounds", bounds.toShortString());
         myNode.setBounds(bounds.toShortString());
-        myNode.setRectVisible(new RectInfo(bounds.left,bounds.top,bounds.right,bounds.bottom));
+        myNode.setRectVisible(new RectInfo(bounds.left, bounds.top, bounds.right, bounds.bottom));
         String resourceId = "";
         boolean isEditable = false;
         if (SystemUtil.API_LEVEL() >= 18) {
@@ -198,10 +204,11 @@ public class AccessibilityNodeInfoDumper {
             AccessibilityNodeInfo child = node.getChild(i);
             if (child != null) {
                 if (child.isVisibleToUser()) {
-                    dumpNodeRec(child, serializer, i, width, height, depth + 1,xpath);
+                    dumpNodeRec(child, serializer, i, width, height, depth + 1, xpath);
                     child.recycle();
                 } else {
-                    Logger.info(String.format("Skipping invisible child: %s", child.toString()));
+                    counter_invisible_child++;
+//                    Logger.info(String.format("Skipping invisible child: %s", child.toString()));
                 }
             } else {
                 Logger.info(String.format("Null child %s/%s, parent: %s", i, count, node.toString()));
