@@ -28,6 +28,7 @@ public class FindAndClick extends FindEvent {
             UIDumpInfo dump = XMLHierarchy.getDumpInfo();
             NodeInfo node = MatcherManager.getInstance().isMatchSingle(step, dump);
             if (node == null) {
+                Logger.iFunc(FUNC," can not find node!!!");
                 return false;
             }
             RectInfo rect = node.getRectVisible();

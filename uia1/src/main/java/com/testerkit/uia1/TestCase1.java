@@ -2,6 +2,7 @@ package com.testerkit.uia1;
 
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 import com.testerkit.common.MyClass;
+import com.testerkit.common.utils.Constants;
 import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;

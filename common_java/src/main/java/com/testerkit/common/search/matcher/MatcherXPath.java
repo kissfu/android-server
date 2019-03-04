@@ -5,7 +5,6 @@ import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.model.UIDumpInfo;
 import com.testerkit.common.model.XPathInfo;
 import com.testerkit.common.search.by.ByXPath;
-import com.testerkit.common.search.matcher.MatcherBase;
 import com.testerkit.common.utils.XmlUtil;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class MatcherXPath extends MatcherBase<ByXPath, UIDumpInfo> {
     public List<NodeInfo> findMatches() {
         List<NodeInfo> nodes = new ArrayList<NodeInfo>();
 
-        if (by.isMatchPre()) {
+        if (by == null || by.isIgnoredPre()) {
             return nodes;
         }
 

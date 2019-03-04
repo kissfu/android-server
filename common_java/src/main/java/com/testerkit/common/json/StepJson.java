@@ -1,5 +1,6 @@
 package com.testerkit.common.json;
 
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.utils.GsonUtil;
 
 import java.util.List;
@@ -100,55 +101,9 @@ public class StepJson {
         try {
             return GsonUtil.toBean(msg,StepJson.class);
         }catch (Exception e){
-            e.printStackTrace();
+            Logger.error("StepJson newParse ",e);
         }
       return null;
-
-//        JsonObject js = new JsonParser().parse(msg).getAsJsonObject();
-//
-//        this.setAction(js.get("action").getAsString());
-//
-//        this.setRule(js.get("rule").getAsString());
-//
-//        // 1. 创建Gson对象
-//        Gson gson = new Gson();
-//
-//        if(js.has("points")){
-//            List<PointJson> list=  gson.fromJson(js.get("points"),new TypeToken<List<PointJson>>(){}.getType());
-//            this.setPoints(list);
-//        }
-//        if(js.has("node")){
-//            this.setNode(gson.fromJson(js.get("node"),NodeJson.class));
-//        }
-//        if(js.has("scroll")){
-//            this.setScroll(gson.fromJson(js.get("scroll"),ScrollJson.class));
-//        }
-//        if(js.has("key")){
-//            this.setKey(gson.fromJson(js.get("key"),KeyJson.class));
-//        }
-//        if(js.has("by")){
-//
-//            JsonArray arr = js.getAsJsonArray("by");
-//            List<ByBase> byList = new ArrayList<ByBase>();
-//
-//
-//            for (JsonElement ele:arr) {
-//                JsonObject obj = ele.getAsJsonObject();
-//                if(obj.has("name")){
-//                    byList.add(gson.fromJson(obj,ByName.class));
-//                }else if(obj.has("text")){
-//                    byList.add(gson.fromJson(obj,ByText.class));
-//                }else if(obj.has("class")){
-//                    byList.add(gson.fromJson(obj,ByClazz.class));
-//                }else if(obj.has("packageName")){
-//                    byList.add(gson.fromJson(obj,ByPackageName.class));
-//                }else if(obj.has("xpathes")){
-//                    byList.add(gson.fromJson(obj,ByXPath.class));
-//                }
-//            }
-//
-//            this.setBy(byList);
-//        }
     }
 
 

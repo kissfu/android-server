@@ -4,11 +4,11 @@ import com.testerkit.common.enums.Attribute;
 import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.model.UIDumpInfo;
 import com.testerkit.common.search.by.ByBase;
-import com.testerkit.common.search.matcher.MatcherBase;
 import com.testerkit.common.utils.RegExUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MatcherText extends MatcherBase<ByBase, UIDumpInfo> {
 
@@ -18,7 +18,7 @@ public class MatcherText extends MatcherBase<ByBase, UIDumpInfo> {
 
     @Override
     public List<NodeInfo> findMatches() {
-        List<NodeInfo> nodes = null;
+        List<NodeInfo> nodes = new ArrayList<NodeInfo>();
 
 
         return nodes;
@@ -26,7 +26,7 @@ public class MatcherText extends MatcherBase<ByBase, UIDumpInfo> {
 
     @Override
     public boolean isMatch(String value) {
-        if (by.isMatchPre()) {
+        if (by.isIgnoredPre()) {
             return true;
         }
         if (value == null) {

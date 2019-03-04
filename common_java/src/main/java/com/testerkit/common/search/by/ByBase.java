@@ -44,7 +44,7 @@ public abstract class ByBase {
     public abstract String compatibleMode(String item);
     public abstract Attribute getAttribute();
 
-    public boolean isMatchPre() {
+    public boolean isIgnoredPre() {
         if (this.option == null || this.option == ByOption.IGNORED) {
             return true;
         }
@@ -59,7 +59,7 @@ public abstract class ByBase {
      * @return
      */
     public String getElementLocator() {
-        if(isMatchPre())return "";
+        if(isIgnoredPre())return "";
         return StringUtil.join(arr.toArray(), ",");
     }
 

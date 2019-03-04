@@ -46,7 +46,7 @@ public class ByXPath extends ByBase {
 
 
     @Override
-    public boolean isMatchPre() {
+    public boolean isIgnoredPre() {
         if (this.option == null || this.option == ByOption.IGNORED) {
             return true;
         }

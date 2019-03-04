@@ -47,6 +47,7 @@ public class TestCase2 implements ITestCase {
     @Override
     public void initCore() {
         Constants.PRO = "2";
+        Constants.VERSION = BuildConfig.VERSION_NAME;
         Logger.addLog(new LogAndroid());
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         BaseContext.getInstance().setTestCase(this);

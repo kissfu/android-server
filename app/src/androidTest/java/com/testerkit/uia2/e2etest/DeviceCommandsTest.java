@@ -20,6 +20,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
 import com.testerkit.common.utils.Constants;
+import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.common.utils.SocketUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
@@ -115,6 +116,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         initCore();
 
         String command = super.getAssets("find-click.json");
+        command = "{\"action\":\"find\",\"rule\":\"click\",\"condition\":{\"relation\":\"AND\",\"name\":{\"option\":\"REQUIRED\",\"relation\":\"AND\",\"arr\":[\"icon_icon\"]},\"clazz\":{\"option\":\"FILTER\",\"relation\":\"AND\",\"arr\":[\"android.widget.ImageView\"]},\"packageName\":{\"option\":\"FILTER\",\"relation\":\"AND\",\"arr\":[\"com.miui.home\"]},\"xpath\":{\"xps\":[{\"xpath\":\"//node[@content-desc\\u003d\\u0027音乐 7 个未读\\u0027]/node[@name\\u003d\\u0027icon_container\\u0027 and @class\\u003d\\u0027android.widget.FrameLayout\\u0027 and @index\\u003d\\u00270\\u0027]/node[@class\\u003d\\u0027android.widget.FrameLayout\\u0027 and @index\\u003d\\u00270\\u0027]/node[@name\\u003d\\u0027icon_icon\\u0027 and @class\\u003d\\u0027android.widget.ImageView\\u0027 and @index\\u003d\\u00270\\u0027]\",\"option\":\"ALL\"}],\"option\":\"FILTER\",\"relation\":\"AND\",\"arr\":[]}}}";
 
         String resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
         Logger.debug("===>", resultInfo);
