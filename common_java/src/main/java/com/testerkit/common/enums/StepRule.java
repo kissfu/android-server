@@ -12,7 +12,7 @@ public enum StepRule {
     CLICK("click"),
     DOWN("down"),
     MOVE("move"),
-    TOUCH("up"),
+    UP("up"),
     NONE("none");
 
 

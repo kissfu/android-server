@@ -1,7 +1,7 @@
 package com.testerkit.common.enums;
 
 public enum StepAction {
-
+    ACTION_PARENT("UIA"),
     //手机控制
     TOUCH("touch"),
     SOURCE("source"),

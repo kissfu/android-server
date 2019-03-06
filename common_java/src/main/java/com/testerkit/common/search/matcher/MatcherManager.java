@@ -152,6 +152,10 @@ public class MatcherManager {
         if (by != null && by.isIgnoredPre() == false && by.getOption() == option) {
             matchers.add(new MatcherText(by, dump));
         }
+        by = condition.getContentDesc();
+        if (by != null && by.isIgnoredPre() == false && by.getOption() == option) {
+            matchers.add(new MatcherText(by, dump));
+        }
         return matchers;
     }
 
