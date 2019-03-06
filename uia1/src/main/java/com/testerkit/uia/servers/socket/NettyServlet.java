@@ -1,5 +1,6 @@
 package com.testerkit.uia.servers.socket;
 
+import com.testerkit.common.constants.ConstantStep;
 import com.testerkit.uia.handlers.dump.SourceClass;
 import com.testerkit.uia.handlers.dump.SourceNode;
 import com.testerkit.uia.handlers.find.FindAndClick;
@@ -42,21 +43,21 @@ public class NettyServlet implements ISocketServlet {
         registerGetHandler();
     }
     private void  registerGetHandler(){
-        register(getHandler, new FindAndClick(baseUri+"find/click"));
+        register(getHandler, new FindAndClick(baseUri+ConstantStep.FIND_CLICK));
 
-        register(getHandler, new SourceClass(baseUri+"source/class"));
-        register(getHandler, new SourceNode(baseUri+"source/node"));
+        register(getHandler, new SourceClass(baseUri+ConstantStep.SOURCE_CLASS));
+        register(getHandler, new SourceNode(baseUri+ConstantStep.SOURCE_NODE));
 
-        register(getHandler, new InputDefault(baseUri+"input/default"));
+        register(getHandler, new InputDefault(baseUri+ConstantStep.INPUT_DEFAULT));
 
-        register(getHandler, new PressKeyCode(baseUri+"press/key_code"));
-        register(getHandler, new PressKeyName(baseUri+"press/key_name"));
-        register(getHandler, new PressKeyCodeLong(baseUri+"press/key_code_long"));
+        register(getHandler, new PressKeyCode(baseUri+ConstantStep.PRESS_KEY_CODE));
+        register(getHandler, new PressKeyName(baseUri+ConstantStep.PRESS_KEY_NAME));
+        register(getHandler, new PressKeyCodeLong(baseUri+ConstantStep.PRESS_KEY_CODE_LONG));
 
-        register(getHandler, new TouchDown(baseUri+"touch/down"));
-        register(getHandler, new TouchUp(baseUri+"touch/up"));
-        register(getHandler, new TouchMove(baseUri+"touch/move"));
-        register(getHandler, new TouchLongClick(baseUri+"touch/click"));
+        register(getHandler, new TouchDown(baseUri+ConstantStep.TOUCH_DOWN));
+        register(getHandler, new TouchUp(baseUri+ConstantStep.TOUCH_UP));
+        register(getHandler, new TouchMove(baseUri+ConstantStep.TOUCH_MOVE));
+        register(getHandler, new TouchLongClick(baseUri+ConstantStep.TOUCH_CLICK));
     }
     protected void register(Map<String, BaseRequestHandler> registerOn, BaseRequestHandler handler) {
         registerOn.put(handler.getMappedUri(), handler);

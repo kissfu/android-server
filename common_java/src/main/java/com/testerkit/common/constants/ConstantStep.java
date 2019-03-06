@@ -18,6 +18,8 @@ public class ConstantStep {
 
     public static final String PRESS_KEY_CODE = StepAction.PRESS.getAction() + "/" + StepRule.KEY_CODE.getRule();
     public static final String PRESS_KEY_NAME = StepAction.PRESS.getAction() + "/" + StepRule.KEY_NAME.getRule();
+    public static final String PRESS_KEY_CODE_LONG = StepAction.PRESS.getAction() + "/" + StepRule.KEY_CODE_LONG.getRule();
+
 
     public static final String TOUCH_DOWN = StepAction.TOUCH.getAction() + "/" + StepRule.DOWN.getRule();
     public static final String TOUCH_UP = StepAction.TOUCH.getAction() + "/" + StepRule.UP.getRule();
