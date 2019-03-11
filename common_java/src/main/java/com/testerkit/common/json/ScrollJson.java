@@ -6,6 +6,9 @@ package com.testerkit.common.json;
 
 public class ScrollJson {
     private int times;
+    /**
+     *  毫秒
+     */
     private int timeOut ;
     private boolean toCenter;
     private String direction;
@@ -13,6 +16,11 @@ public class ScrollJson {
     public void setTimes(int times){
         this.times = times;
     }
+
+    /**
+     *
+     * @return timeOut 毫秒
+     */
     public int getTimes(){
         return this.times;
     }
@@ -21,6 +29,9 @@ public class ScrollJson {
         return timeOut;
     }
 
+    /**
+     * @param timeOut 毫秒
+     */
     public void setTimeOut(int timeOut) {
         this.timeOut = timeOut;
     }
