@@ -24,9 +24,20 @@ public class FindAndClick extends FindEvent {
 
 
         try {
-            ReflectionUtils.clearAccessibilityCache();
-            UIDumpInfo dump = XMLHierarchy.getDumpInfo();
-            NodeInfo node = MatcherManager.getInstance().isMatchSingle(step, dump);
+
+            long start = System.currentTimeMillis();
+            NodeInfo node = null;
+            int counter = 0;
+            while (System.currentTimeMillis() - start < step.getScroll().getTimeOut()) {
+                Logger.iFunc(FUNC,"Manager times ",counter++);
+                ReflectionUtils.clearAccessibilityCache();
+                UIDumpInfo dump = XMLHierarchy.getDumpInfo();
+                node = MatcherManager.getInstance().isMatchSingle(step, dump);
+                if (node != null) {
+                    break;
+                }
+            }
+
             if (node == null) {
                 Logger.iFunc(FUNC," can not find node!!!");
                 return false;
