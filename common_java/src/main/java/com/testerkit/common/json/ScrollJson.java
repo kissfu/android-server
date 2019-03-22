@@ -9,7 +9,7 @@ public class ScrollJson {
     /**
      *  毫秒
      */
-    private int timeOut ;
+    private int timeout;
     private boolean toCenter;
     private String direction;
 
@@ -19,21 +19,21 @@ public class ScrollJson {
 
     /**
      *
-     * @return timeOut 毫秒
+     * @return timeout 毫秒
      */
     public int getTimes(){
         return this.times;
     }
 
-    public int getTimeOut() {
-        return timeOut;
+    public int getTimeout() {
+        return timeout;
     }
 
     /**
-     * @param timeOut 毫秒
+     * @param timeout 毫秒
      */
-    public void setTimeOut(int timeOut) {
-        this.timeOut = timeOut;
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 
     public void setToCenter(boolean toCenter){

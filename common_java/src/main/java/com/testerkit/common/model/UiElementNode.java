@@ -118,6 +118,9 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
     public void put(Attribute attribute, Object value) {
         String val = value == null ? "" : value.toString();
         switch (attribute) {
+            case NODE_TYPE:
+                 node.setNodeType(val);
+                break;
             case ROTATION:
                 rotation = Integer.valueOf(val);
                 break;

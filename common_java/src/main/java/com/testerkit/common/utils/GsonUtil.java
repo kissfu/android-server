@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,14 @@ public class GsonUtil {
         T t = null;
         if (gson != null) {
             t = gson.fromJson(gsonString, cls);
+        }
+        return t;
+    }
+
+    public static <T> T toBean(String gsonString, Type type) {
+        T t = null;
+        if (gson != null) {
+            t = gson.fromJson(gsonString, type);
         }
         return t;
     }
