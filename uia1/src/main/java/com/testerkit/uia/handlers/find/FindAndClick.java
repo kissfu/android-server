@@ -28,7 +28,7 @@ public class FindAndClick extends FindEvent {
             long start = System.currentTimeMillis();
             NodeInfo node = null;
             int counter = 0;
-            while (System.currentTimeMillis() - start < step.getScroll().getTimeOut()) {
+            while (System.currentTimeMillis() - start < step.getScroll().getTimeout()) {
                 Logger.iFunc(FUNC,"Manager times ",counter++);
                 ReflectionUtils.clearAccessibilityCache();
                 UIDumpInfo dump = XMLHierarchy.getDumpInfo();
