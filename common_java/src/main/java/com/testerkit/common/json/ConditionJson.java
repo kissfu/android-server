@@ -79,4 +79,16 @@ public class ConditionJson {
         this.xpath = xpath;
     }
 
+    @Override
+    public String toString() {
+        return "ConditionJson{" +
+                "relation=" + relation +
+                ", name=" + name +
+                ", clazz=" + clazz +
+                ", text=" + text +
+                ", contentDesc=" + contentDesc +
+                ", packageName=" + packageName +
+                ", xpath=" + xpath +
+                '}';
+    }
 }

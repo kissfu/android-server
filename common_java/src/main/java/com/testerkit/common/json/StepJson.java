@@ -109,7 +109,14 @@ public class StepJson {
 
     @Override
     public String toString() {
-        return String.format("key=%s",
-                key == null ? "" : key.toString());
+        return "StepJson{" +
+                "action='" + action + '\'' +
+                ", rule='" + rule + '\'' +
+                ", key=" + key +
+                ", node=" + node +
+                ", scroll=" + scroll +
+                ", points=" + points +
+                ", condition=" + condition +
+                '}';
     }
 }
