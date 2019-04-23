@@ -2,8 +2,9 @@ package com.testerkit.common.json;
 
 public class ResponseJson {
     private  int status = -1;
+    private String key="";
     private  String value = "";
-    private  String sessionId = "";
+    private  String sessionId ;
 
     public ResponseJson() {
     }
@@ -11,6 +12,14 @@ public class ResponseJson {
         this.status = status;
         this.value = value.toString();
         this.sessionId = sessionId;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public int getStatus() {
@@ -37,4 +46,14 @@ public class ResponseJson {
         this.sessionId = sessionId;
     }
 
+
+    @Override
+    public String toString() {
+        return "ResponseJson{" +
+                "status=" + status +
+                ", key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                ", sessionId='" + sessionId + '\'' +
+                '}';
+    }
 }

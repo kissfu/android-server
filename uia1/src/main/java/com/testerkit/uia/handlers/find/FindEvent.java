@@ -24,7 +24,7 @@ public abstract class FindEvent extends SafeRequestHandler {
 
         if(step == null ||  executeFindEvent(request) == false){
             return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
-                    "Cannot generate key find event for FindEvent %s", step));
+                    "Cannot generate key find event for FindEvent %s", step),FUNC);
         }
         return new AppiumResponse(getSessionId(request), WDStatus.SUCCESS, true);
     }

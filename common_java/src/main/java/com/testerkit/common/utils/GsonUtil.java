@@ -1,9 +1,6 @@
 package com.testerkit.common.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -61,6 +58,7 @@ public class GsonUtil {
     /**
      * 转成list
      * 泛型在编译期类型被擦除导致报错
+     *
      * @param gsonString
      * @param cls
      * @return
@@ -123,6 +121,31 @@ public class GsonUtil {
             }.getType());
         }
         return map;
+    }
+
+
+    public static String gsonString(Object object, final List<String> fieldsExclusion){
+        String gsonString = "";
+        Gson g = new GsonBuilder()
+                .addSerializationExclusionStrategy(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes f) {
+                        if(fieldsExclusion.contains(f.getName())){
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> clazz) {
+                        return false;
+                    }
+                })
+                .create();
+        if (g != null && object != null) {
+            gsonString = g.toJson(object);
+        }
+        return gsonString;
     }
 
 }

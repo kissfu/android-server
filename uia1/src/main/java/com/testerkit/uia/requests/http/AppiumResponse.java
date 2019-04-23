@@ -3,6 +3,7 @@ package com.testerkit.uia.requests.http;
 
 import android.util.Log;
 
+import com.testerkit.common.constants.ConstantResult;
 import com.testerkit.common.enums.WDStatus;
 import com.testerkit.common.json.ResponseJson;
 import com.testerkit.common.log.Logger;
@@ -10,20 +11,18 @@ import com.testerkit.common.utils.GsonUtil;
 
 
 public class AppiumResponse {
-    private final ResponseJson responseJson;
+    private final ResponseJson response;
 
     public AppiumResponse(String sessionId, WDStatus status, Object value) {
-        responseJson = new ResponseJson(status.code(),value,sessionId);
-//        this.sessionId = sessionId;
-//        this.status = status.code();
-//        this.value = value;
+        response = new ResponseJson(status.code(),value,sessionId);
     }
-
+    public AppiumResponse(String sessionId, WDStatus status, Object value,String key) {
+        this(sessionId, status, value);
+        this.response.setKey(key);
+    }
     public AppiumResponse(String sessionId, WDStatus status, Throwable throwable) {
-        responseJson = new ResponseJson(status.code(),Log.getStackTraceString(throwable),sessionId);
-//        this.sessionId = sessionId;
-//        this.status = status.code();
-//        this.value = Log.getStackTraceString(throwable);
+        response = new ResponseJson(status.code(),Log.getStackTraceString(throwable),sessionId);
+        response.setKey(ConstantResult.EXCEPTION_DEVICE);
     }
 
     public AppiumResponse(String sessionId, Object value) {
@@ -41,21 +40,21 @@ public class AppiumResponse {
     public String render() {
 
         try {
-            return GsonUtil.gsonString(responseJson);
+            return GsonUtil.gsonString(response);
         } catch (Exception e) {
-            responseJson.setStatus(WDStatus.JSON_DECODER_ERROR.code());
-            responseJson.setValue(e.getMessage());
+            response.setStatus(WDStatus.JSON_DECODER_ERROR.code());
+            response.setValue(e.getMessage());
             Logger.error("Unable to create JSON Object:", e);
         }
-        return GsonUtil.gsonString(responseJson);
+        return GsonUtil.gsonString(response);
     }
 
     public int getStatus() {
-        return responseJson.getStatus();
+        return response.getStatus();
     }
 
     public Object getValue() {
-        return responseJson.getValue();
+        return response.getValue();
     }
 
 

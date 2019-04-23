@@ -11,6 +11,9 @@ public class StopWatch {
     public String  toElapsedMS(){
         return String.format("[elapsed %s ms]",System.currentTimeMillis() - startTime);
     }
+    public long getElapsedMS(){
+        return System.currentTimeMillis() - startTime;
+    }
     public String  toElapsedMSAndResart(){
         String result = String.format("[elapsed %s ms]",System.currentTimeMillis() - startTime);
         restart();
