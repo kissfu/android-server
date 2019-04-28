@@ -6,7 +6,7 @@ public enum StepRule {
     NODE("node"),
     CLASS("class"),
     KEY_NAME("key_name"),
-    KEY_CODE_LONG("key_code_long"),
+    KEY("key"),
     KEY_CODE("key_code"),
     DEFAULT("default"),
     CLICK("click"),

@@ -6,7 +6,6 @@ import com.testerkit.uia.handlers.dump.SourceNode;
 import com.testerkit.uia.handlers.find.FindAndClick;
 import com.testerkit.uia.handlers.input.InputDefault;
 import com.testerkit.uia.handlers.key.PressKeyCode;
-import com.testerkit.uia.handlers.key.PressKeyCodeLong;
 import com.testerkit.uia.handlers.key.PressKeyName;
 import com.testerkit.uia.handlers.request.BaseRequestHandler;
 import com.testerkit.uia.handlers.touch.TouchDown;
@@ -18,8 +17,6 @@ import com.testerkit.uia.requests.socket.ISocketRequest;
 import com.testerkit.uia.requests.socket.ISocketResponse;
 import com.testerkit.uia.servers.HttpStatusCode;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -50,9 +47,9 @@ public class NettyServlet implements ISocketServlet {
 
         register(getHandler, new InputDefault(baseUri+ConstantStep.INPUT_DEFAULT));
 
-        register(getHandler, new PressKeyCode(baseUri+ConstantStep.PRESS_KEY_CODE));
+        register(getHandler, new PressKeyCode(baseUri+ConstantStep.PRESS_KEY));
         register(getHandler, new PressKeyName(baseUri+ConstantStep.PRESS_KEY_NAME));
-        register(getHandler, new PressKeyCodeLong(baseUri+ConstantStep.PRESS_KEY_CODE_LONG));
+
 
         register(getHandler, new TouchDown(baseUri+ConstantStep.TOUCH_DOWN));
         register(getHandler, new TouchUp(baseUri+ConstantStep.TOUCH_UP));

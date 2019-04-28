@@ -16,6 +16,7 @@ public class KeyJson {
     private int keyCode;
     private int metaState;
     private int flags;
+    private boolean longPress;
 
     public KeyEnum getKeyName() {
         return keyName;
@@ -49,8 +50,22 @@ public class KeyJson {
         this.flags = flags;
     }
 
+    public boolean isLongPress() {
+        return longPress;
+    }
+
+    public void setLongPress(boolean longPress) {
+        this.longPress = longPress;
+    }
+
     @Override
     public String toString() {
-        return String.format("keyName=%s,keyCode=%s",keyName,keyCode);
+        return "KeyJson{" +
+                "keyName=" + keyName +
+                ", keyCode=" + keyCode +
+                ", metaState=" + metaState +
+                ", flags=" + flags +
+                ", longPress=" + longPress +
+                '}';
     }
 }

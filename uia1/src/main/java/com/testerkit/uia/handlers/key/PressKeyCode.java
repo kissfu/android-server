@@ -20,10 +20,17 @@ import android.os.SystemClock;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 
+import com.testerkit.common.enums.KeyEnum;
+import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.utils.InteractionUtils;
 import com.testerkit.common.log.Logger;
+import com.testerkit.uia.utils.SystemUtil;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 
 public class PressKeyCode extends PressEvent {
@@ -33,10 +40,27 @@ public class PressKeyCode extends PressEvent {
 
     @Override
     protected boolean executePressEvent() {
-        Logger.info("Calling PressKeyCode... ");
-        final int keyCode = step.getKey().getKeyCode();
-        Integer metaState = step.getKey().getMetaState();
-        Integer flags = step.getKey().getFlags();
+        Logger.info("Calling PressKeyCode... " + step.getKey());
+        KeyEnum keyEnum = step.getKey().getKeyName();
+        int keyCode = step.getKey().getKeyCode();
+        int metaState = step.getKey().getMetaState();
+        int flags = step.getKey().getFlags();
+        boolean longPress = step.getKey().isLongPress();
+        if (keyEnum != null) {
+            keyCode = keyEnum.getValue();
+        }
+        boolean isSuccessful = false;
+        if (longPress) {
+            isSuccessful = this.longKeyPress(keyCode, flags, metaState);
+        } else {
+            isSuccessful = this.shortKeyPress(keyCode, flags, metaState);
+
+        }
+        return isSuccessful;
+    }
+
+
+    private boolean shortKeyPress(int keyCode, int flags, int metaState) {
         boolean isSuccessful = false;
         if (flags == -1) {
             DeviceCore core = BaseContext.getInstance().getDevice();
@@ -56,7 +80,57 @@ public class PressKeyCode extends PressEvent {
                     KeyEvent.ACTION_UP, keyCode, 0, metaState,
                     KeyCharacterMap.VIRTUAL_KEYBOARD, 0, flags));
         }
+
         return isSuccessful;
     }
 
+
+    private boolean longKeyPress(int keyCode, int flags, int metaState) {
+        if (SystemUtil.API_LEVEL() >= 18 && monkeyPressLong(keyCode)) {
+            return true;
+        }
+        flags = flags == -1 ? 0 : flags;
+        metaState = metaState == -1 ? 0 : metaState;
+        final long downTime = SystemClock.uptimeMillis();
+        boolean isSuccessful = InteractionUtils.injectEventSync(new KeyEvent(downTime, downTime,
+                KeyEvent.ACTION_DOWN, keyCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, flags));
+        // https://android.googlesource.com/platform/frameworks/base.git/+/9d83b4783c33f1fafc43f367503e129e5a5047fa%5E%21/#F0
+        isSuccessful &= InteractionUtils.injectEventSync(new KeyEvent(downTime, SystemClock.uptimeMillis(),
+                KeyEvent.ACTION_DOWN, keyCode, 1, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, flags | KeyEvent.FLAG_LONG_PRESS));
+        isSuccessful &= InteractionUtils.injectEventSync(new KeyEvent(downTime, SystemClock.uptimeMillis(),
+                KeyEvent.ACTION_UP, keyCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD,
+                0, flags));
+
+        return isSuccessful;
+    }
+
+    private boolean monkeyPressLong(int keyCode) {
+        boolean success = false;
+
+        try {
+
+            File file = new File("/data/local/tmp/key.monkey");
+            BufferedWriter output = new BufferedWriter(new FileWriter(file));
+            String monkey = "#Start of Script\r\ntype= user\r\ncount= 49\r\nspeed= 1.0\r\nstart data >>\r\nDispatchKey(0,0,0,%d,0,0,0,0)\r\nUserWait(4000)\r\nDispatchKey(0,0,1,%d,0,0,0,0)";
+            monkey = String.format(monkey, keyCode, keyCode);
+            output.write(monkey);
+            output.flush();
+            output.close();
+
+            SleepUtil.sleep(200L);
+
+            Process process = Runtime.getRuntime().exec("monkey -f /data/local/tmp/key.monkey 1");
+            process.waitFor();
+            SleepUtil.sleep(500L);
+            success = true;
+
+        } catch (Exception e) {
+            Logger.error(e);
+        }
+
+        return success;
+    }
 }
+
