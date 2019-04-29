@@ -1,6 +1,7 @@
 {
   "action":"press",
-  "rule":"key_code_long",
+  "rule":"key",
+  "longPress":true,
   "key":{
     "keyCode":3,
     "metaState":-1,

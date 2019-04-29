@@ -1,6 +1,6 @@
 {
   "action":"press",
-  "rule":"key_code",
+  "rule":"key",
   "key":{
     "keyCode":3,
     "metaState":-1,
