@@ -22,7 +22,7 @@ package com.testerkit.common.enums;
  * KeyEnum.RIGHT.name() 返回该对象的字符串，即“RIGHT”--->.toString()
  */
 public enum KeyEnum {
-    MENU(82), BACK(4), HOME(3), SEARCH(84), ENTER(66), LEFT(21), RIGHT(22),UP(19),DOWN(20),CENTER(23);
+    MENU(82), BACK(4), HOME(3), SEARCH(84), ENTER(66), LEFT(21), RIGHT(22),UP(19),DOWN(20),CENTER(23),NONE(-1);
 
     private final int value;
 
@@ -36,7 +36,7 @@ public enum KeyEnum {
                 return em;
             }
         }
-        throw new IllegalArgumentException(String.format("Orientation value '%s' is not supported", x));
+        return NONE;
     }
 
     public int getValue() {
@@ -50,12 +50,14 @@ public enum KeyEnum {
                 return "菜单";
             case BACK:
                 return "返回";
+            case HOME:
+                return "HOME";
             default:
                 return "未知(" + this + ")";
         }
     }
 
     public static void main(String[] args) {
-        System.out.printf(KeyEnum.valueOf("dd")+ "");
+        System.out.printf(KeyEnum.NONE.getDescription() + "");
     }
 }
