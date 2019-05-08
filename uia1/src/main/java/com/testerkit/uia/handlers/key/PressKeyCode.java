@@ -17,6 +17,7 @@
 package com.testerkit.uia.handlers.key;
 
 import android.os.SystemClock;
+import android.util.TimeUtils;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 
@@ -31,6 +32,7 @@ import com.testerkit.uia.utils.SystemUtil;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.concurrent.TimeUnit;
 
 
 public class PressKeyCode extends PressEvent {
@@ -40,7 +42,7 @@ public class PressKeyCode extends PressEvent {
 
     @Override
     protected boolean executePressEvent() {
-        Logger.info("Calling PressKeyCode... " + step.getKey());
+        Logger.iFunc(FUNC,"Calling PressKeyCode... " + step.getKey());
         KeyEnum keyEnum = step.getKey().getKeyName();
         int keyCode = step.getKey().getKeyCode();
         int metaState = step.getKey().getMetaState();
@@ -62,13 +64,10 @@ public class PressKeyCode extends PressEvent {
 
     private boolean shortKeyPress(int keyCode, int flags, int metaState) {
         boolean isSuccessful = false;
-        if (flags == -1) {
+        if (SystemUtil.API_LEVEL() < 18) {
             DeviceCore core = BaseContext.getInstance().getDevice();
-            if (metaState == -1) {
-                isSuccessful = core.pressKey(keyCode);
-            } else {
-                isSuccessful = core.pressKey(keyCode, metaState);
-            }
+            isSuccessful = core.pressKey(keyCode, metaState);
+            Logger.iFunc(FUNC,"shortKeyPress");
         } else {
             flags = flags == -1 ? 0 : flags;
             metaState = metaState == -1 ? 0 : metaState;
@@ -86,9 +85,9 @@ public class PressKeyCode extends PressEvent {
 
 
     private boolean longKeyPress(int keyCode, int flags, int metaState) {
-        if (SystemUtil.API_LEVEL() >= 18 && monkeyPressLong(keyCode)) {
-            return true;
-        }
+//        if (SystemUtil.API_LEVEL() >= 18 && monkeyPressLong(keyCode)) {
+//            return true;
+//        }
         flags = flags == -1 ? 0 : flags;
         metaState = metaState == -1 ? 0 : metaState;
         final long downTime = SystemClock.uptimeMillis();
@@ -96,9 +95,14 @@ public class PressKeyCode extends PressEvent {
                 KeyEvent.ACTION_DOWN, keyCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD,
                 0, flags));
         // https://android.googlesource.com/platform/frameworks/base.git/+/9d83b4783c33f1fafc43f367503e129e5a5047fa%5E%21/#F0
-        isSuccessful &= InteractionUtils.injectEventSync(new KeyEvent(downTime, SystemClock.uptimeMillis(),
-                KeyEvent.ACTION_DOWN, keyCode, 1, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD,
-                0, flags | KeyEvent.FLAG_LONG_PRESS));
+//        isSuccessful &= InteractionUtils.injectEventSync(new KeyEvent(downTime, SystemClock.uptimeMillis(),
+//                KeyEvent.ACTION_DOWN, keyCode, 1, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD,
+//                0, flags | KeyEvent.FLAG_LONG_PRESS));
+        try {
+            TimeUnit.SECONDS.sleep(4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         isSuccessful &= InteractionUtils.injectEventSync(new KeyEvent(downTime, SystemClock.uptimeMillis(),
                 KeyEvent.ACTION_UP, keyCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD,
                 0, flags));
@@ -106,6 +110,11 @@ public class PressKeyCode extends PressEvent {
         return isSuccessful;
     }
 
+    /**
+     * 权限问题无法执行
+     * @param keyCode
+     * @return
+     */
     private boolean monkeyPressLong(int keyCode) {
         boolean success = false;
 
