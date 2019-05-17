@@ -122,6 +122,16 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         Logger.debug("===>", resultInfo);
     }
 
+    @Test
+    public void appList(){
+        initCore();
+
+        String command = super.getAssets("app-list.json");
+        String resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        System.out.printf(resultInfo);
+        Logger.debug("===>", resultInfo);
+    }
+
     @Override
     public void initCore() {
         Constants.PRO = "2";
@@ -131,5 +141,8 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         BaseContext.getInstance().setDevice(new DeviceCore2(uiDevice));
 
     }
+
+
+
 
 }

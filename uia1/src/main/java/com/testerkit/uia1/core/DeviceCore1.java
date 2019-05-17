@@ -3,6 +3,7 @@ package com.testerkit.uia1.core;
 import android.os.RemoteException;
 
 import com.testerkit.common.enums.KeyEnum;
+import com.testerkit.common.model.AppInfo;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
@@ -11,6 +12,9 @@ import com.testerkit.uia.model.AndroidElement;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.common.log.Logger;
 import com.testerkit.uia1.model.UiObjectElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by able on 2018/9/6.
@@ -125,4 +129,8 @@ public class DeviceCore1 extends DeviceCore {
         return true;
     }
 
+    @Override
+    public List<AppInfo> getAppList() {
+        return new ArrayList<AppInfo>();
+    }
 }

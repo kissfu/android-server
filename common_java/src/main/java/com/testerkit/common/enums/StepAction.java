@@ -8,9 +8,10 @@ public enum StepAction {
     PRESS("press"),
     INPUT("input"),
     FIND("find"),
-    NONE("none");
+    NONE("none"),
 
-
+    //操作系统app接口
+    APP("app");
 
     private final String type;
 

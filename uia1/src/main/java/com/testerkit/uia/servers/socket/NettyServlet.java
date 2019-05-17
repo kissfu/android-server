@@ -1,6 +1,7 @@
 package com.testerkit.uia.servers.socket;
 
 import com.testerkit.common.constants.ConstantStep;
+import com.testerkit.uia.handlers.app.AppList;
 import com.testerkit.uia.handlers.dump.SourceClass;
 import com.testerkit.uia.handlers.dump.SourceNode;
 import com.testerkit.uia.handlers.find.FindAndClick;
@@ -55,6 +56,8 @@ public class NettyServlet implements ISocketServlet {
         register(getHandler, new TouchUp(baseUri+ConstantStep.TOUCH_UP));
         register(getHandler, new TouchMove(baseUri+ConstantStep.TOUCH_MOVE));
         register(getHandler, new TouchLongClick(baseUri+ConstantStep.TOUCH_CLICK));
+
+        register(getHandler, new AppList(baseUri+ConstantStep.APP_LIST));
     }
     protected void register(Map<String, BaseRequestHandler> registerOn, BaseRequestHandler handler) {
         registerOn.put(handler.getMappedUri(), handler);

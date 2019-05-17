@@ -13,7 +13,10 @@ public enum StepRule {
     DOWN("down"),
     MOVE("move"),
     UP("up"),
-    NONE("none");
+    NONE("none"),
+
+    //系统app 接口
+    LIST("list");
 
 
     private final String type;

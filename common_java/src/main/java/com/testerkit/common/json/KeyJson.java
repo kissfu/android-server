@@ -14,8 +14,8 @@ import com.testerkit.common.enums.KeyEnum;
 public class KeyJson {
     private KeyEnum keyName;
     private int keyCode;
-    private int metaState;//默认是0
-    private int flags;//默认是0
+    private int metaState;
+    private int flags;
     private boolean longPress;
 
     public KeyEnum getKeyName() {

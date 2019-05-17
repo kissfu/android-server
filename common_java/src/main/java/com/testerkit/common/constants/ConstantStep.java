@@ -26,4 +26,8 @@ public class ConstantStep {
     public static final String TOUCH_CLICK = StepAction.TOUCH.getAction() + "/" + StepRule.CLICK.getRule();
 
 
+    //系统app的一些接口
+    public static final String APP_LIST = StepAction.APP.getAction() + "/" + StepRule.LIST.getRule();
+
+
 }

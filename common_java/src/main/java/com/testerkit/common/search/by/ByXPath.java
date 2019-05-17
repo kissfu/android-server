@@ -45,7 +45,6 @@ public class ByXPath extends ByBase {
     }
 
 
-    //TODO arr在被gson反序列化的时候可能为空
     @Override
     public boolean isIgnoredPre() {
         if (this.option == null || this.option == ByOption.IGNORED) {

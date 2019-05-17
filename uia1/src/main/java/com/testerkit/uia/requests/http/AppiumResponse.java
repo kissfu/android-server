@@ -16,6 +16,9 @@ public class AppiumResponse {
     public AppiumResponse(String sessionId, WDStatus status, Object value) {
         response = new ResponseJson(status.code(),value,sessionId);
     }
+    public AppiumResponse(ResponseJson response) {
+        this.response = response;
+    }
     public AppiumResponse(String sessionId, WDStatus status, Object value,String key) {
         this(sessionId, status, value);
         this.response.setKey(key);
