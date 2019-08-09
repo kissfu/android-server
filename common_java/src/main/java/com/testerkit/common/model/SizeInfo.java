@@ -1,0 +1,19 @@
+package com.testerkit.common.model;
+
+public class SizeInfo {
+    public int width;
+    public int height;
+
+    public SizeInfo(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public SizeInfo() {
+        this(0, 0);
+    }
+
+    @Override public String toString() {
+        return "Size(" + width + ", " + height + ")";
+    }
+}
