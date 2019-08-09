@@ -8,5 +8,7 @@ public class ConstantResult {
     public static final String CANCEL = "正常取消";
     public static final String UIA_UNREACHABLE="UIA服务不可达";
 
-
+    public final static String UIA_LAUNCHED = "$UIA###LAUNCHED$";
+    public final static String UIA_LANDING = "$UIA###LANDING$";
+    public final static String UIA_ERROR = "$UIA###ERROR###%s$";
 }

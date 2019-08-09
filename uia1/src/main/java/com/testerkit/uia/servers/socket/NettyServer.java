@@ -3,6 +3,7 @@ package com.testerkit.uia.servers.socket;
 import android.util.Log;
 //import cn.testin.utils.Logger;
 //import cn.testin.utils.Utils;
+import com.testerkit.common.constants.ConstantResult;
 import com.testerkit.uia.servers.IServlet;
 import com.testerkit.uia.servers.ServerBase;
 import com.testerkit.common.log.Logger;
@@ -84,13 +85,16 @@ public class NettyServer extends ServerBase {
             ChannelFuture f = b.bind(port).sync();
             //Logger.onRecorderServerPortChange(port);
             Logger.info("server","binding... is ok! then sync...");
+            Logger.error(ConstantResult.UIA_LAUNCHED);
             //等待服务端监听端口关闭
             f.channel().closeFuture().sync();
             Logger.info("server","sync... is over!");
         }catch (Exception e){
+            Logger.error(String.format(ConstantResult.UIA_ERROR,e.getMessage()));
             Logger.error(e.getMessage(), e);
             return false;
         }finally {
+            Logger.error(ConstantResult.UIA_LANDING);
             close();
         }
         //执行完不再挂起，server停止
