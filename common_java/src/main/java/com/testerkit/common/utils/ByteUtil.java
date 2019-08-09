@@ -30,6 +30,7 @@ public class ByteUtil {
                 (b[1] & 0xFF) << 16 |
                 (b[0] & 0xFF) << 24;
     }
+
     public static byte[] intToByteArray(int a) {
         return new byte[] {
                 (byte) ((a >> 24) & 0xFF),

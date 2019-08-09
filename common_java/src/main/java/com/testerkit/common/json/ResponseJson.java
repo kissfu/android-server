@@ -2,6 +2,7 @@ package com.testerkit.common.json;
 
 public class ResponseJson {
     private  int status = -1;
+    private String event;
     private String key="";
     private  String value = "";
     private  String sessionId ;
@@ -12,6 +13,14 @@ public class ResponseJson {
         this.status = status;
         this.value = value.toString();
         this.sessionId = sessionId;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
     }
 
     public String getKey() {
