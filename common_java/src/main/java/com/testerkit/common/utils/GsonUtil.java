@@ -33,6 +33,24 @@ public class GsonUtil {
     }
 
     /**
+     * 将object对象转成json字符串
+     *
+     * @param object
+     * @return
+     */
+    public static String gsonString(Object object, String dataFormat) {
+        if (StringUtil.isEmpty(dataFormat)) {
+            dataFormat ="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";//"yyyy-MM-dd HH:mm:ss.SSS";
+        }
+        Gson gsonTemp = new GsonBuilder()
+                .setDateFormat(dataFormat)
+                .create();
+        String gsonString = "";
+        gsonString = gsonTemp.toJson(object);
+        return gsonString;
+    }
+
+    /**
      * 将gsonString转成泛型bean
      *
      * @param gsonString
@@ -124,13 +142,13 @@ public class GsonUtil {
     }
 
 
-    public static String gsonString(Object object, final List<String> fieldsExclusion){
+    public static String gsonString(Object object, final List<String> fieldsExclusion) {
         String gsonString = "";
         Gson g = new GsonBuilder()
                 .addSerializationExclusionStrategy(new ExclusionStrategy() {
                     @Override
                     public boolean shouldSkipField(FieldAttributes f) {
-                        if(fieldsExclusion.contains(f.getName())){
+                        if (fieldsExclusion.contains(f.getName())) {
                             return true;
                         }
                         return false;

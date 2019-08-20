@@ -92,4 +92,16 @@ public class RegExUtil {
 
         return rect;
     }
+
+
+    // 传入正则表达式和字符串匹配指定字符串
+    public static String findString(String content,String regex,int flags){
+        // 正则匹配dict字段
+        Pattern pattern = Pattern.compile(regex,flags);
+        Matcher matcher = pattern.matcher(content);
+        if ( matcher.find( )) {
+            return matcher.group(1);
+        }
+        return null;
+    }
 }
