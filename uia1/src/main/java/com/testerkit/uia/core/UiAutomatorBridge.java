@@ -1,11 +1,11 @@
 package com.testerkit.uia.core;
 
 import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
 
-import static com.testerkit.uia.utils.ReflectionUtils.getField;
-import static com.testerkit.uia.utils.ReflectionUtils.method;
+import static com.testerkit.common.utils.ReflectionUtil.getField;
+import static com.testerkit.common.utils.ReflectionUtil.method;
 
 /**
  * Created by able on 2018/2/11.

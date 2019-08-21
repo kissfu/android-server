@@ -18,6 +18,8 @@ package com.testerkit.uia.exceptions;
 
 import android.graphics.Rect;
 
+import com.testerkit.common.exceptions.UIAException;
+
 public class CropScreenshotException extends UIAException {
     private static final String message = "The cropping area is outside of the original bitmap. " +
             "Bitmap rect: %s; Cropping area rect: %s";

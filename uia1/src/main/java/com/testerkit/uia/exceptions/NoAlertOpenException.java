@@ -16,6 +16,8 @@
 
 package com.testerkit.uia.exceptions;
 
+import com.testerkit.common.exceptions.UIAException;
+
 public class NoAlertOpenException extends UIAException {
     public NoAlertOpenException() {
         super("No alert is present on the screen");

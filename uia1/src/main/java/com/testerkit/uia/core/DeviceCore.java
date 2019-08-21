@@ -6,11 +6,11 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.model.AppInfo;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.utils.SystemUtil;
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.ReflectionUtils;
+import com.testerkit.common.utils.ReflectionUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -80,7 +80,7 @@ public abstract class DeviceCore {
       List<AccessibilityNodeInfo> ret = new ArrayList<>();
       // Support multi-window searches for API level 21 and up
       if(SystemUtil.API_LEVEL_ACTUAL() >= 21){
-         Object obj = ReflectionUtils.invoke(uiDevice,METHOD_GET_WINDOW_ROOTS);
+         Object obj = ReflectionUtil.invoke(uiDevice,METHOD_GET_WINDOW_ROOTS);
          AccessibilityNodeInfo[] rootArr = (AccessibilityNodeInfo[])obj;
          ret.addAll(Arrays.asList(rootArr));
       }else {
@@ -99,7 +99,7 @@ public abstract class DeviceCore {
    public int getRotation(){
       int rotation = -1;
       if(SystemUtil.API_LEVEL() >= 17){
-         Object obj = ReflectionUtils.invoke(uiDevice,METHOD_GET_DISPLAY_ROTATION);
+         Object obj = ReflectionUtil.invoke(uiDevice,METHOD_GET_DISPLAY_ROTATION);
          rotation = (int)obj;
       }else {
          Display display = getDisplay();
@@ -156,10 +156,10 @@ public abstract class DeviceCore {
 
       try {
          final Class c = Class.forName("android.view.WindowManagerImpl");
-         final Method getInstance = ReflectionUtils.method(c, "getDefault");
+         final Method getInstance = ReflectionUtil.method(c, "getDefault");
          final Object instance = getInstance.invoke(null);
 
-         final Method defaultDisplay = ReflectionUtils.method(instance.getClass(), "getDefaultDisplay");
+         final Method defaultDisplay = ReflectionUtil.method(instance.getClass(), "getDefaultDisplay");
          return (Display)defaultDisplay.invoke(instance);
 
       } catch (IllegalAccessException e) {

@@ -1,4 +1,4 @@
-package com.testerkit.uia.exceptions;
+package com.testerkit.common.exceptions;
 
 /**
  * Created by able on 2018/2/11.

@@ -16,6 +16,8 @@
 
 package com.testerkit.uia.exceptions;
 
+import com.testerkit.common.exceptions.UIAException;
+
 /**
  * If an invalid element selector is encountered
  */

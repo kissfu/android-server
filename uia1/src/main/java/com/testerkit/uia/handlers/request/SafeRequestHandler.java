@@ -3,6 +3,9 @@ package com.testerkit.uia.handlers.request;
 //import android.support.test.uiautomator.StaleObjectException;
 //import android.support.test.uiautomator.UiObjectNotFoundException;
 
+import com.testerkit.common.enums.WDStatus;
+import com.testerkit.common.exceptions.UIAException;
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.exceptions.CropScreenshotException;
 import com.testerkit.uia.exceptions.ElementNotFoundException;
 import com.testerkit.uia.exceptions.InvalidCoordinatesException;
@@ -12,33 +15,13 @@ import com.testerkit.uia.exceptions.NoAlertOpenException;
 import com.testerkit.uia.exceptions.NoAttributeFoundException;
 import com.testerkit.uia.exceptions.NoSuchContextException;
 import com.testerkit.uia.exceptions.StaleElementReferenceException;
-import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.exceptions.UiSelectorSyntaxException;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
-import com.testerkit.uia.requests.http.IHttpRequest;
-import com.testerkit.common.enums.WDStatus;
-import com.testerkit.common.log.Logger;
 
 import org.json.JSONException;
 
 import java.text.MessageFormat;
-
-//import io.appium.uiautomator2.common.exceptions.CropScreenshotException;
-//import io.appium.uiautomator2.common.exceptions.ElementNotFoundException;
-//import io.appium.uiautomator2.common.exceptions.InvalidCoordinatesException;
-//import io.appium.uiautomator2.common.exceptions.InvalidElementStateException;
-//import io.appium.uiautomator2.common.exceptions.InvalidSelectorException;
-//import io.appium.uiautomator2.common.exceptions.NoAlertOpenException;
-//import io.appium.uiautomator2.common.exceptions.NoAttributeFoundException;
-//import io.appium.uiautomator2.common.exceptions.NoSuchContextException;
-//import io.appium.uiautomator2.common.exceptions.StaleElementReferenceException;
-//import io.appium.uiautomator2.common.exceptions.UiAutomator2Exception;
-//import io.appium.uiautomator2.common.exceptions.UiSelectorSyntaxException;
-//import io.appium.uiautomator2.http.AppiumResponse;
-//import io.appium.uiautomator2.http.IHttpRequest;
-//import io.appium.uiautomator2.server.WDStatus;
-//import io.appium.uiautomator2.utils.Logger;
 
 public abstract class SafeRequestHandler extends BaseRequestHandler {
 

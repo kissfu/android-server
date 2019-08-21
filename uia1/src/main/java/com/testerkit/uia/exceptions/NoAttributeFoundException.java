@@ -1,5 +1,7 @@
 package com.testerkit.uia.exceptions;
 
+import com.testerkit.common.exceptions.UIAException;
+
 public class NoAttributeFoundException extends UIAException {
     private static final long serialVersionUID = -4526232656079801503L;
 

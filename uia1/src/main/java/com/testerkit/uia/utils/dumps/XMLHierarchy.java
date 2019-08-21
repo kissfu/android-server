@@ -21,7 +21,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.testerkit.common.log.LogPrint;
 import com.testerkit.common.model.UIDumpInfo;
 import com.testerkit.common.utils.StringUtil;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
 
 import org.w3c.dom.Document;

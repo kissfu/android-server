@@ -19,7 +19,7 @@ package com.testerkit.uia.handlers.touch;
 
 import com.testerkit.common.utils.NumberUtil;
 import com.testerkit.uia.core.UiAutomatorBridge;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
 
 public class TouchUp extends TouchEvent {

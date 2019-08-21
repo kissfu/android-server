@@ -16,6 +16,8 @@
 
 package com.testerkit.uia.exceptions;
 
+import com.testerkit.common.exceptions.UIAException;
+
 public class InvalidElementStateException extends UIAException {
     public InvalidElementStateException(String message) {
         super(message);

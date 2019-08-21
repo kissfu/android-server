@@ -1,13 +1,13 @@
 package com.testerkit.uia.handlers.dump;
 
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.uia.handlers.request.SafeRequestHandler;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.http.IHttpRequest;
 import com.testerkit.common.enums.WDStatus;
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.ReflectionUtils;
+import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.uia.utils.dumps.XMLHierarchy;
 
 import org.w3c.dom.Document;
@@ -21,14 +21,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-//import io.appium.uiautomator2.common.exceptions.UiAutomator2Exception;
-//import io.appium.uiautomator2.handler.request.SafeRequestHandler;
-//import io.appium.uiautomator2.http.AppiumResponse;
-//import io.appium.uiautomator2.http.IHttpRequest;
-//import io.appium.uiautomator2.server.WDStatus;
-//import io.appium.uiautomator2.utils.Logger;
-//import io.appium.uiautomator2.utils.ReflectionUtils;
-//import io.appium.uiautomator2.utils.XMLHierarchy;
 
 /**
  * Get page source. Return as string of XML doc
@@ -41,7 +33,7 @@ public class SourceClass extends SourceEvent {
 
     protected AppiumResponse executeDumpEvent(IRequest request) {
         try {
-            ReflectionUtils.clearAccessibilityCache();
+            ReflectionUtil.clearAccessibilityCache();
 
             final Document doc = (Document) XMLHierarchy.getFormattedXMLDoc();
             final TransformerFactory tf = TransformerFactory.newInstance();

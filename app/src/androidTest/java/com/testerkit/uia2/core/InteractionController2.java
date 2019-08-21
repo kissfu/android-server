@@ -21,10 +21,10 @@ import android.view.MotionEvent;
 
 import com.testerkit.uia.core.InteractionController;
 import com.testerkit.uia.core.ReturningRunnable;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 
-import static com.testerkit.uia.utils.ReflectionUtils.invoke;
-import static com.testerkit.uia.utils.ReflectionUtils.method;
+import static com.testerkit.common.utils.ReflectionUtil.invoke;
+import static com.testerkit.common.utils.ReflectionUtil.method;
 
 //TODO EventRegister2.runAndRegisterScrollEvents  clickNoSync,目前都是clickAndSync
 public class InteractionController2 extends InteractionController {

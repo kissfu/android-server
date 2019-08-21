@@ -17,11 +17,13 @@
 package com.testerkit.uia.exceptions;
 
 
+import com.testerkit.common.exceptions.UIAException;
+
 @SuppressWarnings("serial")
 public class UiSelectorSyntaxException extends UIAException {
 
     /**
-     *  An exception involving an {@link UiSelectorParser}.
+     *  An exception involving an .
      *
      * @param msg A descriptive message describing the error.
      */

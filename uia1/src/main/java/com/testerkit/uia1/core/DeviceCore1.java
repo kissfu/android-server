@@ -8,7 +8,7 @@ import com.testerkit.common.model.AppInfo;
 import com.testerkit.common.shell.ShellExecutor;
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.core.UiAutomatorBridge;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.AndroidElement;
 

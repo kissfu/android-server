@@ -19,7 +19,7 @@ package com.testerkit.uia.model.settings;
 //import io.appium.uiautomator2.common.exceptions.UiAutomator2Exception;
 //import io.appium.uiautomator2.utils.Logger;
 
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
 
 public abstract class AbstractSetting<T> implements ISetting {

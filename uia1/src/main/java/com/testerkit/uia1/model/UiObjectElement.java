@@ -28,8 +28,8 @@ import com.testerkit.uia.utils.elements.PositionHelper;
 
 import java.util.regex.Pattern;
 
-import static com.testerkit.uia.utils.ReflectionUtils.invoke;
-import static com.testerkit.uia.utils.ReflectionUtils.method;
+import static com.testerkit.common.utils.ReflectionUtil.invoke;
+import static com.testerkit.common.utils.ReflectionUtil.method;
 
 
 public class UiObjectElement implements AndroidElement {

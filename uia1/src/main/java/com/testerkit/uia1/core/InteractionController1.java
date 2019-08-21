@@ -20,10 +20,10 @@ import android.view.InputEvent;
 
 import com.testerkit.uia.core.InteractionController;
 import com.testerkit.uia.core.ReturningRunnable;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 
-import static com.testerkit.uia.utils.ReflectionUtils.invoke;
-import static com.testerkit.uia.utils.ReflectionUtils.method;
+import static com.testerkit.common.utils.ReflectionUtil.invoke;
+import static com.testerkit.common.utils.ReflectionUtil.method;
 
 public  class InteractionController1  extends InteractionController {
 

@@ -21,7 +21,7 @@ import android.support.annotation.Nullable;
 
 import com.testerkit.uia.core.UiAutomatorBridge;
 
-import static com.testerkit.uia.utils.ReflectionUtils.getField;
+import static com.testerkit.common.utils.ReflectionUtil.getField;
 
 
 public class UiAutomation2 {

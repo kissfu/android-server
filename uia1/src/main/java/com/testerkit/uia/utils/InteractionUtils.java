@@ -17,12 +17,10 @@
 package com.testerkit.uia.utils;
 
 import android.hardware.input.InputManager;
-import android.media.audiofx.BassBoost;
 import android.view.InputEvent;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 
 import com.testerkit.common.log.Logger;
+import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.uia.BaseContext;
 
 import java.lang.reflect.InvocationTargetException;
@@ -62,7 +60,7 @@ public class InteractionUtils {
             //region test2
 
             final Class c = Class.forName("android.hardware.input.InputManager");
-            final Method getInstance = ReflectionUtils.method(c, "getInstance");
+            final Method getInstance = ReflectionUtil.method(c, "getInstance");
 
             final Object instance = getInstance.invoke(null);
 
@@ -70,7 +68,7 @@ public class InteractionUtils {
 //            types[0] = KeyEvent.class;
 //            types[1] = int.class;
             //无法获取，不知道为什么
-//            final Method inject = ReflectionUtils.method(instance.getClass(), "injectInputEvent",types);
+//            final Method inject = ReflectionUtil.method(instance.getClass(), "injectInputEvent",types);
             Method methods[] = InputManager.class.getMethods();
             Method inject = null;
             for (Method m : methods) {

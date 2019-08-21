@@ -16,6 +16,8 @@
 
 package com.testerkit.uia.exceptions;
 
+import com.testerkit.common.exceptions.UIAException;
+
 /**
  * An exception thrown when the element can not be found.
  */

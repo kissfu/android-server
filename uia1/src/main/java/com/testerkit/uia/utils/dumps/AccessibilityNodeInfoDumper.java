@@ -26,7 +26,7 @@ import com.testerkit.common.model.UIDumpInfo;
 import com.testerkit.common.utils.StopWatch;
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.utils.SystemUtil;

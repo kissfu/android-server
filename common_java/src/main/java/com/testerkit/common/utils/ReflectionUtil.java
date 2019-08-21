@@ -1,7 +1,7 @@
-package com.testerkit.uia.utils;
+package com.testerkit.common.utils;
 
 import com.testerkit.common.log.Logger;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -12,7 +12,7 @@ import java.util.Arrays;
  * Created by able on 2018/2/11.
  */
 
-public class ReflectionUtils {
+public class ReflectionUtil {
 
     /**
      * Clears the in-process Accessibility cache, removing any stale references. Because the
@@ -26,9 +26,9 @@ public class ReflectionUtils {
         try {
             final Class c = Class
                     .forName("android.view.accessibility.AccessibilityInteractionClient");
-            final Method getInstance = ReflectionUtils.method(c, "getInstance");
+            final Method getInstance = ReflectionUtil.method(c, "getInstance");
             final Object instance = getInstance.invoke(null);
-            final Method clearCache = ReflectionUtils.method(instance.getClass(),
+            final Method clearCache = ReflectionUtil.method(instance.getClass(),
                     "clearCache");
             clearCache.invoke(instance);
 

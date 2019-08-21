@@ -23,7 +23,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.UiAutomatorBridge;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.uia.model.UiAutomationElement;
 import com.testerkit.common.log.Logger;
 

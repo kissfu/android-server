@@ -38,7 +38,7 @@ import com.testerkit.uia.utils.elements.PositionHelper;
 import java.util.List;
 import java.util.UUID;
 
-import static com.testerkit.uia.utils.ReflectionUtils.getField;
+import static com.testerkit.common.utils.ReflectionUtil.getField;
 
 
 public class UiObject2Element implements AndroidElement {

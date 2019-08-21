@@ -6,9 +6,9 @@ import com.testerkit.common.model.RectInfo;
 import com.testerkit.common.model.UIDumpInfo;
 import com.testerkit.common.search.matcher.MatcherManager;
 import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.uia.requests.IRequest;
-import com.testerkit.uia.utils.ReflectionUtils;
+import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.uia.utils.dumps.XMLHierarchy;
 
 public class FindAndClick extends FindEvent {
@@ -28,7 +28,7 @@ public class FindAndClick extends FindEvent {
             int counter = 0;
             while (System.currentTimeMillis() - start < step.getScroll().getTimeout()) {
                 Logger.iFunc(FUNC,"Manager times ",counter++);
-                ReflectionUtils.clearAccessibilityCache();
+                ReflectionUtil.clearAccessibilityCache();
                 UIDumpInfo dump = XMLHierarchy.getDumpInfo();
                 node = MatcherManager.getInstance().isMatchSingle(step, dump);
                 if (node != null) {

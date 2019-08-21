@@ -4,10 +4,10 @@ import com.testerkit.uia.core.InteractionController;
 import com.testerkit.uia.core.QueryController;
 import com.testerkit.uia.core.UiAutomationCore;
 import com.testerkit.uia.core.UiAutomatorBridge;
-import com.testerkit.uia.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIAException;
 
-import static com.testerkit.uia.utils.ReflectionUtils.getField;
-import static com.testerkit.uia.utils.ReflectionUtils.method;
+import static com.testerkit.common.utils.ReflectionUtil.getField;
+import static com.testerkit.common.utils.ReflectionUtil.method;
 
 /**
  * Created by able on 2018/2/11.

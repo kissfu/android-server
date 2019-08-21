@@ -1,5 +1,7 @@
 package com.testerkit.uia.exceptions;
 
+import com.testerkit.common.exceptions.UIAException;
+
 public class NoSuchContextException extends UIAException {
 
     public NoSuchContextException(String detailMessage) {
