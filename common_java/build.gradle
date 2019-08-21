@@ -11,3 +11,7 @@ compileJava{
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 }
+
+jar {
+    from fileTree(dir:'src/main',includes: ['assets/**'])  //需要加入的资源那文件
+}

@@ -4,6 +4,7 @@ import android.os.SystemClock;
 import android.view.Display;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.model.AppInfo;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.model.ScreenSize;
@@ -60,7 +61,7 @@ public abstract class DeviceCore {
 
    public abstract boolean type(String text);
 
-   public abstract List<AppInfo> getAppList();
+   public abstract List<AppInfo> getAppList(AppCategory category);
 
    //region public method
    protected UiAutomatorBridge uiAutomatorBridge ;

@@ -2,11 +2,13 @@ package com.testerkit.uia2.core;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
 
+import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.enums.KeyEnum;
 import com.testerkit.common.model.AppInfo;
 import com.testerkit.common.utils.StringUtil;
@@ -110,7 +112,7 @@ public class DeviceCore2 extends DeviceCore {
     }
 
     @Override
-    public List<AppInfo> getAppList() {
+    public List<AppInfo> getAppList(AppCategory category) {
         List<AppInfo> apps = new ArrayList<AppInfo>();
         Context ctx = InstrumentationRegistry.getInstrumentation().getContext();
         PackageManager packageManager = ctx.getPackageManager();
@@ -121,6 +123,10 @@ public class DeviceCore2 extends DeviceCore {
                 continue;
             }
             AppInfo newInfo = new AppInfo();
+            //过滤掉系统app
+            if ((ApplicationInfo.FLAG_SYSTEM & p.applicationInfo.flags) != 0) {
+                newInfo.setSystem(true);
+            }
             newInfo.setAppName(p.applicationInfo.loadLabel(packageManager).toString());
             newInfo.setPackageName(p.packageName);
             newInfo.setVersionName(p.versionName);
@@ -132,7 +138,29 @@ public class DeviceCore2 extends DeviceCore {
             }
             apps.add(newInfo);
         }
-        return apps;
+        List<AppInfo> appsResult = new ArrayList<AppInfo>();
+        switch (category){
+            case ALL:
+                appsResult = apps;
+                break;
+            case USER:
+                for (AppInfo app:apps) {
+                    if(app.isSystem() == true){
+                        continue;
+                    }
+                    appsResult.add(app);
+                }
+                break;
+            case SYSTEM:
+                for (AppInfo app:apps) {
+                    if(app.isSystem() == false){
+                        continue;
+                    }
+                    appsResult.add(app);
+                }
+                break;
+        }
+        return appsResult;
     }
 
     private String getLaunchActivity(String pn, PackageManager packageManager) {
@@ -142,7 +170,8 @@ public class DeviceCore2 extends DeviceCore {
             if (intent != null && intent.getComponent() != null) {
                 str = intent.getComponent().getClassName();
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return str;
     }

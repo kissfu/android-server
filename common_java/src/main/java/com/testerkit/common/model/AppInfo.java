@@ -1,6 +1,7 @@
 package com.testerkit.common.model;
 
 public class AppInfo {
+    private boolean system;
     private String fileName;
     private String appName;
     private String packageName;
@@ -9,6 +10,14 @@ public class AppInfo {
     private int versionCode;
     private byte[] icon;
 
+
+    public boolean isSystem() {
+        return system;
+    }
+
+    public void setSystem(boolean system) {
+        system = system;
+    }
 
     public String getFileName() {
         return fileName;

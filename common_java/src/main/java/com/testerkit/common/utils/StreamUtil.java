@@ -17,6 +17,7 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPOutputStream;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -39,7 +40,7 @@ public class StreamUtil {
      * @throws IOException if failure occurred reading the stream
      */
     public static String getStringFromStream(InputStream stream) throws IOException {
-        Reader ir = new BufferedReader(new InputStreamReader(stream));
+        Reader ir = new BufferedReader(new InputStreamReader(stream,"UTF-8"));
         int irChar = -1;
         StringBuilder builder = new StringBuilder();
         while ((irChar = ir.read()) != -1) {
@@ -151,6 +152,17 @@ public class StreamUtil {
         }
     }
 
+    public static void closeZipStream(ZipInputStream inputStream) {
+        if (inputStream != null) {
+            try {
+                inputStream.closeEntry();
+                inputStream.close();
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+    }
+
     /**
      * Closes given gzip output stream.
      *
@@ -207,6 +219,35 @@ public class StreamUtil {
         input.close();
         String md5 = DatatypeConverter.printHexBinary(md.digest()).toLowerCase();
         return md5;
+    }
+
+
+    /**
+     *
+     * summary:将流转化为字节数组
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     *
+     */
+    public static byte[] toByteArray(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024 * 4];
+        byte[] result = null;
+        try {
+            int n = 0;
+            while ((n = inputStream.read(buffer)) != -1) {
+                out.write(buffer, 0, n);
+            }
+            result = out.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } finally {
+            out.close();
+        }
+        return result;
     }
 }
 

@@ -2,6 +2,7 @@ package com.testerkit.uia.handlers.app;
 
 
 import com.testerkit.common.constants.ConstantResult;
+import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.enums.WDStatus;
 import com.testerkit.common.json.ResponseJson;
 import com.testerkit.common.utils.GsonUtil;
@@ -20,7 +21,7 @@ public class AppList extends AppEvent {
     protected ResponseJson executePressEvent() {
         ResponseJson resp = new ResponseJson();
         try {
-            List<com.testerkit.common.model.AppInfo> apps = BaseContext.getInstance().getDevice().getAppList();
+            List<com.testerkit.common.model.AppInfo> apps = BaseContext.getInstance().getDevice().getAppList(AppCategory.ALL);
             resp.setValue(GsonUtil.gsonString(apps));
             resp.setKey("执行成功！");
             resp.setStatus(WDStatus.SUCCESS.code());

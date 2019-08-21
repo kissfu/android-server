@@ -2,8 +2,11 @@ package com.testerkit.uia1.core;
 
 import android.os.RemoteException;
 
+import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.enums.KeyEnum;
 import com.testerkit.common.model.AppInfo;
+import com.testerkit.common.shell.ShellExecutor;
+import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
@@ -130,7 +133,39 @@ public class DeviceCore1 extends DeviceCore {
     }
 
     @Override
-    public List<AppInfo> getAppList() {
-        return new ArrayList<AppInfo>();
+    public List<AppInfo> getAppList(AppCategory category) {
+        List<AppInfo> apps = new ArrayList<AppInfo>();
+        String cmd = "";
+        int timeout = 5 * 1000;
+        switch (category) {
+            case ALL:
+                cmd = "pm list packages";
+                break;
+            case USER:
+                cmd = "pm list packages -3";
+                break;
+            case SYSTEM:
+                cmd = "pm list packages -s";
+                break;
+        }
+        if (StringUtil.isEmpty(cmd)) {
+            return apps;
+        }
+        try {
+            String res = ShellExecutor.executeCommand(null, cmd, timeout);
+            String[] lines = res.split("\r\n");
+            for (String str : lines) {
+                if (StringUtil.isEmpty(str)) {
+                    continue;
+                }
+                AppInfo info = new AppInfo();
+                info.setPackageName(str.substring("package:".length()));
+                apps.add(info);
+            }
+        } catch (Exception e) {
+            Logger.error(e.getMessage(), e);
+        }
+
+        return apps;
     }
 }
