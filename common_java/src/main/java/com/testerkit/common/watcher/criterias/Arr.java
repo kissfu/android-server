@@ -93,7 +93,7 @@ public abstract class Arr {
         String[] texts = {"1","2"};
         String[] texts2 = {"3","4","1"};
 
-        texts = Arr.concatAll(texts,null);
+        texts = Arr.concatAll(texts);
         System.out.println("1:"+Arrays.toString(texts));
 
         String[] txts = Arr.concatAll(texts,texts2);
