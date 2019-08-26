@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Logger {
 
-    public static boolean IS_OPEN = true;
+    public static boolean IS_OPEN = false;
 
     private final static List<ILog> logList = new ArrayList<ILog>();
 

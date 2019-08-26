@@ -42,10 +42,17 @@ public class TestCaseUtil {
 
 
     public void startMonitor(){
-        WatcherManager.getInstance().start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                WatcherManager.getInstance().start();
+            }
+        }).start();
+
     }
 
     public void tearDown(){
+        Logger.info("tearDown!!!");
         WatcherManager.getInstance().stop();
     }
 

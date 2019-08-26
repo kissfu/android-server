@@ -17,7 +17,7 @@ import com.testerkit.uia.servers.socket.NettyServer;
 import com.testerkit.uia.utils.TestCaseUtil;
 import com.testerkit.uia2.core.DeviceCore2;
 
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,7 +47,7 @@ public class TestCase2 implements ITestCase {
 //        }
     }
 
-    @AfterClass
+    @After
     public void afterClass(){
         testCaseUtil.tearDown();
     }
@@ -63,7 +63,7 @@ public class TestCase2 implements ITestCase {
         this.startActivity();
 
 
-        testCaseUtil.initWatcherConfig();
+        //testCaseUtil.initWatcherConfig();
         testCaseUtil.initSystemApps();
         testCaseUtil.startMonitor();
 
