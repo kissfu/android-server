@@ -1,5 +1,7 @@
 package com.testerkit.common.model;
 
+import com.testerkit.common.enums.ClickPosition;
+
 public class RectInfo {
     public int left;
     public int top;
@@ -89,5 +91,36 @@ public class RectInfo {
      */
     public final int centerY() {
         return (top + bottom) >> 1;
+    }
+
+
+    /**
+     * 获取Rect相应区域坐标
+     * @return
+     */
+    public int[] getPoint(ClickPosition clickPosition){
+
+        int[] xyToClick = new int[2];
+        int left = this.left, top = this.top, centerX = this.centerX(), centerY = this.centerY();
+        switch (clickPosition) {
+            case CENTER:
+                xyToClick[0] = centerX;
+                xyToClick[1] = centerY;
+                return xyToClick;
+            case TOP_LEFT:
+                xyToClick[0] = left + (centerX - left) / 2;
+                xyToClick[1] = top + (centerY - top) / 2;
+                return xyToClick;
+            case TOP_CENTER:
+                xyToClick[0] = centerX;
+                xyToClick[1] = top + (centerY - top) / 2;
+                return xyToClick;
+            case BOTTOM_RIGHT:
+                xyToClick[0] = centerX + (centerX - left) / 2;
+                xyToClick[1] = centerY + (centerY - top) / 2;
+                return xyToClick;
+            default:
+                return xyToClick;
+        }
     }
 }

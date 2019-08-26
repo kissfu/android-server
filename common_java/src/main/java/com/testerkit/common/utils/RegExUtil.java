@@ -2,6 +2,7 @@ package com.testerkit.common.utils;
 
 import com.testerkit.common.model.RectInfo;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,13 +96,25 @@ public class RegExUtil {
 
 
     // 传入正则表达式和字符串匹配指定字符串
-    public static String findString(String content,String regex,int flags){
+    public static String findString(String content, String regex, int flags) {
         // 正则匹配dict字段
-        Pattern pattern = Pattern.compile(regex,flags);
+        Pattern pattern = Pattern.compile(regex, flags);
         Matcher matcher = pattern.matcher(content);
-        if ( matcher.find( )) {
+        if (matcher.find()) {
             return matcher.group(1);
         }
         return null;
+    }
+
+
+    public static String getRegexStr(List<String> list) {
+        StringBuilder regex = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            regex.append(String.format("(%s)", list.get(i)));
+            if (i < list.size() - 1) {
+                regex.append("|");
+            }
+        }
+        return regex.toString();
     }
 }

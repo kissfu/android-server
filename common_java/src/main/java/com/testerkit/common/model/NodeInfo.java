@@ -1,7 +1,6 @@
 package com.testerkit.common.model;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -288,18 +287,43 @@ public class NodeInfo {
 
     @Override
     public String toString() {
-        return "MyNode{" +
-                ", id='" + id + '\'' +
+        return "NodeInfo{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", nodeType='" + nodeType + '\'' +
+                ", rectVisible=" + rectVisible +
+                ", rectReal=" + rectReal +
+                ", text='" + text + '\'' +
+                ", contentDesc='" + contentDesc + '\'' +
+                ", isLeaf=" + isLeaf +
+                ", index=" + index +
+                ", isPassword=" + isPassword +
+                ", isEditable=" + isEditable +
+                ", isCheckable=" + isCheckable +
+                ", isChecked=" + isChecked +
+                ", isClickable=" + isClickable +
+                ", isEnabled=" + isEnabled +
+                ", isFocusable=" + isFocusable +
+                ", isFocused=" + isFocused +
+                ", isLongClickable=" + isLongClickable +
+                ", isSelected=" + isSelected +
+                ", isScrollable=" + isScrollable +
+                ", bounds='" + bounds + '\'' +
+                ", clazzName='" + clazzName + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", xpathSimple='" + xpathSimple + '\'' +
+                ", xpaths=" + xpaths +
+                '}';
+    }
+
+    public String toStringShort(){
+        return "NodeInfo{" +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", text='" + text + '\'' +
                 ", contentDesc='" + contentDesc + '\'' +
                 ", clazzName='" + clazzName + '\'' +
-                ", xpathSimple='" + xpathSimple + '\'' +
-                ", bounds='" + bounds + '\'' +
                 ", packageName='" + packageName + '\'' +
-                ", rectVisible=" + rectVisible +
-                ", rectReal=" + rectReal +
-                ", nodeType='" + nodeType + '\'' +
                 '}';
     }
 }

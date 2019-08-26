@@ -180,6 +180,7 @@ public class AccessibilityNodeInfoDumper {
         serializer.attribute("", "bounds", bounds.toShortString());
         myNode.setBounds(bounds.toShortString());
         myNode.setRectVisible(new RectInfo(bounds.left, bounds.top, bounds.right, bounds.bottom));
+        myNode.setRectReal(myNode.getRectVisible());
         String resourceId = "";
         boolean isEditable = false;
         if (SystemUtil.API_LEVEL() >= 18) {

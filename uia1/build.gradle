@@ -140,11 +140,11 @@ dependencies {
 
 //编译UIA2 的时候需要注释掉，因为会产生依赖冲突。（assembleAndroiudTest）
 //TODO 打包ui1的时候用到，uia2引用的时候需要注释掉
-jar {
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
+//jar {
+//    from {
+//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
 
 task release2(dependsOn:build,type:Exec) {
     group "test"

@@ -8,21 +8,18 @@ import android.support.test.filters.SdkSuppress;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 
-import com.testerkit.common.constants.PackagesAndroid;
-import com.testerkit.common.enums.AppCategory;
-import com.testerkit.common.model.AppInfo;
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.utils.Constants;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
 import com.testerkit.uia.log.LogAndroid;
 import com.testerkit.uia.servers.socket.NettyServer;
-import com.testerkit.common.log.Logger;
+import com.testerkit.uia.utils.TestCaseUtil;
 import com.testerkit.uia2.core.DeviceCore2;
 
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.List;
 
 /**
  * Created by able on 2018/9/7.
@@ -32,6 +29,7 @@ import java.util.List;
 @SdkSuppress(minSdkVersion = 18)
 public class TestCase2 implements ITestCase {
 
+    TestCaseUtil testCaseUtil = new TestCaseUtil();
     public TestCase2() {
         this.initCore();
     }
@@ -49,6 +47,11 @@ public class TestCase2 implements ITestCase {
 //        }
     }
 
+    @AfterClass
+    public void afterClass(){
+        testCaseUtil.tearDown();
+    }
+
     @Override
     public void initCore() {
         Constants.PRO = "2";
@@ -58,7 +61,12 @@ public class TestCase2 implements ITestCase {
         BaseContext.getInstance().setTestCase(this);
         BaseContext.getInstance().setDevice( new DeviceCore2(uiDevice));
         this.startActivity();
-        this.initSystemApps();
+
+
+        testCaseUtil.initWatcherConfig();
+        testCaseUtil.initSystemApps();
+        testCaseUtil.startMonitor();
+
     }
 
     public Context getContext(){
@@ -81,14 +89,5 @@ public class TestCase2 implements ITestCase {
         }
     }
 
-    private void initSystemApps() {
-        // system app
-        List<AppInfo> apps = BaseContext.getInstance().getDevice().getAppList(AppCategory.SYSTEM);
-        for (AppInfo a : apps) {
-            if (PackagesAndroid.PACKAGES_SYSTEM.contains(a.getPackageName())) {
-                continue;
-            }
-            PackagesAndroid.PACKAGES_SYSTEM.add(a.getPackageName());
-        }
-    }
+
 }

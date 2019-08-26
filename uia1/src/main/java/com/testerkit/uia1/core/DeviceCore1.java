@@ -4,8 +4,10 @@ import android.os.RemoteException;
 
 import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.enums.KeyEnum;
+import com.testerkit.common.enums.UIAType;
 import com.testerkit.common.model.AppInfo;
 import com.testerkit.common.shell.ShellExecutor;
+import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.common.exceptions.UIAException;
@@ -26,6 +28,16 @@ import java.util.List;
 public class DeviceCore1 extends DeviceCore {
 
     com.android.uiautomator.core.UiDevice uiDevice;
+
+    public DeviceCore1(com.android.uiautomator.core.UiDevice uiDevice, UIAType type) {
+        super(uiDevice,type);
+        this.uiDevice = uiDevice;
+
+        //先有uiDevice 再有uiAutomatorBridge
+        uiAutomatorBridge = new UiAutomatorBridge1(uiDevice,type);
+        //仅仅是为了方便访问,可以通过device 访问
+        UiAutomatorBridge.setINSTANCE(uiAutomatorBridge);
+    }
 
     public DeviceCore1(com.android.uiautomator.core.UiDevice uiDevice) {
         super(uiDevice);
@@ -130,6 +142,19 @@ public class DeviceCore1 extends DeviceCore {
 
         objectElement.typeDefault(text);
         return true;
+    }
+
+    @Override
+    public boolean swipe(int startX, int startY, int endX, int endY, int steps){
+        try {
+            boolean success = uiDevice.swipe(startX,startY,endX,endY,steps);
+            //滑屏幕之后手动清理缓存
+            ReflectionUtil.clearAccessibilityCache();
+            return success;
+        } catch (Exception e) {
+            Logger.error( e.getMessage(), e);
+        }
+        return false;
     }
 
     @Override

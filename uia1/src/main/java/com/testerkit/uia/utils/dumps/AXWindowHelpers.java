@@ -16,25 +16,14 @@
 
 package com.testerkit.uia.utils.dumps;
 
-import android.os.Build;
-import android.os.SystemClock;
 import android.view.accessibility.AccessibilityNodeInfo;
-//import android.view.accessibility.AccessibilityWindowInfo;
 
-import com.testerkit.uia.BaseContext;
-import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.common.exceptions.UIAException;
-import com.testerkit.uia.model.UiAutomationElement;
-import com.testerkit.common.log.Logger;
+import com.testerkit.uia.BaseContext;
 
-import java.util.ArrayList;
 import java.util.List;
 
-//import io.appium.uiautomator2.common.exceptions.UiAutomator2Exception;
-//import io.appium.uiautomator2.core.UiAutomatorBridge;
-//import io.appium.uiautomator2.model.NotificationListener;
-//import io.appium.uiautomator2.model.UiAutomationElement;
-//import io.appium.uiautomator2.model.internal.CustomUiDevice;
+
 
 public class AXWindowHelpers {
     public static final long AX_ROOT_RETRIEVAL_TIMEOUT = 10000;
@@ -88,6 +77,19 @@ public class AXWindowHelpers {
 
         return ret.toArray(new AccessibilityNodeInfo[ret.size()]);
     }
+
+    /**
+     * 获取当前界面的应用包名
+     * @param root
+     * @return
+     */
+    public static String getRootPackageName(AccessibilityNodeInfo root) {
+        if(root == null){
+            return "";
+        }
+        return root.getPackageName() != null ? root.getPackageName().toString() : "";
+    }
+
 
 //    public static synchronized AccessibilityNodeInfo currentActiveWindowRoot() {
 //        if (currentActiveWindowRoot == null) {

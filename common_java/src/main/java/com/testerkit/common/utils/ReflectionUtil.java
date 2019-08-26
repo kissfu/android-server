@@ -75,6 +75,8 @@ public class ReflectionUtil {
 
     public static Object invoke(final Method method, final Object object, final Object... parameters) throws UIAException {
         try {
+            // 抑制Java对方法进行检查,主要是针对私有方法而言
+            method.setAccessible(true);
             return method.invoke(object, parameters);
         } catch (final Exception e) {
             final String msg = String.format("error while invoking method %s on object %s with parameters %s", method, object, Arrays.toString(parameters));

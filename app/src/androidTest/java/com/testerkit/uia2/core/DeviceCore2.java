@@ -10,7 +10,9 @@ import android.support.test.InstrumentationRegistry;
 
 import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.enums.KeyEnum;
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.AppInfo;
+import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.core.DeviceCore;
@@ -106,7 +108,6 @@ public class DeviceCore2 extends DeviceCore {
     @Override
     public boolean type(String text) {
         AndroidElement objectElement = new UiObject2Element(null, null);
-
         objectElement.typeDefault(text);
         return true;
     }
@@ -161,6 +162,19 @@ public class DeviceCore2 extends DeviceCore {
                 break;
         }
         return appsResult;
+    }
+
+    @Override
+    public boolean swipe(int startX, int startY, int endX, int endY, int steps){
+        try {
+            boolean success = uiDevice.swipe(startX,startY,endX,endY,steps);
+            //滑屏幕之后手动清理缓存
+            ReflectionUtil.clearAccessibilityCache();
+            return success;
+        } catch (Exception e) {
+            Logger.error( e.getMessage(), e);
+        }
+        return false;
     }
 
     private String getLaunchActivity(String pn, PackageManager packageManager) {

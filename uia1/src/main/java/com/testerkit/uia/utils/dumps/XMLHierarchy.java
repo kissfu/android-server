@@ -64,6 +64,10 @@ public abstract class XMLHierarchy {
         return AccessibilityNodeInfoDumper.getUIDumpInfo(roots);
     }
 
+    public static UIDumpInfo getDumpInfo(AccessibilityNodeInfo[] roots) throws UIAException {
+        return AccessibilityNodeInfoDumper.getUIDumpInfo(roots);
+    }
+
     public static Node getFormattedXMLDoc() throws UIAException {
         return formatXMLInput(getRawXMLHierarchy());
     }

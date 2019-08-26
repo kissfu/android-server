@@ -22,7 +22,6 @@ import com.testerkit.common.enums.XPathOption;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.criteria.UniqueUiNode;
 import com.testerkit.common.utils.RegExUtil;
-import com.testerkit.common.utils.StopWatch;
 import com.testerkit.common.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -148,6 +147,7 @@ public class UiElementNode extends UiElement<NodeInfo, UiElementNode> {
             case BOUNDS:
                 node.setBounds(val);
                 node.setRectReal(RegExUtil.getRect(val));
+                node.setRectVisible(node.getRectReal());
                 break;
             case EDITABLE:
                 node.setEditable(Boolean.valueOf(val));

@@ -5,12 +5,15 @@ import android.view.Display;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.testerkit.common.enums.AppCategory;
-import com.testerkit.common.model.AppInfo;
+import com.testerkit.common.enums.ClickPosition;
+import com.testerkit.common.enums.UIAType;
 import com.testerkit.common.exceptions.UIAException;
+import com.testerkit.common.log.Logger;
+import com.testerkit.common.model.AppInfo;
+import com.testerkit.common.model.RectInfo;
+import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.utils.SystemUtil;
-import com.testerkit.common.log.Logger;
-import com.testerkit.common.utils.ReflectionUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -70,10 +73,19 @@ public abstract class DeviceCore {
    protected final String METHOD_GET_WINDOW_ROOTS = "getWindowRoots";
    //api >= 17
    protected final String METHOD_GET_DISPLAY_ROTATION = "getDisplayRotation";
+   protected final UIAType type ;
 
+
+   public DeviceCore(Object uiDevice,UIAType type) {
+      this.uiDevice = uiDevice;
+      this.type = type;
+   }
    public DeviceCore(Object uiDevice) {
       this.uiDevice = uiDevice;
+      this.type = SystemUtil.getType();
    }
+
+   //region get roots
 
    //可以在父类被共享
    public List<AccessibilityNodeInfo> getRoots() {
@@ -82,15 +94,26 @@ public abstract class DeviceCore {
       if(SystemUtil.API_LEVEL_ACTUAL() >= 21){
          Object obj = ReflectionUtil.invoke(uiDevice,METHOD_GET_WINDOW_ROOTS);
          AccessibilityNodeInfo[] rootArr = (AccessibilityNodeInfo[])obj;
+         if(rootArr == null ){
+            getRoot(ret);
+            return ret;
+         }
          ret.addAll(Arrays.asList(rootArr));
       }else {
-         AccessibilityNodeInfo root = uiAutomatorBridge.getQueryController().getAccessibilityRootNode();
-         if(root != null ) {
-            ret.add(root);
-         }
+         getRoot(ret);
       }
       return ret;
    }
+
+   private void getRoot(List<AccessibilityNodeInfo> resultList){
+      AccessibilityNodeInfo root= uiAutomatorBridge.getQueryController().getAccessibilityRootNode();
+      if(root != null ) {
+         resultList.add(root);
+      }
+   }
+
+   //endregion
+
 
    /**
     * 获取界面的Rotation
@@ -111,6 +134,8 @@ public abstract class DeviceCore {
    public UiAutomatorBridge getUiAutomatorBridge(){
       return uiAutomatorBridge;
    }
+
+   // region  click
 
    /**
     * 用反射实现点击、长按
@@ -138,6 +163,11 @@ public abstract class DeviceCore {
       return true;
    }
 
+   public boolean click(RectInfo rect, ClickPosition position){
+      int[] xy = rect.getPoint(position);
+      return click(xy[0],xy[1]);
+   }
+
    public boolean touchDown(final int x, final int y){
       return uiAutomatorBridge.getInteractionController().touchDown(x,y);
    }
@@ -147,6 +177,15 @@ public abstract class DeviceCore {
    public boolean touchUp(final int x, final int y){
       return uiAutomatorBridge.getInteractionController().touchUp(x,y);
    }
+
+
+
+   //endregion
+
+   public boolean swipe(int startX, int startY, int endX, int endY, int steps){
+      return false;
+   }
+
    //endregion
 
 
