@@ -20,6 +20,7 @@ import android.os.SystemClock;
 import android.util.Xml;
 import android.view.accessibility.AccessibilityNodeInfo;
 
+import com.testerkit.common.enums.StepType;
 import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.model.RectInfo;
 import com.testerkit.common.model.UIDumpInfo;
@@ -196,7 +197,7 @@ public class AccessibilityNodeInfoDumper {
         }
         serializer.attribute("", "editable", Boolean.toString(isEditable));
         myNode.setEnabled(isEditable);
-        String nodeType = "uia";
+        String nodeType = StepType.UIA.getType();
         serializer.attribute("", "node-type", nodeType);
         myNode.setNodeType(nodeType);
         int count = node.getChildCount();
