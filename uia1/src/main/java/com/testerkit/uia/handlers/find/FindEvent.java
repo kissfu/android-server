@@ -21,16 +21,21 @@ public abstract class FindEvent extends SafeRequestHandler {
     protected AppiumResponse safeHandle(IRequest request) throws Exception {
         Logger.info("Calling FindEvent... ");
 
-        step = getStep(request);
-
         //记录之前的状态用以还原，暂停监控系统框为长时暂停不能在步骤执行之后被false了。
         boolean status = WatcherManager.getInstance().isPausing();
-        WatcherManager.getInstance().switchPause(true);
-        if(step == null ||  executeFindEvent(request) == false){
-            return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
-                    "Cannot generate key find event for FindEvent %s", step),FUNC);
+        try {
+            step = getStep(request);
+            WatcherManager.getInstance().switchPause(true);
+            if (step == null || executeFindEvent(request) == false) {
+                return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
+                        "Cannot generate key find event for FindEvent %s", step), FUNC);
+            }
+        } catch (Exception e) {
+        } finally {
+            WatcherManager.getInstance().switchPause(status);
         }
-        WatcherManager.getInstance().switchPause(status);
+
+
         return new AppiumResponse(getSessionId(request), WDStatus.SUCCESS, true);
     }
 

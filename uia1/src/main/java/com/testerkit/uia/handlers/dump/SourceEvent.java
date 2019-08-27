@@ -38,9 +38,8 @@ public abstract class SourceEvent extends SafeRequestHandler {
     @Override
     protected AppiumResponse safeHandle(IRequest request) throws Exception{
         Logger.iFunc(FUNC,"Calling SourceEvent... ");
+
         step = getStep(request);
-
-
         if(step == null){
             return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
                     "Cannot generate source event for SourceEvent %s", step));

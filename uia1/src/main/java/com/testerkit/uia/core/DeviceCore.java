@@ -88,7 +88,7 @@ public abstract class DeviceCore {
    //region get roots
 
    //可以在父类被共享
-   public List<AccessibilityNodeInfo> getRoots() {
+   public synchronized List<AccessibilityNodeInfo> getRoots() {
       List<AccessibilityNodeInfo> ret = new ArrayList<>();
       // Support multi-window searches for API level 21 and up
       if(SystemUtil.API_LEVEL_ACTUAL() >= 21){
