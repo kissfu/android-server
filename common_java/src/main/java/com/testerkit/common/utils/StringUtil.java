@@ -5,6 +5,9 @@ public class StringUtil {
     public static boolean isEmpty(String str){
         return isNullOrEmpty(str);
     }
+    public static boolean isNotEmpty(String str){
+        return !isNullOrEmpty(str);
+    }
 
     public static boolean isNotNullOrEmpty(String str) {
         return isNullOrEmpty(str) == false;

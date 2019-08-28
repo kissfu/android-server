@@ -1,6 +1,7 @@
 package com.testerkit.common.search.by;
 
 import com.testerkit.common.enums.Attribute;
+import com.testerkit.common.utils.StringUtil;
 
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class ByPackageName extends ByBase {
 
     @Override
     public String toString() {
-        return "By.ByPackageName: " + getElementLocator();
+        String str = getElementLocator();
+        if(StringUtil.isEmpty(str)){
+            return "";
+        }
+        return "包名: " + str;
     }
 }

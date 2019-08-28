@@ -1,8 +1,11 @@
 package com.testerkit.common.json;
 
+import com.testerkit.common.enums.StepAction;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.utils.GsonUtil;
+import com.testerkit.common.utils.StringUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -106,7 +109,19 @@ public class StepJson {
       return null;
     }
 
-
+    public String toDescriptionn() {
+        List<String> list = new ArrayList<String>();
+        if(scroll != null){
+            list.add("超时:"+scroll.getTimeout()+"毫秒");
+        }
+        if(this.action.equals(StepAction.FIND.getAction())){
+            list.add(condition.toString());
+        }
+        if(this.action.equals(StepAction.PRESS.getAction())){
+            list.add(key.toDescription());
+        }
+        return StringUtil.join(list.toArray(), ",");
+    }
     @Override
     public String toString() {
         return "StepJson{" +

@@ -60,7 +60,7 @@ public abstract class ByBase {
      */
     public String getElementLocator() {
         if(isIgnoredPre())return "";
-        return StringUtil.join(arr.toArray(), ",");
+        return StringUtil.join(arr.toArray(), relation.getText());
     }
 
     //region Override
@@ -82,7 +82,6 @@ public abstract class ByBase {
 
     @Override
     public String toString() {
-        // A stub to prevent endless recursion in hashCode()
         return "By.Base: " + getElementLocator();
     }
 

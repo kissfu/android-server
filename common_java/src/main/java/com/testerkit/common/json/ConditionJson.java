@@ -7,6 +7,7 @@ import com.testerkit.common.search.by.ByName;
 import com.testerkit.common.search.by.ByPackageName;
 import com.testerkit.common.search.by.ByText;
 import com.testerkit.common.search.by.ByXPath;
+import com.testerkit.common.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,14 +82,26 @@ public class ConditionJson {
 
     @Override
     public String toString() {
-        return "ConditionJson{" +
-                "relation=" + relation +
-                ", name=" + name +
-                ", clazz=" + clazz +
-                ", text=" + text +
-                ", contentDesc=" + contentDesc +
-                ", packageName=" + packageName +
-                ", xpath=" + xpath +
-                '}';
+
+        List<ByBase> list = new ArrayList<>();
+        if(this.clazz != null){
+            list.add(this.clazz);
+        }
+        if(this.packageName != null){
+            list.add(this.packageName);
+        }
+        if(this.name != null){
+            list.add(this.name);
+        }
+        if(this.xpath != null){
+            list.add(this.xpath);
+        }
+        if(this.text != null){
+            list.add(this.text);
+        }
+        if(this.contentDesc != null){
+            list.add(this.contentDesc);
+        }
+        return "满足:"+ StringUtil.join(list.toArray(), relation.getText());
     }
 }

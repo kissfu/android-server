@@ -50,14 +50,14 @@ public class ByXPath extends ByBase {
         if (this.option == null || this.option == ByOption.IGNORED) {
             return true;
         }
-        if(xps == null || xps.isEmpty()){
+        if (xps == null || xps.isEmpty()) {
             return true;
         }
         arr.clear();
-        for (XPathInfo xp:xps) {
+        for (XPathInfo xp : xps) {
             arr.add(xp.getXpath());
         }
-        if(arr == null || arr.isEmpty()){
+        if (arr == null || arr.isEmpty()) {
             return true;
         }
         return false;
@@ -65,7 +65,12 @@ public class ByXPath extends ByBase {
 
     @Override
     public String toString() {
-        return "By.xpathList: " + getElementLocator();
+        String str = getElementLocator();
+        if (StringUtil.isEmpty(str)) {
+            return "";
+        }
+        return "XPATH: " + str;
+
     }
 
 }

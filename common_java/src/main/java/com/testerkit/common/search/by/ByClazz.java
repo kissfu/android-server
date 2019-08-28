@@ -38,6 +38,10 @@ public class ByClazz extends ByBase {
 
     @Override
     public String toString() {
-        return "By.clazz: " + getElementLocator();
+        String str = getElementLocator();
+        if(StringUtil.isEmpty(str)){
+            return "";
+        }
+        return "类名: " + str;
     }
 }
