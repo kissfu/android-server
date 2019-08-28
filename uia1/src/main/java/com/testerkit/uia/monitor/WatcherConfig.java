@@ -104,7 +104,7 @@ public class WatcherConfig {
         WATCHERS.add(new WatcherScene(7, Relation.OR, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.android.packageinstaller"}),
-                        new ArrBrand(new String[]{".*oppo.*"}),
+                        new ArrBrand(new String[]{".*oppo.*",".*vivo.*"}),
                         new ArrCls(new String[]{android.widget.LinearLayout.class.getName(), android.widget.Button.class.getName()}),
                         new ArrId(new String[]{"bottom_button_layout", "done_button"}),
                         new ArrText(new String[]{"完成"}),
