@@ -80,28 +80,43 @@ public class ConditionJson {
         this.xpath = xpath;
     }
 
+    public String toDescription() {
+        List<ByBase> list = new ArrayList<>();
+        if (this.name != null) {
+            list.add(this.name);
+        }
+        if (this.text != null) {
+            list.add(this.text);
+        }
+        if (this.contentDesc != null) {
+            list.add(this.contentDesc);
+        }
+        String str = StringUtil.join(list.toArray(), relation.getText());
+        return StringUtil.isEmpty(str) ? "满足其他条件" : "满足:" + str;
+    }
+
     @Override
     public String toString() {
 
         List<ByBase> list = new ArrayList<>();
-        if(this.clazz != null){
+        if (this.clazz != null) {
             list.add(this.clazz);
         }
-        if(this.packageName != null){
+        if (this.packageName != null) {
             list.add(this.packageName);
         }
-        if(this.name != null){
+        if (this.name != null) {
             list.add(this.name);
         }
-        if(this.xpath != null){
+        if (this.xpath != null) {
             list.add(this.xpath);
         }
-        if(this.text != null){
+        if (this.text != null) {
             list.add(this.text);
         }
-        if(this.contentDesc != null){
+        if (this.contentDesc != null) {
             list.add(this.contentDesc);
         }
-        return "满足:"+ StringUtil.join(list.toArray(), relation.getText());
+        return "满足:" + StringUtil.join(list.toArray(), relation.getText());
     }
 }

@@ -115,7 +115,7 @@ public class StepJson {
             list.add("超时:"+scroll.getTimeout()+"毫秒");
         }
         if(this.action.equals(StepAction.FIND.getAction())){
-            list.add(condition.toString());
+            list.add(condition.toDescription());
         }
         if(this.action.equals(StepAction.PRESS.getAction())){
             list.add(key.toDescription());
