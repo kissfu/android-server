@@ -9,6 +9,7 @@ public class ConstantResult {
     public static final String CANCEL = "正常取消";
     public static final String UIA_UNREACHABLE="手机服务不可达";
     public static final String UIA_RESTART_ERROR="手机服务启动失败";
+    public static final String NO_FIND_ELEMENT = "未找到指定对象或元素";
 
     public final static String UIA_LAUNCHED = "$UIA###LAUNCHED$";
     public final static String UIA_LANDING = "$UIA###LANDING$";

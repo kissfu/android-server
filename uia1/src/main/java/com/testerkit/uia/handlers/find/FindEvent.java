@@ -1,5 +1,6 @@
 package com.testerkit.uia.handlers.find;
 
+import com.testerkit.common.constants.ConstantResult;
 import com.testerkit.common.enums.WDStatus;
 import com.testerkit.common.json.StepJson;
 import com.testerkit.common.log.Logger;
@@ -28,7 +29,7 @@ public abstract class FindEvent extends SafeRequestHandler {
             WatcherManager.getInstance().switchPause(true);
             if (step == null || executeFindEvent(request) == false) {
                 return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
-                        "Cannot generate key find event for FindEvent %s", step), FUNC);
+                        "Cannot generate key find event for FindEvent %s", step), ConstantResult.NO_FIND_ELEMENT);
             }
         } catch (Exception e) {
         } finally {
