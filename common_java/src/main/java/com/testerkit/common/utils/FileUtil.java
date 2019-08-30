@@ -232,6 +232,7 @@ public class FileUtil {
         return stringBuffer.toString();
     }
 
+
     public static void main(String[] args) throws Exception {
         String pathFile = "";
 
