@@ -19,7 +19,7 @@ public class SocketUtil {
      * @param timeout   超时时间设置 单位：毫秒
      * @return 执行结果 json格式字符串
      */
-    public synchronized static String request(String ipAddress, int port, String command, int timeout) {
+    public static String request(String ipAddress, int port, String command, int timeout) {
         Socket socket = null;
         BufferedReader reader = null;
         PrintWriter writer = null;

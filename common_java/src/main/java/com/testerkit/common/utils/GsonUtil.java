@@ -40,7 +40,8 @@ public class GsonUtil {
      */
     public static String gsonString(Object object, String dataFormat) {
         if (StringUtil.isEmpty(dataFormat)) {
-            dataFormat ="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";//"yyyy-MM-dd HH:mm:ss.SSS";
+            // 北京东八区 ，防止在数据库呀的地方重复增加
+            dataFormat ="yyyy-MM-dd'T'HH:mm:ss.SSS+0800";//"yyyy-MM-dd HH:mm:ss.SSS'Z'";
         }
         Gson gsonTemp = new GsonBuilder()
                 .setDateFormat(dataFormat)

@@ -1,5 +1,6 @@
 package com.testerkit.common.json;
 
+import com.testerkit.common.enums.ByOption;
 import com.testerkit.common.enums.Relation;
 import com.testerkit.common.search.by.ByBase;
 import com.testerkit.common.search.by.ByClazz;
@@ -82,13 +83,13 @@ public class ConditionJson {
 
     public String toDescription() {
         List<ByBase> list = new ArrayList<>();
-        if (this.name != null) {
+        if (this.name != null && this.name.getOption() != ByOption.IGNORED) {
             list.add(this.name);
         }
-        if (this.text != null) {
+        if (this.text != null && this.text.getOption() != ByOption.IGNORED) {
             list.add(this.text);
         }
-        if (this.contentDesc != null) {
+        if (this.contentDesc != null && this.contentDesc.getOption() != ByOption.IGNORED) {
             list.add(this.contentDesc);
         }
         String str = StringUtil.join(list.toArray(), relation.getText());
