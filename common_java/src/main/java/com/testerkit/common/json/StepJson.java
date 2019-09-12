@@ -1,5 +1,6 @@
 package com.testerkit.common.json;
 
+import com.testerkit.common.enums.EventMsgType;
 import com.testerkit.common.enums.StepAction;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.utils.GsonUtil;
@@ -14,6 +15,8 @@ import java.util.List;
 
 public class StepJson {
     private String action;
+
+    private EventMsgType eventMsgType;
 
     private String rule;
 
@@ -30,12 +33,21 @@ public class StepJson {
     private ConditionJson condition;
 
 
+
     public void setAction(String action) {
         this.action = action;
     }
 
     public String getAction() {
         return this.action;
+    }
+
+    public EventMsgType getEventMsgType() {
+        return eventMsgType;
+    }
+
+    public void setEventMsgType(EventMsgType eventMsgType) {
+        this.eventMsgType = eventMsgType;
     }
 
     public void setRule(String rule) {

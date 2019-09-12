@@ -10,13 +10,19 @@ public enum StepRule {
     KEY_CODE("key_code"),
     DEFAULT("default"),
     CLICK("click"),
+    POINTS("points"),
     DOWN("down"),
     MOVE("move"),
     UP("up"),
     NONE("none"),
 
     //系统app 接口
-    LIST("list");
+    LIST("list"),
+
+    //find元素相关
+    INPUT("input"),
+    ASSERT("assert");
+
 
 
     private final String type;
