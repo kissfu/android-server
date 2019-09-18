@@ -168,12 +168,17 @@ public class UiObjectElement implements AndroidElement {
         boolean success = false;
 
         try {
-            UiObject uiObject = getFocusedObject();
+            UiObject uiObject = getFocusedEditObject();
             if(uiObject != null && uiObject.exists()){
                 return  uiObject.setText(text);
             }
-            uiObject = getEditObject();
 
+//            uiObject = getFocusedObject();
+//            if(uiObject != null && uiObject.exists()){
+//                return  uiObject.setText(text);
+//            }
+
+            uiObject = getEditObjectFirst();
             if(uiObject != null && uiObject.exists()){
                 return  uiObject.setText(text);
             }
@@ -187,11 +192,17 @@ public class UiObjectElement implements AndroidElement {
     private UiObject getFocusedObject() throws Exception{
         UiSelector uiSelector = new UiSelector();
         uiSelector.focusable(true);
+        return new UiObject(uiSelector);
+    }
+    private UiObject getFocusedEditObject() throws Exception{
+        UiSelector uiSelector = new UiSelector();
+        uiSelector.focusable(true);
         uiSelector.className(android.widget.EditText.class);
         return new UiObject(uiSelector);
     }
 
-    private UiObject getEditObject()  throws Exception{
+
+    private UiObject getEditObjectFirst()  throws Exception{
         return new UiObject(new UiSelector().className(android.widget.EditText.class).instance(0));
     }
 

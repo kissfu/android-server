@@ -17,11 +17,10 @@ public class MatcherManager {
 
     private String FUNC = "Matcher";
 
-    public NodeInfo isMatchSingle(StepJson step, UIDumpInfo dump) {
+    public List<NodeInfo> isMatch(StepJson step, UIDumpInfo dump) {
 
         ConditionJson condition = step.getCondition();
         List<MatcherBase> matchers = getMatchersWithoutXP(condition, dump, ByOption.REQUIRED);
-        NodeInfo result = null;
         List<NodeInfo> results = new ArrayList<NodeInfo>();
 
         //REQUIRED matcher
@@ -31,30 +30,31 @@ public class MatcherManager {
                 results.add(node);
             }
         }
-        if (results.isEmpty()) {
-            return result;
-        }
-        if (results.size() == 1) {
-            return results.get(0);
+        if (results.isEmpty() || results.size() == 1) {
+            return results;
         }
         //FILTER matcher
         matchers = getMatchersWithoutXP(condition, dump, ByOption.FILTER);
         results = isMatchFilter(matchers, results);
-        if (results.isEmpty()) {
-            return result;
-        }
-        if (results.size() == 1) {
-            return results.get(0);
+        if (results.isEmpty() || results.size() == 1) {
+            return results;
         }
         //XPATH matcher
         results = isMatchXPath(condition, dump, results);
-        if (results.isEmpty()) {
-            return result;
-        }
-        if (results.size() == 1) {
-            return results.get(0);
-        }
+
         Logger.iFunc(FUNC, String.format("find nodes [%s]", results.size()));
+        return results;
+    }
+
+    public NodeInfo isMatchSingle(StepJson step, UIDumpInfo dump) {
+
+        ConditionJson condition = step.getCondition();
+        List<MatcherBase> matchers = getMatchersWithoutXP(condition, dump, ByOption.REQUIRED);
+        NodeInfo result = null;
+        List<NodeInfo> results = isMatch(step, dump);
+        if (results.size() == 1) {
+            result = results.get(0);
+        }
         return result;
     }
 

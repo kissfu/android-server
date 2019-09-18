@@ -53,6 +53,13 @@ public abstract class BaseRequestHandler {
         return null;
     }
 
+    public String getStepRaw(IRequest request){
+        if(request instanceof  ISocketRequest) {
+            return ((ISocketRequest)request).getRawMsg();
+        }
+        return null;
+    }
+
     public Map<String, Object> getPayload(IHttpRequest request, String jsonKey) throws JSONException {
         JSONObject payload = getPayload(request);
         if (jsonKey != null) {

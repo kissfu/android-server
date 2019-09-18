@@ -9,6 +9,8 @@ public class ConstantStep {
     public static final String ACTION_PARENNT = StepAction.ACTION_PARENT.getAction();
 
     public static final String FIND_CLICK = StepAction.FIND.getAction() + "/" + StepRule.CLICK.getRule();
+    public static final String FIND_ASSERT = StepAction.FIND.getAction() + "/" + StepRule.ASSERT.getRule();
+    public static final String FIND_INPUT = StepAction.FIND.getAction() + "/" + StepRule.INPUT.getRule();
 
     public static final String SOURCE_CLASS = StepAction.SOURCE.getAction() + "/" + StepRule.CLASS.getRule();
     public static final String SOURCE_NODE = StepAction.SOURCE.getAction() + "/" + StepRule.NODE.getRule();

@@ -139,7 +139,6 @@ public class DeviceCore1 extends DeviceCore {
     @Override
     public boolean type(String text) {
         AndroidElement objectElement = new UiObjectElement(null, null);
-
         objectElement.typeDefault(text);
         return true;
     }

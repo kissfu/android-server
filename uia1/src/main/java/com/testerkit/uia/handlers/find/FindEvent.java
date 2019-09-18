@@ -17,6 +17,7 @@ public abstract class FindEvent extends SafeRequestHandler {
 
     protected String FUNC = "FindEvent";
     protected StepJson step;
+    protected String error = "";
 
     @Override
     protected AppiumResponse safeHandle(IRequest request) throws Exception {
@@ -29,7 +30,7 @@ public abstract class FindEvent extends SafeRequestHandler {
             WatcherManager.getInstance().switchPause(true);
             if (step == null || executeFindEvent(request) == false) {
                 return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
-                        "Cannot generate key find event for FindEvent %s", step), ConstantResult.NO_FIND_ELEMENT);
+                        "%s-->%s", error, step), ConstantResult.NO_FIND_ELEMENT);
             }
         } catch (Exception e) {
         } finally {

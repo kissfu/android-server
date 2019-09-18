@@ -33,4 +33,9 @@ public class NettySocketRequest implements ISocketRequest {
     public StepJson getStepInfo() {
         return request.step;
     }
+
+    @Override
+    public String getRawMsg() {
+        return request.rawMsg;
+    }
 }

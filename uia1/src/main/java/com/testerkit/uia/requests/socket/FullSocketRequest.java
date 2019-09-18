@@ -12,11 +12,12 @@ import com.testerkit.common.json.StepJson;
 public class FullSocketRequest {
 
 
-
+    public String rawMsg;
     public StepJson step;
 
 
     public FullSocketRequest(String msg) {
+        rawMsg = msg;
         step = StepJson.newParse(msg);
     }
 

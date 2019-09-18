@@ -16,9 +16,9 @@ import com.testerkit.uia.utils.dumps.XMLHierarchy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindAndClick extends FindEvent {
+public class FindInput extends FindEvent {
 
-    public FindAndClick(String mappedUri) {
+    public FindInput(String mappedUri) {
         super(mappedUri);
     }
 
@@ -58,6 +58,12 @@ public class FindAndClick extends FindEvent {
             boolean isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
             if (isOk == false) {
                 this.error = "找到元素但是点击失败！！！";
+                return false;
+            }
+            isOk = BaseContext.getInstance().getDevice().type(step.getNode().getText());
+            if (isOk == false) {
+                this.error = "输入文本失败！！！";
+                return false;
             }
             return isOk;
 

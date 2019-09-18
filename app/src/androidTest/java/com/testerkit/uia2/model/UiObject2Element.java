@@ -17,26 +17,21 @@
 package com.testerkit.uia2.model;
 
 import android.graphics.Rect;
-import android.support.annotation.Nullable;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.BySelector;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
-import android.support.test.uiautomator.UiSelector;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
+import com.testerkit.common.log.Logger;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.exceptions.InvalidCoordinatesException;
 import com.testerkit.uia.model.AndroidElement;
-import com.testerkit.common.log.Logger;
 import com.testerkit.uia.utils.elements.Point;
 import com.testerkit.uia.utils.elements.PositionHelper;
-
-import java.util.List;
-import java.util.UUID;
 
 import static com.testerkit.common.utils.ReflectionUtil.getField;
 
@@ -175,7 +170,7 @@ public class UiObject2Element implements AndroidElement {
         boolean success = false;
 
         try {
-            UiObject2 uiObject = getFocusedObject();
+            UiObject2 uiObject = getFocusedEditObject();
             if(uiObject != null){
                 uiObject.setText(text);
                 return true;
@@ -195,10 +190,15 @@ public class UiObject2Element implements AndroidElement {
 
     private UiObject2 getFocusedObject() throws Exception{
         BySelector bySelector = By.focused(true);
+        UiDevice uiDevice =  (UiDevice) BaseContext.getInstance().getDevice().getUiDevice();
+        return  uiDevice.findObject(bySelector);
+    }
+
+    private UiObject2 getFocusedEditObject() throws Exception{
+        BySelector bySelector = By.focused(true);
         bySelector.clazz(android.widget.EditText.class);
         UiDevice uiDevice =  (UiDevice) BaseContext.getInstance().getDevice().getUiDevice();
         return  uiDevice.findObject(bySelector);
-        //return new UiObject(new UiSelector().focusable(true));
     }
 
     private UiObject2 getEditObject()  throws Exception{
@@ -206,7 +206,6 @@ public class UiObject2Element implements AndroidElement {
         UiDevice uiDevice =  (UiDevice) BaseContext.getInstance().getDevice().getUiDevice();
         return  uiDevice.findObject(bySelector);
 
-        //return new UiObject(new UiSelector().className(android.widget.EditText.class).instance(0));
     }
 
 
