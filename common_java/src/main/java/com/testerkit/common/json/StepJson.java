@@ -121,7 +121,7 @@ public class StepJson {
       return null;
     }
 
-    public String toDescriptionn() {
+    public String toDescription() {
         List<String> list = new ArrayList<String>();
         if(scroll != null){
             list.add("超时:"+scroll.getTimeout()+"毫秒");

@@ -30,7 +30,7 @@ public class SdFindInput extends StepJson {
 
 
     @Override
-    public String toDescriptionn() {
+    public String toDescription() {
         StringBuilder sb = new StringBuilder();
         if (StringUtil.isNotEmpty(this.variableName)) {
             sb.append("输入变量:[" + variableName + "],");
@@ -38,7 +38,7 @@ public class SdFindInput extends StepJson {
         if (StringUtil.isNotEmpty(value)) {
             sb.append("输入内容:[" + value + "],");
         }
-        sb.append(super.toDescriptionn());
+        sb.append(super.toDescription());
         return sb.toString();
     }
 }

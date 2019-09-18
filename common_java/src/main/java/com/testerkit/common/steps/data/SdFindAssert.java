@@ -19,11 +19,11 @@ public class SdFindAssert extends StepJson {
     }
 
     @Override
-    public String toDescriptionn() {
+    public String toDescription() {
         StringBuilder sb = new StringBuilder();
         String strExist = this.exist ? "存在" : "不存在";
         sb.append("验证元素:[" + strExist + "],");
-        sb.append(super.toDescriptionn());
+        sb.append(super.toDescription());
         return sb.toString();
     }
 }
