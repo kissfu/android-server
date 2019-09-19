@@ -48,7 +48,7 @@ public class FindAndClick extends FindEvent {
 
                 return false;
             }
-            if (nodes.size() > 0) {
+            if (nodes.size() > 1) {
                 this.error = "找到多个元素！！！" + GsonUtil.gsonString(nodes);
                 Logger.iFunc(FUNC, this.error);
                 return false;
