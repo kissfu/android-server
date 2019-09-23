@@ -9,6 +9,8 @@ import com.testerkit.common.utils.StringUtil;
  */
 public class SdFindInput extends StepJson {
 
+
+    private boolean isClear = true; //是否清空
     private String variableName;
     private String value;
 
@@ -28,6 +30,13 @@ public class SdFindInput extends StepJson {
         this.value = value;
     }
 
+    public boolean isClear() {
+        return isClear;
+    }
+
+    public void setClear(boolean clear) {
+        isClear = clear;
+    }
 
     @Override
     public String toDescription() {

@@ -10,6 +10,7 @@ public enum StepAction {
     FIND("find"),
     NONE("none"),
 
+    SCREEN("screen"),
     //操作系统app接口
     APP("app");
 

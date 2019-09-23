@@ -16,8 +16,15 @@ public enum StepRule {
     UP("up"),
     NONE("none"),
 
+    //screen
+    SCREENSHOT("screenshot"),
+    SWIPE("swipe"),
+
     //系统app 接口
+    OPERATION("operation"),
     LIST("list"),
+    LAUNCH("launch"),
+    TERMINATE("terminate"),
 
     //find元素相关
     INPUT("input"),

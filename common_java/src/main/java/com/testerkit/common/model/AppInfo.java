@@ -1,5 +1,7 @@
 package com.testerkit.common.model;
 
+import java.util.Arrays;
+
 public class AppInfo {
     private boolean system;
     private String fileName;
@@ -73,5 +75,19 @@ public class AppInfo {
 
     public void setIcon(byte[] icon) {
         this.icon = icon;
+    }
+
+    @Override
+    public String toString() {
+        return "AppInfo{" +
+                "system=" + system +
+                ", fileName='" + fileName + '\'' +
+                ", appName='" + appName + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", launchActivity='" + launchActivity + '\'' +
+                ", versionName='" + versionName + '\'' +
+                ", versionCode=" + versionCode +
+                ", icon=" + Arrays.toString(icon) +
+                '}';
     }
 }

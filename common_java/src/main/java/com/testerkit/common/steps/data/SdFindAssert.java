@@ -8,7 +8,10 @@ import com.testerkit.common.json.StepJson;
  */
 public class SdFindAssert extends StepJson {
 
-    private boolean exist;
+    /**
+     * 默认是true
+     */
+    private boolean exist=true;
 
     public boolean isExist() {
         return exist;

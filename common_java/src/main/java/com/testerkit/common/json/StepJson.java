@@ -8,6 +8,7 @@ import com.testerkit.common.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by able on 2018/9/28.
@@ -32,6 +33,7 @@ public class StepJson {
 
     private ConditionJson condition;
 
+    private String sessionId = UUID.randomUUID().toString();
 
 
     public void setAction(String action) {
@@ -99,9 +101,8 @@ public class StepJson {
     }
 
 
-
     public String uri() {
-        return this.getAction()+"/"+this.getRule();
+        return this.getAction() + "/" + this.getRule();
     }
 
     public ConditionJson getCondition() {
@@ -112,38 +113,48 @@ public class StepJson {
         this.condition = condition;
     }
 
-    public static StepJson newParse(String msg){
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public static StepJson newParse(String msg) {
         try {
-            return GsonUtil.toBean(msg,StepJson.class);
-        }catch (Exception e){
-            Logger.error("StepJson newParse ",e);
+            return GsonUtil.toBean(msg, StepJson.class);
+        } catch (Exception e) {
+            Logger.error("StepJson newParse ", e);
         }
-      return null;
+        return null;
     }
 
     public String toDescription() {
         List<String> list = new ArrayList<String>();
-        if(scroll != null){
-            list.add("超时:"+scroll.getTimeout()+"毫秒");
+        if (scroll != null) {
+            list.add("超时:" + scroll.getTimeout() + "毫秒");
         }
-        if(this.action.equals(StepAction.FIND.getAction()) && condition != null){
+        if (this.action.equals(StepAction.FIND.getAction()) && condition != null) {
             list.add(condition.toDescription());
         }
-        if(this.action.equals(StepAction.PRESS.getAction())){
+        if (this.action.equals(StepAction.PRESS.getAction())) {
             list.add(key.toDescription());
         }
         return StringUtil.join(list.toArray(), ",");
     }
+
     @Override
     public String toString() {
         return "StepJson{" +
-                "action='" + action + '\'' +
-                ", rule='" + rule + '\'' +
-                ", key=" + key +
-                ", node=" + node +
-                ", scroll=" + scroll +
-                ", points=" + points +
-                ", condition=" + condition +
-                '}';
+            "action='" + action + '\'' +
+            ", rule='" + rule + '\'' +
+            ", key=" + key +
+            ", node=" + node +
+            ", scroll=" + scroll +
+            ", points=" + points +
+            ", condition=" + condition +
+            '}';
     }
 }

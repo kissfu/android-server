@@ -22,10 +22,16 @@ public class ConstantStep {
     public static final String PRESS_KEY_NAME = StepAction.PRESS.getAction() + "/" + StepRule.KEY_NAME.getRule();
 
 
+    // touch
     public static final String TOUCH_DOWN = StepAction.TOUCH.getAction() + "/" + StepRule.DOWN.getRule();
     public static final String TOUCH_UP = StepAction.TOUCH.getAction() + "/" + StepRule.UP.getRule();
     public static final String TOUCH_MOVE = StepAction.TOUCH.getAction() + "/" + StepRule.MOVE.getRule();
     public static final String TOUCH_CLICK = StepAction.TOUCH.getAction() + "/" + StepRule.CLICK.getRule();
+    public static final String TOUCH_POINTS= StepAction.TOUCH.getAction() + "/" + StepRule.POINTS.getRule();
+
+    //screen
+    public static final String SCREEN_SCREENSHOT= StepAction.SCREEN.getAction() + "/" + StepRule.SCREENSHOT.getRule();
+    public static final String SCREEN_SWIPE= StepAction.SCREEN.getAction() + "/" + StepRule.SWIPE.getRule();
 
 
     //系统app的一些接口
