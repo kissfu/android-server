@@ -16,6 +16,9 @@ public enum StepRule {
     UP("up"),
     NONE("none"),
 
+    //变量操作
+    ASSIGN("assign"),
+
     //screen
     SCREENSHOT("screenshot"),
     SWIPE("swipe"),

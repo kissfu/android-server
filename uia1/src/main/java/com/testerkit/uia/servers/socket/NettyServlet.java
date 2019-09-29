@@ -7,6 +7,7 @@ import com.testerkit.uia.handlers.dump.SourceNode;
 import com.testerkit.uia.handlers.find.FindAndClick;
 import com.testerkit.uia.handlers.find.FindAssert;
 import com.testerkit.uia.handlers.find.FindInput;
+import com.testerkit.uia.handlers.find.FindNode;
 import com.testerkit.uia.handlers.input.InputDefault;
 import com.testerkit.uia.handlers.key.PressKeyCode;
 import com.testerkit.uia.handlers.key.PressKeyName;
@@ -46,6 +47,7 @@ public class NettyServlet implements ISocketServlet {
         register(getHandler, new FindAndClick(baseUri+ConstantStep.FIND_CLICK));
         register(getHandler, new FindAssert(baseUri+ConstantStep.FIND_ASSERT));
         register(getHandler, new FindInput(baseUri+ConstantStep.FIND_INPUT));
+        register(getHandler, new FindNode(baseUri+ConstantStep.FIND_NODE));
 
         register(getHandler, new SourceClass(baseUri+ConstantStep.SOURCE_CLASS));
         register(getHandler, new SourceNode(baseUri+ConstantStep.SOURCE_NODE));

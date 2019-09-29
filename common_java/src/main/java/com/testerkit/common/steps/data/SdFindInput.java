@@ -50,4 +50,13 @@ public class SdFindInput extends StepJson {
         sb.append(super.toDescription());
         return sb.toString();
     }
+
+    @Override
+    public String toString() {
+        return "SdFindInput{" +
+                "isClear=" + isClear +
+                ", variableName='" + variableName + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }

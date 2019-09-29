@@ -43,27 +43,27 @@ public class FindAndClick extends FindEvent {
             }
 
             if (nodes.size() == 0) {
-                this.error = "没有找到一个元素！！！";
-                Logger.iFunc(FUNC, this.error);
+                this.result.setError("没有找到一个元素！！！");
+                Logger.iFunc(FUNC, this.result.getError());
 
                 return false;
             }
             if (nodes.size() > 1) {
-                this.error = "找到多个元素！！！" + GsonUtil.gsonString(nodes);
-                Logger.iFunc(FUNC, this.error);
+                this.result.setError("找到多个元素！！！" + GsonUtil.gsonString(nodes));
+                Logger.iFunc(FUNC, this.result.getError());
                 return false;
             }
 
             RectInfo rect = nodes.get(0).getRectVisible();
             boolean isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
             if (isOk == false) {
-                this.error = "找到元素但是点击失败！！！";
+                this.result.setError("找到元素但是点击失败！！！");
             }
             return isOk;
 
         } catch (UIAException e) {
-            this.error = "查找元素的时候异常！！！" + e.getMessage();
-            Logger.error(this.error, e);
+            this.result.setError("查找元素的时候异常！！！" + e.getMessage());
+            Logger.error(this.result.getError(), e);
         } finally {
 
         }

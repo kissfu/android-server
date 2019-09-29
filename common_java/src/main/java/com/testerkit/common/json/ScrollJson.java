@@ -1,5 +1,7 @@
 package com.testerkit.common.json;
 
+import com.testerkit.common.enums.ScrollDirection;
+
 /**
  * Created by able on 2018/9/28.
  */
@@ -11,7 +13,7 @@ public class ScrollJson {
      */
     private int timeout;
     private boolean toCenter;
-    private String direction;
+    private ScrollDirection direction;
 
     public void setTimes(int times){
         this.times = times;
@@ -42,10 +44,10 @@ public class ScrollJson {
     public boolean getToCenter(){
         return this.toCenter;
     }
-    public void setDirection(String direction){
+    public void setDirection(ScrollDirection direction){
         this.direction = direction;
     }
-    public String getDirection(){
+    public ScrollDirection getDirection(){
         return this.direction;
     }
 }

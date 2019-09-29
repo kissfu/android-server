@@ -41,20 +41,20 @@ public class FindAssert extends FindEvent {
             }
 
             if (nodes.size() == 0) {
-                this.error = "没有找到一个元素！！！";
-                Logger.iFunc(FUNC, this.error);
+                this.result.setError("没有找到一个元素！！！");
+                Logger.iFunc(FUNC, this.result.getError());
                 return false;
             }
             if (nodes.size() > 1) {
-                this.error = "找到多个元素！！！" + GsonUtil.gsonString(nodes);
-                Logger.iFunc(FUNC, this.error);
+                this.result.setError("找到多个元素！！！" + GsonUtil.gsonString(nodes));
+                Logger.iFunc(FUNC, this.result.getError());
             }
 
             return true;
 
         } catch (UIAException e) {
-            this.error = "查找元素的时候异常！！！" + e.getMessage();
-            Logger.error(this.error, e);
+            this.result.setError("查找元素的时候异常！！！" + e.getMessage());
+            Logger.error(this.result.getError(), e);
         } finally {
 
         }

@@ -10,6 +10,9 @@ public enum StepAction {
     FIND("find"),
     NONE("none"),
 
+    //变量操作
+    VARIABLE("variable"),
+    //屏幕操作
     SCREEN("screen"),
     //操作系统app接口
     APP("app");

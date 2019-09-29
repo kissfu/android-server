@@ -8,6 +8,8 @@ public class ConstantStep {
 
     public static final String ACTION_PARENNT = StepAction.ACTION_PARENT.getAction();
 
+    //find element
+    public static final String FIND_NODE = StepAction.FIND.getAction() + "/" + StepRule.NODE.getRule();
     public static final String FIND_CLICK = StepAction.FIND.getAction() + "/" + StepRule.CLICK.getRule();
     public static final String FIND_ASSERT = StepAction.FIND.getAction() + "/" + StepRule.ASSERT.getRule();
     public static final String FIND_INPUT = StepAction.FIND.getAction() + "/" + StepRule.INPUT.getRule();
@@ -32,6 +34,10 @@ public class ConstantStep {
     //screen
     public static final String SCREEN_SCREENSHOT= StepAction.SCREEN.getAction() + "/" + StepRule.SCREENSHOT.getRule();
     public static final String SCREEN_SWIPE= StepAction.SCREEN.getAction() + "/" + StepRule.SWIPE.getRule();
+
+    //variable
+    public static final String VARIABLE_ASSIGN= StepAction.VARIABLE.getAction() + "/" + StepRule.ASSIGN.getRule();
+
 
 
     //系统app的一些接口
