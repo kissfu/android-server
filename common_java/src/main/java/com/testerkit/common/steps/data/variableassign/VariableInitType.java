@@ -4,6 +4,7 @@ package com.testerkit.common.steps.data.variableassign;
  * @atuthor able
  */
 public enum VariableInitType {
+    INPUT("手动输入"),
     DB("数据库"),
     API("接口"),
     ELEMENT("元素"),
