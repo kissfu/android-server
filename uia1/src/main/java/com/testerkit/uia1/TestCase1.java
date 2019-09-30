@@ -1,7 +1,6 @@
 package com.testerkit.uia1;
 
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
-import com.testerkit.common.MyClass;
 import com.testerkit.common.log.Logger;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
@@ -20,7 +19,6 @@ public class TestCase1 extends UiAutomatorTestCase implements ITestCase {
     TestCaseUtil testCaseUtil = new TestCaseUtil();
     public TestCase1() {
         super();
-        MyClass.ddd();
         //构造方法无法获取this.getUiDevice()
         //this.initCore();
     }

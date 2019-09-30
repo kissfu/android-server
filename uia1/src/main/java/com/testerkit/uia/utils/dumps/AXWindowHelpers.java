@@ -73,10 +73,13 @@ public class AXWindowHelpers {
      * Returns a list containing the root {@link AccessibilityNodeInfo}s for each active window
      */
     public static AccessibilityNodeInfo[] getWindowRoots() throws UIAException {
+
         List<AccessibilityNodeInfo> ret = BaseContext.getInstance().getDevice().getRoots();
 
         return ret.toArray(new AccessibilityNodeInfo[ret.size()]);
     }
+
+
 
     /**
      * 获取当前界面的应用包名

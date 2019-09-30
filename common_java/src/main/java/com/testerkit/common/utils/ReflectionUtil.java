@@ -1,18 +1,22 @@
 package com.testerkit.common.utils;
 
-import com.testerkit.common.log.Logger;
 import com.testerkit.common.exceptions.UIAException;
+import com.testerkit.common.exceptions.UIANotConnected;
+import com.testerkit.common.log.Logger;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by able on 2018/2/11.
  */
 
 public class ReflectionUtil {
+    private static String FUNC = "ReflectionUtil";
 
     /**
      * Clears the in-process Accessibility cache, removing any stale references. Because the
@@ -20,7 +24,7 @@ public class ReflectionUtil {
      * calls to public APIs such as `recycle` do not guarantee cached references get updated. See
      * the android.view.accessibility AIC and ANI source code for more information.
      */
-    public static boolean clearAccessibilityCache() throws UIAException {
+    public static boolean clearAccessibilityCache() {
         boolean success = false;
 
         try {
@@ -39,9 +43,46 @@ public class ReflectionUtil {
             Logger.error("Failed to clear Accessibility Node cache. ", e);
         } catch (ClassNotFoundException e) {
             Logger.error("Failed to clear Accessibility Node cache. ", e);
+        } catch (Exception e) {
+            Logger.error("Failed to clear Accessibility Node cache. ", e);
         }
         return success;
     }
+
+    // 上一次清除AccessibilityCache的时间
+    // 对于一些webview应用，需要清除这个cache
+    // 否则界面发现变化的话（如滑到到页面下方或者出现动态弹框），无法获取变化后的控件信息
+    private static long lastAccessibilityCacheClearTime = -1;
+
+    // 个别机型和应用需要删除缓存
+    public static void clearAccessibilityCacheInterval() {
+
+        if ((System.currentTimeMillis() - lastAccessibilityCacheClearTime) < 4000) {
+            return;
+        }
+
+        clearAccessibilityCache();
+        Logger.iFunc(FUNC, "clear accessibility cache interval");
+        lastAccessibilityCacheClearTime = System.currentTimeMillis();
+    }
+
+    private static Pattern patternNotConnected = Pattern.compile("Caused by:.*(UiAutomation not connected!).*");
+
+    public static Object getRoots(Object uiDevice, String method) throws Exception {
+        Object obj = null;
+        try {
+            obj = ReflectionUtil.invoke(uiDevice, method);
+        } catch (Exception e) {
+            String content = ExceptionUtil.getTrace(e);
+            Matcher matcher = patternNotConnected.matcher(content);
+            if(matcher.find()){
+                System.out.println(matcher.group(1));
+                throw  new UIANotConnected(e);
+            }
+        }
+        return null;
+    }
+
 
     public static Class getClass(final String name) throws UIAException {
         try {
@@ -85,21 +126,21 @@ public class ReflectionUtil {
         }
     }
 
-    public static Object invoke(Object object,String methodName) throws UIAException {
-        Method method = method(object,methodName,new Class[]{});
-        if(method == null){
+    public static Object invoke(Object object, String methodName) throws UIAException {
+        Method method = method(object, methodName, new Class[]{});
+        if (method == null) {
             return null;
         }
-       return invoke(method,object,new Object[]{});
+        return invoke(method, object, new Object[]{});
     }
 
-    private static Method method(final Object object,final String methodName,final Class... parameterTypes) {
+    private static Method method(final Object object, final String methodName, final Class... parameterTypes) {
         Method method = null;
         if (object == null) {
             return method;
         }
         Class clazz = object.getClass();
-        while(clazz != Object.class) {
+        while (clazz != Object.class) {
             try {
                 method = clazz.getDeclaredMethod(methodName, parameterTypes);
                 method.setAccessible(true);
@@ -133,9 +174,9 @@ public class ReflectionUtil {
             clazz.getMethod(methodName, parameterTypes);
             return true;
         } catch (NoSuchMethodException e) {
-            Logger.error( "Cannot find method " + methodName,e);
+            Logger.error("Cannot find method " + methodName, e);
         } catch (SecurityException e) {
-            Logger.error("Due to security issue, unable to access method " + methodName,e);
+            Logger.error("Due to security issue, unable to access method " + methodName, e);
         }
 
         return false;

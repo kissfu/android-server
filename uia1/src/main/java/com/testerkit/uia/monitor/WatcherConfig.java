@@ -43,7 +43,7 @@ public class WatcherConfig {
         /**
          * 运行场景之前，解锁屏幕
          */
-        WATCHERS.add(new WatcherScene(0, Relation.OR, 1, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("0", Relation.OR, 1, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.android.systemui"}),
                         new ArrBrand(new String[]{".*vivo.*"}),
@@ -68,7 +68,7 @@ public class WatcherConfig {
         /**
          * 安装APK时输入密码
          */
-        WATCHERS.add(new WatcherScene(1, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("1", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.coloros.safecenter", "com.bbk.account"}),
                         new ArrBrand(new String[]{".*oppo.*", ".*vivo.*"}),
@@ -85,7 +85,7 @@ public class WatcherConfig {
          * oppo usb 选择
          * [usb-selected.png]
          */
-        WATCHERS.add(new WatcherScene(2, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("2", new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.coloros.usbselection"}),
                         null,
@@ -101,11 +101,11 @@ public class WatcherConfig {
         /**
          * OPPO新版本手机，安装界面通过Class 和ID判断安装控件位置
          */
-        WATCHERS.add(new WatcherScene(7, Relation.OR, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("7", new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.android.packageinstaller"}),
-                        new ArrBrand(new String[]{".*oppo.*",".*vivo.*"}),
-                        new ArrCls(new String[]{android.widget.LinearLayout.class.getName(), android.widget.Button.class.getName()}),
+                        new ArrBrand(new String[]{".*oppo.*", ".*vivo.*"}),
+                        new ArrCls(new String[]{android.widget.LinearLayout.class.getName(), android.widget.Button.class.getName(), android.widget.TextView.class.getName()}),
                         new ArrId(new String[]{"bottom_button_layout", "done_button"}),
                         new ArrText(new String[]{"完成"}),
                         true),
@@ -120,10 +120,11 @@ public class WatcherConfig {
                 new AOppoCompleteButtonClick("1"), new AOppoCompleteButtonClick("2")
         }));
 
+
         /**
          *  点击掉OPPO手机的【无视风险安装】的安装文本
          */
-        WATCHERS.add(new WatcherScene(8, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("8", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{}, new String[]{"com.coloros.safecenter"}),
                         new ArrBrand(new String[]{".*oppo.*"}),
@@ -141,7 +142,7 @@ public class WatcherConfig {
         /**
          *  被root手机权限弹出框进行处理
          */
-        WATCHERS.add(new WatcherScene(3, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("3", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.kingroot.kinguser"}),
                         null,
@@ -164,7 +165,7 @@ public class WatcherConfig {
         /**
          * 对被root的手机弹出权限框进行处理：非KingRoot软件root的手机
          */
-        WATCHERS.add(new WatcherScene(4, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("4", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.mgyun.shua.su", "eu.chainfire.supersu", ".*root.*", ".*supersu.*"}),
                         null,
@@ -180,7 +181,7 @@ public class WatcherConfig {
         /**
          * 强制结束关于金融类APP被重签后弹出的安全提示包名（因为这类弹出框不能点击任何提示的按钮，否则会造成测试失败）
          */
-        WATCHERS.add(new WatcherScene(5, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("5", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.coloros.securepay"}),
                         new ArrBrand(new String[]{".*oppo.*"}),
@@ -197,7 +198,7 @@ public class WatcherConfig {
          *  处理点击带有【风险、安全、威胁、警示】关键词和【继续安装】的安装流程
          *  (.*风险.*)|(安全)
          */
-        WATCHERS.add(new WatcherScene(6, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("6", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -220,7 +221,7 @@ public class WatcherConfig {
         /**
          * 一加手机点击权限框
          */
-        WATCHERS.add(new WatcherScene(9, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("9", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         new ArrBrand(new String[]{".*oneplus.*"}),
@@ -243,7 +244,7 @@ public class WatcherConfig {
         /**
          *  勾选usb调试\小米等手机
          */
-        WATCHERS.add(new WatcherScene(10, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("10", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -266,7 +267,7 @@ public class WatcherConfig {
         /**
          * 点掉带有【安全警告】且有【好】的弹出框
          */
-        WATCHERS.add(new WatcherScene(11, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("11", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"android"}),
                         null,
@@ -289,7 +290,7 @@ public class WatcherConfig {
          * 提示敏感权限
          * [ui-attention1.png]
          */
-        WATCHERS.add(new WatcherScene(12, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("12", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -313,7 +314,7 @@ public class WatcherConfig {
          * 要优先后面的那个禁止后不再询问
          * [ui-noask1.png]
          */
-        WATCHERS.add(new WatcherScene(13, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("13", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -343,7 +344,7 @@ public class WatcherConfig {
         /**
          *  【确定】类按钮的权限弹出框点击，需要先勾选，然后点击,  组建勾选不再提示的Condition
          */
-        WATCHERS.add(new WatcherScene(14, Relation.OR, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("14", Relation.OR, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -365,7 +366,7 @@ public class WatcherConfig {
         /**
          * 【确定】、【允许】、【是】、【完成】、【忽略更新】类按钮的点击..
          */
-        WATCHERS.add(new WatcherScene(15, Relation.OR, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("15", Relation.OR, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -380,7 +381,7 @@ public class WatcherConfig {
         /**
          * 检测到系统更新了，点击返回退出更新界面
          */
-        WATCHERS.add(new WatcherScene(16, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("16", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1", null, null, null, null,
                         new ArrText(new String[]{"夜间", ".*更新版本.*vivo.*", ".*系统升级.*", "新版本NX.*下载完成.*"}), true),
         }, new ActionAbstract[]{
@@ -391,7 +392,7 @@ public class WatcherConfig {
          *  电量低
          * [ui-power-low1.png]
          */
-        WATCHERS.add(new WatcherScene(17, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("17", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -414,7 +415,7 @@ public class WatcherConfig {
          * OPPO手机【软件商店安装】偏移点击实现安装
          *  在当前包名下，不能找到【继续安装】但能找到【软件商店安装】
          */
-        WATCHERS.add(new WatcherScene(18, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("18", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.android.packageinstaller"}),
                         new ArrBrand(new String[]{".*oppo.*"}),
@@ -437,7 +438,7 @@ public class WatcherConfig {
         /**
          *  崩溃框点击
          */
-        WATCHERS.add(new WatcherScene(19, Relation.AND, 2, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("19", Relation.AND, 2, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -459,7 +460,7 @@ public class WatcherConfig {
         /**
          * 处理完成对话框：比如应用打开一个链接，调用系统浏览器进行访问，但系统上安装了两个浏览器，这时系统就会弹出让用户选择使用哪个浏览器，以完成打开链接这一操作关键词
          */
-        WATCHERS.add(new WatcherScene(20, Relation.OR, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("20", Relation.OR, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"android"}),
                         null,
@@ -474,7 +475,7 @@ public class WatcherConfig {
         /**
          * 处理网络连接失败情况
          */
-        WATCHERS.add(new WatcherScene(21, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("21", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -497,7 +498,7 @@ public class WatcherConfig {
         /**
          * 对应场景图片ui-1
          */
-        WATCHERS.add(new WatcherScene(22, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("22", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         null,
                         null,
@@ -520,7 +521,7 @@ public class WatcherConfig {
          *  猎豹清理大师
          * [ui-liebao1.png]
          */
-        WATCHERS.add(new WatcherScene(23, Relation.AND, new ConditionRule[]{
+        WATCHERS.add(new WatcherScene("23", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
                         new ArrPack(new String[]{"com.cleanmaster.mguard_cn"}),
                         null,

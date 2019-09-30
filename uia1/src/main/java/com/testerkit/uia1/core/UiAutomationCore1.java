@@ -23,4 +23,14 @@ public class UiAutomationCore1 extends UiAutomationCore {
     public NotificationListenerCore getAccessibilityEventListener() {
         return new NotificationListenerCore1(null);
     }
+
+    @Override
+    public void disconnect() {
+
+    }
+
+    @Override
+    public void connect() {
+
+    }
 }

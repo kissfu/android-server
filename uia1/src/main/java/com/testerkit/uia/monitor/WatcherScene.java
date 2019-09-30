@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class WatcherScene {
 
-    private int number = 0;
+    private String key = "";
     private Relation relation = Relation.OR;
     //-1 是被执行 无限次。
     private int times = -1;
@@ -24,19 +24,19 @@ public class WatcherScene {
     private ConditionRule[] rules;
     private ActionAbstract[] methods;
 
-    public WatcherScene(int number,ConditionRule[] rules, ActionAbstract[] methods){
-        this.number = number;
+    public WatcherScene(String key,ConditionRule[] rules, ActionAbstract[] methods){
+        this.key = key;
         this.rules = rules;
         this.methods = methods;
     }
-    public WatcherScene(int number,Relation relation, ConditionRule[] rules, ActionAbstract[] methods){
-        this.number = number;
+    public WatcherScene(String key,Relation relation, ConditionRule[] rules, ActionAbstract[] methods){
+        this.key = key;
         this.relation = relation;
         this.rules = rules;
         this.methods = methods;
     }
-    public WatcherScene(int number,Relation relation, int times, ConditionRule[] rules, ActionAbstract[] methods){
-        this.number = number;
+    public WatcherScene(String key,Relation relation, int times, ConditionRule[] rules, ActionAbstract[] methods){
+        this.key = key;
         this.times = times;
         this.relation = relation;
         this.rules = rules;
@@ -108,7 +108,7 @@ public class WatcherScene {
                 isOk = !res.contains(false);
                 break;
         }
-        Logger.info(String.format("monitor[%s][%s]--->ws isThis,isOK:%s", timesGo, number, isOk));
+        Logger.info(String.format("monitor[%s][%s]--->ws isThis,isOK:%s", timesGo, key, isOk));
         return isOk;
     }
 
@@ -124,7 +124,7 @@ public class WatcherScene {
                       return false;
                   }
                   boolean isOk = m.doAction(rule.getResults());
-                  Logger.info(String.format("monitor[%s][%s][%s][%s]--->ws doAction,isOK:%s",timesGo,number,rule.getKey(),m.getKey(),isOk));
+                  Logger.info(String.format("monitor[%s][%s][%s][%s]--->ws doAction,isOK:%s",timesGo,key,rule.getKey(),m.getKey(),isOk));
             }
 
         }

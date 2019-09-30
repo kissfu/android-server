@@ -93,7 +93,6 @@ public abstract class ConditionRule {
     }
 
 
-
     //region abstract
 
     public abstract boolean isMeetPreRule();
@@ -147,7 +146,7 @@ public abstract class ConditionRule {
         if (!isEmptyArr(arrN)) {
             for (String s : arrN) {
                 boolean isMatch = isMatchText(s, txt);
-                Logger.info(String.format("monitor--->CR,isMeetArrNegation,[%s],[%s],[%s]", txt, s, isMatch));
+                Logger.info(String.format("monitor--->CR[%s],isMeetArrNegation,[%s],[%s],[%s]", this.getKey(), txt, s, isMatch));
                 if (isMatch == true) {
                     isOk = true;
                     return isOk;
