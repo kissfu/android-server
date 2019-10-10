@@ -88,8 +88,8 @@ public abstract class ScreenSwipe extends ScreenEvent {
         if (padding == null) {
             padding = new PaddingInfo(1 / 10, 1 / 10, 1 / 10, 1 / 10);
         }
-        Logger.iFunc(FUNC, "PaddingInfo:" + padding);
         ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
+        Logger.iFunc(FUNC,  padding,size);
         int startX = 0, startY = 0, endX = 0, endY = 0, steps = 10;
         ScrollDirection direction = scroll.getDirection();
         switch (direction) {

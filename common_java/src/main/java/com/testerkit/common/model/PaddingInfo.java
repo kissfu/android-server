@@ -26,7 +26,7 @@ public class PaddingInfo {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(32);
-        sb.append("Rect("); sb.append(left); sb.append(", ");
+        sb.append("PaddingInfo("); sb.append(left); sb.append(", ");
         sb.append(top); sb.append(" - "); sb.append(right);
         sb.append(", "); sb.append(bottom); sb.append(")");
         return sb.toString();
