@@ -12,6 +12,7 @@ import com.testerkit.uia.handlers.input.InputDefault;
 import com.testerkit.uia.handlers.key.PressKeyCode;
 import com.testerkit.uia.handlers.key.PressKeyName;
 import com.testerkit.uia.handlers.request.BaseRequestHandler;
+import com.testerkit.uia.handlers.screen.ScreenSwipe;
 import com.testerkit.uia.handlers.touch.TouchDown;
 import com.testerkit.uia.handlers.touch.TouchLongClick;
 import com.testerkit.uia.handlers.touch.TouchMove;
@@ -64,6 +65,9 @@ public class NettyServlet implements ISocketServlet {
         register(getHandler, new TouchLongClick(baseUri+ConstantStep.TOUCH_CLICK));
 
         register(getHandler, new AppList(baseUri+ConstantStep.APP_LIST));
+
+        register(getHandler, new ScreenSwipe(baseUri + ConstantStep.SCREEN_SWIPE) {
+        });
     }
     protected void register(Map<String, BaseRequestHandler> registerOn, BaseRequestHandler handler) {
         registerOn.put(handler.getMappedUri(), handler);

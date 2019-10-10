@@ -11,6 +11,10 @@ public enum ScreenSwipeType {
 
     private String message;
 
+    public String getMessage(){
+        return message;
+    }
+
     ScreenSwipeType(String message){
         this.message = message;
     }

@@ -16,4 +16,5 @@ public class ConstantResult {
     public final static String UIA_LAUNCHED = "$UIA###LAUNCHED$";
     public final static String UIA_LANDING = "$UIA###LANDING$";
     public final static String UIA_ERROR = "$UIA###ERROR###%s$";
+    public final static String UIA_EXCEPTION = "异常捕获";
 }

@@ -47,6 +47,7 @@ public class AppiumResponse {
         } catch (Exception e) {
             response.setStatus(WDStatus.JSON_DECODER_ERROR.code());
             response.setValue(e.getMessage());
+            response.setKey(ConstantResult.UIA_EXCEPTION);
             Logger.error("Unable to create JSON Object:", e);
         }
         return GsonUtil.gsonString(response);

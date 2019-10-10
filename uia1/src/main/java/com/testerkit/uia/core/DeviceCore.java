@@ -215,9 +215,14 @@ public abstract class DeviceCore {
 
     //endregion
 
+    // region swipe
+
     public boolean swipe(int startX, int startY, int endX, int endY, int steps) {
         return false;
     }
+
+    // endregion
+
 
     //endregion
 

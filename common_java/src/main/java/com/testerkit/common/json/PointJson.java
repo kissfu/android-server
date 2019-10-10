@@ -4,6 +4,7 @@ public class PointJson {
     private String type;
     private double x;
     private double y;
+    // 和上一个点的时间间隔，毫秒
     private long duration;
 
     public String getType() {
