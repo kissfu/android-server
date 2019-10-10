@@ -22,6 +22,7 @@ import com.testerkit.common.json.ResponseJson;
 import com.testerkit.common.json.StepJson;
 import com.testerkit.common.log.Logger;
 import com.testerkit.uia.handlers.request.SafeRequestHandler;
+import com.testerkit.uia.monitor.WatcherManager;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 
@@ -36,17 +37,24 @@ public abstract class ScreenEvent extends SafeRequestHandler {
     }
 
     @Override
-    protected AppiumResponse safeHandle(IRequest request) throws Exception{
-        Logger.iFunc(FUNC,"Calling ScreenEvent... ");
-
-        step = getStep(request);
-        if(step == null){
-            return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
-                    "Cannot generate event  for ScreenEvent %s", step), ConstantResult.EXCEPTION_PARAMS);
+    protected AppiumResponse safeHandle(IRequest request) throws Exception {
+        Logger.iFunc(FUNC, "Calling ScreenEvent... ");
+        //记录之前的状态用以还原，暂停监控系统框为长时暂停不能在步骤执行之后被false了。
+        boolean status = WatcherManager.getInstance().isPausing();
+        try {
+            WatcherManager.getInstance().switchPause(true);
+            step = getStep(request);
+            if (step == null) {
+                return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, String.format(
+                        "Cannot generate event  for ScreenEvent %s", step), ConstantResult.EXCEPTION_PARAMS);
+            }
+            return new AppiumResponse(executeEvent(request));
+        } catch (Exception e) {
+            Logger.error(e);
+            return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, e.getMessage(), ConstantResult.UIA_EXCEPTION);
+        } finally {
+            WatcherManager.getInstance().switchPause(status);
         }
-
-
-        return new AppiumResponse(executeEvent(request));
     }
 
     protected abstract ResponseJson executeEvent(IRequest request) throws Exception;

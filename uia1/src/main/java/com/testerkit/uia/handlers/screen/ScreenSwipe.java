@@ -50,22 +50,22 @@ public abstract class ScreenSwipe extends ScreenEvent {
             int timeout = scroll.getTimeout();
             ScreenSwipeType type = data.getType();
             long start = System.currentTimeMillis();
-            while (System.currentTimeMillis() - start < timeout) {
-                switch (type) {
-                    case ELEMENT:
-                        response = swipeByElement();
-                        break;
-                    case STANDARD:
-                        response = swipeByStandard();
-                        break;
-                    case POINTS_TWO:
-                        response = swipeByPointsTwo();
-                        break;
-                    case POINTS_MANY:
-                        response = swipeByPointsMany();
-                        break;
-                }
+//            while (System.currentTimeMillis() - start < timeout) {
+            switch (type) {
+                case ELEMENT:
+                    response = swipeByElement();
+                    break;
+                case STANDARD:
+                    response = swipeByStandard();
+                    break;
+                case POINTS_TWO:
+                    response = swipeByPointsTwo();
+                    break;
+                case POINTS_MANY:
+                    response = swipeByPointsMany();
+                    break;
             }
+//            }
 
         } catch (Exception e) {
             response.setKey(ConstantResult.UIA_EXCEPTION);
@@ -86,7 +86,7 @@ public abstract class ScreenSwipe extends ScreenEvent {
         long interval = scroll.getInternal();
         PaddingInfo padding = data.getPadding();
         if (padding == null) {
-            padding = new PaddingInfo(1 / 10f, 1 / 10f, 1 / 10f, 1 / 10f);
+            padding = new PaddingInfo(1 / 10f, 1 / 8f, 1 / 10f, 1 / 8f);
         }
         ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
         Logger.iFunc(FUNC, padding, ",", size);
@@ -122,7 +122,7 @@ public abstract class ScreenSwipe extends ScreenEvent {
             Logger.iFunc(FUNC, String.format("startX:%s,startY:%s,endX:%s,endY:%s", startX, startY, endX, endY));
             for (int i = 0; i < times; i++) {
                 boolean isok = BaseContext.getInstance().getDevice().swipe(startX, startY, endX, endY, steps);
-                Logger.iFunc(FUNC,String.format("第%s次滑屏幕，结果:%s。",i,isok));
+                Logger.iFunc(FUNC, String.format("第%s次滑屏幕，结果:%s。", i, isok));
                 SleepUtil.sleep(interval);
             }
             response.setStatus(WDStatus.SUCCESS.code());

@@ -34,6 +34,8 @@ public abstract class FindEvent extends SafeRequestHandler {
                         "%s-->%s", this.result.getError(), step), ConstantResult.NO_FIND_ELEMENT);
             }
         } catch (Exception e) {
+            Logger.error(e);
+            return new AppiumResponse(getSessionId(request), WDStatus.UNKNOWN_ERROR, e.getMessage(), ConstantResult.UIA_EXCEPTION);
         } finally {
             WatcherManager.getInstance().switchPause(status);
         }

@@ -288,7 +288,7 @@ public abstract class DeviceCore {
         }
 
         // 如果是获取设备真实分辨率宽就返回设备真实分辨率宽
-        return new ScreenSize(screenWidth, screenDpWidth);
+        return new ScreenSize(screenWidth, screenHeight);
 
     }
 
