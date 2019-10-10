@@ -35,7 +35,6 @@ public abstract class DeviceCore {
 
     public abstract void wake() throws android.os.RemoteException;
 
-    public abstract ScreenSize getScreenSize();
 
     //List<String> getRootsPackageName
 
@@ -155,8 +154,10 @@ public abstract class DeviceCore {
             Object obj = ReflectionUtil.invoke(uiDevice, METHOD_GET_DISPLAY_ROTATION);
             rotation = (int) obj;
         } else {
-            Display display = getDisplay();
-            rotation = display.getRotation();
+            Display display = this.getDisplay();
+            if (display != null) {
+                rotation = display.getRotation();
+            }
         }
         return rotation;
     }
@@ -223,13 +224,82 @@ public abstract class DeviceCore {
 
     // endregion
 
+    //region screen
+
+    // 尽量在core里面进行sdk版本的兼容判断
+    public ScreenSize getScreenSize() {
+        ScreenSize size = this.getDisplaySize();
+        if (SystemUtil.API_LEVEL() >= 24) {
+            size = this.handleScreenPixelByDp(size, this.getDisplaySizeDp());
+        }
+        return size;
+    }
+
+    public abstract ScreenSize getDisplaySize();
+
+    public abstract ScreenSize getDisplaySizeDp();
+
+    /**
+     * 通过设备独立像素计算出设备的实际分辨率
+     *
+     * @param displaySize   通过UIAutomator获取的逻辑分辨率宽,通过UIAutomator获取的逻辑分辨率高
+     * @param displaySizeDp 通过UIAutomator获取的设备独立分辨率宽和高
+     * @return 返回相对应的宽和高
+     */
+    private ScreenSize handleScreenPixelByDp(ScreenSize displaySize, ScreenSize displaySizeDp) {
+
+        int displayWidth = displaySize.getWidth(), displayHeight = displaySize.getHeight();
+        // 手机实际分辨率宽和高
+        int screenWidth = 0;
+        int screenHeight = 0;
+
+        // 获取独立分辨率宽高
+        int screenDpWidth = displaySizeDp.getWidth();
+        int screenDpHeight = displaySizeDp.getHeight();
+
+        // 分别通过宽和高算出设备像素比
+        double dpr_a = displayWidth / (double) screenDpWidth;
+        double dpr_b = displayHeight / (double) screenDpHeight;
+
+        if (Math.abs(dpr_a - dpr_b) >= 0.02) {
+            // 通过对比，谁的设备像素比低，相对应的宽或者高通过UIAutomator获取的不正确
+            if (dpr_a > dpr_b) {
+                screenHeight = (int) (dpr_a * screenDpHeight);
+                // 如果double类型数据无限多，算出来的设备分辨率高就会少，就需要算出个位数补到十
+                int unitNum = screenHeight % 10;
+                if (unitNum != 0) {
+                    screenHeight = screenHeight + (10 - unitNum);
+                }
+                screenWidth = displayWidth;
+                // Log.e(Utils.tag, "UIAutomator getDisplayHeight is error! The correct height is： " + screenHeight);
+            } else {
+                screenWidth = (int) (dpr_b * screenDpWidth);
+                int unitNum = screenWidth % 10;
+                if (unitNum != 0) {
+                    screenWidth = screenWidth + (10 - unitNum);
+                }
+                screenHeight = displayHeight;
+                // Log.e(Utils.tag, "UIAutomator getDisplayWidth is error! The correct width is： " + screenWidth);
+            }
+
+        } else {
+            screenWidth = displayWidth;
+            screenHeight = displayHeight;
+        }
+
+        // 如果是获取设备真实分辨率宽就返回设备真实分辨率宽
+        return new ScreenSize(screenWidth, screenDpWidth);
+
+    }
+
+    //endregion
 
     //endregion
 
 
     //region private method
 
-    private static Display getDisplay() throws UIAException {
+    private Display getDisplay() throws UIAException {
 
         try {
             final Class c = Class.forName("android.view.WindowManagerImpl");

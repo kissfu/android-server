@@ -1,21 +1,21 @@
 package com.testerkit.uia1.core;
 
+import android.graphics.Point;
 import android.os.RemoteException;
 
 import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.enums.KeyEnum;
 import com.testerkit.common.enums.UIAType;
+import com.testerkit.common.exceptions.UIAException;
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.AppInfo;
 import com.testerkit.common.shell.ShellExecutor;
 import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.common.utils.StringUtil;
-import com.testerkit.uia.core.UiAutomatorBridge;
-import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.uia.core.DeviceCore;
+import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.model.AndroidElement;
-
 import com.testerkit.uia.model.ScreenSize;
-import com.testerkit.common.log.Logger;
 import com.testerkit.uia1.model.UiObjectElement;
 
 import java.util.ArrayList;
@@ -66,8 +66,17 @@ public class DeviceCore1 extends DeviceCore {
     //region deviceinfo
 
     @Override
-    public ScreenSize getScreenSize() {
+    public ScreenSize getDisplaySize() {
         return new ScreenSize(uiDevice.getDisplayWidth(), uiDevice.getDisplayHeight());
+    }
+
+    @Override
+    public ScreenSize getDisplaySizeDp() {
+        Point point = uiDevice.getDisplaySizeDp();
+        if(point == null){
+            return null;
+        }
+        return new ScreenSize(point.x,point.y);
     }
 
     //endregion

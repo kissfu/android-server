@@ -86,10 +86,10 @@ public abstract class ScreenSwipe extends ScreenEvent {
         long interval = scroll.getInternal();
         PaddingInfo padding = data.getPadding();
         if (padding == null) {
-            padding = new PaddingInfo(1 / 10, 1 / 10, 1 / 10, 1 / 10);
+            padding = new PaddingInfo(1 / 10f, 1 / 10f, 1 / 10f, 1 / 10f);
         }
         ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
-        Logger.iFunc(FUNC,  padding,size);
+        Logger.iFunc(FUNC, padding, ",", size);
         int startX = 0, startY = 0, endX = 0, endY = 0, steps = 10;
         ScrollDirection direction = scroll.getDirection();
         switch (direction) {
@@ -121,7 +121,8 @@ public abstract class ScreenSwipe extends ScreenEvent {
         try {
             Logger.iFunc(FUNC, String.format("startX:%s,startY:%s,endX:%s,endY:%s", startX, startY, endX, endY));
             for (int i = 0; i < times; i++) {
-                BaseContext.getInstance().getDevice().swipe(startX, startY, endX, endY, steps);
+                boolean isok = BaseContext.getInstance().getDevice().swipe(startX, startY, endX, endY, steps);
+                Logger.iFunc(FUNC,String.format("第%s次滑屏幕，结果:%s。",i,isok));
                 SleepUtil.sleep(interval);
             }
             response.setStatus(WDStatus.SUCCESS.code());

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
 
@@ -52,8 +53,17 @@ public class DeviceCore2 extends DeviceCore {
     }
 
     @Override
-    public ScreenSize getScreenSize() {
+    public ScreenSize getDisplaySize() {
         return new ScreenSize(uiDevice.getDisplayWidth(), uiDevice.getDisplayHeight());
+    }
+
+    @Override
+    public ScreenSize getDisplaySizeDp() {
+        Point point = uiDevice.getDisplaySizeDp();
+        if(point == null){
+            return null;
+        }
+        return new ScreenSize(point.x,point.y);
     }
 
     @Override
