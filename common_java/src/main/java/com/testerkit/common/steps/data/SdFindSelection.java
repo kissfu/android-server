@@ -1,17 +1,16 @@
 package com.testerkit.common.steps.data;
 
-import com.testerkit.common.json.StepJson;
 import com.testerkit.common.steps.data.variableassign.VariableInfo;
-import com.testerkit.common.steps.data.variableassign.VariableInitInfo;
+import com.testerkit.common.utils.StringUtil;
+
 
 /**
  * @atuthor able
  */
-public class SdVariableAssign extends StepJson {
+public class SdFindSelection extends SdScreenSwipe {
+
 
     private VariableInfo variable = new VariableInfo();
-
-    private VariableInitInfo init = new VariableInitInfo();
 
     public VariableInfo getVariable() {
         return variable;
@@ -20,15 +19,6 @@ public class SdVariableAssign extends StepJson {
     public void setVariable(VariableInfo variable) {
         this.variable = variable;
     }
-
-    public VariableInitInfo getInit() {
-        return init;
-    }
-
-    public void setInit(VariableInitInfo init) {
-        this.init = init;
-    }
-
 
     @Override
     public String toDescription() {
@@ -42,9 +32,8 @@ public class SdVariableAssign extends StepJson {
 
     @Override
     public String toString() {
-        return "SdVariableAssign{" +
+        return "SdFindSelection{" +
                 "variable=" + variable +
-                ", init=" + init +
                 '}';
     }
 }

@@ -8,6 +8,8 @@ public class ConstantStep {
 
     public static final String ACTION_PARENNT = StepAction.ACTION_PARENT.getAction();
 
+    // 查找选中的元素，类似下拉框，活着其他
+    public static final String FIND_SELECTION = StepAction.FIND.getAction() + "/" + StepRule.SELECTION.getRule();
     //find element
     public static final String FIND_NODE = StepAction.FIND.getAction() + "/" + StepRule.NODE.getRule();
     public static final String FIND_CLICK = StepAction.FIND.getAction() + "/" + StepRule.CLICK.getRule();

@@ -29,6 +29,9 @@ public enum StepRule {
     LAUNCH("launch"),
     TERMINATE("terminate"),
 
+    // 下拉框，多个选项，选中一个
+    SELECTION("selection"),
+
     //find元素相关
     INPUT("input"),
     ASSERT("assert");
