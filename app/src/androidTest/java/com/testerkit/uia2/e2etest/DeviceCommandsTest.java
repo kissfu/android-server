@@ -19,14 +19,17 @@ package com.testerkit.uia2.e2etest;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
+import com.testerkit.common.enums.StepAction;
+import com.testerkit.common.enums.StepRule;
+import com.testerkit.common.json.StepJson;
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.utils.Constants;
 import com.testerkit.common.utils.GsonUtil;
+import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.common.utils.SocketUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.interfaces.ITestCase;
 import com.testerkit.uia.log.LogAndroid;
-
-import com.testerkit.common.log.Logger;
 import com.testerkit.uia2.core.DeviceCore2;
 
 import org.junit.Test;
@@ -34,6 +37,21 @@ import org.junit.Test;
 
 //@SuppressWarnings("JavaDoc")
 public class DeviceCommandsTest extends BaseTest implements ITestCase {
+
+
+    @Test
+    public void dump() {
+        initCore();
+
+        StepJson stepJson = new StepJson();
+        stepJson.setAction(StepAction.SOURCE.getAction());
+        stepJson.setRule(StepRule.NODE.getRule());
+        String command = GsonUtil.gsonString(stepJson);
+        SleepUtil.sleep(5);
+        String resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        Logger.info("===>" + resultInfo);
+
+    }
 
 
     /**
@@ -123,7 +141,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
     }
 
     @Test
-    public void appList(){
+    public void appList() {
         initCore();
 
         String command = super.getAssets("app-list.json");
@@ -141,8 +159,6 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         BaseContext.getInstance().setDevice(new DeviceCore2(uiDevice));
 
     }
-
-
 
 
 }
