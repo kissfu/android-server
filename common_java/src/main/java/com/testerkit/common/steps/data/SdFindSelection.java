@@ -1,7 +1,7 @@
 package com.testerkit.common.steps.data;
 
+import com.testerkit.common.enums.HandleBy;
 import com.testerkit.common.steps.data.variableassign.VariableInfo;
-import com.testerkit.common.utils.StringUtil;
 
 
 /**
@@ -9,8 +9,18 @@ import com.testerkit.common.utils.StringUtil;
  */
 public class SdFindSelection extends SdScreenSwipe {
 
-
+    // 借助 什么处理
+    private HandleBy by = HandleBy.NONE;
     private VariableInfo variable = new VariableInfo();
+
+
+    public HandleBy getBy() {
+        return by;
+    }
+
+    public void setBy(HandleBy by) {
+        this.by = by;
+    }
 
     public VariableInfo getVariable() {
         return variable;
@@ -33,7 +43,8 @@ public class SdFindSelection extends SdScreenSwipe {
     @Override
     public String toString() {
         return "SdFindSelection{" +
-                "variable=" + variable +
+                "by=" + by +
+                ", variable=" + variable +
                 '}';
     }
 }

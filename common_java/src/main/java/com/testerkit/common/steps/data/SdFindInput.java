@@ -1,5 +1,6 @@
 package com.testerkit.common.steps.data;
 
+import com.testerkit.common.enums.HandleBy;
 import com.testerkit.common.json.StepJson;
 import com.testerkit.common.utils.StringUtil;
 
@@ -9,10 +10,19 @@ import com.testerkit.common.utils.StringUtil;
  */
 public class SdFindInput extends StepJson {
 
-
+    // 借助 什么处理
+    private HandleBy by = HandleBy.NONE;
     private boolean isClear = true; //是否清空
     private String variableName;
     private String value;
+
+    public HandleBy getBy() {
+        return by;
+    }
+
+    public void setBy(HandleBy by) {
+        this.by = by;
+    }
 
     public String getVariableName() {
         return variableName;

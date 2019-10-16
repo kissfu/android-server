@@ -7,6 +7,9 @@ public class PaddingInfo {
     public float right = 1;
     public float bottom = 1;
 
+    public PaddingInfo() {
+    }
+
     public PaddingInfo(float left, float top, float right, float bottom) {
         this.left = left;
         this.top = top;

@@ -133,14 +133,14 @@ public class StepJson {
 
     public String toDescription() {
         List<String> list = new ArrayList<String>();
-        if (scroll != null) {
-            list.add(scroll.toDescription());
-        }
         if (this.action.equals(StepAction.FIND.getAction()) && condition != null) {
             list.add(condition.toDescription());
         }
         if (this.action.equals(StepAction.PRESS.getAction())) {
             list.add(key.toDescription());
+        }
+        if (scroll != null) {
+            list.add(scroll.toDescription());
         }
         return StringUtil.join(list.toArray(), ",");
     }
