@@ -166,6 +166,19 @@ public class DeviceCore1 extends DeviceCore {
     }
 
     @Override
+    public boolean swipe(Point[] segments, int segmentSteps){
+        try {
+            boolean success = uiDevice.swipe(segments, segmentSteps);
+            //滑屏幕之后手动清理缓存
+            ReflectionUtil.clearAccessibilityCache();
+            return success;
+        } catch (Exception e) {
+            Logger.error( e.getMessage(), e);
+        }
+        return false;
+    }
+
+    @Override
     public List<AppInfo> getAppList(AppCategory category) {
         List<AppInfo> apps = new ArrayList<AppInfo>();
         String cmd = "";

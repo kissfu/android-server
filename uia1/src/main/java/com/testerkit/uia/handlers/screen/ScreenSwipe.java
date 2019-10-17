@@ -23,10 +23,13 @@ import com.testerkit.common.json.ResponseJson;
 import com.testerkit.common.json.ScrollJson;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.PaddingInfo;
+import com.testerkit.common.model.SizeInfo;
+import com.testerkit.common.model.SwipeInfo;
 import com.testerkit.common.steps.data.SdScreenSwipe;
 import com.testerkit.common.steps.data.screenswipe.ScreenSwipeType;
 import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.common.utils.SleepUtil;
+import com.testerkit.common.utils.SwipeUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.requests.IRequest;
@@ -90,38 +93,12 @@ public abstract class ScreenSwipe extends ScreenEvent {
         }
         ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
         Logger.iFunc(FUNC, padding, ",", size);
-        int startX = 0, startY = 0, endX = 0, endY = 0, steps = 10;
         ScrollDirection direction = scroll.getDirection();
-        switch (direction) {
-            case UP:
-                startX = size.getWidth() / 2;
-                startY = size.getHeight() - (int) (size.getHeight() * padding.bottom);
-                endX = size.getWidth() / 2;
-                endY = (int) (size.getHeight() * padding.top);
-                break;
-            case DOWN:
-                startX = size.getWidth() / 2;
-                startY = (int) (size.getHeight() * padding.top);
-                endX = size.getWidth() / 2;
-                endY = size.getHeight() - (int) (size.getHeight() * padding.bottom);
-                break;
-            case LEFT:
-                startX = size.getWidth() - (int) (size.getWidth() * padding.right);
-                startY = size.getHeight() / 2;
-                endX = (int) (size.getWidth() * padding.left);
-                endY = size.getHeight() / 2;
-                break;
-            case RIGHT:
-                startX = (int) (size.getWidth() * padding.left);
-                startY = size.getHeight() / 2;
-                endX = size.getWidth() - (int) (size.getWidth() * padding.right);
-                endY = size.getHeight() / 2;
-                break;
-        }
+        SwipeInfo swipe = SwipeUtil.getByDirection(direction, new SizeInfo(size.getWidth(), size.getHeight()), padding);
         try {
-            Logger.iFunc(FUNC, String.format("startX:%s,startY:%s,endX:%s,endY:%s", startX, startY, endX, endY));
+            Logger.iFunc(FUNC, String.format("swipe:%s", swipe));
             for (int i = 0; i < times; i++) {
-                boolean isok = BaseContext.getInstance().getDevice().swipe(startX, startY, endX, endY, steps);
+                boolean isok = BaseContext.getInstance().getDevice().swipe(swipe.getStartX(), swipe.getStartY(), swipe.getEndX(), swipe.getEndY(), swipe.getSteps());
                 Logger.iFunc(FUNC, String.format("第%s次滑屏幕，结果:%s。", i, isok));
                 SleepUtil.sleep(interval);
             }

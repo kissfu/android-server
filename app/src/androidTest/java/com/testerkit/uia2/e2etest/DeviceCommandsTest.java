@@ -23,11 +23,13 @@ import com.testerkit.common.enums.StepAction;
 import com.testerkit.common.enums.StepRule;
 import com.testerkit.common.json.StepJson;
 import com.testerkit.common.log.Logger;
+import com.testerkit.common.model.RectInfo;
 import com.testerkit.common.utils.Constants;
 import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.common.utils.SocketUtil;
 import com.testerkit.uia.BaseContext;
+import com.testerkit.uia.handlers.find.FindSelection;
 import com.testerkit.uia.interfaces.ITestCase;
 import com.testerkit.uia.log.LogAndroid;
 import com.testerkit.uia2.core.DeviceCore2;
@@ -38,6 +40,7 @@ import org.junit.Test;
 //@SuppressWarnings("JavaDoc")
 public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
+    private static String TAG = "test";
 
     @Test
     public void dump() {
@@ -157,6 +160,21 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         BaseContext.getInstance().setTestCase(this);
         BaseContext.getInstance().setDevice(new DeviceCore2(uiDevice));
+
+    }
+
+
+    @Test
+    public void swipe() {
+        initCore();
+
+        SleepUtil.sleep(5);
+        RectInfo rect = new RectInfo(0,1401,1080,1920);
+
+        FindSelection selection = new FindSelection("");
+        selection.swipe(rect,"一年");
+
+
 
     }
 

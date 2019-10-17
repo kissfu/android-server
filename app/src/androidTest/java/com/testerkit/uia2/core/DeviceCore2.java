@@ -187,6 +187,19 @@ public class DeviceCore2 extends DeviceCore {
         return false;
     }
 
+    @Override
+    public boolean swipe(Point[] segments, int segmentSteps){
+        try {
+            boolean success = uiDevice.swipe(segments, segmentSteps);
+            //滑屏幕之后手动清理缓存
+            ReflectionUtil.clearAccessibilityCache();
+            return success;
+        } catch (Exception e) {
+            Logger.error( e.getMessage(), e);
+        }
+        return false;
+    }
+
     private String getLaunchActivity(String pn, PackageManager packageManager) {
         String str = "";
         try {

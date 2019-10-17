@@ -1,17 +1,20 @@
 package com.testerkit.uia.core;
 
+import android.graphics.Point;
 import android.os.SystemClock;
 import android.view.Display;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.enums.ClickPosition;
+import com.testerkit.common.enums.ScrollDirection;
 import com.testerkit.common.enums.UIAType;
 import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.exceptions.UIANotConnected;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.AppInfo;
 import com.testerkit.common.model.RectInfo;
+import com.testerkit.common.model.SizeInfo;
 import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.utils.SystemUtil;
@@ -219,6 +222,57 @@ public abstract class DeviceCore {
     // region swipe
 
     public boolean swipe(int startX, int startY, int endX, int endY, int steps) {
+        return false;
+    }
+    public boolean swipe(Point[] segments, int segmentSteps){
+        return false;
+    }
+    public boolean swipe(float fromX, float fromY, SizeInfo size, ScrollDirection direction, int steps){
+
+        List<Point> points = new ArrayList<Point>();
+        float yStep = size.height / (float) steps;
+        switch (direction){
+            case DOWN:
+                if (size.height <=0) {
+                    Logger.error("Y轴滑动没有高度！");
+                    return false;
+                }
+                for (int i = 0; i < yStep + 1; i++) {
+                    Point p = new Point();
+                    p.x = (int) (fromX);
+                    p.y = (int) (fromY + steps * i);
+                    points.add(p);
+                }
+                break;
+            case UP:
+                if (size.height <=0) {
+                    Logger.error("Y轴滑动没有高度！");
+                    return false;
+                }
+                for (int i = 0; i < yStep + 1; i++) {
+                    Point p = new Point();
+                    p.x = (int) (fromX);
+                    p.y = (int) (fromY - steps * i);
+                    points.add(p);
+                }
+                break;
+        }
+
+        if(points.size() == 0){
+            return false;
+        }
+
+        Point leastPoint = points.get(points.size() - 1);
+        // 再加10次最后稳定的坐标
+        for (int i = 0; i < 10; i++) {
+            points.add(leastPoint);
+        }
+        try {
+            Logger.iFunc(FUNC, "输出最后的长度：" + points.size());
+            return this.swipe(points.toArray(new Point[points.size()]), steps);
+        } catch (Exception e) {
+            Logger.error(e.getMessage(), e);
+        }
         return false;
     }
 
