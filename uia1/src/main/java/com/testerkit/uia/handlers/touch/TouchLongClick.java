@@ -52,6 +52,7 @@ public class TouchLongClick extends TouchEvent {
         }
     }
 
+    private static final long REGULAR_CLICK_LENGTH = 100;//正常点击
     @Override
     protected boolean executeTouchEvent() throws UIAException {
         PointJson point = points.get(0);
