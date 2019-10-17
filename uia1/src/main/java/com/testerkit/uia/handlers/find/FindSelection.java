@@ -34,7 +34,7 @@ public class FindSelection extends FindEvent {
             }
             SdFindSelection data = GsonUtil.toBean(this.getStepRaw(request), SdFindSelection.class);
             this.result.setValue(GsonUtil.gsonString(node));
-            return swipe(node.getRectVisible(), data.getVariable().getValue().trim());
+            return swipe(node.getRectVisible(), data.getVariable().getValue());
 
         } catch (UIAException e) {
             this.result.setError("查找元素的时候异常！！！" + e.getMessage());
@@ -47,8 +47,13 @@ public class FindSelection extends FindEvent {
 
     public boolean swipe(RectInfo rect, String selected) {
         boolean isok = false;
+        // 没有内容
         if(StringUtil.isEmpty(selected)){
-            return isok;
+            return true;
+        }
+        int times = maturityArr.indexOf(selected.trim());
+        if(times == -1){
+            return false;
         }
 
         int h1 = rect.height() / maturityArr.size();
@@ -66,7 +71,6 @@ public class FindSelection extends FindEvent {
         } catch (Exception e) {
             Logger.error(e);
         }
-        int times = maturityArr.indexOf(selected);
 
         SizeInfo size = new SizeInfo();
         size.height = h1;
