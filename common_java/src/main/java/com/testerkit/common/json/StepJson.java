@@ -142,19 +142,25 @@ public class StepJson {
         if (scroll != null) {
             list.add(scroll.toDescription());
         }
+        if (points != null && points.size() > 0) {
+            list.add("坐标");
+            for (PointJson p : points) {
+                list.add(p.toDescription());
+            }
+        }
         return StringUtil.join(list.toArray(), ",");
     }
 
     @Override
     public String toString() {
         return "StepJson{" +
-            "action='" + action + '\'' +
-            ", rule='" + rule + '\'' +
-            ", key=" + key +
-            ", node=" + node +
-            ", scroll=" + scroll +
-            ", points=" + points +
-            ", condition=" + condition +
-            '}';
+                "action='" + action + '\'' +
+                ", rule='" + rule + '\'' +
+                ", key=" + key +
+                ", node=" + node +
+                ", scroll=" + scroll +
+                ", points=" + points +
+                ", condition=" + condition +
+                '}';
     }
 }

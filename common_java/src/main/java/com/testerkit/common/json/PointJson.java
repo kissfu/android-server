@@ -38,4 +38,18 @@ public class PointJson {
     public void setDuration(long duration) {
         this.duration = duration;
     }
+
+    public String toDescription() {
+        return  String.format("[%s,%s,%s]",x,y,duration);
+    }
+
+    @Override
+    public String toString() {
+        return "PointJson{" +
+                "type='" + type + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", duration=" + duration +
+                '}';
+    }
 }

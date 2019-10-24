@@ -11,7 +11,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class SocketUtil {
-    static String FUNC= "socket";
+    static String FUNC = "socket";
+
     /**
      * @param ipAddress adb地址映射
      * @param command   命令
@@ -29,8 +30,8 @@ public class SocketUtil {
 
         try {
             socket = new Socket();
-            socket.setSoTimeout(timeout);
             socket.connect(new InetSocketAddress(ipAddress, port), 5000);
+            socket.setSoTimeout(timeout);
             stream = socket.getInputStream();
             input = new InputStreamReader(stream, "UTF-8");
             reader = new BufferedReader(input);
@@ -55,11 +56,13 @@ public class SocketUtil {
                     break;
                 }
             } while (counter > 0);
-            if(counter > 0) {
+            if (counter > 0) {
                 return new String(bytesReceived, "UTF-8");
+            } else {
+                Logger.error("error!! receive counter: " + counter);
             }
         } catch (Exception e) {
-            Logger.error( "request error: " + e.getMessage(), e);
+            Logger.error("request error: " + e.getMessage(), e);
             //throw e;
 
         } finally {
@@ -68,21 +71,21 @@ public class SocketUtil {
                     stream.close();
                 }
             } catch (Exception e) {
-                Logger.error( e.getMessage());
+                Logger.error(e.getMessage());
             }
             try {
                 if (input != null) {
                     input.close();
                 }
             } catch (Exception e) {
-                Logger.error( e.getMessage(), e);
+                Logger.error(e.getMessage(), e);
             }
             try {
                 if (reader != null) {
                     reader.close();
                 }
             } catch (Exception e) {
-                Logger.error( e.getMessage(), e);
+                Logger.error(e.getMessage(), e);
             }
 
             try {
@@ -97,14 +100,14 @@ public class SocketUtil {
                     writer.close();
                 }
             } catch (Exception e) {
-                Logger.error( e.getMessage(), e);
+                Logger.error(e.getMessage(), e);
             }
             try {
                 if (socket != null) {
                     socket.close();
                 }
             } catch (Exception e) {
-                Logger.error( e.getMessage(), e);
+                Logger.error(e.getMessage(), e);
             }
         }
 
