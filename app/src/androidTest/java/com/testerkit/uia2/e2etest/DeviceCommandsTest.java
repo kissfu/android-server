@@ -103,6 +103,25 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
     }
 
+    @Test
+    public void getFindSelection() {
+        initCore();
+
+        //耗费时间要长，以node的class名字为标签
+//        String command = super.getAssets("source-class.json");
+        //比较快，以node为标签，className为属性
+        String command = super.getAssets("find-selection.json");
+
+        String resultInfo = null;
+        try {
+            resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Logger.debug("result===>", resultInfo);
+
+    }
+
     /**
      * 按键操作
      */

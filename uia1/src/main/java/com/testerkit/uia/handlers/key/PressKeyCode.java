@@ -17,17 +17,15 @@
 package com.testerkit.uia.handlers.key;
 
 import android.os.SystemClock;
-import android.util.TimeUtils;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 
 import com.testerkit.common.enums.KeyEnum;
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.core.DeviceCore;
 import com.testerkit.uia.utils.InteractionUtils;
-import com.testerkit.common.log.Logger;
-import com.testerkit.uia.utils.SystemUtil;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -42,7 +40,7 @@ public class PressKeyCode extends PressEvent {
 
     @Override
     protected boolean executePressEvent() {
-        Logger.iFunc(FUNC,"Calling PressKeyCode... " + step.getKey());
+        Logger.iFunc(FUNC, "Calling PressKeyCode... " + step.getKey());
         KeyEnum keyEnum = step.getKey().getKeyName();
         int keyCode = step.getKey().getKeyCode();
         int metaState = step.getKey().getMetaState();
@@ -64,21 +62,21 @@ public class PressKeyCode extends PressEvent {
 
     private boolean shortKeyPress(int keyCode, int flags, int metaState) {
         boolean isSuccessful = false;
-        if (SystemUtil.API_LEVEL() < 18) {
-            DeviceCore core = BaseContext.getInstance().getDevice();
-            isSuccessful = core.pressKey(keyCode, metaState);
-            Logger.iFunc(FUNC,"shortKeyPress");
-        } else {
-            flags = flags == -1 ? 0 : flags;
-            metaState = metaState == -1 ? 0 : metaState;
-            long downTime = SystemClock.uptimeMillis();
-            isSuccessful = InteractionUtils.injectEventSync(new KeyEvent(downTime, downTime,
-                    KeyEvent.ACTION_DOWN, keyCode, 0, metaState,
-                    KeyCharacterMap.VIRTUAL_KEYBOARD, 0, flags));
-            isSuccessful &= InteractionUtils.injectEventSync(new KeyEvent(downTime, SystemClock.uptimeMillis(),
-                    KeyEvent.ACTION_UP, keyCode, 0, metaState,
-                    KeyCharacterMap.VIRTUAL_KEYBOARD, 0, flags));
-        }
+//        if (SystemUtil.API_LEVEL() < 18) {
+        DeviceCore core = BaseContext.getInstance().getDevice();
+        isSuccessful = core.pressKey(keyCode, metaState);
+        Logger.iFunc(FUNC, "shortKeyPress");
+//        } else {
+//            flags = flags == -1 ? 0 : flags;
+//            metaState = metaState == -1 ? 0 : metaState;
+//            long downTime = SystemClock.uptimeMillis();
+//            isSuccessful = InteractionUtils.injectEventSync(new KeyEvent(downTime, downTime,
+//                    KeyEvent.ACTION_DOWN, keyCode, 0, metaState,
+//                    KeyCharacterMap.VIRTUAL_KEYBOARD, 0, flags));
+//            isSuccessful &= InteractionUtils.injectEventSync(new KeyEvent(downTime, SystemClock.uptimeMillis(),
+//                    KeyEvent.ACTION_UP, keyCode, 0, metaState,
+//                    KeyCharacterMap.VIRTUAL_KEYBOARD, 0, flags));
+//        }
 
         return isSuccessful;
     }
@@ -112,6 +110,7 @@ public class PressKeyCode extends PressEvent {
 
     /**
      * 权限问题无法执行
+     *
      * @param keyCode
      * @return
      */

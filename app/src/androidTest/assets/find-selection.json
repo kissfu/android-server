@@ -1,0 +1,54 @@
+{
+  "by": "NONE",
+  "variable": {
+    "value": "两年"
+  },
+  "action": "find",
+  "rule": "selection",
+  "node": {
+    "type": "uia",
+    "index": 0
+  },
+  "scroll": {
+    "times": 1,
+    "timeout": 6000,
+    "toCenter": false,
+    "internal": 1000
+  },
+  "condition": {
+    "relation": "AND",
+    "name": {
+      "option": "REQUIRED",
+      "relation": "AND",
+      "arr": [
+        "optionspicker"
+      ]
+    },
+    "clazz": {
+      "option": "FILTER",
+      "relation": "AND",
+      "arr": [
+        "android.widget.LinearLayout"
+      ]
+    },
+    "packageName": {
+      "option": "FILTER",
+      "relation": "AND",
+      "arr": [
+        "com.csii.qzbank.test"
+      ]
+    },
+    "xpath": {
+      "xps": [
+        {
+          "xpath": "//node[@name\u003d\u0027optionspicker\u0027]",
+          "option": "ALL"
+        }
+      ],
+      "option": "FILTER",
+      "relation": "AND",
+      "arr": []
+    }
+  },
+  "sessionId": "c029efcf-5e22-4e92-8712-ab07fbc1c8ef"
+}

@@ -17,7 +17,7 @@ public class FindAssert extends FindEvent {
     protected boolean executeFindEvent(IRequest request) throws Exception {
 
         try {
-            List<NodeInfo> nodes = this.findNodes();
+            List<NodeInfo> nodes = this.findNodes(false);
             if (nodes.size() == 0) {
                 return false;
             }

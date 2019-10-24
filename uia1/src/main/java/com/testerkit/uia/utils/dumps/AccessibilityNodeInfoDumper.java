@@ -24,6 +24,7 @@ import com.testerkit.common.enums.StepType;
 import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.model.RectInfo;
 import com.testerkit.common.model.UIDumpInfo;
+import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.common.utils.StopWatch;
 import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.BaseContext;
@@ -76,6 +77,7 @@ public class AccessibilityNodeInfoDumper {
      */
     public static synchronized String getWindowXMLHierarchy(AccessibilityNodeInfo[] roots) {
         AccessibilityNodeInfoDumper.uiDumpInfo = new UIDumpInfo();
+        ReflectionUtil.clearAccessibilityCache();
         StopWatch stopWatch = new StopWatch();
         StringWriter xmlDump = new StringWriter();
         try {
@@ -210,7 +212,7 @@ public class AccessibilityNodeInfoDumper {
                     child.recycle();
                 } else {
                     counter_invisible_child++;
-//                    Logger.info(String.format("Skipping invisible child: %s", child.toString()));
+                    Logger.info(String.format("Skipping invisible child: %s", child.toString()));
                 }
             } else {
                 Logger.info(String.format("Null child %s/%s, parent: %s", i, count, node.toString()));

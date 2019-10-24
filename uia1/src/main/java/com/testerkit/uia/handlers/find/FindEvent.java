@@ -54,7 +54,7 @@ public abstract class FindEvent extends SafeRequestHandler {
         return new AppiumResponse(getSessionId(request), WDStatus.SUCCESS, this.result.getValue());
     }
 
-    protected List<NodeInfo> findNodes() {
+    protected List<NodeInfo> findNodes(boolean onlyOne) {
         List<NodeInfo> nodes = new ArrayList<NodeInfo>();
         try {
             long start = System.currentTimeMillis();
@@ -64,7 +64,10 @@ public abstract class FindEvent extends SafeRequestHandler {
                 ReflectionUtil.clearAccessibilityCache();
                 UIDumpInfo dump = XMLHierarchy.getDumpInfo();
                 nodes = MatcherManager.getInstance().isMatch(step, dump);
-                if (nodes.size() > 0) {
+                if (nodes.size() > 0 && !onlyOne) {
+                    break;
+                }
+                if (onlyOne && nodes.size() == 1) {
                     break;
                 }
                 WatcherManager.getInstance().runTimes(1);
@@ -89,7 +92,7 @@ public abstract class FindEvent extends SafeRequestHandler {
     }
 
     protected NodeInfo findNode() {
-        List<NodeInfo> nodes = this.findNodes();
+        List<NodeInfo> nodes = this.findNodes(true);
         if (nodes.size() != 1) {
             return null;
         }
