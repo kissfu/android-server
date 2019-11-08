@@ -56,6 +56,7 @@ public class NettyServlet implements ISocketServlet {
         register(getHandler, new SourceNode(baseUri+ConstantStep.SOURCE_NODE));
 
         register(getHandler, new InputDefault(baseUri+ConstantStep.INPUT_DEFAULT));
+        register(getHandler, new InputDefault(baseUri+ConstantStep.INPUT_VALUE));
 
         register(getHandler, new PressKeyCode(baseUri+ConstantStep.PRESS_KEY));
         register(getHandler, new PressKeyName(baseUri+ConstantStep.PRESS_KEY_NAME));

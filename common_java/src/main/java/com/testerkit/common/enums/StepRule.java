@@ -16,6 +16,9 @@ public enum StepRule {
     UP("up"),
     NONE("none"),
 
+    // input
+    VALUE("value"),
+
     //变量操作
     ASSIGN("assign"),
 

@@ -5,6 +5,8 @@ package com.testerkit.common.enums;
  */
 public enum HandleBy {
     LAYOUT,
+    IMAGE,
     OCR,
+    SERVER,
     NONE,
 }

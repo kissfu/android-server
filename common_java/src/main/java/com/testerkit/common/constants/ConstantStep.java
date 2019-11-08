@@ -4,6 +4,9 @@ package com.testerkit.common.constants;
 import com.testerkit.common.enums.StepAction;
 import com.testerkit.common.enums.StepRule;
 
+/**
+ * 手机指令和步骤指令
+ */
 public class ConstantStep {
 
     public static final String ACTION_PARENNT = StepAction.ACTION_PARENT.getAction();
@@ -19,8 +22,9 @@ public class ConstantStep {
     public static final String SOURCE_CLASS = StepAction.SOURCE.getAction() + "/" + StepRule.CLASS.getRule();
     public static final String SOURCE_NODE = StepAction.SOURCE.getAction() + "/" + StepRule.NODE.getRule();
 
-
+    // 输入步骤
     public static final String INPUT_DEFAULT = StepAction.INPUT.getAction() + "/" + StepRule.DEFAULT.getRule();
+    public static final String INPUT_VALUE = StepAction.INPUT.getAction() + "/" + StepRule.VALUE.getRule();
 
     public static final String PRESS_KEY = StepAction.PRESS.getAction() + "/" + StepRule.KEY.getRule();
     public static final String PRESS_KEY_NAME = StepAction.PRESS.getAction() + "/" + StepRule.KEY_NAME.getRule();
