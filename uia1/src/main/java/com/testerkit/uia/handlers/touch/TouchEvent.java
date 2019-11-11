@@ -17,6 +17,7 @@
 package com.testerkit.uia.handlers.touch;
 
 import com.testerkit.common.json.PointJson;
+import com.testerkit.common.json.StepJson;
 import com.testerkit.uia.handlers.request.SafeRequestHandler;
 import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
@@ -29,6 +30,7 @@ public abstract class TouchEvent extends SafeRequestHandler {
 
     protected String FUNC = "Touch";
     protected List<PointJson> points;
+    protected StepJson step;
 
     public TouchEvent(String mappedUri) {
         super(mappedUri);
@@ -39,7 +41,8 @@ public abstract class TouchEvent extends SafeRequestHandler {
 
         if(request instanceof  ISocketRequest){
             ISocketRequest socketRequest = (ISocketRequest)request;
-            points = socketRequest.getStepInfo().getPoints();
+            this.step =  socketRequest.getStepInfo();
+            this.points = this.step.getPoints();
         }
 
         if(points == null || points.size() == 0 || executeTouchEvent() == false){

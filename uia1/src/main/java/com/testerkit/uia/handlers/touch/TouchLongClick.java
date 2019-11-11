@@ -18,10 +18,12 @@ package com.testerkit.uia.handlers.touch;
 
 
 import com.testerkit.common.json.PointJson;
+import com.testerkit.common.steps.enums.PointType;
 import com.testerkit.common.utils.NumberUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
+import com.testerkit.uia.model.ScreenSize;
 
 
 /**
@@ -53,12 +55,21 @@ public class TouchLongClick extends TouchEvent {
     }
 
     private static final long REGULAR_CLICK_LENGTH = 100;//正常点击
+
     @Override
     protected boolean executeTouchEvent() throws UIAException {
         PointJson point = points.get(0);
         long duration = point.getDuration() > 0 ? point.getDuration() : 2000;
         int clickX = NumberUtil.round(points.get(0).getX());
         int clickY = NumberUtil.round(points.get(0).getY());
+
+        PointType type = this.step.getPointType();
+        if (PointType.PERCENT.equals(type)) {
+            ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
+            clickX = (int) (points.get(0).getX() * size.getWidth());
+            clickY = (int) (points.get(0).getY() * size.getHeight());
+        }
+
         if (correctLongClick(clickX, clickY, duration)) {
             return true;
         }

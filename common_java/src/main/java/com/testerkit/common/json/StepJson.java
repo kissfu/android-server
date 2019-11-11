@@ -3,6 +3,7 @@ package com.testerkit.common.json;
 import com.testerkit.common.enums.EventMsgType;
 import com.testerkit.common.enums.StepAction;
 import com.testerkit.common.log.Logger;
+import com.testerkit.common.steps.enums.PointType;
 import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.common.utils.StringUtil;
 
@@ -18,6 +19,7 @@ public class StepJson {
     private String action;
 
     private EventMsgType eventMsgType;
+    private PointType pointType = PointType.PERCENT;
 
     private String rule;
 
@@ -50,6 +52,14 @@ public class StepJson {
 
     public void setEventMsgType(EventMsgType eventMsgType) {
         this.eventMsgType = eventMsgType;
+    }
+
+    public PointType getPointType() {
+        return pointType;
+    }
+
+    public void setPointType(PointType pointType) {
+        this.pointType = pointType;
     }
 
     public void setRule(String rule) {

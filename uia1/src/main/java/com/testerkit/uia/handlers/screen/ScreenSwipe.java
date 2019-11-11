@@ -16,9 +16,12 @@
 
 package com.testerkit.uia.handlers.screen;
 
+import android.graphics.Point;
+
 import com.testerkit.common.constants.ConstantResult;
 import com.testerkit.common.enums.ScrollDirection;
 import com.testerkit.common.enums.WDStatus;
+import com.testerkit.common.json.PointJson;
 import com.testerkit.common.json.ResponseJson;
 import com.testerkit.common.json.ScrollJson;
 import com.testerkit.common.log.Logger;
@@ -27,12 +30,15 @@ import com.testerkit.common.model.SizeInfo;
 import com.testerkit.common.model.SwipeInfo;
 import com.testerkit.common.steps.data.SdScreenSwipe;
 import com.testerkit.common.steps.data.screenswipe.ScreenSwipeType;
+import com.testerkit.common.steps.enums.PointType;
 import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.common.utils.SwipeUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia.requests.IRequest;
+
+import java.util.List;
 
 
 public abstract class ScreenSwipe extends ScreenEvent {
@@ -118,6 +124,31 @@ public abstract class ScreenSwipe extends ScreenEvent {
     }
 
     private ResponseJson swipeByPointsMany() {
-        return new ResponseJson();
+        ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
+        ResponseJson response = new ResponseJson();
+        try {
+
+            List<PointJson> points = data.getPoints();
+            int len = points.size();
+            Point[] segments = new Point[len];
+            PointType type = data.getPointType();
+            if (PointType.PERCENT.equals(type)) {
+                for (int i = 0; i < len; i++) {
+                    segments[i] = new Point((int) (points.get(i).getX() * size.getWidth()), (int) (points.get(i).getY() * size.getHeight()));
+                }
+            }
+            boolean isok = BaseContext.getInstance().getDevice().swipe(segments, 3);
+            Logger.iFunc(FUNC, String.format("坐标滑屏幕，结果:%s。", isok));
+            if (isok) {
+                response.setStatus(WDStatus.SUCCESS.code());
+            }
+        } catch (Exception e) {
+            response.setStatus(WDStatus.UNKNOWN_ERROR.code());
+            response.setValue(e.getMessage());
+            response.setKey(ConstantResult.UIA_EXCEPTION);
+            Logger.error(e);
+        }
+
+        return response;
     }
 }
