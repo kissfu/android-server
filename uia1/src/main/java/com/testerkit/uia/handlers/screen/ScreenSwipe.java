@@ -127,7 +127,9 @@ public abstract class ScreenSwipe extends ScreenEvent {
         ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
         ResponseJson response = new ResponseJson();
         try {
-
+            ScrollJson scroll = data.getScroll();
+            int times = scroll.getTimes();
+            long interval = scroll.getInternal();
             List<PointJson> points = data.getPoints();
             int len = points.size();
             Point[] segments = new Point[len];
@@ -137,8 +139,12 @@ public abstract class ScreenSwipe extends ScreenEvent {
                     segments[i] = new Point((int) (points.get(i).getX() * size.getWidth()), (int) (points.get(i).getY() * size.getHeight()));
                 }
             }
-            boolean isok = BaseContext.getInstance().getDevice().swipe(segments, 3);
-            Logger.iFunc(FUNC, String.format("坐标滑屏幕，结果:%s。", isok));
+            boolean isok = false;
+            for (int i = 0; i < times; i++) {
+                isok = BaseContext.getInstance().getDevice().swipe(segments, 3);
+                Logger.iFunc(FUNC, String.format("坐标滑屏幕，结果:%s。", isok));
+                SleepUtil.sleep(interval);
+            }
             if (isok) {
                 response.setStatus(WDStatus.SUCCESS.code());
             }
