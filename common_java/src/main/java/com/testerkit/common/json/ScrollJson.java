@@ -69,12 +69,12 @@ public class ScrollJson {
     public String toDescription() {
         StringBuilder sb = new StringBuilder();
         String strToCenter = this.toCenter ? "元素移动到屏幕中间," : "";
-        sb.append("超时:" + timeout + "毫秒,");
+        sb.append("超时:" + timeout/1000f + "秒,");
         sb.append(strToCenter);
         sb.append("滚动[");
         sb.append(String.format("次数:%s,",times));
         sb.append(String.format("方向:%s,",direction));
-        sb.append(String.format("间隔:%s毫秒",internal));
+        sb.append(String.format("间隔:%s秒",internal/1000f));
         sb.append("] ");
         return sb.toString();
     }

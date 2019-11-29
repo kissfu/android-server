@@ -6,7 +6,7 @@ package com.testerkit.common.shell;
 public final class DefaultShellOutputReceiver extends
         MultiLineReceiver {
     private static final String EOF = "\r\n";
-    private boolean isCancel = false;
+    private volatile boolean isCancel = false;
     private StringBuffer output = new StringBuffer();
 
     @Override

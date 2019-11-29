@@ -43,6 +43,7 @@ public class ConstantStep {
 
     //variable
     public static final String VARIABLE_ASSIGN= StepAction.VARIABLE.getAction() + "/" + StepRule.ASSIGN.getRule();
+    public static final String VARIABLE_EXPRESSION= StepAction.VARIABLE.getAction() + "/" + StepRule.EXPRESSION.getRule();
 
 
 
@@ -50,4 +51,5 @@ public class ConstantStep {
     public static final String APP_LIST = StepAction.APP.getAction() + "/" + StepRule.LIST.getRule();
 
 
+    public static int TIMEOUT_DEFAULT = 15*1000;
 }

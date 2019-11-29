@@ -1,28 +1,18 @@
 package com.testerkit.common.steps.data;
 
-import com.testerkit.common.enums.HandleBy;
 import com.testerkit.common.json.StepJson;
 import com.testerkit.common.steps.data.variableassign.VariableInfo;
-import com.testerkit.common.utils.StringUtil;
-
+import com.testerkit.common.steps.enums.ExpressionType;
 
 /**
  * @atuthor able
  */
-public class SdInputValue extends StepJson {
+public class SdVariableExpression extends StepJson {
 
-    // 借助 什么处理
-    private HandleBy by = HandleBy.SECURE_KEYBOARD;
-    private boolean isClear = true; //是否清空
     private VariableInfo variable = new VariableInfo();
 
-    public HandleBy getBy() {
-        return by;
-    }
+    private ExpressionType expressionType = ExpressionType.ASSIGN;
 
-    public void setBy(HandleBy by) {
-        this.by = by;
-    }
 
     public VariableInfo getVariable() {
         return variable;
@@ -32,12 +22,12 @@ public class SdInputValue extends StepJson {
         this.variable = variable;
     }
 
-    public boolean isClear() {
-        return isClear;
+    public ExpressionType getExpressionType() {
+        return expressionType;
     }
 
-    public void setClear(boolean clear) {
-        isClear = clear;
+    public void setExpressionType(ExpressionType expressionType) {
+        this.expressionType = expressionType;
     }
 
     @Override
@@ -46,16 +36,17 @@ public class SdInputValue extends StepJson {
         if (variable != null) {
             sb.append(variable.toDescription());
         }
+        sb.append("表达式类型:"+expressionType.getMessage());
+
         sb.append(super.toDescription());
         return sb.toString();
     }
 
     @Override
     public String toString() {
-        return "SdInputValue{" +
-                "by=" + by +
-                ", isClear=" + isClear +
-                ", variable=" + variable +
+        return "SdVariableExpression{" +
+                "variable=" + variable +
+                ", expressionType=" + expressionType +
                 '}';
     }
 }

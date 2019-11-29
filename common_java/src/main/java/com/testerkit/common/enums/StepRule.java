@@ -21,6 +21,7 @@ public enum StepRule {
 
     //变量操作
     ASSIGN("assign"),
+    EXPRESSION("expression"),
 
     //screen
     SCREENSHOT("screenshot"),
