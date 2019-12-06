@@ -56,7 +56,7 @@ public class FindSelection extends FindEvent {
         if (index == -1) {
             return false;
         }
-        int times = index + 1;
+        int times = index;
         int hBig = rect.height() * 1;
         SwipeInfo swipe = new SwipeInfo();
         swipe.setStartX(rect.width() / 2);
@@ -98,7 +98,7 @@ public class FindSelection extends FindEvent {
         if (index == -1) {
             return false;
         }
-        int times = index + 1;
+        int times = index;
         int h1 = rect.height() / len;
         SwipeInfo swipe = new SwipeInfo();
         swipe.setStartX(rect.width() / 2);
