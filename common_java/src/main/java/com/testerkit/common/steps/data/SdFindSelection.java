@@ -13,7 +13,8 @@ public class SdFindSelection extends SdScreenSwipe {
     private HandleBy by = HandleBy.NONE;
     private VariableInfo variable = new VariableInfo();
     private int arrIndex;
-    private int arrType;
+    private int arrType;//下拉框的类型，参考配置文件
+    private int eleType;//下拉框元素的类型，1中间元素，0大框元素
 
 
     public HandleBy getBy() {
@@ -46,6 +47,14 @@ public class SdFindSelection extends SdScreenSwipe {
 
     public void setArrType(int arrType) {
         this.arrType = arrType;
+    }
+
+    public int getEleType() {
+        return eleType;
+    }
+
+    public void setEleType(int eleType) {
+        this.eleType = eleType;
     }
 
     @Override

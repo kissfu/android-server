@@ -31,7 +31,10 @@ public class FindSelection extends FindEvent {
             }
             SdFindSelection data = GsonUtil.toBean(this.getStepRaw(request), SdFindSelection.class);
             this.result.setValue(GsonUtil.gsonString(node));
-            return swipe(node.getRectVisible(), data.getVariable().getValue(),data.getArrIndex());
+            if (data.getEleType() == 1) {
+                return swipe2(node.getRectVisible(), data.getVariable().getValue(), data.getArrIndex());
+            }
+            return swipe(node.getRectVisible(), data.getVariable().getValue(), data.getArrIndex());
 
         } catch (UIAException e) {
             this.result.setError("查找元素的时候异常！！！" + e.getMessage());
@@ -42,17 +45,60 @@ public class FindSelection extends FindEvent {
         return false;
     }
 
-    public boolean swipe(RectInfo rect, String selected,int index) {
+    //大框中间的元素
+    public boolean swipe2(RectInfo rect, String selected, int index) {
         boolean isok = false;
         // 没有内容
-        if(StringUtil.isEmpty(selected)){
+        if (StringUtil.isEmpty(selected)) {
             return true;
         }
 
-        if(index == -1){
+        if (index == -1) {
             return false;
         }
-        int times = index +1;
+        int times = index + 1;
+        int hBig = rect.height() * 1;
+        SwipeInfo swipe = new SwipeInfo();
+        swipe.setStartX(rect.width() / 2);
+        swipe.setStartY(rect.top - hBig);
+
+        swipe.setEndX(rect.width() / 2);
+        swipe.setEndY(rect.bottom + hBig);
+
+        try {
+            // 从上往下滑
+            isok = BaseContext.getInstance().getDevice().swipe(swipe.getStartX(), swipe.getStartY(), swipe.getEndX(), swipe.getEndY(), 10);
+            SleepUtil.sleep(2);
+        } catch (Exception e) {
+            Logger.error(e);
+        }
+
+        SizeInfo size = new SizeInfo();
+        size.height = rect.height();
+        try {
+            swipe.setStartY(rect.top);
+            for (int i = 0; i < times; i++) {
+                // 一个一个上滑
+                isok = BaseContext.getInstance().getDevice().swipe(swipe.getStartX(), swipe.getStartY(), size, ScrollDirection.UP, 3);
+            }
+        } catch (Exception e) {
+            Logger.error(e);
+        }
+        return isok;
+    }
+
+    // 大框
+    public boolean swipe(RectInfo rect, String selected, int index) {
+        boolean isok = false;
+        // 没有内容
+        if (StringUtil.isEmpty(selected)) {
+            return true;
+        }
+
+        if (index == -1) {
+            return false;
+        }
+        int times = index + 1;
         int h1 = rect.height() / len;
         SwipeInfo swipe = new SwipeInfo();
         swipe.setStartX(rect.width() / 2);
