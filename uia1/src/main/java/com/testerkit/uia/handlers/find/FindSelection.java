@@ -14,16 +14,13 @@ import com.testerkit.common.utils.StringUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.requests.IRequest;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class FindSelection extends FindEvent {
 
     public FindSelection(String mappedUri) {
         super(mappedUri);
     }
 
-    private List<String> maturityArr = Arrays.asList("三月", "六月", "一年", "二年", "三年", "五年");
+    private int len = 6;
 
     @Override
     protected boolean executeFindEvent(IRequest request) throws Exception {
@@ -34,7 +31,7 @@ public class FindSelection extends FindEvent {
             }
             SdFindSelection data = GsonUtil.toBean(this.getStepRaw(request), SdFindSelection.class);
             this.result.setValue(GsonUtil.gsonString(node));
-            return swipe(node.getRectVisible(), data.getVariable().getValue());
+            return swipe(node.getRectVisible(), data.getVariable().getValue(),data.getArrIndex());
 
         } catch (UIAException e) {
             this.result.setError("查找元素的时候异常！！！" + e.getMessage());
@@ -45,18 +42,18 @@ public class FindSelection extends FindEvent {
         return false;
     }
 
-    public boolean swipe(RectInfo rect, String selected) {
+    public boolean swipe(RectInfo rect, String selected,int index) {
         boolean isok = false;
         // 没有内容
         if(StringUtil.isEmpty(selected)){
             return true;
         }
-        int times = maturityArr.indexOf(selected.trim());
-        if(times == -1){
+
+        if(index == -1){
             return false;
         }
-
-        int h1 = rect.height() / maturityArr.size();
+        int times = index +1;
+        int h1 = rect.height() / len;
         SwipeInfo swipe = new SwipeInfo();
         swipe.setStartX(rect.width() / 2);
         swipe.setStartY(rect.top + h1);

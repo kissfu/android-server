@@ -12,6 +12,8 @@ public class SdFindSelection extends SdScreenSwipe {
     // 借助 什么处理
     private HandleBy by = HandleBy.NONE;
     private VariableInfo variable = new VariableInfo();
+    private int arrIndex;
+    private int arrType;
 
 
     public HandleBy getBy() {
@@ -28,6 +30,22 @@ public class SdFindSelection extends SdScreenSwipe {
 
     public void setVariable(VariableInfo variable) {
         this.variable = variable;
+    }
+
+    public int getArrIndex() {
+        return arrIndex;
+    }
+
+    public void setArrIndex(int arrIndex) {
+        this.arrIndex = arrIndex;
+    }
+
+    public int getArrType() {
+        return arrType;
+    }
+
+    public void setArrType(int arrType) {
+        this.arrType = arrType;
     }
 
     @Override

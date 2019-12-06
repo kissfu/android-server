@@ -191,7 +191,7 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
         RectInfo rect = new RectInfo(0,1401,1080,1920);
 
         FindSelection selection = new FindSelection("");
-        selection.swipe(rect,"一年");
+        selection.swipe(rect,"一年",1);
 
 
 
