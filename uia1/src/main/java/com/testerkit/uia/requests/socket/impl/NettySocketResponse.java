@@ -69,4 +69,9 @@ public class NettySocketResponse implements ISocketResponse {
         this.charset = charset;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return response + "";
+    }
 }

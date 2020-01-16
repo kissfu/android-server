@@ -23,7 +23,6 @@ import com.testerkit.uia.requests.socket.ISocketRequest;
 import com.testerkit.uia.requests.socket.ISocketResponse;
 import com.testerkit.uia.servers.HttpStatusCode;
 
-
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

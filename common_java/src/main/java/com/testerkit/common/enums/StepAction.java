@@ -15,7 +15,9 @@ public enum StepAction {
     //屏幕操作
     SCREEN("screen"),
     //操作系统app接口
-    APP("app");
+    APP("app"),
+    SMS("sms"),
+    IF("if");
 
     private final String type;
 

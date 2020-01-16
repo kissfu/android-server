@@ -38,7 +38,15 @@ public enum StepRule {
 
     //find元素相关
     INPUT("input"),
-    ASSERT("assert");
+    ASSERT("assert"),
+
+    //sms
+    VERIFICATION_CODE("verification_code"),
+
+    //while-ifelse
+    ELSE("else");
+
+
 
 
 

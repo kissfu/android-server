@@ -160,6 +160,22 @@ public class StepJson {
         }
         return StringUtil.join(list.toArray(), ",");
     }
+    public String toShortDescription(){
+        List<String> list = new ArrayList<String>();
+        if (this.action.equals(StepAction.FIND.getAction()) && condition != null) {
+            list.add(condition.toShortDescription());
+        }
+        if (this.action.equals(StepAction.PRESS.getAction())) {
+            list.add(key.toDescription());
+        }
+        if (points != null && points.size() > 0) {
+            list.add("坐标");
+            for (PointJson p : points) {
+                list.add(p.toDescription());
+            }
+        }
+        return StringUtil.join(list.toArray(), ",");
+    }
 
     @Override
     public String toString() {

@@ -66,6 +66,14 @@ public class GsonUtil {
         return t;
     }
 
+    public static <T> T toBean(Gson g, String gsonString, Class<T> cls) {
+        T t = null;
+        if (g != null) {
+            t = g.fromJson(gsonString, cls);
+        }
+        return t;
+    }
+
     public static <T> T toBean(String gsonString, Type type) {
         T t = null;
         if (gson != null) {

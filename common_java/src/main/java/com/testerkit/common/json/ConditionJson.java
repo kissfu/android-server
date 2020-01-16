@@ -96,6 +96,21 @@ public class ConditionJson {
         return StringUtil.isEmpty(str) ? "满足其他条件" : "满足:" + str;
     }
 
+    public String toShortDescription(){
+        List<ByBase> list = new ArrayList<>();
+        if (this.text != null && this.text.getOption() != ByOption.IGNORED) {
+            list.add(this.text);
+        }
+        if (list.size() == 0 && this.contentDesc != null && this.contentDesc.getOption() != ByOption.IGNORED) {
+            list.add(this.contentDesc);
+        }
+        if (list.size() == 0 && this.name != null && this.name.getOption() != ByOption.IGNORED) {
+            list.add(this.name);
+        }
+        String str = StringUtil.join(list.toArray(), relation.getText());
+        return str;
+    }
+
     @Override
     public String toString() {
 

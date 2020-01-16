@@ -1,11 +1,6 @@
 package com.testerkit.uia.requests.socket;
 
 
-import com.testerkit.uia.servers.HttpStatusCode;
-
-import io.netty.handler.codec.http.HttpHeaders;
-import io.netty.handler.codec.http.HttpResponse;
-
 /**
  * 1、组织返回的内容
  */
@@ -35,4 +30,8 @@ public class FullSocketResponse  {
         this.bytes = data;
     }
 
+    @Override
+    public String toString() {
+        return  content ;
+    }
 }
