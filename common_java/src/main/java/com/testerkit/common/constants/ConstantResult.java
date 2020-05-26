@@ -3,7 +3,9 @@ package com.testerkit.common.constants;
 
 public class ConstantResult {
 
+    public static final String EXCEPTION_API = "接口返回异常";
     public static final String EXCEPTION_VARIABLE = "变量异常信息";
+    public static final String EXCEPTION_OCR = "OCR端异常信息";
     public static final String EXCEPTION_CLIENT = "客户端异常信息";
     public static final String EXCEPTION_DEVICE = "设备异常信息";
     public static final String DEVICE_CAPTURE = "设备截图异常";

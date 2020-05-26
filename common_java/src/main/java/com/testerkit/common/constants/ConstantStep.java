@@ -49,13 +49,28 @@ public class ConstantStep {
 
     //系统app的一些接口
     public static final String APP_LIST = StepAction.APP.getAction() + "/" + StepRule.LIST.getRule();
+    public static final String APP_OPERATION = StepAction.APP.getAction() + "/" + StepRule.OPERATION.getRule();
 
 
     //while-ifelse
     public static final String IF_ELSE = StepAction.IF.getAction() + "/" + StepRule.ELSE.getRule();
 
+    //script
+    public static final String CALL_SCRIPT = StepAction.CALL.getAction() + "/" + StepRule.SCRIPT.getRule();
+
     //sms
     public static final String SMS_VERIFICATION_CODE = StepAction.SMS.getAction() + "/" + StepRule.VERIFICATION_CODE.getRule();
+
+
+    //ocr
+    public static final String SOURCE_OCR= StepAction.SOURCE.getAction() + "/" + StepRule.OCR.getRule();
+
+
+    //engint
+    public static final String ENGINE_SERVER_STOP = StepAction.ENGINE.getAction() + "/" + StepRule.SERVER_STOP.getRule();
+    public static final String ENGINE_DIALOG_PAUSE = StepAction.ENGINE.getAction() + "/" + StepRule.DIALOG_PAUSE.getRule();
+    public static final String ENGINE_DIALOG_RESUME= StepAction.ENGINE.getAction() + "/" + StepRule.DIALOG_RESUME.getRule();
+    public static final String ENGINE_HEARTBEAT = StepAction.ENGINE.getAction() + "/" + StepRule.HEARTBEAT.getRule();
 
     public static int TIMEOUT_DEFAULT = 15*1000;
 }

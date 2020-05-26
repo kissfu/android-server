@@ -10,7 +10,7 @@ import com.testerkit.common.steps.data.variableassign.VariableInfo;
 public class SdFindSelection extends SdScreenSwipe {
 
     // 借助 什么处理
-    private HandleBy by = HandleBy.NONE;
+    private HandleBy by = HandleBy.OCR;
     private VariableInfo variable = new VariableInfo();
     private int arrIndex;
     private int arrType;//下拉框的类型，参考配置文件

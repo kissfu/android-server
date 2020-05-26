@@ -17,6 +17,7 @@ public class NodeJson {
     private int index;
     private RectInfo bounds;
     private String text;
+    private PointJson offsetPoint;
 
 
     public String getType() {
@@ -49,5 +50,13 @@ public class NodeJson {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public PointJson getOffsetPoint() {
+        return offsetPoint;
+    }
+
+    public void setOffsetPoint(PointJson offsetPoint) {
+        this.offsetPoint = offsetPoint;
     }
 }

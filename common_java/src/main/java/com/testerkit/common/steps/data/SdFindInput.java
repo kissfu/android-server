@@ -11,8 +11,8 @@ import com.testerkit.common.utils.StringUtil;
  */
 public class SdFindInput extends StepJson {
 
-    // 借助 什么处理
-    private HandleBy by = HandleBy.NONE;
+    //  默认设备引擎
+    private HandleBy by = HandleBy.SERVER;
     private boolean isClear = true; //是否清空
     private VariableInfo variable = new VariableInfo();
     private String value;

@@ -10,6 +10,8 @@ public class VariableInitInfo {
 
     private ApiInfo api;
 
+    private SocketInfo socket;
+
     private DbInfo db;
 
     private ResultFilterInfo resultFilter;
@@ -29,6 +31,14 @@ public class VariableInitInfo {
 
     public void setRandom(RandomInfo random) {
         this.random = random;
+    }
+
+    public SocketInfo getSocket() {
+        return socket;
+    }
+
+    public void setSocket(SocketInfo socket) {
+        this.socket = socket;
     }
 
     public ApiInfo getApi() {
@@ -58,10 +68,11 @@ public class VariableInitInfo {
 
     @Override
     public String toString() {
-        return "VaribaleInitInfo{" +
-                "initType=" + type +
+        return "VariableInitInfo{" +
+                "type=" + type +
                 ", random=" + random +
                 ", api=" + api +
+                ", socket=" + socket +
                 ", db=" + db +
                 ", resultFilter=" + resultFilter +
                 '}';

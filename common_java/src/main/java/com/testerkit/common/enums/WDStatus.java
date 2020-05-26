@@ -47,7 +47,9 @@ public enum WDStatus {
     INVALID_SELECTOR(32, "Argument was an invalid selector (error.g. XPath/CSS)."),
     SESSION_NOT_CREATED_EXCEPTION(33, "A new session could not be created."),
     MOVE_TARGET_OUT_OF_BOUNDS(34, "Target provided for a move action is out of bounds."),
-    JSON_DECODER_ERROR(35, "Could not decode action/params of command, please check format!");
+    JSON_DECODER_ERROR(35, "Could not decode action/params of command, please check format!"),
+    NO_RETURN(-1, "no return to client!"),
+    HEARTBEAT(1, "heartbeat!");
     // formatter:on
     private final int statusCode;
     private final String statusMessage;

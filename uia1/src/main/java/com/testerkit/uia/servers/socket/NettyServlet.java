@@ -4,6 +4,10 @@ import com.testerkit.common.constants.ConstantStep;
 import com.testerkit.uia.handlers.app.AppList;
 import com.testerkit.uia.handlers.dump.SourceClass;
 import com.testerkit.uia.handlers.dump.SourceNode;
+import com.testerkit.uia.handlers.engine.EngineDialogPause;
+import com.testerkit.uia.handlers.engine.EngineDialogResume;
+import com.testerkit.uia.handlers.engine.EngineHeartbeat;
+import com.testerkit.uia.handlers.engine.EngineServerStop;
 import com.testerkit.uia.handlers.find.FindAndClick;
 import com.testerkit.uia.handlers.find.FindAssert;
 import com.testerkit.uia.handlers.find.FindInput;
@@ -70,6 +74,11 @@ public class NettyServlet implements ISocketServlet {
 
         register(getHandler, new ScreenSwipe(baseUri + ConstantStep.SCREEN_SWIPE) {
         });
+
+        register(getHandler, new EngineServerStop(baseUri+ConstantStep.ENGINE_SERVER_STOP));
+        register(getHandler, new EngineDialogPause(baseUri+ConstantStep.ENGINE_DIALOG_PAUSE));
+        register(getHandler, new EngineDialogResume(baseUri+ConstantStep.ENGINE_DIALOG_RESUME));
+        register(getHandler, new EngineHeartbeat(baseUri+ConstantStep.ENGINE_HEARTBEAT));
     }
     protected void register(Map<String, BaseRequestHandler> registerOn, BaseRequestHandler handler) {
         registerOn.put(handler.getMappedUri(), handler);

@@ -181,6 +181,7 @@ public class WatcherManager {
 
     public void stop() {
         isRunning = false;
+        SleepUtil.sleep(MONITOR_ACTION_INTERVAL);
     }
 
     public void runTimes(int times) {

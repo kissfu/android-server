@@ -15,6 +15,10 @@ public enum StepRule {
     MOVE("move"),
     UP("up"),
     NONE("none"),
+    OCR("ocr"),
+
+    //script
+    SCRIPT("script"),
 
     // input
     VALUE("value"),
@@ -44,7 +48,16 @@ public enum StepRule {
     VERIFICATION_CODE("verification_code"),
 
     //while-ifelse
-    ELSE("else");
+    ELSE("else"),
+
+    //engine
+    SERVER_STOP("server_stop"),
+    HEARTBEAT("heartbeat"),
+    DIALOG_PAUSE("dialog_pause"),
+    DIALOG_RESUME("dialog_resume"),
+
+    //指令
+    CMD("cmd");
 
 
 

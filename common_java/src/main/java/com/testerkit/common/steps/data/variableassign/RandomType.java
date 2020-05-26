@@ -9,7 +9,8 @@ public enum RandomType {
     EMAIL("Email"),
     ADDRESS("地址"),
     PHONE_NUMBER("手机号码"),
-    BANK_CARD_NUMBER("银行卡号");
+    BANK_CARD_NUMBER("银行卡号"),
+    CHARS("字符串");
 
     private String message;
 

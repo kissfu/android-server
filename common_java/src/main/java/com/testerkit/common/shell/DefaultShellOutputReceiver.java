@@ -3,10 +3,9 @@ package com.testerkit.common.shell;
 /**
  * @author wangxl 指令结果接收类
  */
-public final class DefaultShellOutputReceiver extends
-        MultiLineReceiver {
+public class DefaultShellOutputReceiver extends MultiLineReceiver {
     private static final String EOF = "\r\n";
-    private volatile boolean isCancel = false;
+    protected volatile boolean isCancel = false;
     private StringBuffer output = new StringBuffer();
 
     @Override

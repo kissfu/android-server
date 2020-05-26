@@ -7,6 +7,7 @@ public enum VariableInitType {
     INPUT("手动输入"),
     DB("数据库"),
     API("接口"),
+    SOCKET("SOCKET"),
     ELEMENT("元素"),
     RANDOM("随机数");
 

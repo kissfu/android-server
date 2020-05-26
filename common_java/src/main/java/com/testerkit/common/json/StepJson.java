@@ -3,6 +3,7 @@ package com.testerkit.common.json;
 import com.testerkit.common.enums.EventMsgType;
 import com.testerkit.common.enums.StepAction;
 import com.testerkit.common.log.Logger;
+import com.testerkit.common.steps.enums.ClickType;
 import com.testerkit.common.steps.enums.PointType;
 import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.common.utils.StringUtil;
@@ -20,6 +21,7 @@ public class StepJson {
 
     private EventMsgType eventMsgType;
     private PointType pointType = PointType.PERCENT;
+    private ClickType  clickType = ClickType.CLICK;
 
     private String rule;
 
@@ -130,6 +132,14 @@ public class StepJson {
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public ClickType getClickType() {
+        return clickType;
+    }
+
+    public void setClickType(ClickType clickType) {
+        this.clickType = clickType;
     }
 
     public static StepJson newParse(String msg) {

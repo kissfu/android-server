@@ -15,6 +15,7 @@ import com.testerkit.common.utils.StringUtil;
 public class KeyJson {
     private KeyEnum keyName;
     private int keyCode;
+    private String keyCodeName;
     private int metaState;
     private int flags;
     private boolean longPress;
@@ -33,6 +34,14 @@ public class KeyJson {
 
     public void setKeyCode(int keyCode) {
         this.keyCode = keyCode;
+    }
+
+    public String getKeyCodeName() {
+        return keyCodeName;
+    }
+
+    public void setKeyCodeName(String keyCodeName) {
+        this.keyCodeName = keyCodeName;
     }
 
     public int getMetaState() {
@@ -62,11 +71,12 @@ public class KeyJson {
     public String toDescription() {
         StringBuilder sb = new StringBuilder();
         if (keyCode != -1) {
-            sb.append("按键：" + KeyEnum.fromInteger(keyCode).getDescription());
+            KeyEnum keyEnum = KeyEnum.fromInteger(keyCode);
+            String desc = (keyEnum == KeyEnum.NONE ? keyCodeName : keyEnum.getDescription());
+            sb.append("按键：" + desc);
         } else if (keyName != null) {
             sb.append("按键：" + keyName.getDescription());
         }
-
         return sb.toString();
     }
 

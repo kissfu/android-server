@@ -10,6 +10,9 @@ public enum StepAction {
     FIND("find"),
     NONE("none"),
 
+    //call script
+    CALL("call"),
+
     //变量操作
     VARIABLE("variable"),
     //屏幕操作
@@ -17,7 +20,13 @@ public enum StepAction {
     //操作系统app接口
     APP("app"),
     SMS("sms"),
-    IF("if");
+    IF("if"),
+
+    //引擎
+    ENGINE("engine"),
+
+    // 执行
+    EXECUTE("execute");
 
     private final String type;
 
