@@ -4,6 +4,7 @@ import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.model.RectInfo;
+import com.testerkit.common.steps.data.touchclick.ClickType;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.requests.IRequest;
 
@@ -23,7 +24,26 @@ public class FindAndClick extends FindEvent {
                 return false;
             }
             RectInfo rect =node.getRectVisible();
-            boolean isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
+            boolean isOk = false;
+            if(step.getClickType() == null){
+                step.setClickType(ClickType.CLICK);
+            }
+            switch (step.getClickType()){
+                case DBCLICK:
+                    isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
+                    isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
+                    break;
+                case LONG_CLICK:
+                    long duration = 2000;
+                    isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY(),duration);
+                    break;
+                case CLICK:
+                    isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
+                    break;
+                default:
+                    isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
+                    break;
+            }
             if (isOk == false) {
                 this.result.setError("找到元素但是点击失败！！！");
             }

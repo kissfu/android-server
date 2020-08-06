@@ -18,6 +18,7 @@ package com.testerkit.uia.handlers.touch;
 
 
 import com.testerkit.common.json.PointJson;
+import com.testerkit.common.steps.data.touchclick.ClickType;
 import com.testerkit.common.steps.enums.PointType;
 import com.testerkit.common.utils.NumberUtil;
 import com.testerkit.uia.BaseContext;
@@ -70,10 +71,26 @@ public class TouchLongClick extends TouchEvent {
             clickY = (int) (points.get(0).getY() * size.getHeight());
         }
 
-        if (correctLongClick(clickX, clickY, duration)) {
-            return true;
+        if(step.getClickType() == null){
+            step.setClickType(ClickType.CLICK);
         }
-
-        return false;
+        boolean isOk = false;
+        switch (step.getClickType()){
+            case DBCLICK:
+                isOk = correctLongClick(clickX, clickY, REGULAR_CLICK_LENGTH);
+                isOk = correctLongClick(clickX, clickY, REGULAR_CLICK_LENGTH);
+                break;
+            case LONG_CLICK:
+                duration = 2000;
+                isOk = correctLongClick(clickX, clickY, duration);
+                break;
+            case CLICK:
+                isOk = correctLongClick(clickX, clickY, REGULAR_CLICK_LENGTH);
+                break;
+            default:
+                isOk = correctLongClick(clickX, clickY, REGULAR_CLICK_LENGTH);
+                break;
+        }
+        return isOk;
     }
 }
