@@ -2,7 +2,7 @@
   "action":"input",
   "rule":"default",
   "node":{
-    "type":"uia",
+    "type":"clipboard",
     "text":"hello"
   }
 }

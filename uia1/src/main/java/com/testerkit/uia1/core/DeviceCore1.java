@@ -153,6 +153,11 @@ public class DeviceCore1 extends DeviceCore {
     }
 
     @Override
+    public boolean typeFromClipBoard() {
+        return false;
+    }
+
+    @Override
     public boolean swipe(int startX, int startY, int endX, int endY, int steps){
         try {
             boolean success = uiDevice.swipe(startX,startY,endX,endY,steps);

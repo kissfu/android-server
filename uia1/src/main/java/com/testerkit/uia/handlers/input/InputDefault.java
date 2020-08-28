@@ -12,13 +12,17 @@ public class InputDefault extends InputEvent {
     @Override
     protected boolean executeInputEvent() throws Exception {
 
+        String type = step.getNode().getType();
+        if(StringUtil.isNotEmpty(type)&&type.equals("clipboard")){
+            return BaseContext.getInstance().getDevice().typeFromClipBoard();
+        }
+
         String text = step.getNode().getText();
         if(StringUtil.isNullOrEmpty(text)){
             return false;
         }
         Logger.iFunc(FUNC,String.format("input text=%s",text));
         return BaseContext.getInstance().getDevice().type(text);
-
     }
 
 

@@ -15,12 +15,12 @@ import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.AppInfo;
 import com.testerkit.common.utils.ReflectionUtil;
 import com.testerkit.common.utils.StringUtil;
-import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.core.DeviceCore;
+import com.testerkit.uia.core.UiAutomatorBridge;
 import com.testerkit.uia.model.AndroidElement;
-
 import com.testerkit.uia.model.ScreenSize;
 import com.testerkit.uia2.model.UiObject2Element;
+import com.testerkit.uia2.utils.ClipBoardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +120,13 @@ public class DeviceCore2 extends DeviceCore {
         AndroidElement objectElement = new UiObject2Element(null, null);
         objectElement.typeDefault(text);
         return true;
+    }
+
+    @Override
+    public boolean typeFromClipBoard() {
+        Context ctx = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        String text = ClipBoardUtil.paste(ctx);
+        return this.type(text);
     }
 
     @Override
