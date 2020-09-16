@@ -60,7 +60,7 @@ public class WatcherManager {
 //                this.logic.rebootMonitor();
 //            }
         } catch (Exception e) {
-            Logger.error( String.format("monitor[%s]--->alwaysMonitor exception:%s", timesGo, e.getMessage()), e);
+            Logger.error(String.format("monitor[%s]--->alwaysMonitor exception:%s", timesGo, e.getMessage()), e);
         }
     }
 
@@ -68,7 +68,7 @@ public class WatcherManager {
         try {
             AccessibilityNodeInfo[] tempRoots = context.getRoots();
             if (tempRoots == null || tempRoots.length == 0 || tempRoots[0] == null) {
-                Logger.info( String.format("monitor[%s]--->sometimesMonitor,no root", timesGo));
+                Logger.info(String.format("monitor[%s]--->sometimesMonitor,no root", timesGo));
                 return;
             }
 //            this.logic.getExecutor().textListenService(tempRoots);
@@ -185,7 +185,7 @@ public class WatcherManager {
     }
 
     public void runTimes(int times) {
-        if (times <= 0) {
+        if (times <= 0 || isAutoClick == false) {
             return;
         }
         Logger.info(String.format("monitor[%s]--->runTimes[%s] in,timesPausing[%s],isPausing[%s]", timesGo, times, timesPausing, isPausing));
@@ -207,9 +207,25 @@ public class WatcherManager {
     }
 
     public synchronized void switchPause(boolean isPausing) {
+        if (isAutoClick == false) {
+            return;
+        }
         this.isPausing = isPausing;
         if (this.isPausing) {
             timesPausing = timesGo;
+        }
+    }
+
+    private volatile boolean isAutoClick = true;
+
+    public synchronized void switchAutoClickDialog(boolean isAutoClick) {
+        this.isAutoClick = isAutoClick;
+        this.isPausing = !isAutoClick;
+        if (this.isPausing == true) { // 等待停止，6秒超时
+            long startTime = System.currentTimeMillis();
+            while (timesPausing != timesGo && (System.currentTimeMillis() - startTime < 6 * 1000)) {
+                SleepUtil.sleep(1);
+            }
         }
     }
 

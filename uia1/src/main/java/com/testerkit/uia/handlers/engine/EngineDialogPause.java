@@ -19,7 +19,7 @@ public class EngineDialogPause extends EngineEvent {
 
     protected AppiumResponse executeEvent(IRequest request) {
         try {
-            WatcherManager.getInstance().switchPause(true);
+            WatcherManager.getInstance().switchAutoClickDialog(false);
         } catch (UIAException e) {
             Logger.error("Exception while performing dump SourceNode action: ", e);
 

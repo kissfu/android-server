@@ -19,7 +19,7 @@ public class EngineDialogResume extends EngineEvent {
 
     protected AppiumResponse executeEvent(IRequest request) {
         try {
-            WatcherManager.getInstance().switchPause(false);
+            WatcherManager.getInstance().switchAutoClickDialog(true);
         } catch (UIAException e) {
             Logger.error("Exception while performing dump SourceNode action: ", e);
 
