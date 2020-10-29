@@ -17,13 +17,13 @@
 package com.testerkit.uia.handlers.touch;
 
 
+import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.json.PointJson;
+import com.testerkit.common.log.Logger;
 import com.testerkit.common.steps.data.touchclick.ClickType;
 import com.testerkit.common.steps.enums.PointType;
 import com.testerkit.common.utils.NumberUtil;
 import com.testerkit.uia.BaseContext;
-import com.testerkit.common.exceptions.UIAException;
-import com.testerkit.common.log.Logger;
 import com.testerkit.uia.model.ScreenSize;
 
 
@@ -70,6 +70,17 @@ public class TouchLongClick extends TouchEvent {
             clickX = (int) (points.get(0).getX() * size.getWidth());
             clickY = (int) (points.get(0).getY() * size.getHeight());
         }
+        // has been used in slave for find-click by ocr
+//        NodeJson nodeJson = step.getNode();
+//        if(nodeJson != null && nodeJson.getOffsetPoint() != null){
+//            ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
+//            int offsetX = new Double(nodeJson.getOffsetPoint().getX() * size.getWidth()).intValue();
+//            int offsetY = new Double(nodeJson.getOffsetPoint().getY() * size.getHeight()).intValue();
+//            clickX += offsetX;
+//            clickY += offsetY;
+//            clickX = clickX < 0 ? 0 : (clickX > size.getWidth() ? size.getWidth() : clickX);
+//            clickY = clickY < 0 ? 0 : (clickY > size.getHeight() ? size.getHeight() : clickY);
+//        }
 
         if(step.getClickType() == null){
             step.setClickType(ClickType.CLICK);
