@@ -5,6 +5,7 @@ import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.model.RectInfo;
 import com.testerkit.common.steps.data.touchclick.ClickType;
+import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.requests.IRequest;
 
@@ -31,6 +32,7 @@ public class FindAndClick extends FindEvent {
             switch (step.getClickType()){
                 case DBCLICK:
                     isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
+                    SleepUtil.sleep(200L);
                     isOk = BaseContext.getInstance().getDevice().click(rect.centerX(), rect.centerY());
                     break;
                 case LONG_CLICK:
