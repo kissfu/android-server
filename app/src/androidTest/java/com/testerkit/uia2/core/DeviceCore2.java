@@ -222,7 +222,7 @@ public class DeviceCore2 extends DeviceCore {
 
     @Override
     public boolean click(int x, int y) {
-       return this.uiDevice.click(x,y);
-//        return super.click(x, y);
+//       return this.uiDevice.click(x,y);
+        return super.click(x, y);
     }
 }
