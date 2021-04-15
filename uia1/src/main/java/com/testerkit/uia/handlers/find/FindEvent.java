@@ -10,6 +10,7 @@ import com.testerkit.common.model.UIDumpInfo;
 import com.testerkit.common.search.matcher.MatcherManager;
 import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.common.utils.ReflectionUtil;
+import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.handlers.request.SafeRequestHandler;
 import com.testerkit.uia.model.ResultObject;
 import com.testerkit.uia.monitor.WatcherManager;
@@ -61,6 +62,10 @@ public abstract class FindEvent extends SafeRequestHandler {
             int counter = 0;
             while (System.currentTimeMillis() - start < step.getScroll().getTimeout()) {
                 Logger.iFunc(FUNC, "find element times ", counter++);
+                if(BaseContext.getInstance().isStepRunning() == false){
+                    Logger.iFunc(FUNC, "this step is stopped by slave!");
+                    break;
+                }
                 ReflectionUtil.clearAccessibilityCache();
                 UIDumpInfo dump = XMLHierarchy.getDumpInfo();
                 nodes = MatcherManager.getInstance().isMatch(step, dump);
@@ -98,6 +103,10 @@ public abstract class FindEvent extends SafeRequestHandler {
             int counter = 0;
             while (System.currentTimeMillis() - start < step.getScroll().getTimeout()) {
                 Logger.iFunc(FUNC, "find element times ", counter++);
+                if(BaseContext.getInstance().isStepRunning() == false){
+                    Logger.iFunc(FUNC, "this step is stopped by slave!");
+                    break;
+                }
                 ReflectionUtil.clearAccessibilityCache();
                 UIDumpInfo dump = XMLHierarchy.getDumpInfo();
                 nodes = MatcherManager.getInstance().isMatch(step, dump);

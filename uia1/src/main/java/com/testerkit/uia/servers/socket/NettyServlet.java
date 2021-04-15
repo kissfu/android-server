@@ -1,6 +1,7 @@
 package com.testerkit.uia.servers.socket;
 
 import com.testerkit.common.constants.ConstantStep;
+import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.handlers.app.AppList;
 import com.testerkit.uia.handlers.dump.SourceClass;
 import com.testerkit.uia.handlers.dump.SourceNode;
@@ -8,6 +9,7 @@ import com.testerkit.uia.handlers.engine.EngineDialogPause;
 import com.testerkit.uia.handlers.engine.EngineDialogResume;
 import com.testerkit.uia.handlers.engine.EngineHeartbeat;
 import com.testerkit.uia.handlers.engine.EngineServerStop;
+import com.testerkit.uia.handlers.engine.EngineStepStop;
 import com.testerkit.uia.handlers.find.FindAndClick;
 import com.testerkit.uia.handlers.find.FindAssert;
 import com.testerkit.uia.handlers.find.FindInput;
@@ -79,6 +81,7 @@ public class NettyServlet implements ISocketServlet {
         register(getHandler, new EngineDialogPause(baseUri+ConstantStep.ENGINE_DIALOG_PAUSE));
         register(getHandler, new EngineDialogResume(baseUri+ConstantStep.ENGINE_DIALOG_RESUME));
         register(getHandler, new EngineHeartbeat(baseUri+ConstantStep.ENGINE_HEARTBEAT));
+        register(getHandler, new EngineStepStop(baseUri+ConstantStep.ENGINE_STEP_STOP));
     }
     protected void register(Map<String, BaseRequestHandler> registerOn, BaseRequestHandler handler) {
         registerOn.put(handler.getMappedUri(), handler);
@@ -181,7 +184,7 @@ public class NettyServlet implements ISocketServlet {
             response.setStatus(HttpStatusCode.NOT_FOUND.getStatusCode()).end();
             return;
         }
-
+        BaseContext.getInstance().setStepRunning(true);
         AppiumResponse result = handler.handle(request);
         handleResponse(request, response, result);
     }

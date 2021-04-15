@@ -9,9 +9,19 @@ import com.testerkit.uia.interfaces.ITestCase;
 
 public class BaseContext {
 
+    volatile boolean stepRunning = true;
+
     DeviceCore device;
 
     ITestCase testCase;
+
+    public boolean isStepRunning() {
+        return stepRunning;
+    }
+
+    public void setStepRunning(boolean stepRunning) {
+        this.stepRunning = stepRunning;
+    }
 
     public DeviceCore getDevice() {
         return device;
