@@ -20,9 +20,9 @@ public class EngineStepStop extends EngineEvent {
     protected AppiumResponse executeEvent(IRequest request) {
         try {
             BaseContext.getInstance().setStepRunning(false);
+            return new AppiumResponse(getSessionId(request), WDStatus.SUCCESS,"ok");
         } catch (UIAException e) {
             Logger.error("Exception while EngineStepStop action: ", e);
-
         }finally {
             Logger.iFunc(FUNC,"EngineStepStop-"+BaseContext.getInstance().isStepRunning());
         }

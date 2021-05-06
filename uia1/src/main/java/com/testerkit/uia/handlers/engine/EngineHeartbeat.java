@@ -18,7 +18,7 @@ public class EngineHeartbeat extends EngineEvent {
 
     protected AppiumResponse executeEvent(IRequest request) {
         try {
-
+            return new AppiumResponse(getSessionId(request), WDStatus.SUCCESS,"ok");
         } catch (UIAException e) {
             Logger.error("Exception while performing dump SourceNode action: ", e);
 

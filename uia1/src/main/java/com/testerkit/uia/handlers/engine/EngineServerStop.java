@@ -22,6 +22,7 @@ public class EngineServerStop extends EngineEvent {
         try {
             WatcherManager.getInstance().stop();
             NettyServer.getInstance().stop();
+            return new AppiumResponse(getSessionId(request), WDStatus.SUCCESS,"ok");
         } catch (UIAException e) {
             Logger.error("Exception while performing dump SourceNode action: ", e);
 

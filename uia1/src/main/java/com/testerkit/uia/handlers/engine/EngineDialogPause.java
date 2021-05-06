@@ -20,9 +20,9 @@ public class EngineDialogPause extends EngineEvent {
     protected AppiumResponse executeEvent(IRequest request) {
         try {
             WatcherManager.getInstance().switchAutoClickDialog(false);
+            return new AppiumResponse(getSessionId(request), WDStatus.SUCCESS,"ok");
         } catch (UIAException e) {
             Logger.error("Exception while performing dump SourceNode action: ", e);
-
         }finally {
             Logger.iFunc(FUNC,"EngineDialogPause");
         }
