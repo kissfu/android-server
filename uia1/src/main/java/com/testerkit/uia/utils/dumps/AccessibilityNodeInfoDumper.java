@@ -60,13 +60,30 @@ public class AccessibilityNodeInfoDumper {
     private static final int MAX_DEPTH = 70;
     private static int counter_invisible_root = 0;
     private static int counter_invisible_child = 0;
+    private boolean allowInvisibleElements;
 
-    public static UIDumpInfo uiDumpInfo;
+    private UIDumpInfo uiDumpInfo = new UIDumpInfo();
 
-    public static synchronized UIDumpInfo getUIDumpInfo(AccessibilityNodeInfo[] roots) {
-        AccessibilityNodeInfoDumper.uiDumpInfo = new UIDumpInfo();
-        AccessibilityNodeInfoDumper.uiDumpInfo.setUiXml(getWindowXMLHierarchy(roots));
-        return AccessibilityNodeInfoDumper.uiDumpInfo;
+    public void setAllowInvisibleElements(boolean allowInvisibleElements) {
+        this.allowInvisibleElements = allowInvisibleElements;
+    }
+
+    private static class SingletonHolder {
+        public final static AccessibilityNodeInfoDumper instance = new AccessibilityNodeInfoDumper();
+    }
+
+    public static AccessibilityNodeInfoDumper getInstance() {
+        SingletonHolder.instance.uiDumpInfo.getNodes().clear();
+        return SingletonHolder.instance;
+    }
+    public static AccessibilityNodeInfoDumper getInstance(boolean allowInvisibleElements) {
+        SingletonHolder.instance.allowInvisibleElements = allowInvisibleElements;
+        return getInstance();
+    }
+
+    public synchronized UIDumpInfo getUIDumpInfo(AccessibilityNodeInfo[] roots) {
+        this.uiDumpInfo.setUiXml(getWindowXMLHierarchy(roots));
+        return this.uiDumpInfo;
     }
 
     /**
@@ -75,8 +92,7 @@ public class AccessibilityNodeInfoDumper {
      *
      * @param roots The root accessibility node.
      */
-    public static synchronized String getWindowXMLHierarchy(AccessibilityNodeInfo[] roots) {
-        AccessibilityNodeInfoDumper.uiDumpInfo = new UIDumpInfo();
+    public synchronized String getWindowXMLHierarchy(AccessibilityNodeInfo[] roots) {
         ReflectionUtil.clearAccessibilityCache();
         StopWatch stopWatch = new StopWatch();
         StringWriter xmlDump = new StringWriter();
@@ -122,11 +138,11 @@ public class AccessibilityNodeInfoDumper {
         }
         final long endTime = SystemClock.uptimeMillis();
         Logger.iFunc(FUNC, "Fetch time: ", stopWatch.toElapsedMS());
-        AccessibilityNodeInfoDumper.uiDumpInfo.setUiXml(xmlDump.toString());
-        return AccessibilityNodeInfoDumper.uiDumpInfo.getUiXml();
+        this.uiDumpInfo.setUiXml(xmlDump.toString());
+        return this.uiDumpInfo.getUiXml();
     }
 
-    private static void dumpNodeRec(AccessibilityNodeInfo node, XmlSerializer serializer, int index, int width, int height, final int depth, String xpathParent) throws IOException {
+    private void dumpNodeRec(AccessibilityNodeInfo node, XmlSerializer serializer, int index, int width, int height, final int depth, String xpathParent) throws IOException {
         // Some views might have unlimited number of children:
         // https://bugs.chromium.org/p/chromium/issues/detail?id=805014
         if (depth >= MAX_DEPTH) {
@@ -207,7 +223,7 @@ public class AccessibilityNodeInfoDumper {
         for (int i = 0; i < count; i++) {
             AccessibilityNodeInfo child = node.getChild(i);
             if (child != null) {
-                if (child.isVisibleToUser()) {
+                if (child.isVisibleToUser() || allowInvisibleElements) {
                     dumpNodeRec(child, serializer, i, width, height, depth + 1, xpath);
                     child.recycle();
                 } else {
@@ -219,8 +235,9 @@ public class AccessibilityNodeInfoDumper {
             }
         }
         serializer.endTag("", "node");
-        uiDumpInfo.addNode(myNode);
+        this.uiDumpInfo.addNode(myNode);
     }
+
 
 
 }

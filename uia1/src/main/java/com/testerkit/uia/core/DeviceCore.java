@@ -34,6 +34,8 @@ import java.util.List;
 public abstract class DeviceCore {
     private static String FUNC = "DeviceCore";
 
+    public static ScreenSize SCREEN_SIZE;
+
     public abstract Object getUiDevice();
 
     public abstract void wake() throws android.os.RemoteException;
@@ -283,10 +285,15 @@ public abstract class DeviceCore {
 
     // 尽量在core里面进行sdk版本的兼容判断
     public ScreenSize getScreenSize() {
+        if(DeviceCore.SCREEN_SIZE != null){
+            Logger.iFunc(FUNC,DeviceCore.SCREEN_SIZE+"");
+            return DeviceCore.SCREEN_SIZE;
+        }
         ScreenSize size = this.getDisplaySize();
         if (SystemUtil.API_LEVEL() >= 24) {
             size = this.handleScreenPixelByDp(size, this.getDisplaySizeDp());
         }
+        DeviceCore.SCREEN_SIZE = size;
         return size;
     }
 

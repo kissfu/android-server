@@ -1,6 +1,7 @@
 package com.testerkit.uia.servers.socket;
 
 import com.testerkit.common.constants.ConstantStep;
+import com.testerkit.common.json.StepJson;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.handlers.app.AppList;
 import com.testerkit.uia.handlers.dump.SourceClass;
@@ -24,10 +25,12 @@ import com.testerkit.uia.handlers.touch.TouchDown;
 import com.testerkit.uia.handlers.touch.TouchLongClick;
 import com.testerkit.uia.handlers.touch.TouchMove;
 import com.testerkit.uia.handlers.touch.TouchUp;
+import com.testerkit.uia.requests.IRequest;
 import com.testerkit.uia.requests.http.AppiumResponse;
 import com.testerkit.uia.requests.socket.ISocketRequest;
 import com.testerkit.uia.requests.socket.ISocketResponse;
 import com.testerkit.uia.servers.HttpStatusCode;
+import com.testerkit.uia.utils.dumps.AccessibilityNodeInfoDumper;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -184,9 +187,19 @@ public class NettyServlet implements ISocketServlet {
             response.setStatus(HttpStatusCode.NOT_FOUND.getStatusCode()).end();
             return;
         }
-        BaseContext.getInstance().setStepRunning(true);
+        preHandle(handler,request);
         AppiumResponse result = handler.handle(request);
         handleResponse(request, response, result);
+    }
+
+    private void preHandle(BaseRequestHandler handler, IRequest request){
+        BaseContext.getInstance().setStepRunning(true);
+        StepJson step = handler.getStep(request);
+        boolean allowInvisibleElements = false;
+        if(step != null && step.getDumpOption() != null){
+            allowInvisibleElements = step.getDumpOption().isAllowInvisibleElements();
+        }
+        AccessibilityNodeInfoDumper.getInstance().setAllowInvisibleElements(allowInvisibleElements);
     }
 
 

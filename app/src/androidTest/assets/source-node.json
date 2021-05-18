@@ -5,6 +5,9 @@
     "type":"uia",
     "index":"3",
     "bounds":{}
+  },
+  "dumpOption": {
+    "allowInvisibleElements" : false
   }
 }
 

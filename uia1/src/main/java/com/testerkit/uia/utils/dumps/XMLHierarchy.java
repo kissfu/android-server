@@ -50,22 +50,22 @@ public abstract class XMLHierarchy {
     }
 
     private static InputSource getRawXMLHierarchy(AccessibilityNodeInfo[] root) throws UIAException {
-        String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(root);
+        String xmlDump = AccessibilityNodeInfoDumper.getInstance().getWindowXMLHierarchy(root);
         return new InputSource(new StringReader(xmlDump));
     }
 
     public static String getRawXMLHierarchyStr() throws UIAException {
         AccessibilityNodeInfo[] roots = AXWindowHelpers.getWindowRoots();
-        String xmlDump = AccessibilityNodeInfoDumper.getWindowXMLHierarchy(roots);
+        String xmlDump = AccessibilityNodeInfoDumper.getInstance().getWindowXMLHierarchy(roots);
         return xmlDump;
     }
     public static UIDumpInfo getDumpInfo() throws UIAException {
         AccessibilityNodeInfo[] roots = AXWindowHelpers.getWindowRoots();
-        return AccessibilityNodeInfoDumper.getUIDumpInfo(roots);
+        return AccessibilityNodeInfoDumper.getInstance().getUIDumpInfo(roots);
     }
 
     public static UIDumpInfo getDumpInfo(AccessibilityNodeInfo[] roots) throws UIAException {
-        return AccessibilityNodeInfoDumper.getUIDumpInfo(roots);
+        return AccessibilityNodeInfoDumper.getInstance().getUIDumpInfo(roots);
     }
 
     public static Node getFormattedXMLDoc() throws UIAException {
