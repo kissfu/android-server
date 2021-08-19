@@ -45,7 +45,12 @@ public class TestCaseUtil {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Logger.info("initSystemApps---begin");
+                initSystemApps();
+                Logger.info("initSystemApps---end");
+                Logger.info("WatcherManager---begin");
                 WatcherManager.getInstance().start();
+                Logger.info("WatcherManager---end");
             }
         }).start();
 

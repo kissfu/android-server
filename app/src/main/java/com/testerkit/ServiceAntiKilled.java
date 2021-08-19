@@ -49,7 +49,7 @@ public class ServiceAntiKilled extends Service {
 
     @Override
     public void onCreate() {
-        Log.info("onCreate");
+        Log.info("Service onCreate--->begin");
         super.onCreate();
         try {
             Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -75,7 +75,7 @@ public class ServiceAntiKilled extends Service {
 
         try {
             rotation.start();
-            Log.info("start rotationagent");
+            Log.info("start rotationagent--->end");
         }catch (Exception e){
             Log.error(e.getMessage(),e);
         }

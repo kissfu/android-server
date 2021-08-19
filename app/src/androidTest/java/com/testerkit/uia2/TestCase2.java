@@ -64,7 +64,7 @@ public class TestCase2 implements ITestCase {
 
 
         //testCaseUtil.initWatcherConfig();
-        testCaseUtil.initSystemApps();
+        //testCaseUtil.initSystemApps();
         testCaseUtil.startMonitor();
 
     }

@@ -52,7 +52,7 @@ public class TestCase1 extends UiAutomatorTestCase implements ITestCase {
         BaseContext.getInstance().setDevice(new DeviceCore1(this.getUiDevice(), SystemUtil.getType(1)));
 
 //        testCaseUtil.initWatcherConfig();
-        testCaseUtil.initSystemApps();
+//        testCaseUtil.initSystemApps();
         testCaseUtil.startMonitor();
     }
 

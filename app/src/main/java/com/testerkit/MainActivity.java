@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.testerkit.util.Log;
+
 public class MainActivity extends Activity {
 
     @Override
@@ -14,5 +16,6 @@ public class MainActivity extends Activity {
         //Intent intent=new Intent(MainActivity.this, RTCActivity.class);
         //startActivity(intent);
         finish();
+        Log.info("onCreate finish");
     }
 }

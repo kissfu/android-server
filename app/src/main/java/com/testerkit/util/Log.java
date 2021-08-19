@@ -3,7 +3,7 @@ package com.testerkit.util;
 
 public class Log {
 
-    private final static String TAG = "[TARGET2]--->";
+    private final static String TAG = "[UIA][TARGET2]--->";
 
     public static void error(Object... messages) {
         android.util.Log.e(TAG, getString(messages));
