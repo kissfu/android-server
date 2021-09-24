@@ -382,4 +382,6 @@ public abstract class DeviceCore {
     }
 
     //endregion
+
+    public abstract boolean switchKeyboard(String id) throws Exception;
 }

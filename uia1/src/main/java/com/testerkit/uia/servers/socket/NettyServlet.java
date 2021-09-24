@@ -4,6 +4,7 @@ import com.testerkit.common.constants.ConstantStep;
 import com.testerkit.common.json.StepJson;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.handlers.app.AppList;
+import com.testerkit.uia.handlers.cmd.ExecuteCmd;
 import com.testerkit.uia.handlers.dump.SourceClass;
 import com.testerkit.uia.handlers.dump.SourceNode;
 import com.testerkit.uia.handlers.engine.EngineDialogPause;
@@ -85,6 +86,8 @@ public class NettyServlet implements ISocketServlet {
         register(getHandler, new EngineDialogResume(baseUri+ConstantStep.ENGINE_DIALOG_RESUME));
         register(getHandler, new EngineHeartbeat(baseUri+ConstantStep.ENGINE_HEARTBEAT));
         register(getHandler, new EngineStepStop(baseUri+ConstantStep.ENGINE_STEP_STOP));
+
+        register(getHandler, new ExecuteCmd(baseUri+ConstantStep.EXECUTE_CMD));
     }
     protected void register(Map<String, BaseRequestHandler> registerOn, BaseRequestHandler handler) {
         registerOn.put(handler.getMappedUri(), handler);

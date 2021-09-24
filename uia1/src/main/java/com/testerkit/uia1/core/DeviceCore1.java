@@ -219,4 +219,9 @@ public class DeviceCore1 extends DeviceCore {
 
         return apps;
     }
+
+    @Override
+    public boolean switchKeyboard(String id) throws Exception {
+        return false;
+    }
 }

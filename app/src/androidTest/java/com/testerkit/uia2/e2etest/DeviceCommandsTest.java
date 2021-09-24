@@ -197,5 +197,19 @@ public class DeviceCommandsTest extends BaseTest implements ITestCase {
 
     }
 
+    @Test
+    public void screenSwipe() {
+        initCore();
+
+        SleepUtil.sleep(5);
+        String command = super.getAssets("screen-swipe.json");
+        String resultInfo = SocketUtil.request(Config.HOST, Config.PORT, command, 5 * 60 * 1000);
+        System.out.printf(resultInfo);
+        Logger.debug("===>", resultInfo);
+
+
+
+    }
+
 
 }

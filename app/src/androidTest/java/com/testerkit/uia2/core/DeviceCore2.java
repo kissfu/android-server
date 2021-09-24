@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
+import android.view.inputmethod.InputMethodManager;
 
 import com.testerkit.common.enums.AppCategory;
 import com.testerkit.common.enums.KeyEnum;
@@ -24,6 +25,8 @@ import com.testerkit.uia2.utils.ClipBoardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Created by able on 2018/9/6.
@@ -224,5 +227,14 @@ public class DeviceCore2 extends DeviceCore {
     public boolean click(int x, int y) {
 //       return this.uiDevice.click(x,y);
         return super.click(x, y);
+    }
+
+    @Override
+    public boolean switchKeyboard(String id) throws Exception{
+        Context ctx = InstrumentationRegistry.getInstrumentation().getContext();
+        InputMethodManager imeManager = (InputMethodManager) ctx.getSystemService(INPUT_METHOD_SERVICE);
+        //imeManager.showInputMethodPicker(); //This is to see available keyboards.
+        imeManager.setInputMethod(null,id);
+        return true;
     }
 }
