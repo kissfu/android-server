@@ -3,6 +3,7 @@ package com.testerkit.uia.handlers.find;
 import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.NodeInfo;
+import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.uia.requests.IRequest;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class FindAssert extends FindEvent {
             if (nodes.size() == 0) {
                 return false;
             }
+            this.result.setValue(GsonUtil.gsonString(nodes.get(0)));
             return true;
 
         } catch (UIAException e) {

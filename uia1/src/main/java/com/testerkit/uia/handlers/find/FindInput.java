@@ -4,6 +4,7 @@ import com.testerkit.common.exceptions.UIAException;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.model.RectInfo;
+import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.requests.IRequest;
 
@@ -33,6 +34,7 @@ public class FindInput extends FindEvent {
                 this.result.setError("输入文本失败！！！");
                 return false;
             }
+            this.result.setValue(GsonUtil.gsonString(node));
             return isOk;
 
         } catch (UIAException e) {

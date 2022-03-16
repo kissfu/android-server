@@ -5,6 +5,7 @@ import com.testerkit.common.log.Logger;
 import com.testerkit.common.model.NodeInfo;
 import com.testerkit.common.model.RectInfo;
 import com.testerkit.common.steps.data.touchclick.ClickType;
+import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.common.utils.SleepUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.requests.IRequest;
@@ -49,6 +50,7 @@ public class FindAndClick extends FindEvent {
             if (isOk == false) {
                 this.result.setError("找到元素但是点击失败！！！");
             }
+            this.result.setValue(GsonUtil.gsonString(node));
             return isOk;
 
         } catch (UIAException e) {
