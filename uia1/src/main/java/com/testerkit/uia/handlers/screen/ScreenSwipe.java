@@ -98,6 +98,10 @@ public abstract class ScreenSwipe extends ScreenEvent {
             padding = new PaddingInfo(1 / 10f, 1 / 8f, 1 / 10f, 1 / 8f);
         }
         ScreenSize size = BaseContext.getInstance().getDevice().getScreenSize();
+        int rotation = BaseContext.getInstance().getDevice().getRotation();
+        if(rotation == 1 || rotation == 3){
+            size = new ScreenSize(size.getHeight(), size.getWidth());
+        }
         Logger.iFunc(FUNC, padding, ",", size);
         ScrollDirection direction = scroll.getDirection();
         SwipeInfo swipe = SwipeUtil.getByDirection(direction, new SizeInfo(size.getWidth(), size.getHeight()), padding);
@@ -137,6 +141,10 @@ public abstract class ScreenSwipe extends ScreenEvent {
             if (PointType.PERCENT.equals(type)) {
                 for (int i = 0; i < len; i++) {
                     segments[i] = new Point((int) (points.get(i).getX() * size.getWidth()), (int) (points.get(i).getY() * size.getHeight()));
+                }
+            }else {
+                for (int i = 0; i < len; i++) {
+                    segments[i] = new Point((int) (points.get(i).getX()), (int) (points.get(i).getY()));
                 }
             }
             boolean isok = false;
