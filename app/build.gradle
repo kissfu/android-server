@@ -16,8 +16,8 @@ android {
         testApplicationId "com.testerkit.uia2"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 20200611
-        versionName "2020.06.11"
+        versionCode 20200612
+        versionName "2020.06.12"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

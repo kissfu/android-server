@@ -540,6 +540,19 @@ public class WatcherConfig {
                 new AClick("2")
         }));
 
+        // 小米手机app权限
+        WATCHERS.add(new WatcherScene("24", Relation.AND, new ConditionRule[]{
+                new ConditionRuleAnd("1",
+                        new ArrPack(new String[]{"com.lbe.security.miui"}),
+                        null,
+                        new ArrCls(new String[]{android.widget.Button.class.getName()}),
+                        null,
+                        new ArrText(new String[]{"仅在使用中允许"}),
+                        false)
+        }, new ActionAbstract[]{
+                new AClick("1")
+        }));
+
         List<ControlItem> controlItems = new ArrayList<ControlItem>();
         SEARCH = new WatcherSearch(controlItems);
         for (int i = 0; i < WATCHERS.size(); i++) {
