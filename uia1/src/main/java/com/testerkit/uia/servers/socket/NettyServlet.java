@@ -2,6 +2,9 @@ package com.testerkit.uia.servers.socket;
 
 import com.testerkit.common.constants.ConstantStep;
 import com.testerkit.common.json.StepJson;
+import com.testerkit.common.log.Logger;
+import com.testerkit.common.steps.data.dump.SdSourceNode;
+import com.testerkit.common.utils.GsonUtil;
 import com.testerkit.uia.BaseContext;
 import com.testerkit.uia.handlers.app.AppList;
 import com.testerkit.uia.handlers.cmd.ExecuteCmd;
@@ -197,10 +200,15 @@ public class NettyServlet implements ISocketServlet {
 
     private void preHandle(BaseRequestHandler handler, IRequest request){
         BaseContext.getInstance().setStepRunning(true);
-        StepJson step = handler.getStep(request);
+//        StepJson step = handler.getStep(request);
         boolean allowInvisibleElements = false;
-        if(step != null && step.getDumpOption() != null){
-            allowInvisibleElements = step.getDumpOption().isAllowInvisibleElements();
+        try {
+            SdSourceNode  sdSourceNode = GsonUtil.toBean(handler.getStepRaw(request), SdSourceNode.class);
+            if(sdSourceNode != null && sdSourceNode.getDumpOption() != null){
+                allowInvisibleElements = sdSourceNode.getDumpOption().isAllowInvisibleElements();
+            }
+        }catch (Exception e){
+            Logger.error(e);
         }
         AccessibilityNodeInfoDumper.getInstance().setAllowInvisibleElements(allowInvisibleElements);
     }

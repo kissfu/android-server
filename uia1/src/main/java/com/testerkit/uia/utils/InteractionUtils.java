@@ -83,7 +83,7 @@ public class InteractionUtils {
             inject.setAccessible(true);
             Object params[] = new Object[2];
             params[0] = event;
-            params[1] = new Integer(2);
+            params[1] = Integer.valueOf(2);
             success = (Boolean) inject.invoke(instance, params);
 
         } catch (IllegalAccessException e) {

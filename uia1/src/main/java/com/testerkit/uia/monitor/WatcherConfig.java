@@ -540,15 +540,15 @@ public class WatcherConfig {
                 new AClick("2")
         }));
 
-        // 小米手机app权限
+        // 手机app权限：仅在使用中允许
         WATCHERS.add(new WatcherScene("24", Relation.AND, new ConditionRule[]{
                 new ConditionRuleAnd("1",
-                        new ArrPack(new String[]{"com.lbe.security.miui"}),
                         null,
-                        new ArrCls(new String[]{android.widget.Button.class.getName()}),
                         null,
-                        new ArrText(new String[]{"仅在使用中允许"}),
-                        false)
+                        new ArrCls(new String[]{android.widget.Button.class.getName(), android.widget.TextView.class.getName()}),
+                        null,
+                        new ArrText(new String[]{"仅在使用中允许", "使用应用时允许", "仅使用期间允许"}),
+                        true)
         }, new ActionAbstract[]{
                 new AClick("1")
         }));

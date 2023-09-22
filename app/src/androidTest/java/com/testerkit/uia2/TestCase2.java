@@ -8,6 +8,7 @@ import android.support.test.filters.SdkSuppress;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 
+import com.testerkit.BuildConfig;
 import com.testerkit.common.log.Logger;
 import com.testerkit.common.utils.Constants;
 import com.testerkit.uia.BaseContext;
