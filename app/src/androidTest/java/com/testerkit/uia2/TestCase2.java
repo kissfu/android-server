@@ -68,6 +68,24 @@ public class TestCase2 implements ITestCase {
         //testCaseUtil.initSystemApps();
         testCaseUtil.startMonitor();
 
+
+//        Handler HANDLER = new Handler(Looper.getMainLooper());
+//        HANDLER.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("---beee fps--->");
+//                Metronome p = new Metronome();
+//                p.setInterval(250);
+//                p.addListener(new Audience() {
+//                    @Override
+//                    public void heartbeat(double fps) {
+//                        System.out.println("---fps--->" + fps);
+//                    }
+//                });
+//                p.start();
+//                System.out.println("---start fps--->");
+//            }
+//        }, 1 * 1000);
     }
 
     public Context getContext(){
