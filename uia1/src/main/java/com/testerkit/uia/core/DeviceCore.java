@@ -73,6 +73,8 @@ public abstract class DeviceCore {
     public abstract void waitForIdle(long timeInMS);
 
     public abstract boolean type(String text);
+
+    public abstract boolean typeFromClipBoard(String text);
     public abstract boolean typeFromClipBoard();
 
     public abstract List<AppInfo> getAppList(AppCategory category);

@@ -126,6 +126,15 @@ public class DeviceCore2 extends DeviceCore {
     }
 
     @Override
+    public boolean typeFromClipBoard(String text) {
+        Context ctx = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        ClipBoardUtil.clear(ctx);
+        boolean isOK = ClipBoardUtil.copy(ctx, text);
+        if(isOK == false)return false;
+        return this.typeFromClipBoard();
+    }
+
+    @Override
     public boolean typeFromClipBoard() {
         Context ctx = InstrumentationRegistry.getInstrumentation().getTargetContext();
         String text = ClipBoardUtil.paste(ctx);

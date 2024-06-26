@@ -20,7 +20,6 @@
 
     <uses-sdk android:minSdkVersion="18" />
 
-    <!--不起作用，不会被使用-->
     <instrumentation
 
         android:label="UIA2 Server"

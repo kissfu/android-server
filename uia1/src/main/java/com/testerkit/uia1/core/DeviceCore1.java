@@ -1,5 +1,6 @@
 package com.testerkit.uia1.core;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.os.RemoteException;
 
@@ -152,6 +153,10 @@ public class DeviceCore1 extends DeviceCore {
         return true;
     }
 
+    @Override
+    public boolean typeFromClipBoard(String text) {
+        return false;
+    }
     @Override
     public boolean typeFromClipBoard() {
         return false;

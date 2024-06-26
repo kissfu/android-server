@@ -28,23 +28,38 @@ public class ClipBoardUtil {
                     }
                 }
             }
-        }catch (Exception e){
-            Logger.error(e.getMessage(),e);
+        } catch (Exception e) {
+            Logger.error(e.getMessage(), e);
         }
         return "";
+    }
+
+    public static boolean copy(Context context, String textToCopy) {
+        try {
+            // 获取剪贴板管理器
+            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            // 创建ClipData对象
+            ClipData clip = ClipData.newPlainText("Copied Text", textToCopy);
+            // 将ClipData对象放入剪贴板
+            clipboard.setPrimaryClip(clip);
+        } catch (Exception e) {
+            Logger.error(e.getMessage(), e);
+            return false;
+        }
+        return true;
     }
 
     /**
      * 清空剪切板
      */
-    public boolean clear(Context context) {
+    public static boolean clear(Context context) {
         ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         if (manager != null) {
             try {
                 manager.setPrimaryClip(manager.getPrimaryClip());
                 manager.setPrimaryClip(ClipData.newPlainText("", ""));
             } catch (Exception e) {
-                Logger.error(e.getMessage(),e);
+                Logger.error(e.getMessage(), e);
                 return false;
             }
         }
