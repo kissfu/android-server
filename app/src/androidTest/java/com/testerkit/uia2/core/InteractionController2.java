@@ -42,7 +42,7 @@ public class InteractionController2 extends InteractionController {
 
     @Override
     protected String CLASS_INTERACTION_CONTROLLER() {
-        return "android.support.test.uiautomator.InteractionController";
+        return "androidx.test.uiautomator.InteractionController";
     }
 
     @Override

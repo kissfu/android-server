@@ -15,7 +15,7 @@ public class QueryController2 extends QueryController{
 
     @Override
     public String CLASS_QUERY_CONTROLLER() {
-        return "android.support.test.uiautomator.QueryController";
+        return "androidx.test.uiautomator.QueryController";
     }
 
 

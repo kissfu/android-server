@@ -17,7 +17,6 @@ package com.testerkit.uia2.e2etest;
 
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.uiautomator.UiDevice;
 
 import com.testerkit.common.enums.StepAction;
 import com.testerkit.common.enums.StepRule;
@@ -35,6 +34,8 @@ import com.testerkit.uia.log.LogAndroid;
 import com.testerkit.uia2.core.DeviceCore2;
 
 import org.junit.Test;
+
+import androidx.test.uiautomator.UiDevice;
 
 
 //@SuppressWarnings("JavaDoc")

@@ -18,22 +18,16 @@ package com.testerkit.uia2.e2etest;
 import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.uiautomator.UiDevice;
-import android.support.test.uiautomator.Until;
 
 import com.testerkit.common.log.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.TimeoutException;
 
+import androidx.test.uiautomator.UiDevice;
 
-import static android.os.SystemClock.elapsedRealtime;
 import static android.os.SystemClock.sleep;
 
 @SuppressWarnings("JavaDoc")

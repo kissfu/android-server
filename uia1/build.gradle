@@ -9,8 +9,8 @@ apply plugin: 'java-library'
 
 
 compileJava{
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 
@@ -36,12 +36,12 @@ dependencies {
     compileOnly files('libs/android.jar')
     compileOnly files('libs/uiautomator.jar')
     //传递依赖关系，且在运行时使用
-    compile files('libs/netty-all-4.1.17.Final.jar')
+    implementation files('libs/netty-all-4.1.17.Final.jar')
     //compile files('libs/gson-2.8.5.jar')
 //    compile project(':common_java')
-    compile files('libs/javaCommon.jar')
-    compile files('libs/javaInterface.jar')
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+    implementation files('libs/javaCommon.jar')
+    implementation files('libs/javaInterface.jar')
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.12.1'
 
     // https://mvnrepository.com/artifact/com.google.guava/guava
     //compile group: 'com.google.guava', name: 'guava', version: '26.0-android'

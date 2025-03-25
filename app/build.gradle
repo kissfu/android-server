@@ -4,67 +4,67 @@ android {
 
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
-    compileSdkVersion 28
+    compileSdk 33
     //gradle自带编译工具
     //buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "com.testerkit"
         testApplicationId "com.testerkit.uia2"
         minSdkVersion 18
-        targetSdkVersion 28
+        targetSdk 33
         versionCode 20200626
         versionName "2020.06.26"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+//
+//        applicationVariants.all { variant ->
+//            variant.outputs.all { output ->
+//                outputFileName = outputFileName.replace('app-debug.apk', "target-v${defaultConfig.versionName}.apk")
+//            }
+//        }
 
-        applicationVariants.all { variant ->
-            variant.outputs.all { output ->
-                outputFileName = outputFileName.replace('app-debug.apk', "target-v${defaultConfig.versionName}.apk")
-            }
-        }
-
-        android.testVariants.all { variant ->
-            //开始构建当前变体的即时时间
-            def time = currentTime()
-            variant.outputs.all { output ->
-                output.processManifest.doLast {
-                    println "**************************************"
-                    println "startTime: ${time}"
-                    /**
-                     * Stores the path to the maifest.
-                     * "$manifestOutputDirectory"等价output.processManifest.manifestOutputDirectory
-                     * output.processResources.manifestFile 直接输出文件路径
-                     */
-
-//                    println "$manifestOutputDirectory"
-//                    println output.processManifest.manifestOutputDirectory
-//                    println output.processResources.manifestFile
-                    String manifestPath = "$manifestOutputDirectory/AndroidManifest.xml"
-                    String fileTest = "src/androidTest/AndroidManifest.xml";
-                    // Stores the contents of the manifest.
-                    def manifestContent = file(fileTest).getText()
-                    //println manifestContent
-                    // Changes the version code in the stored text.
-                    manifestContent = manifestContent.replace('android:versionCode="1"', String.format('android:versionCode="%s"', defaultConfig.versionCode))
-                    manifestContent = manifestContent.replace('android:versionName="1"', String.format('android:versionName="%s"', defaultConfig.versionName))
-                    // Overwrites the manifest with the new text.
-                    file(manifestPath).write(manifestContent)
-                    println "endTime:  ${currentTime()}"
-                    println "**************************************"
-                }
-                outputFileName = outputFileName.replace('app-debug-androidTest.apk', "uia2-v${defaultConfig.versionName}.apk")
-            }
-        }
-    }
+//        android.testVariants.all { variant ->
+//            //开始构建当前变体的即时时间
+//            def time = currentTime()
+//            variant.outputs.all { output ->
+//                output.processManifest.doLast {
+//                    println "**************************************"
+//                    println "startTime: ${time}"
+//                    /**
+//                     * Stores the path to the maifest.
+//                     * "$manifestOutputDirectory"等价output.processManifest.manifestOutputDirectory
+//                     * output.processResources.manifestFile 直接输出文件路径
+//                     */
+//
+////                    println "$manifestOutputDirectory"
+////                    println output.processManifest.manifestOutputDirectory
+////                    println output.processResources.manifestFile
+//                    String manifestPath = "$manifestOutputDirectory/AndroidManifest.xml"
+//                    String fileTest = "src/androidTest/AndroidManifest.xml";
+//                    // Stores the contents of the manifest.
+//                    def manifestContent = file(fileTest).getText()
+//                    //println manifestContent
+//                    // Changes the version code in the stored text.
+//                    manifestContent = manifestContent.replace('android:versionCode="1"', String.format('android:versionCode="%s"', defaultConfig.versionCode))
+//                    manifestContent = manifestContent.replace('android:versionName="1"', String.format('android:versionName="%s"', defaultConfig.versionName))
+//                    // Overwrites the manifest with the new text.
+//                    file(manifestPath).write(manifestContent)
+//                    println "endTime:  ${currentTime()}"
+//                    println "**************************************"
+//                }
+//                outputFileName = outputFileName.replace('app-debug-androidTest.apk', "uia2-v${defaultConfig.versionName}.apk")
+//            }
+//        }
+//    }
     //解决编译错误
     lintOptions {
         abortOnError false
@@ -74,7 +74,7 @@ android {
     sourceSets{
         androidTest{
             //不起作用
-            manifest.srcFile 'src/androidTest/AndroidManifest.xml'
+            //manifest.srcFile 'src/androidTest/AndroidManifest.xml'
             //setRoot 'src/androidTest'
         }
     }
@@ -86,18 +86,17 @@ dependencies {
     // libs
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //App test for UnitTest
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation project(':uia1')
 
 
     //region App dependencies
 
     //App compatibility
-    //compile 'com.android.support:appcompat-v7:25.3.1'
-    implementation 'com.android.support:support-annotations:25.4.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:design:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'com.google.android.material:material:1.12.0'
     //endregion
 
 
@@ -106,11 +105,12 @@ dependencies {
     //compile 'com.google.guava:guava:18.0'
     // Testing-only dependencies
     // Force usage of support annotations in the test app, since it is internally used by the runner module.
-    androidTestImplementation 'com.android.support:support-annotations:25.4.0'
-    androidTestImplementation 'com.android.support.test:runner:1.0.0'
-    androidTestImplementation 'com.android.support.test:rules:1.0.0'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     // UiAutomator Testing
-    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+//    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
     //androidTestCompile 'com.android.support.test.espresso:espresso-core:' + rootProject.espressoVersion;
     androidTestImplementation project(':uia1')
     //endregion

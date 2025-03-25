@@ -23,7 +23,7 @@
     <instrumentation
 
         android:label="UIA2 Server"
-        android:name="android.support.test.runner.AndroidJUnitRunner"
+        android:name="androidx.test.runner.AndroidJUnitRunner"
         android:targetPackage="com.testerkit"
         android:functionalTest="false"
         android:handleProfiling="false"/>

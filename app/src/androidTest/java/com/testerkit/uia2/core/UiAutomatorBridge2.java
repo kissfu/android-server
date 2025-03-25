@@ -34,7 +34,7 @@ public class UiAutomatorBridge2 extends UiAutomatorBridge{
 
     @Override
     public String CLASS_UI_AUTOMATOR_BRIDGE() {
-        return "android.support.test.uiautomator.UiAutomatorBridge";
+        return "androidx.test.uiautomator.UiAutomatorBridge";
     }
 
     @Override

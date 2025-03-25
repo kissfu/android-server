@@ -3,10 +3,6 @@ package com.testerkit.uia2;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.SdkSuppress;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.test.uiautomator.UiDevice;
 
 import com.testerkit.BuildConfig;
 import com.testerkit.common.log.Logger;
@@ -21,6 +17,11 @@ import com.testerkit.uia2.core.DeviceCore2;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import androidx.test.InstrumentationRegistry;
+import androidx.test.filters.SdkSuppress;
+import androidx.test.runner.AndroidJUnit4;
+import androidx.test.uiautomator.UiDevice;
 
 /**
  * Created by able on 2018/9/7.

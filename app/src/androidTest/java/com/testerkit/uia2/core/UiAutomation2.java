@@ -17,9 +17,10 @@ package com.testerkit.uia2.core;
 
 import android.app.UiAutomation;
 import android.app.UiAutomation.OnAccessibilityEventListener;
-import android.support.annotation.Nullable;
 
 import com.testerkit.uia.core.UiAutomatorBridge;
+
+import androidx.annotation.Nullable;
 
 import static com.testerkit.common.utils.ReflectionUtil.getField;
 

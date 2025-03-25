@@ -7,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.RemoteException;
-import android.support.test.InstrumentationRegistry;
 import android.view.inputmethod.InputMethodManager;
 
 import com.testerkit.common.enums.AppCategory;
@@ -26,6 +25,8 @@ import com.testerkit.uia2.utils.ClipBoardUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.test.InstrumentationRegistry;
+
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
@@ -34,9 +35,9 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class DeviceCore2 extends DeviceCore {
 
-    android.support.test.uiautomator.UiDevice uiDevice;
+    androidx.test.uiautomator.UiDevice uiDevice;
 
-    public DeviceCore2(android.support.test.uiautomator.UiDevice uiDevice) {
+    public DeviceCore2(androidx.test.uiautomator.UiDevice uiDevice) {
         super(uiDevice);
         this.uiDevice = uiDevice;
         //先有uiDevice 再有uiAutomatorBridge
